@@ -1,41 +1,25 @@
 module Plotly
 
 using JSON
-
-plotly_js() = Pkg.dir("Plotly", "deps", "plotly-latest.min.js")
+using Blink
 
 abstract AbstractPlotlyElement
 abstract AbstractTrace <: AbstractPlotlyElement
 abstract AbstractLayout <: AbstractPlotlyElement
 
+immutable TempLayout <: AbstractLayout end
+
 type Plot
     data::Vector{AbstractTrace}
-    layout::Vector{AbstractLayout}
+    layout::AbstractLayout
     divid::Base.Random.UUID
+    window::Nullable{Window}
 end
 
-Plot() = Plot([], [], Base.Random.uuid4())
+Plot() = Plot([], TempLayout(), Base.Random.uuid4(), Nullable{Window}())
 
-function Base.writemime(io::IO, ::MIME"text/html", p::Plot)
-    print(io, """
-    <head>
-       <script src="$(plotly_js())"></script>
+include("display.jl")
+include("api.jl")
 
-       <div id="$(p.divid)" style="width:600px;height:250px;"></div>
-
-       <script>
-    	thediv = document.getElementById('$(p.divid)');
-        var data = [{x: [1, 2, 3, 4, 5],
-    	             y: [1, 2, 4, 8, 16] }];
-
-        var layouts = { margin: { t: 0 } };
-
-    	Plotly.plot(thediv, data,  layouts, {showLink: false});
-    </script>
-    </head>
-    """)
-end
-
-p = Plot()
-
+# show(Plot())
 end # module
