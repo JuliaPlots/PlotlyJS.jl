@@ -5,15 +5,14 @@ immutable ScatterTrace <: AbstractTrace
     legendgroup::AbstractString
     opacity::PlotlyOpaque
     name::String
-    hoverinfo::AbstractString  # These can take multiple args separated by `+`
-    stream::PlotlyStream
+    hoverinfo::PlotlyHoverInfo
     x::Vector
     x0::Number  # Decide how to handle steps
     dx::Number  # Decide how to handle steps
     y::Vector
     y0::Number  # Decide how to handle steps
     dy::Number  # Decide how to handle steps
-    text::Union{Array{AbstractString}, AbstractString}
+    text::Union{Array{ASCIIString}, ASCIIString}
     mode::AbstractString  # These can take multiple args separated by `+`
     line::PlotlyLine
     connectgaps::Bool
@@ -28,8 +27,10 @@ immutable ScatterTrace <: AbstractTrace
     error_x::PlotlyError
     xaxis::PlotlyAxisID
     yaxis::PlotlyAxisID
+
     # Don't worry about the following arguments until we introduce an
     # the website interface to interact with
+    # stream::PlotlyStream
     # xsrc::AbstractString
     # ysrc::AbstractString
     # textsrc::AbstractString
