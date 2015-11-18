@@ -5,6 +5,7 @@ using JSON
 plotly_js() = Pkg.dir("Plotly", "deps", "plotly-latest.min.js")
 
 abstract AbstractPlotlyElement
+abstract PlotlyEnumerated <: AbstractPlotlyElement
 abstract AbstractTrace <: AbstractPlotlyElement
 abstract AbstractLayout <: AbstractPlotlyElement
 
