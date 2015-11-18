@@ -4,6 +4,8 @@ using JSON
 using Blink
 
 abstract AbstractPlotlyElement
+abstract PlotlyEnumerated <: AbstractPlotlyElement
+abstract PlotlyFlagList <: AbstractPlotlyElement
 abstract AbstractTrace <: AbstractPlotlyElement
 abstract AbstractLayout <: AbstractPlotlyElement
 
