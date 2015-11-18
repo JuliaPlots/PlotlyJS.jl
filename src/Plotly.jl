@@ -2,6 +2,7 @@ module Plotly
 
 using JSON
 using Blink
+using Colors
 
 abstract AbstractPlotlyElement
 abstract PlotlyEnumerated <: AbstractPlotlyElement
@@ -22,6 +23,9 @@ Plot() = Plot([], TempLayout(), Base.Random.uuid4(), Nullable{Window}())
 
 include("display.jl")
 include("api.jl")
+include("Errors.jl")
+include("TraceTypes.jl")
+include("Scatter.jl")
 
 # show(Plot())
 end # module

@@ -4,7 +4,7 @@
 type Visible <: PlotlyEnumerated
     value
 
-    function PlotlyVisible(x)
+    function Visible(x)
         validvalues = [true, false, "LegendOnly"]
         if !(x ∈ validvalues)
             throw_enumerate_error(validvalues)
@@ -12,6 +12,7 @@ type Visible <: PlotlyEnumerated
         new(x)
     end
 end
+Visible() = Visible(true)
 
 type Fill <: PlotlyEnumerated
     value
@@ -58,7 +59,7 @@ type HoverInfo <: PlotlyFlagList
         new(x)
     end
 end
-HoverInfo(x::Vector{ASCIIString}) = HoverInfo(join(x, "+"))
+HoverInfo(x::Vector{ASCIIString}=["x", "y"]) = HoverInfo(join(x, "+"))
 
 type Mode <: PlotlyFlagList
     value
@@ -76,16 +77,16 @@ type Mode <: PlotlyFlagList
         new(x)
     end
 end
-Mode(x::Vector{ASCIIString}) = Mode(join(x, "+"))
+Mode(x::Vector{ASCIIString}=["line"]) = Mode(join(x, "+"))
 
 #
 # Plotly Miscellaneous Types
 #
-type Opacity <: AbstractPlotlyType
+type Opacity <: AbstractPlotlyElement
     value::Float16
 
-    function Opacity(val::Float16=1)
-        if !(val >= 0 && val <= 1)
+    function Opacity(x::Float16=1)
+        if !(x >= 0 && x <= 1)
             msg = "This object must be >= 0 and <= 1 the values"
             error(msg)
         end
@@ -99,14 +100,6 @@ Opacity(x::Number) = Opacity(Float16(x))
 #
 abstract LineElement <: AbstractPlotlyElement
 
-type Line <: AbstractPlotlyElement
-    color::Color.Colorant
-    width::LineWidth
-    shape::LineShape
-    smoothing::LineSmooth
-    dash::LineDash
-end
-
 type LineWidth <: LineElement
     x::Float16
 
@@ -118,7 +111,6 @@ type LineWidth <: LineElement
         new(x)
     end
 end
-LineWidth(x::Number) = LineWidth(Float16(x))
 
 type LineShape <: PlotlyEnumerated
     value
@@ -161,20 +153,24 @@ type LineDash <: PlotlyEnumerated
         new(x)
     end
 end
+LineWidth(x::Number) = LineWidth(Float16(x))
+
+type Line <: AbstractPlotlyElement
+    color::Colors.Colorant
+    width::LineWidth
+    shape::LineShape
+    smoothing::LineSmooth
+    dash::LineDash
+end
+
+Line() = Line(colorant"red", LineWidth(), LineShape(), LineSmooth(), LineDash())
+
+
 
 #
 # Plotly Text Font
 #
 abstract TextElement <: AbstractPlotlyElement
-
-type TextFont <: AbstractPlotlyElement
-    family::ASCIIString
-    size::FontSize
-    color::Colors.Colorant
-end
-
-TextFont(family::ASCIIString="Arial", size::FontSize=FontSize(12), color::Colors.Colorant=color("black")) =
-    TextFont(family, size, color)
 
 type FontSize <: TextElement
     size::Float16
@@ -187,12 +183,36 @@ type FontSize <: TextElement
         new(x)
     end
 end
-FontSize(x::Number) = FontSize(Float16(x))
+
+FontSize(x::Number=12) = FontSize(Float16(x))
+type TextFont <: AbstractPlotlyElement
+    family::ASCIIString
+    size::FontSize
+    color::Colors.Colorant
+end
+
+TextFont() = TextFont("Arial", FontSize(), colorant"black")
+
 
 #
 # Plotly Marker
 #
-type Marker <: AbstractPlotlyType
+type MarkerSize <: AbstractPlotlyElement
+    value::Float16
+
+    function MarkerSize(val::Float16=6)
+        if val < 0
+            msg = "Marker size must be great than or equal to 0"
+        end
+        new(val)
+    end
+end
+
+MarkerSize(x::Number) = MarkerSize(Float16(x))
+
+# convert(::Type{MarkerSize}, xc::Number) = MarkerSize(x)
+
+type Marker <: AbstractPlotlyElement
     symbol::ASCIIString
     opacity::Opacity
     size::MarkerSize
@@ -202,21 +222,9 @@ type Marker <: AbstractPlotlyType
         validsymbols = [ "0" , "circle" , "100" , "circle-open" , "200" , "circle-dot" , "300" ,
                         "circle-open-dot" , "1" , "square" , "101" , "square-open" , "201" ,
                         "square-dot" , "301" , "square-open-dot" , "2" , "diamond" , "102"]  #There are many other options
-        if !(symbol ∈ validvalues)
-            throw_enumerate_error(validvalues)
+        if !(symbol ∈ validsymbols)
+            throw_enumerate_error(validsymbols)
         end
         new(symbol, opacity, size)
     end
 end
-
-type MarkerSize <: AbstractPlotlyType
-    value::Float16
-
-    function MarkerSize(val::Float16=6)
-        if val < 0
-            msg = "Marker size must be great than or equal to 0"
-        end
-        new MarkerSize(val)
-    end
-end
-MarkerSize(x::Number) = MarkerSize(Float16(x))

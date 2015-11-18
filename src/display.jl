@@ -2,13 +2,10 @@
 # Blink setup #
 # ----------- #
 
-if !isdefined(current_module(), :_blink)
-    const _blink = Blink.AtomShell.init()
-end
 
 function get_blink()
     global _blink
-    if !active(_blink)
+    if !isdefined(current_module(), :_blink) || !active(_blink)
         _blink = Blink.AtomShell.init()
     end
     _blink
