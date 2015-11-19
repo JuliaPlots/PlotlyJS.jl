@@ -71,21 +71,79 @@ end
 # Javascript API #
 # -------------- #
 
+function _call_js(p::Plot, code::AbstractString)
+    Blink.js(get_window(p), Blink.JSString(code))
+    p
+end
+
 prep_kwarg{T}(a::Tuple{Symbol,T}) = (symbol(replace(string(a[1]), "_", ".")), a[2])
 
 function restyle!(p::Plot, update; kwargs...)
     thediv = "document.getElementById('$(p.divid)')"
     update = json(merge(update, Dict(map(prep_kwarg, kwargs))))
-    Blink.js(get_window(p), Blink.JSString("Plotly.restyle($thediv, $update);"))
+    _call_js(p, "Plotly.restyle($thediv, $update);")
 end
 
 function restyle!(p::Plot; kwargs...)
     thediv = "document.getElementById('$(p.divid)')"
     update = json(Dict(map(prep_kwarg, kwargs)))
-    Blink.js(get_window(p), Blink.JSString("Plotly.restyle($thediv, $update);"))
+    _call_js(p, "Plotly.restyle($thediv, $update);")
 end
 
 # function restyle!(p::Plot, stuff::AbstractPlotlyElement...)
 #     thediv = "document.getElementById('$(p.divid)')"
 #     Blink.js(w, Blink.JSString("Plotly.restyle($thediv, $update);"))
 # end
+
+# TODO: consider the array stuff
+
+function relayout!(p::Plot, update; kwargs...)
+    thediv = "document.getElementById('$(p.divid)')"
+    update = json(merge(update, Dict(map(prep_kwarg, kwargs))))
+    _call_js(p, "Plotly.relayout($thediv, $update);")
+end
+
+function relayout!(p::Plot; kwargs...)
+    thediv = "document.getElementById('$(p.divid)')"
+    update = json(Dict(map(prep_kwarg, kwargs)))
+    _call_js(p, "Plotly.relayout($thediv, $update);")
+end
+
+function addtraces!(p::Plot, traces::AbstractTrace...)
+    thediv = "document.getElementById('$(p.divid)')"
+    update = json(traces)
+    _call_js(p, "Plotly.addTraces($thediv, $update);")
+end
+
+# TODO: add method for where to add trace
+
+function deletetraces!(p::Plot, traces::Int...)
+    thediv = "document.getElementById('$(p.divid)')"
+    update = length(traces) == 1 ? traces[1] : json(collect(traces))
+    _call_js(p, "Plotly.deleteTraces($thediv, $update);")
+end
+
+function movetraces!(p::Plot, to_end::Int)
+    thediv = "document.getElementById('$(p.divid)')"
+    _call_js(p, "Plotly.moveTraces($thediv, $to_end);")
+end
+
+function movetraces!(p::Plot, to_end::Vector{Int})
+    thediv = "document.getElementById('$(p.divid)')"
+    update = json(to_end)
+    _call_js(p, "Plotly.moveTraces($thediv, $update);")
+end
+
+movetraces!(p::Plot, to_end...) = movetraces!(p, collect(to_end))
+
+function movetraces!(p::Plot, src::Vector{Int}, dest::Vector{Int})
+    thediv = "document.getElementById('$(p.divid)')"
+    src = json(src)
+    dest = json(dest)
+    _call_js(p, "Plotly.moveTraces($thediv, $src, $dest);")
+end
+
+function redraw!(p::Plot)
+    thediv = "document.getElementById('$(p.divid)')"
+    _call_js(p, "Plotly.redraw($thediv);")
+end
