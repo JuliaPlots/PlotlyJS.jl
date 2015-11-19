@@ -1,10 +1,10 @@
 #
 # Plotly Miscellaneous Enumerated Types
 #
-type Visible <: PlotlyEnumerated
+type Visible <: AbstractValueAttribute
     value
 
-    function Visible(x)
+    function Visible(x=true)
         validvalues = [true, false, "LegendOnly"]
         if !(x ∈ validvalues)
             throw_enumerate_error(validvalues)
@@ -12,10 +12,10 @@ type Visible <: PlotlyEnumerated
         new(x)
     end
 end
-Visible() = Visible(true)
+Base.convert(::Type{Visible}, x::Union{Bool,ASCIIString}) = Visible(x)
 
-type Fill <: PlotlyEnumerated
-    value
+type Fill <: AbstractValueAttribute
+    value::ASCIIString
 
     function Fill(x::ASCIIString="none")
         validvalues = ["none", "tozeroy", "tozerox", "tonexty", "tonextx"]
@@ -25,9 +25,10 @@ type Fill <: PlotlyEnumerated
         new(x)
     end
 end
+Base.convert(::Type{Fill}, x::ASCIIString) = Fill(x)
 
-type TextPosition <: PlotlyEnumerated
-    value
+type TextPosition <: AbstractValueAttribute
+    value::ASCIIString
 
     function TextPosition(x::ASCIIString="middle center")
         validvalues = ["top left", "top center", "top right", "middle left",
@@ -39,12 +40,13 @@ type TextPosition <: PlotlyEnumerated
         new(x)
     end
 end
+Base.convert(::Type{TextPosition}, x::ASCIIString) = TextPosition(x)
 
 #
 # Plotly Miscellaneous Flag Lists
 #
 type HoverInfo <: PlotlyFlagList
-    value
+    value::ASCIIString
 
     function HoverInfo(x::AbstractString)
         validvalues = ["x", "y", "z", "all", "none"]
@@ -60,9 +62,10 @@ type HoverInfo <: PlotlyFlagList
     end
 end
 HoverInfo(x::Vector{ASCIIString}=["x", "y"]) = HoverInfo(join(x, "+"))
+Base.convert(::Type{HoverInfo}, x::ASCIIString) = HoverInfo(x)
 
 type Mode <: PlotlyFlagList
-    value
+    value::ASCIIString
 
     function Mode(x::AbstractString)
         validvalues = ["line", "markers", "text", "none"]
@@ -78,11 +81,12 @@ type Mode <: PlotlyFlagList
     end
 end
 Mode(x::Vector{ASCIIString}=["line"]) = Mode(join(x, "+"))
+Base.convert(::Type{Mode}, x::ASCIIString) = Mode(x)
 
 #
 # Plotly Miscellaneous Types
 #
-type Opacity <: AbstractPlotlyElement
+type Opacity <: AbstractValueAttribute
     value::Float16
 
     function Opacity(x::Float16=1)
@@ -93,15 +97,15 @@ type Opacity <: AbstractPlotlyElement
         new(x)
     end
 end
-Opacity(x::Number) = Opacity(Float16(x))
+Base.convert(::Type{Opacity}, x::Real) = Opacity(Float16(x))
 
 #
 # Plotly Line
 #
-abstract LineElement <: AbstractPlotlyElement
+abstract LineElement <: AbstractValueAttribute
 
 type LineWidth <: LineElement
-    x::Float16
+    value::Float16
 
     function LineWidth(x::Float16=Float16(2.0))
         if x < 0.0
@@ -111,9 +115,11 @@ type LineWidth <: LineElement
         new(x)
     end
 end
+Base.convert(::Type{LineWidth}, x::Real) = LineWidth(Float16(x))
+
 
 type LineShape <: PlotlyEnumerated
-    value
+    value::ASCIIString
 
     function LineShape(x="linear")
         validvalues = ["linear", "spline", "hv", "vh", "hvh", "vhv"]
@@ -125,9 +131,10 @@ type LineShape <: PlotlyEnumerated
         new(x)
     end
 end
+Base.convert(::Type{LineShape}, x::ASCIIString) = LineShape(x)
 
 type LineSmooth <: LineElement
-    x::Float16
+    value::Float16
 
     function LineSmooth(x::Float16=Float16(1.0))
         if x < 0.0 || x > 1.3
@@ -137,10 +144,10 @@ type LineSmooth <: LineElement
         new(x)
     end
 end
-LineSmooth(x::Number) = LineSmooth(Float16(x))
+Base.convert(::Type{LineSmooth}, x::Real) = LineSmooth(Float16(x))
 
 type LineDash <: PlotlyEnumerated
-    value
+    value::ASCIIString
 
     function LineDash(x="solid")
         validvalues = ["solid", "dot", "dash", "longdash", "dashdot", "longdashdot"]
@@ -153,9 +160,9 @@ type LineDash <: PlotlyEnumerated
         new(x)
     end
 end
-LineWidth(x::Number) = LineWidth(Float16(x))
+Base.convert(::Type{LineDash}, x::ASCIIString) = LineDash(x)
 
-type Line <: AbstractPlotlyElement
+type Line <: AbstractObjectAttribute
     color::Colors.Colorant
     width::LineWidth
     shape::LineShape
@@ -165,15 +172,13 @@ end
 
 Line() = Line(colorant"red", LineWidth(), LineShape(), LineSmooth(), LineDash())
 
-
-
 #
 # Plotly Text Font
 #
-abstract TextElement <: AbstractPlotlyElement
+abstract TextElement <: AbstractAttribute
 
 type FontSize <: TextElement
-    size::Float16
+    value::Float16
 
     function FontSize(x::Float16)
         if x < 1.0
@@ -183,9 +188,10 @@ type FontSize <: TextElement
         new(x)
     end
 end
-
 FontSize(x::Number=12) = FontSize(Float16(x))
-type TextFont <: AbstractPlotlyElement
+Base.convert(::Type{FontSize}, x::Real) = FontSize(Float16(x))
+
+type TextFont <: AbstractObjectAttribute
     family::ASCIIString
     size::FontSize
     color::Colors.Colorant
@@ -197,22 +203,22 @@ TextFont() = TextFont("Arial", FontSize(), colorant"black")
 #
 # Plotly Marker
 #
-type MarkerSize <: AbstractPlotlyElement
+type MarkerSize <: AbstractValueAttribute
     value::Float16
 
-    function MarkerSize(val::Float16=6)
-        if val < 0
+    function MarkerSize(x::Float16=Float16(6))
+        if x < 0
             msg = "Marker size must be great than or equal to 0"
         end
-        new(val)
+        new(x)
     end
 end
 
-MarkerSize(x::Number) = MarkerSize(Float16(x))
+Base.convert(::Type{MarkerSize}, x::Real) = MarkerSize(Float16(x))
 
-# convert(::Type{MarkerSize}, xc::Number) = MarkerSize(x)
+# Base.convert(::Type{MarkerSize}, xc::Number) = MarkerSize(x)
 
-type Marker <: AbstractPlotlyElement
+type Marker <: AbstractObjectAttribute
     symbol::ASCIIString
     opacity::Opacity
     size::MarkerSize

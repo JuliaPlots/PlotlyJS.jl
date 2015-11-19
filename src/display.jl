@@ -11,19 +11,29 @@ function get_blink()
     _blink
 end
 
-html_body(p::Plot) = """
+function html_body(p::Plot)
+    if isempty(p.data)
+        data = """
+        [{x: [1, 2, 3, 4, 5],
+                     y: [1, 2, 4, 8, 16] }];
+        """
+    else
+        data = json(p.data)
+    end
+
+    """
     <div id="$(p.divid)"></div>
 
     <script>
        thediv = document.getElementById('$(p.divid)');
-       var data = [{x: [1, 2, 3, 4, 5],
-                    y: [1, 2, 4, 8, 16] }];
+       var data = $data
 
        var layouts = { margin: { t: 50 } };
 
        Plotly.plot(thediv, data,  layouts, {showLink: false});
      </script>
     """
+end
 
 stringmime(::MIME"text/html", p::Plot) =  """
     <html>

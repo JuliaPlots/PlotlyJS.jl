@@ -1,5 +1,4 @@
-immutable ScatterTrace <: AbstractTrace
-    plottype::AbstractString
+type Scatter <: AbstractTrace
     visible::Visible
     showlegend::Bool
     legendgroup::AbstractString
@@ -21,8 +20,8 @@ immutable ScatterTrace <: AbstractTrace
     marker::Marker
     textposition::TextPosition
     textfont::TextFont
-    r::Vector
-    t::Vector
+    # r::Vector
+    # t::Vector
     # error_y::PlotlyError
     # error_x::PlotlyError
     xaxis::ASCIIString
@@ -39,18 +38,19 @@ immutable ScatterTrace <: AbstractTrace
     # tsrc::AbstractString
 end
 
-function ScatterTrace(x=collect(1:50), y=randn(50);
-                      visible=Visible(), showlegend=true, legendgroup="",
-                      opacity=Opacity(), name="foobar", hoverinfo=HoverInfo(),
-                      text="Point", mode=Mode(), line=Line(), connectgaps=true,
-                      fill=Fill(), fillcolor=colorant"red", marker=Marker(),
-                      textposition=TextPosition(), textfont=TextFont(), r=[],
-                      t=[], xaxis="x1", yaxis="y1")
+function Scatter(x=collect(1:50), y=randn(50);
+                 visible=Visible(), showlegend=true, legendgroup="",
+                 opacity=Opacity(), name="foobar", hoverinfo=HoverInfo(),
+                 text="Point", mode=Mode(), line=Line(), connectgaps=true,
+                 fill=Fill(), fillcolor=colorant"red", marker=Marker(),
+                 textposition=TextPosition(), textfont=TextFont(), #r=[], t=[],
+                 xaxis="x1", yaxis="y1")
 
-    println("here")
+    return Scatter(visible, showlegend, legendgroup, opacity, name,
+                   hoverinfo, x, y, text, mode, line, connectgaps, fill,
+                   fillcolor, marker, textposition, textfont,# r, t, 
+                   xaxis, yaxis)
 
-    return ScatterTrace("scatter", visible, showlegend, legendgroup, opacity,
-                        name, hoverinfo, x, y, text, mode, line, connectgaps,
-                        fill, fillcolor, marker, textposition, textfont, r, t,
-                        xaxis, yaxis)
 end
+
+plottype(::Scatter) = "scatter"
