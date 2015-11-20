@@ -35,7 +35,7 @@ In Julia we just have `x::Vector` as the field
 In order to enforce the min/max constraints we use a custom type. The field we add is `opacity::Opacity`, where the type is defined as
 
 ```julia
-type Opacity <: AbstractValueAttribute
+type Opacity <: AbstractAttribute{StyleRole}
     value::Float16
 
     function Opacity(x::Float16=1)
@@ -68,7 +68,7 @@ Base.convert(::Type{Opacity}, x::Real) = Opacity(Float16(x))
 This time we to enforce that the value belongs to the enumerated set. To do this we add a field `visible::Visible`, where
 
 ```julia
-type Visible <: AbstractValueAttribute
+type Visible <: AbstractAttribute{InfoRole}
     value
 
     function Visible(x=true)
@@ -114,9 +114,7 @@ Things are a bit trickier when we have `role == object`. In this case what we ha
 Here we decided to do the following:
 
 ```julia
-abstract TextElement <: AbstractAttribute
-
-type FontSize <: TextElement
+type FontSize <: AbstractAttribute{StyleRole}
     value::Float16
 
     function FontSize(x::Float16)
@@ -130,26 +128,51 @@ end
 FontSize(x::Number=12) = FontSize(Float16(x))
 Base.convert(::Type{FontSize}, x::Real) = FontSize(Float16(x))
 
-type TextFont <: AbstractObjectAttribute
+type TextFont <: AbstractAttribute{ObjectRole}
     family::ASCIIString
     size::FontSize
     color::Colors.Colorant
 end
 ```
 
-So we created a new `abstract` subtype of `AbstractAttribute` to represent all our `TextElements`. Then we needed a custom type for the `fontsize` to enforce the minimum constraint.
+We needed a custom type for the `fontsize` to enforce the minimum constraint.
 
 ## `valType`s
 
-### `otherOpts`
+Each attribute in the schema has a `valType`. This, as you might expect, specifies the type of the attribute. Each of these `valType`s is defined in the `defs.valObjects` section of the schema. Below is a list of all the possible `valType`s in the schema and a short description of how we think about them in Julia:
 
-Below is a list of all possible `otherOpts` that might be present in the specification of the attribute and a short description of how this impacts our codegen:
+- `string`: a string. In Julia this would have a type `AbstractString`
+- `number`: a number. Represented in Julia as `Number`
+- `flaglist`: A string representing a combination of flags (order independent). Different available `flags` with `+` (e.g. `x+y`). Represented as an `AbstractString`
+- `any`: anything. Represented in Julia as `Any`
+- `geoid`: A geoid string (e.g. `geo`, or `geo1`). `AbstractString` in Julia
+- `angle`: A number between -180 and 180. A `Real` in Julia
+- `colorscale`: This one is long, so I quote the schema:
+
+>A Plotly colorscale either picked by a name: (any of Greys, YIGnBu, Greens, YIOrRd, Bluered, RdBu, Reds, Blues, Picnic, Rainbow, Portland, Jet, Hot, Blackbody, Earth, Electric, Viridis ) customized as an {array} of 2-element {arrays} where the first element is the normalized color level value (starting at *0* and ending at *1*), and the second item is a valid color string.
+
+Represented as `T<:Real, Union{String, Vector{Tuple{T, String}}}`
+
+- `data_array`: a 1d array. Julia's `Vector`
+- `enumerated`: a object of any type that takes on one of a finite set of values. Just `Any` in Julia as we don't have information on the types of the enumeration (see `scatter.visible` for an example where this could be `Bool` or `ASCIIString`)
+- `integer`: an integer. Julia `Int`
+- `info_array`: just some array of plot info. `Vector` in Julia
+- `sceneid`: a scene id string (e.g. `scene`, or `scene1`). `AbstractString` in Julia
+- `axisid`: an axis id string (e.g. 'x', 'x2', 'x3', ...). `AbstractString` in Julia
+- `color`: a string describing a color. In Julia we use `Colors.Colorant` and convert to a HEX string when sending to JSON
+- `boolean`: simply `Bool`
+
+## `opts`
+
+Each attribute has associated with it a number of options, which we will call `opts`. For specific `valType`s some of these are required, some are optional, and some are not applicable (see `defs.valObjects`).
+
+Below is a list of all possible `opts` that might be present in the specification of the attribute and a short description of how this impacts our codegen:
 
 - `dflt`: what is the default argument. Here we set the default arg on the constructor
 - `min`: minimim allowable value. Applies only to numeric objects. The precense of this field triggers the creation of a one field type, where the field is typed to be a `::Number` and an inner constructor is created to enforce the lower bound on the input. If present without `max`, `max` is implicitly set to `Inf`.
 - `max`: same as `min`, but for upper bound. If present without `min`, `min` is implicitly set to `-Inf`.
 - `arrayOk`: specifies that the field can take one value, or many in an array. This will trigger a `Union{T, Vector{T}}` type constraint on the field and will require elementwise constraint checking.
-- `noBlank`: specifies that a particular field is required. As of right now this doesn't trigger anything on codegen side, except that we provide no default value.
+- `noBlank`: specifies that a particular field is required. By default, all fields that should be of type `T`, are actually given type `Union{T,Void}` and a default value of `nothing`. However, if `noBlank` is present the type remains `T` and no default value is provided.
 - `strict`: always used in conjuction with a `string` `valType`. TODO: Still don't know what it does. Use in source code [here](https://github.com/plotly/plotly.js/blob/734f75fdb9ccd6ca362c0b01b632f01eb2c0066e/src/lib/coerce.js#L101)
 - `values`: always used in conjuction with an `enumerated` `valType`. It describes the set of feasible values.
 - `extras`: always used in conjuction with an `flaglist` `valType`. This specifies additional possibilities for the value, but these cannot be arbitrarily combined with the items in the `flags` field. Triggers additional constraint checks in the inner constructor
@@ -158,6 +181,12 @@ Below is a list of all possible `otherOpts` that might be present in the specifi
 ## Generation
 
 We now understand how the parsing happens. Next we turn to how the types are generated.
+
+We perform type generation using "factory" functions. These are functions that take a description of the type to be generated (more on this later) and return an `Expr` containing the type definition and other auxiliary functions.
+
+The behavior of a factory is driven by the combination of the `valType` and
+
+
 
 ### Comments
 
