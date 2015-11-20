@@ -150,7 +150,7 @@ Below is a list of all possible `otherOpts` that might be present in the specifi
 - `max`: same as `min`, but for upper bound. If present without `min`, `min` is implicitly set to `-Inf`.
 - `arrayOk`: specifies that the field can take one value, or many in an array. This will trigger a `Union{T, Vector{T}}` type constraint on the field and will require elementwise constraint checking.
 - `noBlank`: specifies that a particular field is required. As of right now this doesn't trigger anything on codegen side, except that we provide no default value.
-- `strict`: always used in conjuction with a `string` `valType`. TODO: Still don't know what it does
+- `strict`: always used in conjuction with a `string` `valType`. TODO: Still don't know what it does. Use in source code [here](https://github.com/plotly/plotly.js/blob/734f75fdb9ccd6ca362c0b01b632f01eb2c0066e/src/lib/coerce.js#L101)
 - `values`: always used in conjuction with an `enumerated` `valType`. It describes the set of feasible values.
 - `extras`: always used in conjuction with an `flaglist` `valType`. This specifies additional possibilities for the value, but these cannot be arbitrarily combined with the items in the `flags` field. Triggers additional constraint checks in the inner constructor
 - `coerceNumber`: the field must be a number. All this does is trigger a `::Number` type constraint on the field
@@ -160,6 +160,8 @@ Below is a list of all possible `otherOpts` that might be present in the specifi
 We now understand how the parsing happens. Next we turn to how the types are generated.
 
 ### Comments
+
+#### Convert
 
 Notice that for each subtype `ST` of `AbstractValueAttribute`, where the `value` field has type `T` we defined a method:
 
@@ -186,3 +188,7 @@ Instead what happens when we do have this method and call `s.opacity = 0.5` is r
 
 
 <!-- TODO: Need to handle `arrayOk` as Union{T,Vector{T}} -->
+
+#### Extra fields
+
+It looks like plotly.js will simply ignore any defined fields that don't belong in a particular trace or object. This means that we can define one `ColorBar` type that has fields as the Union of all colorbar attributes across traces and the right things will get ignored at the right time.
