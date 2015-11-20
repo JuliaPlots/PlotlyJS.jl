@@ -1,7 +1,7 @@
 #
 # Plotly Miscellaneous Enumerated Types
 #
-type Visible <: AbstractValueAttribute
+type Visible <: AbstractAttribute{InfoRole}
     value
 
     function Visible(x=true)
@@ -14,7 +14,7 @@ type Visible <: AbstractValueAttribute
 end
 Base.convert(::Type{Visible}, x::Union{Bool,ASCIIString}) = Visible(x)
 
-type Fill <: AbstractValueAttribute
+type Fill <: AbstractAttribute{StyleRole}
     value::ASCIIString
 
     function Fill(x::ASCIIString="none")
@@ -27,7 +27,7 @@ type Fill <: AbstractValueAttribute
 end
 Base.convert(::Type{Fill}, x::ASCIIString) = Fill(x)
 
-type TextPosition <: AbstractValueAttribute
+type TextPosition <: AbstractAttribute{StyleRole}
     value::ASCIIString
 
     function TextPosition(x::ASCIIString="middle center")
@@ -45,7 +45,7 @@ Base.convert(::Type{TextPosition}, x::ASCIIString) = TextPosition(x)
 #
 # Plotly Miscellaneous Flag Lists
 #
-type HoverInfo <: PlotlyFlagList
+type HoverInfo <: AbstractAttribute{InfoRole}
     value::ASCIIString
 
     function HoverInfo(x::AbstractString)
@@ -64,7 +64,7 @@ end
 HoverInfo(x::Vector{ASCIIString}=["x", "y"]) = HoverInfo(join(x, "+"))
 Base.convert(::Type{HoverInfo}, x::ASCIIString) = HoverInfo(x)
 
-type Mode <: PlotlyFlagList
+type Mode <: AbstractAttribute{InfoRole}
     value::ASCIIString
 
     function Mode(x::AbstractString)
@@ -86,7 +86,7 @@ Base.convert(::Type{Mode}, x::ASCIIString) = Mode(x)
 #
 # Plotly Miscellaneous Types
 #
-type Opacity <: AbstractValueAttribute
+type Opacity <: AbstractAttribute{StyleRole}
     value::Float16
 
     function Opacity(x::Float16=1)
@@ -102,9 +102,9 @@ Base.convert(::Type{Opacity}, x::Real) = Opacity(Float16(x))
 #
 # Plotly Line
 #
-abstract LineElement <: AbstractValueAttribute
+abstract LineElement <: AbstractAttribute{StyleRole}
 
-type LineWidth <: LineElement
+type LineWidth <: AbstractAttribute{StyleRole}
     value::Float16
 
     function LineWidth(x::Float16=Float16(2.0))
@@ -118,7 +118,7 @@ end
 Base.convert(::Type{LineWidth}, x::Real) = LineWidth(Float16(x))
 
 
-type LineShape <: PlotlyEnumerated
+type LineShape <: AbstractAttribute{StyleRole}
     value::ASCIIString
 
     function LineShape(x="linear")
@@ -133,7 +133,7 @@ type LineShape <: PlotlyEnumerated
 end
 Base.convert(::Type{LineShape}, x::ASCIIString) = LineShape(x)
 
-type LineSmooth <: LineElement
+type LineSmooth <: AbstractAttribute{StyleRole}
     value::Float16
 
     function LineSmooth(x::Float16=Float16(1.0))
@@ -146,7 +146,7 @@ type LineSmooth <: LineElement
 end
 Base.convert(::Type{LineSmooth}, x::Real) = LineSmooth(Float16(x))
 
-type LineDash <: PlotlyEnumerated
+type LineDash <: AbstractAttribute{StyleRole}
     value::ASCIIString
 
     function LineDash(x="solid")
@@ -162,7 +162,7 @@ type LineDash <: PlotlyEnumerated
 end
 Base.convert(::Type{LineDash}, x::ASCIIString) = LineDash(x)
 
-type Line <: AbstractObjectAttribute
+type Line <: AbstractAttribute{ObjectRole}
     color::Colors.Colorant
     width::LineWidth
     shape::LineShape
@@ -175,9 +175,7 @@ Line() = Line(colorant"red", LineWidth(), LineShape(), LineSmooth(), LineDash())
 #
 # Plotly Text Font
 #
-abstract TextElement <: AbstractAttribute
-
-type FontSize <: TextElement
+type FontSize <: AbstractAttribute{StyleRole}
     value::Float16
 
     function FontSize(x::Float16)
@@ -191,7 +189,7 @@ end
 FontSize(x::Number=12) = FontSize(Float16(x))
 Base.convert(::Type{FontSize}, x::Real) = FontSize(Float16(x))
 
-type TextFont <: AbstractObjectAttribute
+type TextFont <: AbstractAttribute{ObjectRole}
     family::ASCIIString
     size::FontSize
     color::Colors.Colorant
@@ -203,7 +201,7 @@ TextFont() = TextFont("Arial", FontSize(), colorant"black")
 #
 # Plotly Marker
 #
-type MarkerSize <: AbstractValueAttribute
+type MarkerSize <: AbstractAttribute{StyleRole}
     value::Float16
 
     function MarkerSize(x::Float16=Float16(6))
@@ -218,7 +216,7 @@ Base.convert(::Type{MarkerSize}, x::Real) = MarkerSize(Float16(x))
 
 # Base.convert(::Type{MarkerSize}, xc::Number) = MarkerSize(x)
 
-type Marker <: AbstractObjectAttribute
+type Marker <: AbstractAttribute{ObjectRole}
     symbol::ASCIIString
     opacity::Opacity
     size::MarkerSize

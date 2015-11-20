@@ -5,11 +5,20 @@ using Blink
 using Colors
 
 abstract AbstractPlotlyElement
-abstract AbstractAttribute <: AbstractPlotlyElement
-abstract AbstractValueAttribute <: AbstractAttribute
-abstract AbstractObjectAttribute <: AbstractAttribute
-abstract PlotlyEnumerated <: AbstractAttribute
-abstract PlotlyFlagList <: AbstractAttribute
+
+# ---------- #
+# attributes #
+# ---------- #
+abstract AbstractAttributeRole
+abstract AbstractValRole <: AbstractAttributeRole
+immutable DataRole <: AbstractValRole end
+immutable InfoRole <: AbstractValRole end
+immutable StyleRole <: AbstractValRole end
+immutable ObjectRole <: AbstractAttributeRole end
+
+# abstract AbstractAttribute{Role,ValType} <: AbstractPlotlyElement
+# NOTE: make ValType Void for ObjectRole
+abstract AbstractAttribute{Role} <: AbstractPlotlyElement
 
 abstract AbstractTrace <: AbstractPlotlyElement
 abstract AbstractLayout <: AbstractPlotlyElement
@@ -56,7 +65,7 @@ function JSON._print(io::IO, state::JSON.State, a::AbstractTrace)
     JSON.end_object(io, state, true)
 end
 
-JSON._print(io::IO, state::JSON.State, a::AbstractValueAttribute) =
+JSON._print{T<:AbstractValRole}(io::IO, state::JSON.State, a::AbstractAttribute{T}) =
     JSON._print(io, state, a.value)
 
 JSON._print(io::IO, state::JSON.State, a::Colors.Colorant) =
