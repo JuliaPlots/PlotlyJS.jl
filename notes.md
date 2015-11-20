@@ -173,9 +173,9 @@ Below is a list of all possible `opts` that might be present in the specificatio
 - `max`: same as `min`, but for upper bound. If present without `min`, `min` is implicitly set to `-Inf`.
 - `arrayOk`: specifies that the field can take one value, or many in an array. This will trigger a `Union{T, Vector{T}}` type constraint on the field and will require elementwise constraint checking.
 - `noBlank`: specifies that a particular field is required. By default, all fields that should be of type `T`, are actually given type `Union{T,Void}` and a default value of `nothing`. However, if `noBlank` is present the type remains `T` and no default value is provided.
-- `strict`: always used in conjuction with a `string` `valType`. TODO: Still don't know what it does. Use in source code [here](https://github.com/plotly/plotly.js/blob/734f75fdb9ccd6ca362c0b01b632f01eb2c0066e/src/lib/coerce.js#L101)
-- `values`: always used in conjuction with an `enumerated` `valType`. It describes the set of feasible values.
-- `extras`: always used in conjuction with an `flaglist` `valType`. This specifies additional possibilities for the value, but these cannot be arbitrarily combined with the items in the `flags` field. Triggers additional constraint checks in the inner constructor
+- `strict`: always used in conjunction with a `string` `valType`. TODO: Still don't know what it does. Use in source code [here](https://github.com/plotly/plotly.js/blob/734f75fdb9ccd6ca362c0b01b632f01eb2c0066e/src/lib/coerce.js#L101)
+- `values`: always used in conjunction with an `enumerated` `valType`. It describes the set of feasible values.
+- `extras`: always used in conjunction with an `flaglist` `valType`. This specifies additional possibilities for the value, but these cannot be arbitrarily combined with the items in the `flags` field. Triggers additional constraint checks in the inner constructor
 - `coerceNumber`: the field must be a number. All this does is trigger a `::Number` type constraint on the field
 
 ## Generation
@@ -184,11 +184,46 @@ We now understand how the parsing happens. Next we turn to how the types are gen
 
 We perform type generation using "factory" functions. These are functions that take a description of the type to be generated (more on this later) and return an `Expr` containing the type definition and other auxiliary functions.
 
-The behavior of a factory is driven by the combination of the `valType` and
+The behavior of a factory is driven by the combination of the attribute name, the role, the `valType`, and the collection of `opts`:
 
+- Name determines the name of the type. We will use `ucfirst(name)` to get the name of the Julia type
+- `role` determines the type parameter of `AbstractAttribute`. Specifically, we have
 
+```julia
+abstract AbstractAttributeRole
+abstract AbstractValRole <: AbstractAttributeRole
+immutable DataRole <: AbstractValRole end
+immutable InfoRole <: AbstractValRole end
+immutable StyleRole <: AbstractValRole end
+immutable ObjectRole <: AbstractAttributeRole end
+
+abstract AbstractAttribute{Role} <: AbstractPlotlyElement
+```
+
+which map in a rather obvious way to the roles `data`, `info`, `style`, `object`
+
+- `valType` determines the type of the field for `data`, `info`, or `style` attributes and will be empty/ignored for `object` attributes
+- The `opts` will drive the behavior of the body of constructors and may also impact the field type. For example, the constructor body will be adjusted to enforce constraints on the fields as specified by the opts `max`, `min`, `values`, and `extras`.
 
 ### Comments
+
+#### Duplication
+
+Many traces have attributes with the same name. For example, notice that scatter has both `line` and `marker.line`. We could generate different types for every occurrence of `line`, but this would have at least 2 problems: (1) there would probably be duplicate type definitions (2) there is a naming issue where users would have to think about types `ScatterLine` and `ScatterMarkerLine`.
+
+Below we summarize our strategy for minimizing duplication, yet making the API natural and easy to understand:
+
+- We will parse the entire `traces` section of the schema and collect all attribute names and descriptions
+- We will then go through that list and for every attribute name, we will keep only unique descriptions of that attribute
+- We can then generate only these "unique" descriptions using a numbering system for naming. For example, if we ended up with 3 distinct descriptions of a `line` attribute, we would generate `Line1`, `Line2`, and `Line3`. Part of this step is making sure that the type constraint on the fields of the trace line up with the properly numbered attribute type
+- Then we create one "superset" type for each attributes that has the same name as the attribute, but its fields are the union of all fields in the list of unique descriptions.
+- Finally we define a method `convert(::Type{AttributeNameN}, x::AttributeName)` that converts from our superset type to the numbered types automatically whenever the numbered type is required. A simple example of how this works is in `temp/convert_magic.jl`.
+
+This has 3 desirable properties:
+
+1. We always have the proper context dependent fields for all trace attributes
+2. The user doesn't have to think about which `AttributeNameN` to use -- they will only be using the superset type `AttributeName`.
+3. The generated JSON for an instance of the trace type will never have redundant or un-used fields.
 
 #### Convert
 
@@ -200,7 +235,7 @@ convert(::Type{ST}, x::T) = ST(x)
 
 The reason we need this method is that we would like users to be able to change the value directly with "dot-notaion" without having to worry about whether the value sits in a custom or native Julia type.
 
-For example, suppose we have a `Scatter` trace named `s`. If we wanted to change the opacity to `0.5` and didn't have this method, we would need to call
+For example, suppose we have a `Scatter` trace named `s`. If we wanted to change the opacity to `0.5`. If we didn't have this method we would need to call
 
 ```julia
 s.opacity.value = 0.5
@@ -217,7 +252,3 @@ Instead what happens when we do have this method and call `s.opacity = 0.5` is r
 
 
 <!-- TODO: Need to handle `arrayOk` as Union{T,Vector{T}} -->
-
-#### Extra fields
-
-It looks like plotly.js will simply ignore any defined fields that don't belong in a particular trace or object. This means that we can define one `ColorBar` type that has fields as the Union of all colorbar attributes across traces and the right things will get ignored at the right time.
