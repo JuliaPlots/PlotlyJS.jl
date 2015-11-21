@@ -500,7 +500,7 @@ end
 # spec = parse_attr(:Legendgroup, deepcopy(schema["traces"]["scatter"]["attributes"]["stream"]["token"]))
 # spec = parse_attr(:Legendgroup, deepcopy(schema["traces"]["scatter"]["attributes"]["text"]))
 # spec = parse_attr(:Legendgroup, deepcopy(schema["traces"]["scatter"]["attributes"]["line"]["dash"]))
-spec = parse_attr(:Visible, deepcopy(schema["traces"]["scatter"]["attributes"]["hoverinfo"]))
+# spec = parse_attr(:Visible, deepcopy(schema["traces"]["scatter"]["attributes"]["hoverinfo"]))
 # print(gen_type(spec))
 
 #
