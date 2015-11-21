@@ -1,4 +1,4 @@
-module Plotly
+module Plotlyjs
 
 using JSON
 using Blink
@@ -49,6 +49,23 @@ include("Scatter.jl")
 # Custom JSON output for our types #
 # -------------------------------- #
 function JSON._print(io::IO, state::JSON.State, a::AbstractTrace)
+    JSON.start_object(io, state, true)
+    range = fieldnames(a)
+    if length(range) > 0
+        Base.print(io, JSON.prefix(state), "\"", :type, "\"", JSON.colon(state))
+        JSON._print(io, state, plottype(a))
+
+        for name in range
+            Base.print(io, ",")
+            JSON.printsp(io, state)
+            Base.print(io, "\"", name, "\"", colon(state))
+            JSON._print(io, state, a.(name))
+        end
+    end
+    JSON.end_object(io, state, true)
+end
+
+function JSON._print(io::IO, state::JSON.State, a::AbstractAttribute{ObjectRole})
     JSON.start_object(io, state, true)
     range = fieldnames(a)
     if length(range) > 0

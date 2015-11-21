@@ -1,29 +1,35 @@
 using JSON
 using Colors
 
-abstract AbstractPlotlyElement
-abstract AbstractAttributeRole
-abstract AbstractValRole <: AbstractAttributeRole
-immutable DataRole <: AbstractValRole end
-immutable InfoRole <: AbstractValRole end
-immutable StyleRole <: AbstractValRole end
-immutable ObjectRole <: AbstractAttributeRole end
+# the following type definitions need to be bootstrapped. They are part of both
+# the codegen stage and the final package. So we will quote them so we can
+# put them back in final pacakge, but will also eval them here
+bootstrap = quote
+    abstract AbstractPlotlyElement
+    abstract AbstractAttributeRole
+    abstract AbstractValRole <: AbstractAttributeRole
+    immutable DataRole <: AbstractValRole end
+    immutable InfoRole <: AbstractValRole end
+    immutable StyleRole <: AbstractValRole end
+    immutable ObjectRole <: AbstractAttributeRole end
 
-# abstract AbstractAttribute{Role,ValType} <: AbstractPlotlyElement
-# NOTE: make ValType Void for ObjectRole
-abstract AbstractAttribute{Role} <: AbstractPlotlyElement
+    # abstract AbstractAttribute{Role,ValType} <: AbstractPlotlyElement
+    # NOTE: make ValType Void for ObjectRole
+    abstract AbstractAttribute{Role} <: AbstractPlotlyElement
 
-abstract AbstractTrace <: AbstractPlotlyElement
-abstract AbstractLayout <: AbstractPlotlyElement
+    abstract AbstractTrace <: AbstractPlotlyElement
+    abstract AbstractLayout <: AbstractPlotlyElement
 
-# TODO: fill these in so they print properly
-type FlaglistError <: Exception
-    flags
+    # TODO: fill these in so they print properly
+    type FlaglistError <: Exception
+        flags
+    end
+
+    type EnumerateError <: Exception
+        values
+    end
 end
-
-type EnumerateError <: Exception
-    values
-end
+eval(bootstrap)
 
 # ----------- #
 # Load Schema #
