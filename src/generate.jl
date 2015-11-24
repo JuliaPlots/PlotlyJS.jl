@@ -108,7 +108,6 @@ function =={T<:AbstractOpt}(o1::T, o2::T)
     eltype1 <: Array && eltype2 <: Array ? v1 .== v2 : v1 == v2
 end
 
-
 # --------------------------- #
 # Attribute description types #
 # --------------------------- #
@@ -122,7 +121,11 @@ type ValAttributeDescription{T<:AbstractValType,S<:AbstractOpt} <: AbstractAttri
     valType::T
     opts::Vector{S}
     docstring::AbstractString
+    typename::Symbol
 end
+
+ValAttributeDescription(n, r, v, o, d) =
+    ValAttributeDescription(n, r, v, o, d, symbol(ucfirst(string(n))))
 
 function Base.isless{A<:AbstractValType,B<:AbstractValType}(::ValAttributeDescription{A},
                                                             ::ValAttributeDescription{B})
@@ -136,8 +139,8 @@ function =={T}(v1::ValAttributeDescription{T}, v2::ValAttributeDescription{T})
 
     # if we made it here we just need to compare all the options.
     # first compare lengths, then compare elementwise with map
-    length(v1.opts) == length(v2.opts) || false
-    length(v1.opts) == 0 && true  # if no opts, just return ;)
+    length(v1.opts) == length(v2.opts) || return false
+    length(v1.opts) == 0 && return true  # if no opts, just return ;)
     all(map(==, sort(v1.opts), sort(v2.opts)))
 end
 
@@ -146,18 +149,21 @@ type ObjectAttributeDescription{TAD<:AbstractAttribueDescription} <: AbstractAtt
     fields::Vector{TAD}
     role::Symbol
     docstring::AbstractString
+    typename::Symbol
 end
+
+ObjectAttributeDescription(n, f, r, d) =
+    ObjectAttributeDescription(n, f, r, d, symbol(ucfirst(string(n))))
 
 # similar to above, see comments there
 function ==(o1::ObjectAttributeDescription, o2::ObjectAttributeDescription)
     !(o1.name == o2.name && o1.role == o2.role) && return false
     !(strip(o1.docstring) == strip(o2.docstring)) && return false
 
-    length(o1.fields) == length(o2.fields) || false
-    length(o1.fields) == 0 && true
+    length(o1.fields) == length(o2.fields) || return false
+    length(o1.fields) == 0 && return true
     all(map(==, sort(o1.fields), sort(o2.fields)))
 end
-
 
 type TraceDescription{TAD<:AbstractAttribueDescription}
     name::Symbol
@@ -245,7 +251,7 @@ end
 function _parse_all_attrs(attrs::Dict)
     attributes = Array(AbstractAttribueDescription, length(attrs))
     for (i, (k, v)) in enumerate(attrs)
-        attributes[i] = parse_attr(symbol(ucfirst(k)), v)
+        attributes[i] = parse_attr(symbol(k), v)
         pop!(attrs, k)
     end
     # make sure we parsed all the attributes
@@ -282,7 +288,7 @@ function parse_trace(name::Symbol, d::Dict)
 end
 
 parse_traces(schema_traces::Dict) =
-    TraceDescription[parse_trace(symbol(k), v) for (k, v) in schema_traces]
+    Dict([(k, parse_trace(symbol(k), v)) for (k, v) in schema_traces])
 
 
 function parse_layout(d::Dict)
@@ -316,39 +322,49 @@ function parse_layout(d::Dict)
     LayoutDescription(layout_attributes)
 end
 
+# --------- #
+# Filtering #
+# --------- #
+
+#=
+TODO:
+
+I need to keep track of the following:
+=#
+
 # ---------------------------------- #
 # Map from valtype and role to Types #
 # ---------------------------------- #
 # define the supertype for the attribute `type` based on the role
-super_type(role::Symbol) = role == :data   ? :(AbstractAttribute{DataRole}) :
-                           role == :info   ? :(AbstractAttribute{InfoRole}) :
-                           role == :style  ? :(AbstractAttribute{StyleRole}) :
-                           role == :object ? :(AbstractAttribute{ObjectRole}) :
-                           error("Unknown role type $role.")
+supertype(role::Symbol) = role == :data   ? :(AbstractAttribute{DataRole}) :
+                          role == :info   ? :(AbstractAttribute{InfoRole}) :
+                          role == :style  ? :(AbstractAttribute{StyleRole}) :
+                          role == :object ? :(AbstractAttribute{ObjectRole}) :
+                          error("Unknown role type $role.")
 
 # define the root type of a field, given the `AbstractValType`
-field_type(::_String)        = AbstractString
-field_type(::_Number)        = Number
-field_type(::_Flaglist)      = AbstractString
-field_type(::_Any)           = Any
-field_type(::_Geoid)         = AbstractString
-field_type(::_Angle)         = Real
-field_type(::_Colorscale)    = Union{AbstractString, Vector}
-field_type(::_Data_array)    = Vector
-field_type(::_Enumerated)    = AbstractString
-field_type(::_Integer)       = Integer
-field_type(::_Info_array)    = Vector
-field_type(::_Sceneid)       = AbstractString
-field_type(::_Axisid)        = AbstractString
-field_type(::_Color)         = Union{Colors.Colorant, AbstractString}
-field_type(::_Boolean)       = Bool
-field_type(::_NotApplicable) = error("Shouldn't have been called!")
-field_type{AVT<:AbstractValType}(::Type{AVT}) = field_type(AVT())
+fieldtype(::_String)        = AbstractString
+fieldtype(::_Number)        = Number
+fieldtype(::_Flaglist)      = AbstractString
+fieldtype(::_Any)           = Any
+fieldtype(::_Geoid)         = AbstractString
+fieldtype(::_Angle)         = Real
+fieldtype(::_Colorscale)    = Union{AbstractString, Vector}
+fieldtype(::_Data_array)    = Vector
+fieldtype(::_Enumerated)    = AbstractString
+fieldtype(::_Integer)       = Integer
+fieldtype(::_Info_array)    = Vector
+fieldtype(::_Sceneid)       = AbstractString
+fieldtype(::_Axisid)        = AbstractString
+fieldtype(::_Color)         = Union{Colors.Colorant, AbstractString}
+fieldtype(::_Boolean)       = Bool
+fieldtype(::_NotApplicable) = error("Shouldn't have been called!")
+fieldtype{AVT<:AbstractValType}(::Type{AVT}) = fieldtype(AVT())
 
-function field_type{T<:AbstractValType}(spec::ValAttributeDescription{T})
-    # if an _ArrayOk instance is in the opts, need to adjust the field_type
-    # to be a Union, otherwise fall back to field_type(T)
-    ft = field_type(T)
+function fieldtype{T<:AbstractValType}(spec::ValAttributeDescription{T})
+    # if an _ArrayOk instance is in the opts, need to adjust the fieldtype
+    # to be a Union, otherwise fall back to fieldtype(T)
+    ft = fieldtype(T)
 
     opt_array_ok = filter(x->isa(x, _ArrayOk), spec.opts)
     opt_no_blank = filter(x->isa(x, _NoBlank), spec.opts)
@@ -356,7 +372,6 @@ function field_type{T<:AbstractValType}(spec::ValAttributeDescription{T})
     no_blank = !isempty(opt_no_blank) && opt_no_blank[1].value
     no_arrays = isempty(opt_array_ok) || !(opt_array_ok[1].value)
 
-    # if we have a _NoBlank, we can't union with void
     if no_arrays && no_blank
         return ft
     elseif no_arrays && !no_blank
@@ -386,11 +401,11 @@ the defs.valObjects array so that we cover all possible options.
 # generic inner_constructor to simply set default argument to nothing used for
 # _Data_array, _Boolean, _Any, _Color, _Colorscale, _Axisid, _Sceneid, _Geoid
 inner_constructor{T<:AbstractValType}(spec::ValAttributeDescription{T}) =
-    :($(spec.name)(x::$(field_type(spec))=nothing) = new(x))
+    :($(spec.typename)(x::$(fieldtype(spec))=nothing) = new(x))
 
 function inner_constructor(spec::ValAttributeDescription{_Angle})
     quote
-        function $(spec.name)(x::$(field_type(spec))=nothing)
+        function $(spec.typename)(x::$(fieldtype(spec))=nothing)
             if !(-180 <= x && x <= 180)
                 error("Angle must be between -180 and 180")
             end
@@ -408,7 +423,7 @@ function inner_constructor(spec::ValAttributeDescription{_Enumerated})
                                 :(x ∈ validvalues)
 
     quote
-        function $(spec.name)(x::$(field_type(spec))=nothing)
+        function $(spec.typename)(x::$(fieldtype(spec))=nothing)
             # _Values is required
             validvalues = $(filter(_ -> isa(_, _Values), spec.opts)[1].value)
 
@@ -434,7 +449,7 @@ function inner_constructor(spec::ValAttributeDescription{_Flaglist})
     end
 
     quote
-        function $(spec.name)(x::$(field_type(spec))=nothing)
+        function $(spec.typename)(x::$(fieldtype(spec))=nothing)
             # _Flags is required
             flags = $(filter(_ -> isa(_, _Flags), spec.opts)[1].value)
             x = replace(x, " ", "")
@@ -466,7 +481,7 @@ function inner_constructor{T<:Union{_Number,_Integer}}(spec::ValAttributeDescrip
                      isempty(opt_min) ? "∞)" : "$(opt_max[1].value))", )
 
     quote
-        function $(spec.name)(x::$(field_type(spec))=nothing)
+        function $(spec.typename)(x::$(fieldtype(spec))=nothing)
             if !(x === nothing) && !($validate_expr)
                 error($err_msg)
             end
@@ -492,7 +507,7 @@ function inner_constructor(spec::ValAttributeDescription{_String})
 
     # build expression for argument to constructor. Will include default value
     # of `nothing` if !no_blank
-    arg_expr = no_blank ? :(x::$(field_type(spec))) : :(x::$(field_type(spec))=nothing)
+    arg_expr = no_blank ? :(x::$(fieldtype(spec))) : :(x::$(fieldtype(spec))=nothing)
 
     # create the values part of the validate expresion
     if array_ok && has_values
@@ -510,7 +525,7 @@ function inner_constructor(spec::ValAttributeDescription{_String})
     validate_expr = :($values_validate && $blank_validate)
 
     quote
-        function $(spec.name)($(arg_expr))
+        function $(spec.typename)($(arg_expr))
             $validvalues_expr
 
             if !(x === nothing) && !($validate_expr)
@@ -523,37 +538,74 @@ end
 
 # TODO: implement inner_constructor for _Info_array
 
-
-function gen_type{T<:AbstractValType}(spec::ValAttributeDescription{T})
+function gentype{T<:AbstractValType}(spec::ValAttributeDescription{T})
     quote
-        type $(spec.name) <: $(super_type(spec.role))
-            value::$(field_type(spec))
+        type $(spec.typename) <: $(supertype(spec.role))
+            value::$(fieldtype(spec))
 
             $(inner_constructor(spec))
         end
 
-        Base.convert(::Type{$(spec.name)}, x::$(field_type(spec))) = $(spec.name)(x)
+        Base.convert(::Type{$(spec.typename)}, x::$(fieldtype(spec))) = $(spec.typename)(x)
+        Base.writemime(io::IO, ::MIME"text/plain", x::$(spec.typename)) =
+            print(io, json(x, 2))
+
+        @doc $(spec.docstring) $(spec.typename)
+    end
+end
+
+function gentype(spec::ObjectAttributeDescription)
+    flds = [:($(f.name)::Union{Void,$(f.typename)}) for f in spec.fields]
+    fields = Expr(:block, flds...)
+    constructor = Expr(:function, :($(spec.typename)()),
+                       Expr(:block, Expr(:call, spec.typename,
+                                         fill(nothing, length(flds))...)))
+
+    quote
+        type $(spec.typename) <: $(supertype(spec.role))
+            $fields
+        end
+
+        $constructor
+
+        Base.writemime(io::IO, ::MIME"text/plain", x::$(spec.typename)) =
+            print(io, json(x, 2))
+
+        @doc $(spec.docstring) $(spec.typename)
+    end
+end
+
+function gentype(spec::TraceDescription)
+    attrs = [:($(f.name)::Union{Void,$(f.typename)}) for f in spec.attributes]
+    l_attrs = [:($(f.name)::Union{Void,$(f.typename)}) for f in spec.layout_attributes]
+    nfields = length(attrs) + length(l_attrs)
+    fields = Expr(:block, attrs..., l_attrs...)
+    constructor = Expr(:function, :($(spec.name)()),
+                       Expr(:block, Expr(:call, spec.name,
+                                         fill(nothing, nfields)...)))
+
+    quote
+        type $(spec.name) <: AbstractTrace
+            $fields
+        end
+
+        $constructor
+
         Base.writemime(io::IO, ::MIME"text/plain", x::$(spec.name)) =
             print(io, json(x, 2))
+
+        @doc $(spec.docstring) $(spec.name)
     end
 end
 
 
-# spec = parse_attr(:Visible, deepcopy(schema["traces"]["scatter"]["attributes"]["visible"]))
-# spec = parse_attr(:Legendgroup, deepcopy(schema["traces"]["scatter"]["attributes"]["marker"]["symbol"]))
-# spec = parse_attr(:Showlegend, deepcopy(schema["traces"]["scatter"]["attributes"]["showlegend"]))
-# spec = parse_attr(:Opacity, deepcopy(schema["traces"]["scatter"]["attributes"]["opacity"]))
-# spec = parse_attr(:Opacity, deepcopy(schema["traces"]["scatter"]["attributes"]["marker"]["colorbar"]["nticks"]))
-# spec = parse_attr(:Legendgroup, deepcopy(schema["traces"]["scatter"]["attributes"]["legendgroup"]))
-# spec = parse_attr(:Legendgroup, deepcopy(schema["traces"]["scatter"]["attributes"]["stream"]["token"]))
-# spec = parse_attr(:Legendgroup, deepcopy(schema["traces"]["scatter"]["attributes"]["text"]))
-# spec = parse_attr(:Legendgroup, deepcopy(schema["traces"]["scatter"]["attributes"]["line"]["dash"]))
-# spec = parse_attr(:Visible, deepcopy(schema["traces"]["scatter"]["attributes"]["hoverinfo"]))
-# print(gen_type(spec))
+t1 = parse_trace(:Scatter, deepcopy(schema["traces"]["scatter"]))
+t2 = parse_trace(:Scatter, deepcopy(schema["traces"]["scatter3d"]))
 
-#
-#
-#
-# open("../its_alive.jl", "w") do f
-#     print(f, string(ex))
-# end
+o1 = parse_attr(:line, deepcopy(schema["traces"]["scatter"]["attributes"]["line"]))
+o2 = parse_attr(:line, deepcopy(schema["traces"]["scatter3d"]["attributes"]["line"]))
+
+v1 = parse_attr(:x, deepcopy(schema["traces"]["scatter"]["attributes"]["x"]))
+v2 = parse_attr(:x, deepcopy(schema["traces"]["scatter3d"]["attributes"]["x"]))
+
+end
