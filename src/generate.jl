@@ -105,7 +105,7 @@ function =={T<:AbstractOpt}(o1::T, o2::T)
     eltype1 = typeof(v1)
     eltype2 = typeof(v2)
 
-    eltype1 <: Array && eltype2 <: Array ? v1 .== v2 : v1 == v2
+    eltype1 <: Array && eltype2 <: Array ? all(v1 .== v2) : v1 == v2
 end
 
 # --------------------------- #
@@ -160,7 +160,7 @@ function ==(o1::ObjectAttributeDescription, o2::ObjectAttributeDescription)
     !(o1.name == o2.name && o1.role == o2.role) && return false
     !(strip(o1.docstring) == strip(o2.docstring)) && return false
 
-    length(o1.fields) == length(o2.fields) || return false
+    !(length(o1.fields) == length(o2.fields)) && return false
     length(o1.fields) == 0 && return true
     all(map(==, sort(o1.fields), sort(o2.fields)))
 end
@@ -288,7 +288,7 @@ function parse_trace(name::Symbol, d::Dict)
 end
 
 parse_traces(schema_traces::Dict) =
-    Dict([(k, parse_trace(symbol(k), v)) for (k, v) in schema_traces])
+    TraceDescription[parse_trace(symbol(k), v) for (k, v) in schema_traces]
 
 
 function parse_layout(d::Dict)
@@ -387,6 +387,7 @@ end
 # ------------ #
 # Codegen time #
 # ------------ #
+
 #=
 NOTES
 
@@ -597,15 +598,5 @@ function gentype(spec::TraceDescription)
         @doc $(spec.docstring) $(spec.name)
     end
 end
-
-
-t1 = parse_trace(:Scatter, deepcopy(schema["traces"]["scatter"]))
-t2 = parse_trace(:Scatter, deepcopy(schema["traces"]["scatter3d"]))
-
-o1 = parse_attr(:line, deepcopy(schema["traces"]["scatter"]["attributes"]["line"]))
-o2 = parse_attr(:line, deepcopy(schema["traces"]["scatter3d"]["attributes"]["line"]))
-
-v1 = parse_attr(:x, deepcopy(schema["traces"]["scatter"]["attributes"]["x"]))
-v2 = parse_attr(:x, deepcopy(schema["traces"]["scatter3d"]["attributes"]["x"]))
 
 end
