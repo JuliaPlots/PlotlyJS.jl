@@ -1,5 +1,7 @@
+module GeneratePlotly
 using JSON
 using Colors
+import Base: ==
 
 # the following type definitions need to be bootstrapped. They are part of both
 # the codegen stage and the final package. So we will quote them so we can
@@ -63,8 +65,7 @@ function verify_schema_knowledge()
 
     # make sure that valtypes is the same as the keys in our defs.valObjects:
     @assert isempty(symdiff(valtypes, collect(keys(schema["defs"]["valObjects"]))))
-
-    valtypes, roles, opts
+    true
 end
 
 verify_schema_knowledge()
@@ -81,6 +82,8 @@ for nm in [:_String, :_Number, :_Flaglist, :_Any, :_Geoid, :_Angle, :_Colorscale
     @eval immutable $(nm) <: AbstractValType end
 end
 
+Base.isless{S<:AbstractValType,T<:AbstractValType}(::S, ::T) = string(S) < string(T)
+
 ## opt descriptions
 abstract AbstractOpt
 
@@ -88,6 +91,23 @@ for nm in [:_Dflt, :_Min, :_Max, :_ArrayOk, :_NoBlank, :_Strict, :_Values,
            :_Extras, :_CoerceNumber, :_Flags, :_Items]
     @eval immutable $(nm) <: AbstractOpt; value; end
 end
+
+# defining `isless` lets us sort a vector of AbtractOpt. Implementation
+# here just sorts alphabetically based on type name
+Base.isless{S<:AbstractOpt,T<:AbstractOpt}(::S, ::T) = string(S) < string(T)
+
+# equality checks
+=={T<:AbstractOpt, S<:AbstractOpt}(::T, ::S) = false
+
+function =={T<:AbstractOpt}(o1::T, o2::T)
+    v1 = o1.value
+    v2 = o2.value
+    eltype1 = typeof(v1)
+    eltype2 = typeof(v2)
+
+    eltype1 <: Array && eltype2 <: Array ? v1 .== v2 : v1 == v2
+end
+
 
 # --------------------------- #
 # Attribute description types #
@@ -104,12 +124,40 @@ type ValAttributeDescription{T<:AbstractValType,S<:AbstractOpt} <: AbstractAttri
     docstring::AbstractString
 end
 
+function Base.isless{A<:AbstractValType,B<:AbstractValType}(::ValAttributeDescription{A},
+                                                            ::ValAttributeDescription{B})
+    string(A) < string(B)
+end
+
+=={T,S}(v1::ValAttributeDescription{T}, v2::ValAttributeDescription{S}) = false
+function =={T}(v1::ValAttributeDescription{T}, v2::ValAttributeDescription{T})
+    !(v1.name == v2.name && v1.role == v2.role) && return false
+    !(strip(v1.docstring) == strip(v2.docstring)) && return false
+
+    # if we made it here we just need to compare all the options.
+    # first compare lengths, then compare elementwise with map
+    length(v1.opts) == length(v2.opts) || false
+    length(v1.opts) == 0 && true  # if no opts, just return ;)
+    all(map(==, sort(v1.opts), sort(v2.opts)))
+end
+
 type ObjectAttributeDescription{TAD<:AbstractAttribueDescription} <: AbstractAttribueDescription
     name::Symbol
     fields::Vector{TAD}
     role::Symbol
     docstring::AbstractString
 end
+
+# similar to above, see comments there
+function ==(o1::ObjectAttributeDescription, o2::ObjectAttributeDescription)
+    !(o1.name == o2.name && o1.role == o2.role) && return false
+    !(strip(o1.docstring) == strip(o2.docstring)) && return false
+
+    length(o1.fields) == length(o2.fields) || false
+    length(o1.fields) == 0 && true
+    all(map(==, sort(o1.fields), sort(o2.fields)))
+end
+
 
 type TraceDescription{TAD<:AbstractAttribueDescription}
     name::Symbol
