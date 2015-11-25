@@ -1,3 +1,7 @@
 Base.size(p::Plot, w::Int, h::Int) = size(get_window(p), w, h)
-Base.size(p::Plot) = (p.layout.width, p.layout.height)
-Base.resize!(p::Plot) = size(p, map(x->x+25, size(p))...)
+Base.size(p::Plot) = (get(p.layout.fields, :width, 800),
+                      get(p.layout.fields, :height, 450))
+function Base.resize!(p::Plot)
+    sz = size(p)
+    size(p, sz[1]+10, sz[2]+25)
+end
