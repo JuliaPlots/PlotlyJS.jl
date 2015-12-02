@@ -52,37 +52,6 @@ function Base.show(p::Plot)
     w = get_window(p)
     Blink.load!(w, _js_path)
     Blink.body!(w, html_body(p))
-
-    # magic = """
-    # <script>
-    # (function() {
-    # var WIDTH_IN_PERCENT_OF_PARENT = 100,
-    #     HEIGHT_IN_PERCENT_OF_PARENT = 100;
-    #
-    # var gd3 = d3.select('body')
-    #     .append('div').attr("id", "$(p.divid)")
-    #     .style({
-    #         width: WIDTH_IN_PERCENT_OF_PARENT + '%',
-    #         'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
-    #
-    #         height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
-    #         'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
-    #     });
-    #
-    # var gd = gd3.node();
-    # var data = $(json(p.data))
-    # var layouts = $(json(p.layout))
-    #
-    # Plotly.plot(gd, data, layouts);
-    #
-    # window.onresize = function() {
-    #     Plotly.Plots.resize(gd);
-    # };
-    #
-    # })();
-    # </script>
-    # """
-    # Blink.body!(w, magic)
     p
 end
 
