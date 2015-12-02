@@ -33,12 +33,10 @@ function Base.writemime(io::IO, ::MIME"text/plain", p::Plot)
     """)
 end
 
+# include the rest of the package
 include("display.jl")
 include("api.jl")
 include("traces_layouts.jl")
-# include("Errors.jl")
-# include("TraceTypes.jl")
-# include("Scatter.jl")
 
 # -------------------------------- #
 # Custom JSON output for our types #
