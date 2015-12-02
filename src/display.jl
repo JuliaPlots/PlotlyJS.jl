@@ -12,9 +12,9 @@ function html_body(p::Plot)
     <script>
        thediv = document.getElementById('$(p.divid)');
        var data = $(json(p.data))
-       var layouts = $(json(p.layout))
+       var layout = $(json(p.layout))
 
-       Plotly.plot(thediv, data,  layouts, {showLink: false});
+       Plotly.plot(thediv, data,  layout, {showLink: false});
      </script>
     """
 end
