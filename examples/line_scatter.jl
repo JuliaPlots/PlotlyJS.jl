@@ -6,9 +6,7 @@ function example1()
     trace1 = GenericTrace("scatter"; x=1:4, y=[10, 15, 13, 17], mode="markers")
     trace2 = GenericTrace("scatter"; x=2:5, y=[16, 5, 11, 9], mode="lines")
     trace3 = GenericTrace("scatter"; x=1:4, y=[12, 9, 15, 12], mode="lines+markers")
-    p = Plot([trace1, trace2, trace3])
-    show(p)
-    p
+    p = Plot([trace1, trace2, trace3]); show(p); p
 end
 
 function example2()
@@ -26,9 +24,7 @@ function example2()
     layout = Layout(;title="Data Labels Hover")
     layout["xaxis.range"] = [0.75, 5.25]
     layout["yaxis.range"] = [0, 8]
-    p = Plot(data, layout)
-    show(p)
-    p
+    p = Plot(data, layout); show(p); p
 end
 
 function example3()
@@ -57,11 +53,8 @@ function example3()
                                           :size => 20,
                                           :color => "grey")
                             )
-    p = Plot(data, layout)
-    show(p)
-    p
+    p = Plot(data, layout); show(p); p
 end
-
 
 function example4()
     trace1 = GenericTrace("scatter"; y=fill(5, 40), mode="markers")

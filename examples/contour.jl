@@ -12,7 +12,6 @@ function example3()
 
     layout = Layout(title="Setting the X and Y Coordinates in a Contour Plot")
     p = Plot(trace, layout); show(p); p
-
 end
 
 # end  # module
