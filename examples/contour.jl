@@ -8,7 +8,7 @@ function example3()
          2.5    3.125   5.    8.125   12.5
          0.625  1.25    3.125 6.25    10.625
          0      0.625   2.5   5.625   10]
-    trace = GenericTrace("contour", x=x, y=y, z=z)
+    trace = contour(x=x, y=y, z=z)
 
     layout = Layout(title="Setting the X and Y Coordinates in a Contour Plot")
     p = Plot(trace, layout); show(p); p

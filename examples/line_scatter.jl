@@ -3,21 +3,21 @@ module LineScatterExamples
 using Plotlyjs
 
 function example1()
-    trace1 = GenericTrace("scatter"; x=1:4, y=[10, 15, 13, 17], mode="markers")
-    trace2 = GenericTrace("scatter"; x=2:5, y=[16, 5, 11, 9], mode="lines")
-    trace3 = GenericTrace("scatter"; x=1:4, y=[12, 9, 15, 12], mode="lines+markers")
+    trace1 = scatter(;x=1:4, y=[10, 15, 13, 17], mode="markers")
+    trace2 = scatter(;x=2:5, y=[16, 5, 11, 9], mode="lines")
+    trace3 = scatter(;x=1:4, y=[12, 9, 15, 12], mode="lines+markers")
     p = Plot([trace1, trace2, trace3]); show(p); p
 end
 
 function example2()
-    trace1 = GenericTrace("scatter"; x=1:5, y=[1, 6, 3, 6, 1],
-                          mode="markers", name="Team A",
-                          text=["A-1", "A-2", "A-3", "A-4", "A-5"])
+    trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
+                      mode="markers", name="Team A",
+                      text=["A-1", "A-2", "A-3", "A-4", "A-5"])
     trace1["marker.size"] = 12
 
-    trace2 = GenericTrace("scatter"; x=1:5+0.5, y=[4, 1, 7, 1, 4],
-                          mode= "markers", name= "Team B",
-                          text= ["B-a", "B-b", "B-c", "B-d", "B-e"])
+    trace2 = scatter(;x=1:5+0.5, y=[4, 1, 7, 1, 4],
+                      mode= "markers", name= "Team B",
+                      text= ["B-a", "B-b", "B-c", "B-d", "B-e"])
     trace2["marker"] = Dict(:size => 12)
 
     data = [trace1, trace2]
@@ -28,17 +28,17 @@ function example2()
 end
 
 function example3()
-    trace1 = GenericTrace("scatter"; x=1:5, y=[1, 6, 3, 6, 1],
-                          mode="markers+text", name="Team A",
-                          textposition="top center",
-                          text=["A-1", "A-2", "A-3", "A-4", "A-5"])
+    trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
+                      mode="markers+text", name="Team A",
+                      textposition="top center",
+                      text=["A-1", "A-2", "A-3", "A-4", "A-5"])
     trace1["marker.size"] = 12
     trace1["textfont.family"] = "Raleway, sans-serif"
 
-    trace2 = GenericTrace("scatter"; x=1:5+0.5, y=[4, 1, 7, 1, 4],
-                          mode="markers+text", name= "Team B",
-                          textposition="bottom center",
-                          text= ["B-a", "B-b", "B-c", "B-d", "B-e"])
+    trace2 = scatter(;x=1:5+0.5, y=[4, 1, 7, 1, 4],
+                      mode="markers+text", name= "Team B",
+                      textposition="bottom center",
+                      text= ["B-a", "B-b", "B-c", "B-d", "B-e"])
     trace2["marker"] = Dict(:size => 12)
     trace2["textfont.family"] = "Times New Roman"
 
@@ -57,7 +57,7 @@ function example3()
 end
 
 function example4()
-    trace1 = GenericTrace("scatter"; y=fill(5, 40), mode="markers")
+    trace1 = scatter(;y=fill(5, 40), mode="markers")
     trace1["marker.size"] = 40
     trace1["marker.color"] = 0:39
     layout = Layout(title="Scatter Plot with a Color Dimension")
@@ -74,7 +74,7 @@ function example5()
     votingPop = [40, 45.7, 52, 53.6, 54.1, 54.2, 54.5, 54.7, 55.1, 56.6]
     regVoters = [49.1, 42, 52.7, 84.3, 51.7, 61.1, 55.3, 64.2, 91.1, 58.9]
 
-    trace1 = GenericTrace("scatter"; x=votingPop, y=country, mode="markers",
+    trace1 = scatter(;x=votingPop, y=country, mode="markers",
                           name="Percent of estimated voting age population")
     trace1["marker"] = Dict(:color => "rgba(156, 165, 196, 0.95)",
                             :line => Dict(:color=> "rgba(156, 165, 196, 1.0)",
@@ -82,7 +82,7 @@ function example5()
                             :symbol => "circle",
                             :size => 16)
 
-    trace2 = GenericTrace("scatter"; x=regVoters, y=country, mode="markers",
+    trace2 = scatter(;x=regVoters, y=country, mode="markers",
                            name="Percent of estimated registered voters")
     trace2["marker"] = Dict(:color => "rgba(204, 204, 204, 0.95)",
                            :line => Dict(:color=> "rgba(217, 217, 217, 1.0)",
@@ -115,39 +115,36 @@ function example5()
 end
 
 function example6()
-    trace1 = GenericTrace("scatter"; x=[52698, 43117], y=[53, 31],
-                          mode="markers",
-                          name="North America",
-                          text=["United States", "Canada"])
+    trace1 = scatter(;x=[52698, 43117], y=[53, 31],
+                      mode="markers",
+                      name="North America",
+                      text=["United States", "Canada"])
     trace1["marker"] = Dict(:color => "rgb(164, 194, 244)",
                             :size => 12,
                             :line => Dict(:color => "white", :width => 0.5))
 
-    trace2 = GenericTrace("scatter";
-                          x=[39317, 37236, 35650, 30066, 29570, 27159, 23557, 21046, 18007],
-                          y=[33, 20, 13, 19, 27, 19, 49, 44, 38],
-                          mode="markers",
-                          name="Europe",
-                          text=["Germany", "Britain", "France", "Spain", "Italy", "Czech Rep.", "Greece", "Poland"])
+    trace2 = scatter(;x=[39317, 37236, 35650, 30066, 29570, 27159, 23557, 21046, 18007],
+                      y=[33, 20, 13, 19, 27, 19, 49, 44, 38],
+                      mode="markers",
+                      name="Europe",
+                      text=["Germany", "Britain", "France", "Spain", "Italy", "Czech Rep.", "Greece", "Poland"])
     trace2["marker"] = Dict(:color => "rgb(255, 217, 102)",
                             :size => 12)
 
-    trace3 = GenericTrace("scatter";
-                          x=[42952, 37037, 33106, 17478, 9813, 5253, 4692, 3899],
-                          y=[23, 42, 54, 89, 14, 99, 93, 70],
-                          mode="markers",
-                          name="Asia/Pacific",
-                          text=["Australia", "Japan", "South Korea", "Malaysia", "China", "Indonesia", "Philippines", "India"])
+    trace3 = scatter(;x=[42952, 37037, 33106, 17478, 9813, 5253, 4692, 3899],
+                      y=[23, 42, 54, 89, 14, 99, 93, 70],
+                      mode="markers",
+                      name="Asia/Pacific",
+                      text=["Australia", "Japan", "South Korea", "Malaysia", "China", "Indonesia", "Philippines", "India"])
     trace3["marker"] = Dict(:color => "rgb(234, 153, 153)",
                             :size => 12)
 
 
-    trace4 = GenericTrace("scatter";
-                          x=[19097, 18601, 15595, 13546, 12026, 7434, 5419],
-                          y=[43, 47, 56, 80, 86, 93, 80],
-                          mode="markers",
-                          name="Latin America",
-                          text=["Chile", "Argentina", "Mexico", "Venezuela", "Venezuela", "El Salvador", "Bolivia"])
+    trace4 = scatter(;x=[19097, 18601, 15595, 13546, 12026, 7434, 5419],
+                      y=[43, 47, 56, 80, 86, 93, 80],
+                      mode="markers",
+                      name="Latin America",
+                      text=["Chile", "Argentina", "Mexico", "Venezuela", "Venezuela", "El Salvador", "Bolivia"])
     trace4["marker"] = Dict(:color => "rgb(142, 124, 195)",
                             :size => 12)
     data = [trace1, trace2, trace3, trace4]
