@@ -15,6 +15,7 @@ for T in (GenericTrace, Layout)
     @eval Base.writemime(io::IO, ::MIME"text/plain", g::$T) =
         println(io, json(g, 2))
 
+    # methods that allow you to do `obj["first.second.third"] = val`
     @eval Base.setindex!(gt::$T, val, key::ASCIIString) =
         setindex!(gt, val, map(symbol, split(key, "."))...)
 
