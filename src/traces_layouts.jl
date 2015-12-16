@@ -1,15 +1,11 @@
-type GenericTrace{T<:Associative} <: AbstractTrace
-    kind::ASCIIString
-    fields::T
-end
 
 GenericTrace(kind::AbstractString; kwargs...) = GenericTrace(kind, Dict(kwargs))
 
-type Layout{T<:Associative} <: AbstractLayout
-    fields::T
-end
+
 
 Layout(;kwargs...) = Layout(Dict(kwargs))
+
+# TODO: implement getindex also
 
 for T in (GenericTrace, Layout)
     @eval Base.writemime(io::IO, ::MIME"text/plain", g::$T) =
@@ -55,5 +51,37 @@ for T in (GenericTrace, Layout)
         d1[k2] = d2
         gt.fields[k1] = d1
         val
+    end
+
+    # now on to the simpler getindex methods. They will try to get the desired
+    # key, but if it doesn't exist an empty dict is returned
+
+    @eval Base.getindex(gt::$T, key::ASCIIString) =
+        getindex(gt, map(symbol, split(key, "."))...)
+
+    @eval Base.getindex(gt::$T, keys::ASCIIString...) =
+        getindex(gt, map(symbol, keys)...)
+
+    @eval function Base.getindex(gt::$T, key::Symbol)
+        get(gt.fields, key, Dict())
+    end
+
+    @eval function Base.getindex(gt::$T, k1::Symbol, k2::Symbol)
+        d1 = get(gt.fields, k1, Dict())
+        get(d1, k2, Dict())
+    end
+
+    @eval function Base.getindex(gt::$T, k1::Symbol, k2::Symbol, k3::Symbol)
+        d1 = get(gt.fields, k1, Dict())
+        d2 = get(d1, k2, Dict())
+        get(d2, k3, Dict())
+    end
+
+    @eval function Base.getindex(gt::$T, k1::Symbol, k2::Symbol,
+                            k3::Symbol, k4::Symbol)
+        d1 = get(gt.fields, k1, Dict())
+        d2 = get(d1, k2, Dict())
+        d3 = get(d2, k3, Dict())
+        get(d3, k4, Dict())
     end
 end

@@ -15,6 +15,15 @@ type Plot{TT<:AbstractTrace}
     window::Nullable{Window}
 end
 
+type GenericTrace{T<:Associative} <: AbstractTrace
+    kind::ASCIIString
+    fields::T
+end
+
+type Layout{T<:Associative} <: AbstractLayout
+    fields::T
+end
+
 Plot() = Plot([], Layout(), Base.Random.uuid4(), Nullable{Window}())
 
 Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout()) =
@@ -34,6 +43,7 @@ end
 include("display.jl")
 include("api.jl")
 include("traces_layouts.jl")
+include("subplots.jl")
 include("json.jl")
 
 # NOTE: additional exports in api.jl

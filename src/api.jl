@@ -16,3 +16,7 @@ for t in [:histogram, :scatter3d, :surface, :mesh3d, :bar, :histogram2d,
     @eval $t(;kwargs...) = GenericTrace($str_t; kwargs...)
     eval(Expr(:export, t))
 end
+
+Base.copy(gt::GenericTrace) = GenericTrace(gt.kind, deepcopy(gt.fields))
+Base.copy(l::Layout) = Layout(deepcopy(l.fields))
+Base.copy(p::Plot) = Plot([copy(t) for t in p.data], copy(p.layout))
