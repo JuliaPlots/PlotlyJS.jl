@@ -4,9 +4,10 @@ Given the number of rows and columns, return an NTuple{4,Float64} containing
 width and height of each subplot and `vspace` and `hspace` are the vertical
 and horizonal spacing between subplots, respectively.
 """
-function sizes(nr::Int, nc::Int)
+function sizes(nr::Int, nc::Int, subplot_titles::Bool=false)
+    # NOTE: the logic of this function was mostly borrowed from plotly.py
     dx = 0.2 / nc
-    dy = 0.3 / nr
+    dy = subplot_titles ? 0.55 / nr : 0.3 / nr
     width = (1. - dx * (nc - 1)) / nc
     height = (1. - dy * (nr - 1)) / nr
     vspace = nr == 1 ? 0.0 : (1 - height*nr)/(nr-1)
@@ -14,8 +15,8 @@ function sizes(nr::Int, nc::Int)
     width, height, vspace, hspace
 end
 
-function gen_layout(nr, nc)
-    w, h, dy, dx = sizes(nr, nc)
+function gen_layout(nr, nc, subplot_titles::Bool=false)
+    w, h, dy, dx = sizes(nr, nc, subplot_titles)
 
     x = 0.0  # start from left
     y = 1.0  # start from top
@@ -67,9 +68,10 @@ function handle_titles!(big_layout, sub_layout, ix::Int)
 end
 
 function _cat(nr::Int, nc::Int, ps::Plot...)
-
     copied_plots = Plot[copy(p) for p in ps]
-    layout = gen_layout(nr, nc)
+    subplot_titles = any(map(x -> haskey(x.layout.fields, :title) ||
+                                  haskey(x.layout.fields, "title"), ps))
+    layout = gen_layout(nr, nc, subplot_titles)
 
     for col in 1:nc, row in 1:nr
         ix = sub2ind((nc, nr), col, row)
