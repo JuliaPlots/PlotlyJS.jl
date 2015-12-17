@@ -27,10 +27,10 @@ function gen_layout(nr, nc)
         for row in 1:nr
             subplot = sub2ind((nc, nr), col, row)
 
-            out["xaxis$subplot"] = Dict{Any,Any}("domain"=>[x, x+w],
-                                                 "anchor"=>"y$subplot")
-            out["yaxis$subplot"] = Dict{Any,Any}("domain"=>[y-h, y],
-                                                 "anchor"=>"x$subplot")
+            out["xaxis$subplot"] = Dict{Any,Any}(:domain=>[x, x+w],
+                                                 :anchor=> "y$subplot")
+            out["yaxis$subplot"] = Dict{Any,Any}(:domain=>[y-h, y],
+                                                 :anchor=> "x$subplot")
 
             y -= nr == 1 ? 0.0 : h + dy
          end
@@ -40,6 +40,30 @@ function gen_layout(nr, nc)
 
     out
 
+end
+
+function handle_titles!(big_layout, sub_layout, ix::Int)
+    # don't worry about it if the sub_layout doesn't have a title
+    if !haskey(sub_layout.fields, "title") && !haskey(sub_layout.fields, :title)
+        return big_layout
+    end
+
+    # check for symbol or string
+    nm = haskey(sub_layout.fields, "title") ? "title" : :title
+
+    ann = Dict{Any,Any}(:font => Dict{Any,Any}(:size => 16),
+                        :showarrow => false,
+                        :text => pop!(sub_layout.fields, nm),
+                        :x => mean(big_layout["xaxis$(ix).domain"]),
+                        :xanchor => "center",
+                        :xref => "paper",
+                        :y => big_layout["yaxis$(ix).domain"][2],
+                        :yanchor => "bottom",
+                        :yref => "paper")
+    anns = get(big_layout.fields, :annotations, Dict{Any,Any}[])
+    push!(anns, ann)
+    big_layout[:annotations] = anns
+    big_layout
 end
 
 function _cat(nr::Int, nc::Int, ps::Plot...)
@@ -55,6 +79,7 @@ function _cat(nr::Int, nc::Int, ps::Plot...)
             trace["yaxis"] = "y$ix"
         end
 
+        handle_titles!(layout, copied_plots[ix].layout, ix)
         layout["xaxis$ix"] = merge(copied_plots[ix].layout["xaxis"], layout["xaxis$ix"])
         layout["yaxis$ix"] = merge(copied_plots[ix].layout["yaxis"], layout["yaxis$ix"])
     end
