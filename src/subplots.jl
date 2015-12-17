@@ -1,5 +1,5 @@
 """
-Given the number of rows and columns, return an NTuple{4, Int} containing
+Given the number of rows and columns, return an NTuple{4,Float64} containing
 `(width, height, vspace, hspace)`, where `width` and `height` are the
 width and height of each subplot and `vspace` and `hspace` are the vertical
 and horizonal spacing between subplots, respectively.

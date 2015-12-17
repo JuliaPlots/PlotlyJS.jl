@@ -31,11 +31,24 @@ Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout()) =
 
 Plot(data::AbstractTrace, layout=Layout()) = Plot([data], layout)
 
+function _describe(x::Union{GenericTrace, Layout})
+    fields = sort(map(string, keys(x.fields)))
+    n_fields = length(fields)
+    if n_fields == 0
+        return "$(kind(x)) with no fields"
+    elseif n_fields == 1
+        return "$(kind(x)) with field $(fields[1])"
+    elseif n_fields == 2
+        return "$(kind(x)) with fields $(fields[1]) and $(fields[2])"
+    else
+        return "$(kind(x)) with fields $(join(fields, ", ", ", and "))"
+    end
+end
+
 function Base.writemime(io::IO, ::MIME"text/plain", p::Plot)
     println(io, """
-    data: $(json(p.data, 2))
-
-    layout: $(json(p.layout, 2))
+    data: $(json(map(_describe, p.data), 2))
+    layout: "$(_describe(p.layout))"
     """)
 end
 
@@ -51,6 +64,9 @@ export
 
     # core types
     Plot, GenericTrace, Layout,
+
+    # other methods
+    savefig, to_svg, png_data,
 
     # plotly.js api methods
     restyle!, relayout!, addtraces!, deletetraces!, movetraces!, redraw!

@@ -1,11 +1,9 @@
-
 GenericTrace(kind::AbstractString; kwargs...) = GenericTrace(kind, Dict(kwargs))
-
-
 
 Layout(;kwargs...) = Layout(Dict(kwargs))
 
-# TODO: implement getindex also
+kind(gt::GenericTrace) = gt.kind
+kind(l::Layout) = "layout"
 
 for T in (GenericTrace, Layout)
     @eval Base.writemime(io::IO, ::MIME"text/plain", g::$T) =
@@ -55,7 +53,6 @@ for T in (GenericTrace, Layout)
 
     # now on to the simpler getindex methods. They will try to get the desired
     # key, but if it doesn't exist an empty dict is returned
-
     @eval Base.getindex(gt::$T, key::ASCIIString) =
         getindex(gt, map(symbol, split(key, "."))...)
 
