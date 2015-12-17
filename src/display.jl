@@ -97,10 +97,12 @@ function restyle!(p::Plot; kwargs...)
     _call_js(p, "Plotly.restyle($thediv, $update);")
 end
 
-# function restyle!(p::Plot, stuff::AbstractPlotlyElement...)
-#     thediv = "document.getElementById('$(p.divid)')"
-#     Blink.js(w, Blink.JSString("Plotly.restyle($thediv, $update);"))
-# end
+function restyle!(p::Plot, traces::Int...; kwargs...)
+    thediv = "document.getElementById('$(p.divid)')"
+    update = json(Dict(map(prep_kwarg, kwargs)))
+    _call_js(p, "Plotly.restyle($thediv, $update, $(collect(traces)));")
+end
+
 
 # TODO: consider the array stuff
 
