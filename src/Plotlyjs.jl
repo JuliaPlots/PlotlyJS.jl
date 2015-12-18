@@ -24,7 +24,7 @@ type Layout{T<:Associative} <: AbstractLayout
     fields::T
 end
 
-Plot() = Plot([], Layout(), Base.Random.uuid4(), Nullable{Window}())
+Plot() = Plot(GenericTrace[], Layout(), Base.Random.uuid4(), Nullable{Window}())
 
 Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout()) =
     Plot(data, layout, Base.Random.uuid4(), Nullable{Window}())
