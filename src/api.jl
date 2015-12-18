@@ -21,12 +21,7 @@ Base.copy(gt::GenericTrace) = GenericTrace(gt.kind, deepcopy(gt.fields))
 Base.copy(l::Layout) = Layout(deepcopy(l.fields))
 Base.copy(p::Plot) = Plot([copy(t) for t in p.data], copy(p.layout))
 
-function to_svg(p::Plot, format="pdf")
-    Blink.js(Plotlyjs.get_window(p), Blink.JSString("""
-       var plt = document.getElementById('$(p.divid)');
-       Plotly.Snapshot.toSVG(plt, '$format')
-       """))
-end
+to_svg(p::Plot, format="pdf") = @js p Plotly.Snapshot.toSVG(this, $format)
 
 # TODO: add width and height and figure out how to convert from measures to the
 #       pixels that will be expected in the SVG
@@ -95,29 +90,8 @@ function _img_data(p::Plot, format::ASCIIString)
         return to_svg(p)
     end
 
-    # show the plot so we can access canvas
-    # show(p)
-    code = """
-    var plt = document.getElementById('$(p.divid)');
-    var ev = Plotly.Snapshot.toImage(plt, {format: '$format'});
-    ev.once('success', function(imgData) {
-        var storage = document.createElement('p');
-        storage.id = 'theImageData';
-        storage.innerHTML = imgData;
-        storage.style.visibility = 'hidden';
-        storage.style.width = '0px';
-        storage.style.height = '0px';
-        document.head.appendChild(storage);
-        ev.clean();
-    });
-    """
-    _call_js(p, code)
-    sleep(0.2)  # give plotly time to fill the element with our data
-    new_code = """
-    var el = document.getElementById('theImageData');
-    var out = el.innerHTML;
-    el.remove()
-    out
-    """
-    Blink.js(get_window(p), Blink.JSString(new_code))
+    @js p begin
+        ev = Plotly.Snapshot.toImage(this, d("format"=>$format))
+        @new Promise(resolve -> ev.once("success", resolve))
+    end
 end
