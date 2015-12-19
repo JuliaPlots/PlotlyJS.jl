@@ -21,6 +21,7 @@ Base.copy(gt::GenericTrace) = GenericTrace(gt.kind, deepcopy(gt.fields))
 Base.copy(l::Layout) = Layout(deepcopy(l.fields))
 Base.copy(p::Plot) = Plot([copy(t) for t in p.data], copy(p.layout))
 
+# TODO: somehow `length(to_svg(p))` is not idempotent
 to_svg(p::Plot, format="pdf") = @js p Plotly.Snapshot.toSVG(this, $format)
 
 # TODO: add width and height and figure out how to convert from measures to the
@@ -80,6 +81,7 @@ function webp_data(p::Plot)
     raw[length("data:image/webp;base64,")+1:end]
 end
 
+# TODO: I get a "Callback timed out" error about 1/2 the time
 function _img_data(p::Plot, format::ASCIIString)
     _formats = ["png", "jpeg", "webp", "svg"]
     if !(format in _formats)
