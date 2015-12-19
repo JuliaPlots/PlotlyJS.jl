@@ -81,9 +81,6 @@ end
 Blink.js(p::Plot, code::JSString; callback = true) =
     Blink.js(get_window(p), :(Blink.evalwith(thediv, $(Blink.jsstring(code)))), callback = callback)
 
-prep_kwarg(pair) = (symbol(replace(string(pair[1]), "_", ".")), pair[2])
-prep_kwargs(pairs) = Dict(map(prep_kwarg, pairs))
-
 restyle!(p::Plot, update = Dict(); kwargs...) =
     @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))))
 

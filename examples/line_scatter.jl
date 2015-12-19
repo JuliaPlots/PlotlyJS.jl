@@ -12,18 +12,18 @@ end
 function example2()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers", name="Team A",
-                      text=["A-1", "A-2", "A-3", "A-4", "A-5"])
-    trace1["marker.size"] = 12
+                      text=["A-1", "A-2", "A-3", "A-4", "A-5"]
+                      marker_size=12)
 
     trace2 = scatter(;x=1:5+0.5, y=[4, 1, 7, 1, 4],
-                      mode= "markers", name= "Team B",
-                      text= ["B-a", "B-b", "B-c", "B-d", "B-e"])
+                      mode="markers", name= "Team B",
+                      text=["B-a", "B-b", "B-c", "B-d", "B-e"]
+    # setting marker.size this way is _equivalent_ to what we did for trace1
     trace2["marker"] = Dict(:size => 12)
 
     data = [trace1, trace2]
-    layout = Layout(;title="Data Labels Hover")
-    layout["xaxis.range"] = [0.75, 5.25]
-    layout["yaxis.range"] = [0, 8]
+    layout = Layout(;title="Data Labels Hover", xaxis_range=[0.75, 5.25],
+                     yaxis_range=[0, 8])
     p = Plot(data, layout); show(p); p
 end
 
@@ -31,35 +31,27 @@ function example3()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers+text", name="Team A",
                       textposition="top center",
-                      text=["A-1", "A-2", "A-3", "A-4", "A-5"])
-    trace1["marker.size"] = 12
-    trace1["textfont.family"] = "Raleway, sans-serif"
+                      text=["A-1", "A-2", "A-3", "A-4", "A-5"],
+                      marker_size=12, textfont_family="Raleway, sans-serif")
 
     trace2 = scatter(;x=1:5+0.5, y=[4, 1, 7, 1, 4],
                       mode="markers+text", name= "Team B",
                       textposition="bottom center",
-                      text= ["B-a", "B-b", "B-c", "B-d", "B-e"])
-    trace2["marker"] = Dict(:size => 12)
-    trace2["textfont.family"] = "Times New Roman"
+                      text= ["B-a", "B-b", "B-c", "B-d", "B-e"],
+                      marker_size=12, textfont_family="Times New Roman")
 
     data = [trace1, trace2]
 
-    layout = Layout(;title="Data Labels on the Plot")
-    layout["xaxis.range"] = [0.75, 5.25]
-    layout["yaxis.range"] = [0, 8]
-    layout["legend"] = Dict(:y => 0.5,
-                            :yref => "paper",
-                            :font => Dict(:family => "Arial, sans-serif",
-                                          :size => 20,
-                                          :color => "grey")
-                            )
+    layout = Layout(;title="Data Labels on the Plot", xaxis_range=[0.75, 5.25],
+                     yaxis_range=[0, 8], legend_y=0.5, legend_yref="paper",
+                     legend_font=Dict(:family => "Arial, sans-serif", :size => 20,
+                                      :color => "grey"))
     p = Plot(data, layout); show(p); p
 end
 
 function example4()
-    trace1 = scatter(;y=fill(5, 40), mode="markers")
-    trace1["marker.size"] = 40
-    trace1["marker.color"] = 0:39
+    trace1 = scatter(;y=fill(5, 40), mode="markers", marker_size=40,
+                      marker_color=0:39)
     layout = Layout(title="Scatter Plot with a Color Dimension")
     p = Plot(trace1, layout); show(p); p
 end
@@ -75,15 +67,15 @@ function example5()
     regVoters = [49.1, 42, 52.7, 84.3, 51.7, 61.1, 55.3, 64.2, 91.1, 58.9]
 
     trace1 = scatter(;x=votingPop, y=country, mode="markers",
-                          name="Percent of estimated voting age population")
-    trace1["marker"] = Dict(:color => "rgba(156, 165, 196, 0.95)",
-                            :line => Dict(:color=> "rgba(156, 165, 196, 1.0)",
-                                          :width=> 1),
-                            :symbol => "circle",
-                            :size => 16)
+                      name="Percent of estimated voting age population",
+                      marker_color="rgba(156, 165, 196, 0.95)",
+                      marker_line_color="rgba(156, 165, 196, 1.0)",
+                      marker_line_width=1,
+                      marker_size=16, marker_symbol="circle")
 
     trace2 = scatter(;x=regVoters, y=country, mode="markers",
-                           name="Percent of estimated registered voters")
+                      name="Percent of estimated registered voters")
+    # also could have set the marker props above by using a dict
     trace2["marker"] = Dict(:color => "rgba(204, 204, 204, 0.95)",
                            :line => Dict(:color=> "rgba(217, 217, 217, 1.0)",
                                          :width=> 1),
@@ -125,31 +117,29 @@ function example6()
 
     trace2 = scatter(;x=[39317, 37236, 35650, 30066, 29570, 27159, 23557, 21046, 18007],
                       y=[33, 20, 13, 19, 27, 19, 49, 44, 38],
-                      mode="markers",
-                      name="Europe",
-                      text=["Germany", "Britain", "France", "Spain", "Italy", "Czech Rep.", "Greece", "Poland"])
-    trace2["marker"] = Dict(:color => "rgb(255, 217, 102)",
-                            :size => 12)
+                      mode="markers", name="Europe",
+                      marker_size=12, marker_color="rgb(255, 217, 102)",
+                      text=["Germany", "Britain", "France", "Spain", "Italy", "Czech Rep.",
+                            "Greece", "Poland"])
 
     trace3 = scatter(;x=[42952, 37037, 33106, 17478, 9813, 5253, 4692, 3899],
                       y=[23, 42, 54, 89, 14, 99, 93, 70],
                       mode="markers",
                       name="Asia/Pacific",
+                      marker_size=12, marker_color="rgb(234, 153, 153)",
                       text=["Australia", "Japan", "South Korea", "Malaysia", "China", "Indonesia", "Philippines", "India"])
-    trace3["marker"] = Dict(:color => "rgb(234, 153, 153)",
-                            :size => 12)
-
 
     trace4 = scatter(;x=[19097, 18601, 15595, 13546, 12026, 7434, 5419],
                       y=[43, 47, 56, 80, 86, 93, 80],
-                      mode="markers",
-                      name="Latin America",
+                      mode="markers", name="Latin America",
+                      marker_size=12, marker_color="rgb(142, 124, 195)",
                       text=["Chile", "Argentina", "Mexico", "Venezuela", "Venezuela", "El Salvador", "Bolivia"])
-    trace4["marker"] = Dict(:color => "rgb(142, 124, 195)",
-                            :size => 12)
+
     data = [trace1, trace2, trace3, trace4]
 
-    layout = Layout(;title="Quarter 1 Growth")
+    layout = Layout(;title="Quarter 1 Growth",
+                     xaxis_title="GDP per Capita", xaxis_showgrid=false, xaxis_zeroline=false,
+                     yaxis_title="Percent", yaxis_zeroline=false)
     layout["xaxis"] = Dict(:title => "GDP per Capita", :showgrid => false, :zeroline => false)
     layout["yaxis"] = Dict(:title => "Percent", :showline => false)
 

@@ -15,12 +15,12 @@ type Plot{TT<:AbstractTrace}
     window::Nullable{Window}
 end
 
-type GenericTrace{T<:Associative} <: AbstractTrace
+type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
     kind::ASCIIString
     fields::T
 end
 
-type Layout{T<:Associative} <: AbstractLayout
+type Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
     fields::T
 end
 
@@ -51,6 +51,9 @@ function Base.writemime(io::IO, ::MIME"text/plain", p::Plot)
     layout: "$(_describe(p.layout))"
     """)
 end
+
+prep_kwarg(pair) = (symbol(replace(string(pair[1]), "_", ".")), pair[2])
+prep_kwargs(pairs) = Dict(map(prep_kwarg, pairs))
 
 # include the rest of the package
 include("display.jl")
