@@ -96,7 +96,7 @@ relayout!(p::Plot, update = Dict(); kwargs...) =
     @js_ p Plotly.relayout(this, $(merge(update, prep_kwargs(kwargs))))
 
 addtraces!(p::Plot, traces::AbstractTrace...) =
-    @js_ p Plotly.addtraces(this, $traces)
+    @js_ p Plotly.addTraces(this, $traces)
 
 # TODO: add method for where to add trace
 
