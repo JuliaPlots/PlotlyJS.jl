@@ -1,6 +1,6 @@
 # PlotlyJS
 
-[![Build Status](https://travis-ci.org/spencerlyon2/Plotlyjs.jl.svg?branch=master)](https://travis-ci.org/spencerlyon2/PlotlyJS.jl)
+[![Build Status](https://travis-ci.org/spencerlyon2/PlotlyJS.jl.svg?branch=master)](https://travis-ci.org/spencerlyon2/PlotlyJS.jl)
 
 Julia interface to [plotly.js](https://plot.ly/javascript) visualization library.
 
