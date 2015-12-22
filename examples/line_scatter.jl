@@ -1,5 +1,3 @@
-module LineScatterExamples
-
 using PlotlyJS
 
 function example1()
@@ -12,12 +10,12 @@ end
 function example2()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers", name="Team A",
-                      text=["A-1", "A-2", "A-3", "A-4", "A-5"]
+                      text=["A-1", "A-2", "A-3", "A-4", "A-5"],
                       marker_size=12)
 
     trace2 = scatter(;x=1:5+0.5, y=[4, 1, 7, 1, 4],
                       mode="markers", name= "Team B",
-                      text=["B-a", "B-b", "B-c", "B-d", "B-e"]
+                      text=["B-a", "B-b", "B-c", "B-d", "B-e"])
     # setting marker.size this way is _equivalent_ to what we did for trace1
     trace2["marker"] = Dict(:size => 12)
 
@@ -85,11 +83,10 @@ function example5()
     data = [trace1, trace2]
 
     layout = Layout(title="Votes cast for ten lowest voting age population in OECD countries",
-                    width=600,
-                    height=600,
-                    paper_bgcolor="rgb(254, 247, 234)",
-                    plot_bgcolor="rgb(254, 247, 234)",
-                    hovermode="closest")
+                    width=600, height=600, hovermode="closest",
+                    margin=Dict(:l => 140, :r => 40, :b => 50, :t => 80))
+    layout.fields[:paper_bgcolor] = "rgb(254, 247, 234)"
+    layout.fields[:plot_bgcolor] = "rgb(254, 247, 234)"
     layout["xaxis"] = Dict(:showgrid => false,
                            :showline => true,
                            :linecolor => "rgb(102, 102, 102)",
@@ -99,7 +96,6 @@ function example5()
                            :dtick => 10,
                            :ticks => "outside",
                            :tickcolor => "rgb(102, 102, 102)")
-    layout[:margin] = Dict(:l => 140, :r => 40, :b => 50, :t => 80)
     layout["legend"] = Dict(:font => Dict(:size => 10),
                             :yanchor => "middle",
                             :xanchor => "right")
@@ -145,5 +141,3 @@ function example6()
 
     p = Plot(data, layout); show(p); p
 end
-
-end  # module
