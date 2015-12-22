@@ -1,6 +1,6 @@
-# module ContourExamples
+using PlotlyJS
 
-function example3()
+function contour1(showme=false)
     x = [-9, -6, -5 , -3, -1]
     y = [0, 1, 4, 5, 7]
     z = [10     10.625  12.5  15.625  20
@@ -11,7 +11,7 @@ function example3()
     trace = contour(x=x, y=y, z=z)
 
     layout = Layout(title="Setting the X and Y Coordinates in a Contour Plot")
-    p = Plot(trace, layout); show(p); p
+    p = Plot(trace, layout)
+    showme && show(p)
+    p
 end
-
-# end  # module
