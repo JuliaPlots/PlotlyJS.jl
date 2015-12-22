@@ -1,6 +1,6 @@
 module LineScatterExamples
 
-using Plotlyjs
+using PlotlyJS
 
 function example1()
     trace1 = scatter(;x=1:4, y=[10, 15, 13, 17], mode="markers")

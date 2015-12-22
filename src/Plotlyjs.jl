@@ -1,4 +1,4 @@
-module Plotlyjs
+module PlotlyJS
 
 using JSON
 using Blink

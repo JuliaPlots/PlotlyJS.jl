@@ -1,8 +1,8 @@
 module TestTraces
 
 using Base.Test
-include(joinpath(dirname(dirname(abspath(@__FILE__))), "src", "Plotlyjs.jl"))
-typealias M Plotlyjs
+include(joinpath(dirname(dirname(abspath(@__FILE__))), "src", "PlotlyJS.jl"))
+typealias M PlotlyJS
 
 gt = M.GenericTrace("scatter"; x=1:10, y=sin(1:10))
 @test sort(collect(keys(gt.fields))) == [:x, :y]
