@@ -7,7 +7,7 @@ Julia interface to [plotly.js](https://plot.ly/javascript) visualization library
 Key features:
 
 - Simple types that both expose full plotly.js functionality _and_ provide a smoother Julia API for doing so
-- Dedicated display window via Electron (uses [Blink.jl](https://github.com/JunoLab/Blink.jl)). Allows _efficient_ updating of portions of the plot and exposes all [plotly.js functions](https://plot.ly/javascript/plotlyjs-function-reference/) in pure Julia
+- Dedicated display window via Electron (uses [Blink.jl](https://github.com/JunoLab/Blink.jl)). Allows _efficient_ updating of portions of the plot and exposes all exported [plotly.js functions](https://plot.ly/javascript/plotlyjs-function-reference/) in pure Julia
 - Jupyter notebook integration
 
 For examples of usage, see the `examples` directory.
