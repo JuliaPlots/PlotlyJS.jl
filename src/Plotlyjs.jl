@@ -8,20 +8,14 @@ abstract AbstractPlotlyElement
 abstract AbstractTrace <: AbstractPlotlyElement
 abstract AbstractLayout <: AbstractPlotlyElement
 
+# include these here because they are used below
+include("traces_layouts.jl")
+
 type Plot{TT<:AbstractTrace}
     data::Vector{TT}
     layout::AbstractLayout
     divid::Base.Random.UUID
     window::Nullable{Window}
-end
-
-type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
-    kind::ASCIIString
-    fields::T
-end
-
-type Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
-    fields::T
 end
 
 Plot() = Plot(GenericTrace[], Layout(), Base.Random.uuid4(), Nullable{Window}())
@@ -58,7 +52,6 @@ prep_kwargs(pairs) = Dict(map(prep_kwarg, pairs))
 # include the rest of the package
 include("display.jl")
 include("api.jl")
-include("traces_layouts.jl")
 include("subplots.jl")
 include("json.jl")
 

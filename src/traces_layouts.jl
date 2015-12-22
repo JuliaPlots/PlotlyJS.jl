@@ -1,3 +1,8 @@
+type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
+    kind::ASCIIString
+    fields::T
+end
+
 function GenericTrace(kind::AbstractString, fields=Dict{Symbol,Any}(); kwargs...)
     # use setindex! methods below to handle `_` substitution
     gt = GenericTrace(kind, fields)
@@ -5,11 +10,20 @@ function GenericTrace(kind::AbstractString, fields=Dict{Symbol,Any}(); kwargs...
     gt
 end
 
-function Layout(fields=Dict{Symbol,Any}(); kwargs...)
-    l = Layout(fields)
-    map(x->setindex!(l, x[2], x[1]), kwargs)
-    l
+const _layout_defaults = Dict{Symbol,Any}(:margin => Dict(:l=>50, :r=>50, :t=>60, :b=>50))
+
+type Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
+    fields::T
+
+    function Layout(fields; kwargs...)
+        l = new(merge(_layout_defaults, fields))
+        map(x->setindex!(l, x[2], x[1]), kwargs)
+        l
+    end
 end
+
+Layout{T<:Associative{Symbol,Any}}(fields::T=Dict{Symbol,Any}(); kwargs...) =
+    Layout{T}(fields; kwargs...)
 
 kind(gt::GenericTrace) = gt.kind
 kind(l::Layout) = "layout"
