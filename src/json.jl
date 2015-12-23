@@ -55,3 +55,5 @@ function JSON.parse(::Type{Plot}, str::AbstractString)
     layout = Layout(d["layout"])
     Plot(data, layout)
 end
+
+JSON.parsefile(::Type{Plot}, fn) = open(fn, "r") do f; JSON.parse(Plot, readall(f)) end
