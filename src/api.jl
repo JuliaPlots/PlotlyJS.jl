@@ -26,7 +26,7 @@ to_svg(p::Plot, format="pdf") = @js p Plotly.Snapshot.toSVG(this, $format)
 
 # TODO: add width and height and figure out how to convert from measures to the
 #       pixels that will be expected in the SVG
-function savefig(p::Plot, fn::AbstractString; dpi::Real=96)
+function savefig2(p::Plot, fn::AbstractString; dpi::Real=96)
     bas, ext = split(fn, ".")
     if !(ext in ["pdf", "png", "ps"])
         error("Only `pdf`, `png` and `ps` output supported")
@@ -51,14 +51,41 @@ function savefig(p::Plot, fn::AbstractString; dpi::Real=96)
 end
 
 # an alternative way to save plots -- no shelling out, but output less pretty
-function savefig2(p::Plot, fn::AbstractString)
+function savefig(p::Plot, fn::AbstractString,
+                #   sz::Tuple{Int,Int}=(8,6),
+                #   dpi::Int=300
+                  )
     # make sure plot window is active
     show(p)
-    @eval begin
-        import ImageMagick, FileIO
-    end
-    img = ImageMagick.load_(base64decode(png_data(p)))
-    FileIO.save(fn, img)
+
+    # construct a magic wand and read the image data from png
+    wand = MagickWand()
+    # readimage(wand, _img_data(p, "svg"))
+    readimage(wand, base64decode(png_data(p)))
+    resetiterator(wand)
+
+    # # set units to inches
+    # status = ccall((:MagickSetImageUnits, ImageMagick.libwand), Cint,
+    #       (Ptr{Void}, Cint), wand.ptr, 1)
+    # status == 0 && error(wand)
+    #
+    # # calculate number of rows/cols
+    # width, height = sz[1]*dpi, sz[2]*dpi
+    #
+    # # set resolution
+    # status = ccall((:MagickSetImageResolution, ImageMagick.libwand), Cint,
+    # (Ptr{Void}, Cdouble, Cdouble), wand.ptr, Cdouble(dpi), Cdouble(dpi))
+    # status == 0 && error(wand)
+    #
+    # # set number of columns and rows
+    # status = ccall((:MagickAdaptiveResizeImage, ImageMagick.libwand), Cint,
+    #       (Ptr{Void}, Csize_t, Csize_t), wand.ptr, Csize_t(width), Csize_t(height))
+    # status == 0 && error(wand)
+
+
+    # finally write the image out
+    writeimage(wand, fn)
+
     p
 end
 
@@ -81,12 +108,13 @@ function webp_data(p::Plot)
     raw[length("data:image/webp;base64,")+1:end]
 end
 
-# TODO: I get a "Callback timed out" error about 1/2 the time
 function _img_data(p::Plot, format::ASCIIString)
     _formats = ["png", "jpeg", "webp", "svg"]
     if !(format in _formats)
         error("Unsupported format $format, must be one of $_formats")
     end
+
+    show(p)
 
     @js p begin
         ev = Plotly.Snapshot.toImage(this, d("format"=>$format))
@@ -101,8 +129,10 @@ end
 # TODO: update the fields on the Plot object also for functions that mutate the
 #       plot
 
+getdiv(p) = :(document.getElementById($(string(p.divid))))
+
 Blink.js(p::Plot, code::JSString; callback = true) =
-    Blink.js(get_window(p), :(Blink.evalwith(thediv, $(Blink.jsstring(code)))), callback = callback)
+    Blink.js(get_window(p), :(Blink.evalwith($(getdiv(p)), $(Blink.jsstring(code)))), callback = callback)
 
 restyle!(p::Plot, update = Dict(); kwargs...) =
     @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))))

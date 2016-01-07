@@ -2,6 +2,7 @@ module PlotlyJS
 
 using JSON
 using Blink
+using ImageMagick
 using Colors
 
 abstract AbstractPlotlyElement

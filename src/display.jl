@@ -55,7 +55,12 @@ end
 function Base.show(p::Plot)
     w = get_window(p)
     Blink.load!(w, _js_path)
-    Blink.body!(w, html_body(p))
+    @js w begin
+        @var thediv = document.createElement("div")
+        thediv.id = $(string(p.divid));
+        document.body.appendChild(thediv);
+        Plotly.plot(thediv, $(p.data),  $(p.layout), d("showLink"=> false))
+    end
     p
 end
 
