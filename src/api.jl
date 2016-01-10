@@ -21,9 +21,6 @@ Base.copy(gt::GenericTrace) = GenericTrace(gt.kind, deepcopy(gt.fields))
 Base.copy(l::Layout) = Layout(deepcopy(l.fields))
 Base.copy(p::Plot) = Plot([copy(t) for t in p.data], copy(p.layout))
 
-# TODO: somehow `length(to_svg(p))` is not idempotent
-to_svg(p::Plot, format="pdf") = @js p Plotly.Snapshot.toSVG(this, $format)
-
 # TODO: add width and height and figure out how to convert from measures to the
 #       pixels that will be expected in the SVG
 function savefig2(p::Plot, fn::AbstractString; dpi::Real=96)
@@ -37,7 +34,7 @@ function savefig2(p::Plot, fn::AbstractString; dpi::Real=96)
     # write svg to tempfile
     temp = tempname()
     open(temp, "w") do f
-        write(f, to_svg(p, ext))
+        write(f, svg_data(p, ext))
     end
 
     # hand off to cairosvg for conversion
@@ -55,14 +52,37 @@ function savefig(p::Plot, fn::AbstractString,
                 #   sz::Tuple{Int,Int}=(8,6),
                 #   dpi::Int=300
                   )
-    # make sure plot window is active
+
+    # Extract file type
+    suf = split(fn, ".")[end]
+
+    # if html we don't need a plot window
+    if suf == "html"
+        open(fn, "w") do f
+            writemime(f, MIME"text/html"(), p)
+        end
+        return p
+    end
+
+    # for all the rest we need an active plot window
     show(p)
 
+    # we can export svg directly
+    if suf == "svg"
+        open(fn, "w") do f
+            write(f, svg_data(p))
+        end
+        return p
+    end
+
+    # now for the rest we need ImageMagick
+    @eval import ImageMagick
+
     # construct a magic wand and read the image data from png
-    wand = MagickWand()
+    wand = ImageMagick.MagickWand()
     # readimage(wand, _img_data(p, "svg"))
-    readimage(wand, base64decode(png_data(p)))
-    resetiterator(wand)
+    ImageMagick.readimage(wand, base64decode(png_data(p)))
+    ImageMagick.resetiterator(wand)
 
     # # set units to inches
     # status = ccall((:MagickSetImageUnits, ImageMagick.libwand), Cint,
@@ -82,16 +102,11 @@ function savefig(p::Plot, fn::AbstractString,
     #       (Ptr{Void}, Csize_t, Csize_t), wand.ptr, Csize_t(width), Csize_t(height))
     # status == 0 && error(wand)
 
-
     # finally write the image out
-    writeimage(wand, fn)
+    ImageMagick.writeimage(wand, fn)
 
     p
 end
-
-
-# TODO: I'm not really sure what to do with this... I _think_ it is base64 encoded
-#       and I will need to do some sort of encode/decode... not sure though
 
 function png_data(p::Plot)
     raw = _img_data(p, "png")
@@ -107,6 +122,9 @@ function webp_data(p::Plot)
     raw = _img_data(p, "webp")
     raw[length("data:image/webp;base64,")+1:end]
 end
+
+# TODO: somehow `length(svg_data(p))` is not idempotent
+svg_data(p::Plot, format="pdf") = @js p Plotly.Snapshot.toSVG(this, $format)
 
 function _img_data(p::Plot, format::ASCIIString)
     _formats = ["png", "jpeg", "webp", "svg"]
@@ -162,7 +180,6 @@ movetraces!(p::Plot, src::Union{Int,Vector{Int}}, dest::Union{Int,Vector{Int}}) 
 
 redraw!(p::Plot) =
     @js_ p Plotly.redraw(this)
-
 
 redraw!(p::Plot) =
     @js_ p Plotly.redraw(this)

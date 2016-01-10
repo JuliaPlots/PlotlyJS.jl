@@ -2,7 +2,6 @@ module PlotlyJS
 
 using JSON
 using Blink
-using ImageMagick
 using Colors
 
 abstract AbstractPlotlyElement
@@ -63,9 +62,10 @@ export
     Plot, GenericTrace, Layout,
 
     # other methods
-    savefig, to_svg, png_data,
+    savefig, svg_data, png_data, jpeg_data, webp_data
 
     # plotly.js api methods
-    restyle!, relayout!, addtraces!, deletetraces!, movetraces!, redraw!
+    restyle!, relayout!, addtraces!, deletetraces!, movetraces!, redraw!,
+    extendtraces!, prependtraces!
 
 end # module
