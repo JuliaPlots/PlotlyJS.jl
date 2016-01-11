@@ -140,6 +140,32 @@ function _img_data(p::Plot, format::ASCIIString)
     end
 end
 
+const _mimeformats =  Dict("application/eps"         => "eps",
+                           "image/eps"               => "eps",
+                           "application/pdf"         => "pdf",
+                           "image/png"               => "png",
+                           "image/jpeg"              => "jpeg",
+                           "application/postscript"  => "ps",
+                           # "image/svg+xml"           => "svg"
+)
+
+# const libwand = "/Users/sglyon/.julia/v0.4/Homebrew/deps/usr/lib/libMagickWand-6.Q16.dylib"
+
+for (mime, fmt) in _mimeformats
+    @eval function Base.writemime(io::IO, ::MIME{symbol($mime)}, p::Plot)
+        @eval import ImageMagick
+
+        # construct a magic wand and read the image data from png
+        wand = ImageMagick.MagickWand()
+        ImageMagick.readimage(wand, base64decode(png_data(p)))
+        ImageMagick.setimageformat(wand, $fmt)
+        ImageMagick.writeimage(wand, io)
+
+    end
+end
+
+
+
 
 # -------------- #
 # Javascript API #
