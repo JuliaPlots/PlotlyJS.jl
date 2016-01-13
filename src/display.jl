@@ -30,63 +30,33 @@ script_content(p::Plot) = """
 function stringmime(::MIME"text/html", p::Plot, js::Symbol=:local)
 
     if js == :local
-        str = """
-              <html>
-              <head>
-                   <script src="$(_js_path)"></script>
-              </head>
-              <body>
-                   $(html_body(p))
-              </body>
-              </html>
-    """
+        script_txt = "<script src=\"$(_js_path)\"></script>"
     elseif js == :remote
-        str = """
-              <html>
-              <head>
-                   <script src="$(_js_cdn_path)"></script>
-              </head>
-              <body>
-                   $(html_body(p))
-              </body>
-              </html>
-              """           
+        script_txt = "<script src=\"$(_js_cdn_path)\"></script>"
     elseif js == :embed
-        str = """
-              <html>
-              <head>
-                   <script>
-                      $(plotlyjs_str(_js_path))
-                   </script>
-              </head>
-
-              <body>
-                      $(html_body(p))
-              </body>
-              </html>
-              """             
+        script_txt = "<script>$(readall(_js_path))</script>"
     else
-        error("unknon argument $js")
+        msg = """
+        Unknown value for argument js: $js.
+        Possible choices are `:local`, `:remote`, `:embed`
+            """
+        throw(ArgumentError(msg))
     end
     
-    str
+
+    """
+    <html>
+    <head>
+         $script_txt
+    </head>
+    <body>
+         $(html_body(p))
+    </body>
+    </html>
+    """
 
 end
 
-
-#stringmime(::MIME"text/html", p::Plot) =  """
-#    <html>
-#    <head>
-#        <script>
-#           $(plotlyjs_str(_js_path))
-#        </script>
-#    </head>
-
-#    <body>
-#      $(html_body(p))
-#    </body>
-#    </html>
-#    """
 
 Base.writemime(io::IO, ::MIME"text/html", p::Plot, js::Symbol=:local) =
     print(io, stringmime(MIME"text/html"(), p, js))
