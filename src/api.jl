@@ -48,6 +48,10 @@ function savefig2(p::Plot, fn::AbstractString; dpi::Real=96)
 end
 
 # an alternative way to save plots -- no shelling out, but output less pretty
+# js can be one of
+#    :local - reference the javascript from PlotlyJS installation
+#    :remote - reference the javascript from plotly CDN
+#    :embed - embed the javascript in output (add's 1.7MB to size)
 function savefig(p::Plot, fn::AbstractString; js::Symbol=:local
                 #   sz::Tuple{Int,Int}=(8,6),
                 #   dpi::Int=300
