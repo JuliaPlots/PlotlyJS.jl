@@ -132,7 +132,8 @@ function _img_data(p::Plot, format::ASCIIString)
         error("Unsupported format $format, must be one of $_formats")
     end
 
-    show(p)
+    # sliently show
+    show(p; show=false)
 
     @js p begin
         ev = Plotly.Snapshot.toImage(this, d("format"=>$format))
@@ -148,8 +149,6 @@ const _mimeformats =  Dict("application/eps"         => "eps",
                            "application/postscript"  => "ps",
                            # "image/svg+xml"           => "svg"
 )
-
-# const libwand = "/Users/sglyon/.julia/v0.4/Homebrew/deps/usr/lib/libMagickWand-6.Q16.dylib"
 
 for (mime, fmt) in _mimeformats
     @eval function Base.writemime(io::IO, ::MIME{symbol($mime)}, p::Plot)

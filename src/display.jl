@@ -41,19 +41,20 @@ Base.writemime(io::IO, ::MIME"text/html", p::Plot) =
 
 get_blink() = Blink.AtomShell.shell()
 
-function get_window(p::Plot)
+function get_window(p::Plot, kwargs...)
     if !isnull(p.window) && active(get(p.window))
         w = get(p.window)
     else
         width, height = size(p)
-        w = Window(get_blink(), Dict{Any,Any}(:width=>width, :height=>height))
+        opts = merge(Dict(kwargs), Dict{Any,Any}(:width=>width, :height=>height))
+        w = Window(get_blink(), opts)
         p.window = Nullable{Window}(w)
     end
     w
 end
 
-function Base.show(p::Plot)
-    w = get_window(p)
+function Base.show(p::Plot; kwargs...)
+    w = get_window(p, kwargs...)
     Blink.load!(w, _js_path)
     @js w begin
         @var thediv = document.createElement("div")
