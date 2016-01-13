@@ -5,7 +5,6 @@
 const _js_path = joinpath(dirname(dirname(@__FILE__)),
                           "deps", "plotly-latest.min.js")
 const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
-plotlyjs_str(fn) = join(readlines(open(fn, "r")))
 
 
 function html_body(p::Plot)
