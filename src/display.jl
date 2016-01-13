@@ -4,6 +4,9 @@
 
 const _js_path = joinpath(dirname(dirname(@__FILE__)),
                           "deps", "plotly-latest.min.js")
+const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
+plotlyjs_str(fn) = join(readlines(open(fn, "r")))
+
 
 function html_body(p::Plot)
     """
@@ -23,20 +26,70 @@ script_content(p::Plot) = """
     Plotly.plot(thediv, data,  layout, {showLink: false});
     """
 
-stringmime(::MIME"text/html", p::Plot) =  """
-    <html>
-    <head>
-        <script src="$(_js_path)"></script>
-    </head>
 
-    <body>
-      $(html_body(p))
-    </body>
-    </html>
+function stringmime(::MIME"text/html", p::Plot, js::Symbol=:local)
+
+    if js == :local
+        str = """
+              <html>
+              <head>
+                   <script src="$(_js_path)"></script>
+              </head>
+              <body>
+                   $(html_body(p))
+              </body>
+              </html>
     """
+    elseif js == :remote
+        str = """
+              <html>
+              <head>
+                   <script src="$(_js_cdn_path)"></script>
+              </head>
+              <body>
+                   $(html_body(p))
+              </body>
+              </html>
+              """           
+    elseif js == :embed
+        str = """
+              <html>
+              <head>
+                   <script>
+                      $(plotlyjs_str(_js_path))
+                   </script>
+              </head>
 
-Base.writemime(io::IO, ::MIME"text/html", p::Plot) =
-    print(io, stringmime(MIME"text/html"(), p))
+              <body>
+                      $(html_body(p))
+              </body>
+              </html>
+              """             
+    else
+        error("unknon argument $js")
+    end
+    
+    str
+
+end
+
+
+#stringmime(::MIME"text/html", p::Plot) =  """
+#    <html>
+#    <head>
+#        <script>
+#           $(plotlyjs_str(_js_path))
+#        </script>
+#    </head>
+
+#    <body>
+#      $(html_body(p))
+#    </body>
+#    </html>
+#    """
+
+Base.writemime(io::IO, ::MIME"text/html", p::Plot, js::Symbol=:local) =
+    print(io, stringmime(MIME"text/html"(), p, js))
 
 
 get_blink() = Blink.AtomShell.shell()

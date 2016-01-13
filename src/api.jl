@@ -48,7 +48,7 @@ function savefig2(p::Plot, fn::AbstractString; dpi::Real=96)
 end
 
 # an alternative way to save plots -- no shelling out, but output less pretty
-function savefig(p::Plot, fn::AbstractString,
+function savefig(p::Plot, fn::AbstractString; js::Symbol=:local
                 #   sz::Tuple{Int,Int}=(8,6),
                 #   dpi::Int=300
                   )
@@ -59,7 +59,7 @@ function savefig(p::Plot, fn::AbstractString,
     # if html we don't need a plot window
     if suf == "html"
         open(fn, "w") do f
-            writemime(f, MIME"text/html"(), p)
+            writemime(f, MIME"text/html"(), p, js)
         end
         return p
     end
