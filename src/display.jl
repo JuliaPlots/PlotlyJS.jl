@@ -4,6 +4,8 @@
 
 const _js_path = joinpath(dirname(dirname(@__FILE__)),
                           "deps", "plotly-latest.min.js")
+const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
+
 
 function html_body(p::Plot)
     """
@@ -23,20 +25,40 @@ script_content(p::Plot) = """
     Plotly.plot(thediv, data,  layout, {showLink: false});
     """
 
-stringmime(::MIME"text/html", p::Plot) =  """
+
+function stringmime(::MIME"text/html", p::Plot, js::Symbol=:local)
+
+    if js == :local
+        script_txt = "<script src=\"$(_js_path)\"></script>"
+    elseif js == :remote
+        script_txt = "<script src=\"$(_js_cdn_path)\"></script>"
+    elseif js == :embed
+        script_txt = "<script>$(readall(_js_path))</script>"
+    else
+        msg = """
+        Unknown value for argument js: $js.
+        Possible choices are `:local`, `:remote`, `:embed`
+            """
+        throw(ArgumentError(msg))
+    end
+    
+
+    """
     <html>
     <head>
-        <script src="$(_js_path)"></script>
+         $script_txt
     </head>
-
     <body>
-      $(html_body(p))
+         $(html_body(p))
     </body>
     </html>
     """
 
-Base.writemime(io::IO, ::MIME"text/html", p::Plot) =
-    print(io, stringmime(MIME"text/html"(), p))
+end
+
+
+Base.writemime(io::IO, ::MIME"text/html", p::Plot, js::Symbol=:local) =
+    print(io, stringmime(MIME"text/html"(), p, js))
 
 
 get_blink() = Blink.AtomShell.shell()
