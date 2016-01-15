@@ -58,7 +58,7 @@ Options
 
 - `p::Plot`: Plotly Plot
 - `fn::AbstractString`: Filename with extension (html, pdf, png)
-- `js::Symbol`: 
+- `js::Symbol`:
 
 **Options for `js`**
 
@@ -150,8 +150,7 @@ function _img_data(p::Plot, format::ASCIIString)
         error("Unsupported format $format, must be one of $_formats")
     end
 
-    # sliently show
-    show(p; show=false)
+    display(p)
 
     @js p begin
         ev = Plotly.Snapshot.toImage(this, d("format"=>$format))
@@ -180,8 +179,6 @@ for (mime, fmt) in _mimeformats
 
     end
 end
-
-
 
 
 # -------------- #

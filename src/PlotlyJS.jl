@@ -46,6 +46,8 @@ function Base.writemime(io::IO, ::MIME"text/plain", p::Plot)
     """)
 end
 
+Base.show(io::IO, p::Plot) = writemime(io, MIME("text/plain"), p)
+
 prep_kwarg(pair) = (symbol(replace(string(pair[1]), "_", ".")), pair[2])
 prep_kwargs(pairs) = Dict(map(prep_kwarg, pairs))
 

@@ -41,7 +41,6 @@ function stringmime(::MIME"text/html", p::Plot, js::Symbol=:local)
             """
         throw(ArgumentError(msg))
     end
-    
 
     """
     <html>
@@ -75,16 +74,16 @@ function get_window(p::Plot, kwargs...)
     w
 end
 
-function Base.show(p::Plot; kwargs...)
-    w = get_window(p, kwargs...)
+function Base.display(p::Plot)
+    w = get_window(p)
     Blink.load!(w, _js_path)
     @js w begin
         @var thediv = document.createElement("div")
         thediv.id = $(string(p.divid));
         document.body.appendChild(thediv);
-        Plotly.plot(thediv, $(p.data),  $(p.layout), d("showLink"=> false))
+        Plotly.newPlot(thediv, $(p.data),  $(p.layout), d("showLink"=> false))
     end
-    p
+    show(p)
 end
 
 # ---------------------- #
@@ -104,4 +103,13 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
         </script>
      """)
     display("text/html", "<p>Plotly javascript loaded.</p>")
+
+
+    @eval import IJulia
+
+    IJulia.display_dict(p::Plot) =
+        Dict{ASCIIString,ByteString}("text/html" => sprint(writemime, "text/html", p))
+
+    # TODO: maybe add Blink.js to this page and we can reuse all the same api
+    # methods?
 end
