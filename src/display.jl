@@ -2,11 +2,6 @@
 # Blink setup #
 # ----------- #
 
-const _js_path = joinpath(dirname(dirname(@__FILE__)),
-                          "deps", "plotly-latest.min.js")
-const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
-
-
 function html_body(p::Plot)
     """
     <div id="$(p.divid)"></div>
@@ -58,23 +53,32 @@ end
 Base.writemime(io::IO, ::MIME"text/html", p::Plot, js::Symbol=:local) =
     print(io, stringmime(MIME"text/html"(), p, js))
 
-get_blink() = Blink.AtomShell.shell()
+get_window(p::ElectronPlot, kwargs...) = get_window(p._display; kwargs...)
 
-function get_window(p::Plot, kwargs...)
-    if !isnull(p.window) && active(get(p.window))
-        w = get(p.window)
+function get_window(ed::ElectronDisplay, kwargs...)
+    if !isnull(ed.w) && active(get(ed.w))
+        w = get(ed.w)
     else
         width, height = size(p)
-        opts = merge(Dict(kwargs), Dict{Any,Any}(:width=>width, :height=>height))
-        w = Window(get_blink(), opts)
-        p.window = Nullable{Window}(w)
+        opts = merge(Dict{Any,Any}(:width=>width, :height=>height), Dict(kwargs))
+        w = Window(Blink.AtomShell.shell(), opts)
+        ed.w = Nullable{Window}(w)
+        ed.js_loaded = false  # can't have js if we made a new window
     end
     w
 end
 
+js_loaded(ed::ElectronDisplay) = ed.js_loaded
+function loadjs(ed::ElectronDisplay)
+    if !ed.js_loaded
+        Blink.load!(get_window(ed), _js_path)
+        ed.js_loaded = true
+    end
+end
+
 function Base.display(p::Plot)
     w = get_window(p)
-    Blink.load!(w, _js_path)
+    loadjs(p._display)
     @js w begin
         trydiv = document.getElementById($(string(p.divid)))
         if trydiv == nothing
