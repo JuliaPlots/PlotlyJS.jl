@@ -55,10 +55,8 @@ function stringmime(::MIME"text/html", p::Plot, js::Symbol=:local)
 
 end
 
-
 Base.writemime(io::IO, ::MIME"text/html", p::Plot, js::Symbol=:local) =
     print(io, stringmime(MIME"text/html"(), p, js))
-
 
 get_blink() = Blink.AtomShell.shell()
 
@@ -78,9 +76,14 @@ function Base.display(p::Plot)
     w = get_window(p)
     Blink.load!(w, _js_path)
     @js w begin
-        @var thediv = document.createElement("div")
-        thediv.id = $(string(p.divid));
-        document.body.appendChild(thediv);
+        trydiv = document.getElementById($(string(p.divid)))
+        if trydiv == nothing
+            thediv = document.createElement("div")
+            thediv.id = $(string(p.divid))
+            document.body.appendChild(thediv)
+        else
+            thediv = trydiv
+        end
         Plotly.newPlot(thediv, $(p.data),  $(p.layout), d("showLink"=> false))
     end
     show(p)
