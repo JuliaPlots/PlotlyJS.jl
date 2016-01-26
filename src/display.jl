@@ -53,15 +53,16 @@ end
 Base.writemime(io::IO, ::MIME"text/html", p::Plot, js::Symbol=:local) =
     print(io, stringmime(MIME"text/html"(), p, js))
 
-get_window(p::ElectronPlot, kwargs...) = get_window(p._display; kwargs...)
+function get_window(p::ElectronPlot, kwargs...)
+    w, h = size(p)
+    get_window(p._display; width=w, height=h, kwargs...)
+end
 
-function get_window(ed::ElectronDisplay, kwargs...)
+function get_window(ed::ElectronDisplay; kwargs...)
     if !isnull(ed.w) && active(get(ed.w))
         w = get(ed.w)
     else
-        width, height = size(p)
-        opts = merge(Dict{Any,Any}(:width=>width, :height=>height), Dict(kwargs))
-        w = Window(Blink.AtomShell.shell(), opts)
+        w = Window(Blink.AtomShell.shell(), Dict(kwargs))
         ed.w = Nullable{Window}(w)
         ed.js_loaded = false  # can't have js if we made a new window
     end
