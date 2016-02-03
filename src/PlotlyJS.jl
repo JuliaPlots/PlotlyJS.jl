@@ -23,6 +23,8 @@ end
 
 ElectronDisplay() = ElectronDisplay(Nullable{Window}(), false)
 
+isactive(ed::ElectronDisplay) = isnull(ed.w) ? false : Blink.active(get(ed.w))
+
 # include these here because they are used below
 include("traces_layouts.jl")
 
