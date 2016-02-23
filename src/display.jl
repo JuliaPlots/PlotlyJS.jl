@@ -89,7 +89,8 @@ function Base.display(p::Plot)
         else
             thediv = trydiv
         end
-        Plotly.newPlot(thediv, $(p.data),  $(p.layout), d("showLink"=> false))
+        @var _ = Plotly.newPlot(thediv, $(p.data),  $(p.layout), d("showLink"=> false))
+        _.then(()->Promise.resolve())
     end
     show(p)
 end
