@@ -2,7 +2,6 @@
 # Display-esque functions #
 # ----------------------- #
 
-
 function html_body(p::Plot)
     """
     <div id="$(p.divid)"></div>
@@ -62,6 +61,19 @@ function Base.writemime(io::IO, ::MIME"text/plain", p::Plot)
 end
 
 Base.show(io::IO, p::Plot) = writemime(io, MIME("text/plain"), p)
+
+# ----------------------------------------- #
+# SyncPlot -- sync Plot object with display #
+# ----------------------------------------- #
+immutable SyncPlot{TD<:AbstractPlotlyDisplay}
+    plot::Plot
+    view::TD
+end
+
+# default to ElectronDisplay
+SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay())
+
+plot(args...; kwargs...) = SyncPlot(Plot(args...; kwargs...))
 
 # -------------- #
 # Other displays #

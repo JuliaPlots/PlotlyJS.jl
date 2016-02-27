@@ -7,15 +7,15 @@ type ElectronDisplay <: AbstractPlotlyDisplay
     js_loaded::Bool
 end
 
+typealias ElectronPlot SyncPlot{ElectronDisplay}
+
 ElectronDisplay() = ElectronDisplay(Nullable{Window}(), false)
 
 isactive(ed::ElectronDisplay) = isnull(ed.w) ? false : Blink.active(get(ed.w))
 
-typealias ElectronPlot{TT<:AbstractTrace} Plot{TT,ElectronDisplay}
-
 function get_window(p::ElectronPlot, kwargs...)
-    w, h = size(p)
-    get_window(p._display; width=w, height=h, kwargs...)
+    w, h = size(p.plot)
+    get_window(p.view; width=w, height=h, kwargs...)
 end
 
 function get_window(ed::ElectronDisplay; kwargs...)
@@ -37,20 +37,22 @@ function loadjs(ed::ElectronDisplay)
     end
 end
 
-function Base.display(p::Plot)
+function Base.display(p::ElectronPlot)
     w = get_window(p)
-    loadjs(p._display)
+    loadjs(p.view)
     @js w begin
-        trydiv = document.getElementById($(string(p.divid)))
+        trydiv = document.getElementById($(string(p.plot.divid)))
         if trydiv == nothing
             thediv = document.createElement("div")
-            thediv.id = $(string(p.divid))
+            thediv.id = $(string(p.plot.divid))
             document.body.appendChild(thediv)
         else
             thediv = trydiv
         end
-        @var _ = Plotly.newPlot(thediv, $(p.data),  $(p.layout), d("showLink"=> false))
+        @var _ = Plotly.newPlot(thediv, $(p.plot.data),
+                                $(p.plot.layout),
+                                d("showLink"=> false))
         _.then(()->Promise.resolve())
     end
-    show(p)
+    p.plot
 end
