@@ -29,7 +29,7 @@ function savefig2(p::Plot, fn::AbstractString; dpi::Real=96)
         error("Only `pdf`, `png` and `ps` output supported")
     end
     # make sure plot window is active
-    show(p)
+    display(p)
 
     # write svg to tempfile
     temp = tempname()
