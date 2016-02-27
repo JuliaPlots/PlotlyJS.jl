@@ -1,3 +1,6 @@
+abstract AbstractTrace
+abstract AbstractLayout
+
 type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
     kind::ASCIIString
     fields::T
@@ -108,4 +111,19 @@ function Base.getindex(gt::HasFields, k1::Symbol, k2::Symbol,
     d2 = get(d1, k2, Dict())
     d3 = get(d2, k3, Dict())
     get(d3, k4, Dict())
+end
+
+# Function used to have meaningful display of traces and layouts
+function _describe(x::Union{GenericTrace, Layout})
+    fields = sort(map(string, keys(x.fields)))
+    n_fields = length(fields)
+    if n_fields == 0
+        return "$(kind(x)) with no fields"
+    elseif n_fields == 1
+        return "$(kind(x)) with field $(fields[1])"
+    elseif n_fields == 2
+        return "$(kind(x)) with fields $(fields[1]) and $(fields[2])"
+    else
+        return "$(kind(x)) with fields $(join(fields, ", ", ", and "))"
+    end
 end

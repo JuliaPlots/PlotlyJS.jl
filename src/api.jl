@@ -1,3 +1,10 @@
+# ----------------- #
+# Basic API methods #
+# ----------------- #
+
+prep_kwarg(pair) = (symbol(replace(string(pair[1]), "_", ".")), pair[2])
+prep_kwargs(pairs) = Dict(map(prep_kwarg, pairs))
+
 Base.size(p::Plot) = (get(p.layout.fields, :width, 800),
                       get(p.layout.fields, :height, 450))
 
@@ -228,8 +235,8 @@ redraw!(p::Plot) =
 # unexported methods in plot_api.js #
 # --------------------------------- #
 
-tovec(v) = tovec([v])
-tovec(v::Vector) = eltype(v) <: Vector ? v : Vector[v]
+_tovec(v) = _tovec([v])
+_tovec(v::Vector) = eltype(v) <: Vector ? v : Vector[v]
 
 """
 `extendtraces!(::Plot, ::Dict{Union{Symbol,AbstractString},Vector{Vector{Any}}}), indices, maxpoints)`
@@ -299,7 +306,7 @@ end
 
 for f in (:extendtraces!, :prependtraces!)
     @eval $(f)(p::Plot, inds::Vector{Int}=[0], maxpoints=-1; update_jl=false, update...) =
-        ($f)(p, Dict(map(x->(x[1], tovec(x[2])), update)), inds, maxpoints; update_jl=update_jl)
+        ($f)(p, Dict(map(x->(x[1], _tovec(x[2])), update)), inds, maxpoints; update_jl=update_jl)
 
     @eval $(f)(p::Plot, inds::Int, maxpoints=-1; update_jl=false, update...) =
         ($f)(p, [inds], maxpoints; update_jl=update_jl, update...)
