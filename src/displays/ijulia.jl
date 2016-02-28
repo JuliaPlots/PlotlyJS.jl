@@ -52,11 +52,8 @@ end
 
 ## API Methods for JupyterDisplay
 function call_plotlyjs(jd::JupyterDisplay, func::AbstractString, args...)
-    if length(args) > 0
-        arg_str = string(",", join(map(json, args), ", "))
-    else
-        arg_str = ")"
-    end
+    arg_str = length(args) > 0 ? string(",", join(map(json, args), ", ")) :
+                                 ""
     display("text/html", """<script>
         var thediv = document.getElementById('$(jd.divid)');
         Plotly.$func(thediv $arg_str)
@@ -93,3 +90,12 @@ movetraces!(jd::JupyterDisplay, src::AbstractVector{Int}, dest::AbstractVector{I
     call_plotlyjs(jd, "moveTraces", src-1, dest-1)
 
 redraw!(jd::JupyterDisplay) = call_plotlyjs(jd, "redraw")
+
+# unexported (by plotly.js) api methods
+extendtraces!(jd::JupyterDisplay, update::Associative=Dict(),
+              indices::Vector{Int}=[1], maxpoints=-1;) =
+    call_plotlyjs(jd, "extendTraces", update, indices-1, maxpoints)
+
+prependtraces!(jd::JupyterDisplay, update::Associative=Dict(),
+               indices::Vector{Int}=[1], maxpoints=-1;) =
+    call_plotlyjs(jd, "prependTraces", update, indices-1, maxpoints)

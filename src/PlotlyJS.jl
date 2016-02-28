@@ -52,6 +52,6 @@ export
     extendtraces, prependtraces,
 
     # helper methods
-    plot
+    plot, fork
 
 end # module

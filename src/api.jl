@@ -281,7 +281,7 @@ These concepts are best understood by example:
 ```julia
 # adds the values [1, 3] to the end of the first trace's y attribute and doesn't
 # remove any points
-extendtraces!(p, Dict(:y=>Vector[[1, 3]]), [0], -1)
+extendtraces!(p, Dict(:y=>Vector[[1, 3]]), [1], -1)
 extendtraces!(p, Dict(:y=>Vector[[1, 3]]))  # equivalent to above
 ```
 
@@ -289,24 +289,19 @@ extendtraces!(p, Dict(:y=>Vector[[1, 3]]))  # equivalent to above
 # adds the values [1, 3] to the end of the third trace's marker.size attribute
 # and [5,5,6] to the end of the 5th traces marker.size -- leaving at most 10
 # points per marker.size attribute
-extendtraces!(p, Dict("marker.size"=>Vector[[1, 3], [5, 5, 6]]), [2, 4], 10)
+extendtraces!(p, Dict("marker.size"=>Vector[[1, 3], [5, 5, 6]]), [3, 5], 10)
 ```
 
 """
-function extendtraces!(p::Plot, update::Dict, indices::Vector{Int}=[0], maxpoints=-1;
-                       update_jl::Bool=false)
-    # update data in Julia object
-    if update_jl
-        for ix in indices
-            tr = p.data[ix+1]
-            for k in keys(update)
-                v = update[k][ix+1]
-                tr[k] = push!(tr[k], v...)
-            end
+function extendtraces!(p::Plot, update::Dict, indices::Vector{Int}=[1], maxpoints=-1)
+    # TODO: maxpoints not handled here
+    for ix in indices
+        tr = p.data[ix]
+        for k in keys(update)
+            v = update[k][ix]
+            tr[k] = push!(tr[k], v...)
         end
     end
-
-    @js_ p Plotly.extendTraces(this, $update, $indices, $maxpoints)
 end
 
 """
@@ -314,28 +309,25 @@ The API for `prependtraces` is equivalent to that for `extendtraces` except that
 the data is added to the front of the traces attributes instead of the end. See
 Those docstrings for more information
 """
-function prependtraces!(p::Plot, update::Dict, indices::Vector{Int}=[0], maxpoints=-1)
-    # update data in Julia object
-    if update_jl
-        for ix in indices
-            tr = p.data[ix+1]
-            for k in keys(update)
-                v = update[k][ix+1]
-                tr[k] = vcat(v, tr[k])
-            end
+function prependtraces!(p::Plot, update::Dict, indices::Vector{Int}=[1], maxpoints=-1)
+    # TODO: maxpoints not handled here
+    for ix in indices
+        tr = p.data[ix]
+        for k in keys(update)
+            v = update[k][ix]
+            tr[k] = vcat(v, tr[k])
         end
     end
-    @js_ p Plotly.prependTraces(this, $update, $indices, $maxpoints)
 end
 
 
 for f in (:extendtraces!, :prependtraces!)
-    @eval $(f)(p::Plot, inds::Vector{Int}=[0], maxpoints=-1; update_jl=false, update...) =
-        ($f)(p, Dict(map(x->(x[1], _tovec(x[2])), update)), inds, maxpoints; update_jl=update_jl)
+    @eval $(f)(p::Plot, inds::Vector{Int}=[0], maxpoints=-1; update...) =
+        ($f)(p, Dict(map(x->(x[1], _tovec(x[2])), update)), inds, maxpoints)
 
-    @eval $(f)(p::Plot, inds::Int, maxpoints=-1; update_jl=false, update...) =
-        ($f)(p, [inds], maxpoints; update_jl=update_jl, update...)
+    @eval $(f)(p::Plot, inds::Int, maxpoints=-1, update...) =
+        ($f)(p, [inds], maxpoints, update...)
 
-    @eval $(f)(p::Plot, update::Dict, inds::Int, maxpoints=-1; update_jl=false) =
-        ($f)(p, update, [inds], maxpoints; update_jl=update_jl)
+    @eval $(f)(p::Plot, update::Dict, inds::Int, maxpoints=-1) =
+        ($f)(p, update, [inds], maxpoints)
 end
