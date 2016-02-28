@@ -11,6 +11,8 @@ typealias ElectronPlot SyncPlot{ElectronDisplay}
 
 ElectronDisplay() = ElectronDisplay(Nullable{Window}(), false)
 
+fork(jp::ElectronPlot) = ElectronPlot(fork(jp.plot), ElectronDisplay())
+
 isactive(ed::ElectronDisplay) = isnull(ed.w) ? false : Blink.active(get(ed.w))
 
 function get_window(p::ElectronPlot, kwargs...)

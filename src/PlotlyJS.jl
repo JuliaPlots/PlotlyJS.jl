@@ -33,6 +33,8 @@ Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout()) =
 
 Plot(data::AbstractTrace, layout=Layout()) = Plot([data], layout)
 
+fork(p::Plot) = Plot(deepcopy(p.data), copy(p.layout), Base.Random.uuid4())
+
 export
 
     # core types
@@ -44,6 +46,10 @@ export
     # plotly.js api methods
     restyle!, relayout!, addtraces!, deletetraces!, movetraces!, redraw!,
     extendtraces!, prependtraces!,
+
+    # non-!-versions (forks, then applies, then returns fork)
+    restyle, relayout, addtraces, deletetraces, movetraces, redraw,
+    extendtraces, prependtraces,
 
     # helper methods
     plot

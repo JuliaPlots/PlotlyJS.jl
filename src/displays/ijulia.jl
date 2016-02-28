@@ -13,6 +13,8 @@ typealias JupyterPlot SyncPlot{JupyterDisplay}
 
 JupyterPlot(p::Plot) = JupyterPlot(p, JupyterDisplay(p))
 
+fork(jp::JupyterPlot) = JupyterPlot(fork(jp.plot))
+
 # if we're in IJulia call setupnotebook to load js and css
 if isdefined(Main, :IJulia) && Main.IJulia.inited
     # the first script is some hack I needed to do in order for the notebook
@@ -50,10 +52,14 @@ end
 
 ## API Methods for JupyterDisplay
 function call_plotlyjs(jd::JupyterDisplay, func::AbstractString, args...)
-    arg_str = join(map(json, args), ", ")
+    if length(args) > 0
+        arg_str = string(",", join(map(json, args), ", "))
+    else
+        arg_str = ")"
+    end
     display("text/html", """<script>
         var thediv = document.getElementById('$(jd.divid)');
-        Plotly.$func(thediv, $arg_str)
+        Plotly.$func(thediv $arg_str)
     </script>""")
 end
 

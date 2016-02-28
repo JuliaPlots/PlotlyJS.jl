@@ -79,6 +79,13 @@ for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
         $(f)(sp.plot, args...; kwargs...)
         $(f)(sp.view, args...; kwargs...)
     end
+
+    no_!_method = symbol(string(f)[1:end-1])
+    @eval function $(no_!_method)(sp::SyncPlot, args...; kwargs...)
+        sp2 = fork(sp)
+        $f(sp2.plot, args...; kwargs...)  # only need to update the julia side
+        sp2  # return so we display fresh
+    end
 end
 
 # -------------- #
