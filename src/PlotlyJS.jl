@@ -26,7 +26,7 @@ include("subplots.jl")
 include("json.jl")
 
 # Set some defaults for constructing `Plot`s
-Plot() = Plot(GenericTrace[], Layout(), Base.Random.uuid4())
+Plot() = Plot(GenericTrace{Dict{Symbol,Any}}[], Layout(), Base.Random.uuid4())
 
 Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout()) =
     Plot(data, layout, Base.Random.uuid4())

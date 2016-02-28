@@ -8,9 +8,13 @@ else
 end
 
 include(joinpath(dirname(dirname(abspath(@__FILE__))), "src", "PlotlyJS.jl"))
+using .PlotlyJS
 typealias M PlotlyJS
 
+tests = length(ARGS) > 0 ? ARGS : ["traces", "api"]
 
-include("traces.jl")
+for fn in tests
+    include(string(fn, ".jl"))
+end
 
 end

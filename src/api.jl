@@ -2,8 +2,8 @@
 # Basic API methods #
 # ----------------- #
 
-prep_kwarg(pair) = (symbol(replace(string(pair[1]), "_", ".")), pair[2])
-prep_kwargs(pairs) = Dict(map(prep_kwarg, pairs))
+prep_kwarg(pair::Tuple) = (symbol(replace(string(pair[1]), "_", ".")), pair[2])
+prep_kwargs(pairs::Vector) = Dict(map(prep_kwarg, pairs))
 
 Base.size(p::Plot) = (get(p.layout.fields, :width, 800),
                       get(p.layout.fields, :height, 450))
@@ -55,23 +55,18 @@ function savefig2(p::Plot, fn::AbstractString; dpi::Real=96)
 end
 
 # an alternative way to save plots -- no shelling out, but output less pretty
-# js can be one of
 
 """
 `savefig(p::Plot, fn::AbstractString, js::Symbol)`
 
-Options
-=======
+## Arguments
 
 - `p::Plot`: Plotly Plot
 - `fn::AbstractString`: Filename with extension (html, pdf, png)
-- `js::Symbol`:
-
-**Options for `js`**
-
-- `:local` - reference the javascript from PlotlyJS installation
-- `:remote` - reference the javascript from plotly CDN
-- `:embed` - embed the javascript in output (add's 1.7MB to size)
+- `js::Symbol`: One of the following:
+    - `:local` - reference the javascript from PlotlyJS installation
+    - `:remote` - reference the javascript from plotly CDN
+    - `:embed` - embed the javascript in output (add's 1.7MB to size)
 """
 function savefig(p::Plot, fn::AbstractString; js::Symbol=:local
                 #   sz::Tuple{Int,Int}=(8,6),
@@ -191,45 +186,120 @@ end
 # -------------- #
 # Javascript API #
 # -------------- #
-# TODO: update the fields on the Plot object also for functions that mutate the
-#       plot
 
-getdiv(p) = :(document.getElementById($(string(p.divid))))
+## methods that operate on the Julia object only
 
-Blink.js(p::Plot, code::JSString; callback = true) =
-    Blink.js(get_window(p), :(Blink.evalwith($(getdiv(p)), $(Blink.jsstring(code)))), callback = callback)
+function _update_fields(hf::HasFields, update::Dict=Dict(); kwargs...)
+    map(x->setindex!(hf, x[2], x[1]), update)
+    map(x->setindex!(hf, x[2], x[1]), kwargs)
+end
 
-restyle!(p::Plot, update = Dict(); kwargs...) =
-    @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))))
+"Update layout using update dict and/or kwargs"
+relayout!(l::Layout, update::Associative=Dict(); kwargs...) =
+    _update_fields(l, update; kwargs...)
 
-restyle!(p::Plot, traces::Integer...; kwargs...) =
-    @js_ p Plotly.restyle(this, $(prep_kwargs(kwargs)), $(collect(traces)))
+"Update layout using update dict and/or kwargs"
+relayout!(p::Plot, update::Associative=Dict(); kwargs...) =
+    relayout!(p.layout, update; kwargs...)
 
-relayout!(p::Plot, update = Dict(); kwargs...) =
+"update a trace using update dict and/or kwargs"
+restyle!(gt::GenericTrace, update::Associative=Dict(); kwargs...) =
+    _update_fields(gt, update; kwargs...)
+
+"Update a single trace using update dict and/or kwargs"
+restyle!(p::Plot, ind::Int=1, update::Associative=Dict(); kwargs...) =
+    restyle!(p.data[ind], update; kwargs...)
+
+"Update specific traces using update dict and/or kwargs"
+restyle!(p::Plot, inds::AbstractVector{Int}, update::Associative=Dict(); kwargs...) =
+    map(ind -> restyle!(p.data[ind], update; kwargs...), inds)
+
+"Update all traces using update dict and/or kwargs"
+restyle!(p::Plot, update::Associative=Dict(); kwargs...) =
+    restyle!(p, 1:length(p.data), update; kwargs...)
+
+"Add trace(s) to the end of the Plot's array of data"
+addtraces!(p::Plot, traces::AbstractTrace...) = push!(p.data, traces...)
+
+"""
+Add trace(s) at a specified location in the Plot's array of data.
+
+The new traces will start at index `p.data[where+1]`
+"""
+function addtraces!(p::Plot, where::Int, traces::AbstractTrace...)
+    new_data = vcat(p.data[1:where], traces..., p.data[where+1:end])
+    p.data = new_data
+end
+
+"Remove the traces at the specified indices"
+deletetraces!(p::Plot, inds::Int...) =
+    (p.data = p.data[setdiff(1:length(p.data), inds)])
+
+"Move one or more traces to the end of the data array"
+movetraces!(p::Plot, to_end::Int...) =
+    (p.data = p.data[vcat(setdiff(1:length(p.data), to_end), to_end...)])
+
+function _move_one!(x::AbstractArray, from::Int, to::Int)
+    el = splice!(x, from)  # extract the element
+    splice!(x, to:to-1, (el,))  # put it back in the new position
+    x
+end
+
+"""
+Move traces from indices `src` to indices `dest`.
+
+Both `src` and `dest` must be `Vector{Int}`
+"""
+movetraces!(p::Plot, src::AbstractVector{Int}, dest::AbstractVector{Int}) =
+    (map((i,j) -> _move_one!(p.data, i, j), src, dest); p)
+
+# no-op here
+redraw!(p::Plot) = nothing
+
+## Methods for ElectronDisplay
+getdiv(p::ElectronDisplay) = :(document.getElementById($(string(p.plot.divid))))
+
+Blink.js(p::ElectronDisplay, code::JSString; callback=true) =
+    Blink.js(get_window(p), :(Blink.evalwith(thediv, $(Blink.jsstring(code)))), callback=callback)
+
+relayout!(p::ElectronDisplay, update::Associative=Dict(); kwargs...) =
     @js_ p Plotly.relayout(this, $(merge(update, prep_kwargs(kwargs))))
 
-addtraces!(p::Plot, traces::AbstractTrace...) =
+restyle!(p::ElectronDisplay, ind::Int, update::Associative=Dict(); kwargs...) =
+    @js_ p Plotly.restyle(this, $(prep_kwargs(kwargs)), $(ind-1))
+
+restyle!(p::ElectronDisplay, inds::AbstractVector{Int}, update::Associative=Dict(); kwargs...) =
+    @js_ p Plotly.restyle(this, $(prep_kwargs(kwargs)), $(inds-1))
+
+restyle!(p::ElectronDisplay, update=Dict(); kwargs...) =
+    @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))))
+
+addtraces!(p::ElectronDisplay, traces::AbstractTrace...) =
     @js_ p Plotly.addTraces(this, $traces)
 
-addtraces!(p::Plot, where::Union{Int,Vector{Int}}, traces::AbstractTrace...) =
-    @js_ p Plotly.addTraces(this, $traces, $where)
+addtraces!(p::ElectronDisplay, where::Int, traces::AbstractTrace...) =
+    @js_ p Plotly.addTraces(this, $traces, $(where-1))
 
-deletetraces!(p::Plot, traces::Int...) =
-    @js_ p Plotly.deleteTraces(this, $(collect(traces)))
+deletetraces!(p::ElectronDisplay, traces::Int...) =
+    @js_ p Plotly.deleteTraces(this, $(collect(traces)-1))
 
-movetraces!(p::Plot, to_end) =
-    @js_ p Plotly.moveTraces(this, $to_end)
+movetraces!(p::ElectronDisplay, to_end::Int...) =
+    @js_ p Plotly.moveTraces(this, $(collect(to_end)-1))
 
-movetraces!(p::Plot, to_end...) = movetraces!(p, collect(to_end))
+movetraces!(p::ElectronDisplay, src::AbstractVector{Int}, dest::AbstractVector{Int}) =
+    @js_ p Plotly.moveTraces(this, $(src-1), $(dest-1))
 
-movetraces!(p::Plot, src::Union{Int,Vector{Int}}, dest::Union{Int,Vector{Int}}) =
-    @js_ p Plotly.moveTraces(this, $src, $dest)
-
-redraw!(p::Plot) =
+redraw!(p::ElectronDisplay) =
     @js_ p Plotly.redraw(this)
 
-redraw!(p::Plot) =
-    @js_ p Plotly.redraw(this)
+## methods for SyncPlot
+for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
+          :redraw!]
+    @eval function $(f)(sp::SyncPlot, args...; kwargs...)
+        $(f)(sp.plot, args...; kwargs...)
+        $(f)(sp.view, args...; kwargs...)
+    end
+end
 
 # --------------------------------- #
 # unexported methods in plot_api.js #
