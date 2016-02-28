@@ -70,13 +70,31 @@ immutable SyncPlot{TD<:AbstractPlotlyDisplay}
     view::TD
 end
 
-# default to ElectronDisplay
-SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay())
-
 plot(args...; kwargs...) = SyncPlot(Plot(args...; kwargs...))
+
+## API methods for SyncPlot
+for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
+          :redraw!]
+    @eval function $(f)(sp::SyncPlot, args...; kwargs...)
+        $(f)(sp.plot, args...; kwargs...)
+        $(f)(sp.view, args...; kwargs...)
+    end
+end
 
 # -------------- #
 # Other displays #
 # -------------- #
 include("displays/electron.jl")
 include("displays/ijulia.jl")
+
+# -------- #
+# Defaults #
+# -------- #
+
+if isdefined(Main, :IJulia) && Main.IJulia.inited
+    # default to ElectronDisplay
+    SyncPlot(p::Plot) = SyncPlot(p, JupyterDisplay(p))
+else
+    # default to ElectronDisplay
+    SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay())
+end

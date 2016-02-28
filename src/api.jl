@@ -256,51 +256,6 @@ movetraces!(p::Plot, src::AbstractVector{Int}, dest::AbstractVector{Int}) =
 # no-op here
 redraw!(p::Plot) = nothing
 
-## Methods for ElectronDisplay
-getdiv(p::ElectronDisplay) = :(document.getElementById($(string(p.plot.divid))))
-
-Blink.js(p::ElectronDisplay, code::JSString; callback=true) =
-    Blink.js(get_window(p), :(Blink.evalwith(thediv, $(Blink.jsstring(code)))), callback=callback)
-
-relayout!(p::ElectronDisplay, update::Associative=Dict(); kwargs...) =
-    @js_ p Plotly.relayout(this, $(merge(update, prep_kwargs(kwargs))))
-
-restyle!(p::ElectronDisplay, ind::Int, update::Associative=Dict(); kwargs...) =
-    @js_ p Plotly.restyle(this, $(prep_kwargs(kwargs)), $(ind-1))
-
-restyle!(p::ElectronDisplay, inds::AbstractVector{Int}, update::Associative=Dict(); kwargs...) =
-    @js_ p Plotly.restyle(this, $(prep_kwargs(kwargs)), $(inds-1))
-
-restyle!(p::ElectronDisplay, update=Dict(); kwargs...) =
-    @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))))
-
-addtraces!(p::ElectronDisplay, traces::AbstractTrace...) =
-    @js_ p Plotly.addTraces(this, $traces)
-
-addtraces!(p::ElectronDisplay, where::Int, traces::AbstractTrace...) =
-    @js_ p Plotly.addTraces(this, $traces, $(where-1))
-
-deletetraces!(p::ElectronDisplay, traces::Int...) =
-    @js_ p Plotly.deleteTraces(this, $(collect(traces)-1))
-
-movetraces!(p::ElectronDisplay, to_end::Int...) =
-    @js_ p Plotly.moveTraces(this, $(collect(to_end)-1))
-
-movetraces!(p::ElectronDisplay, src::AbstractVector{Int}, dest::AbstractVector{Int}) =
-    @js_ p Plotly.moveTraces(this, $(src-1), $(dest-1))
-
-redraw!(p::ElectronDisplay) =
-    @js_ p Plotly.redraw(this)
-
-## methods for SyncPlot
-for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
-          :redraw!]
-    @eval function $(f)(sp::SyncPlot, args...; kwargs...)
-        $(f)(sp.plot, args...; kwargs...)
-        $(f)(sp.view, args...; kwargs...)
-    end
-end
-
 # --------------------------------- #
 # unexported methods in plot_api.js #
 # --------------------------------- #

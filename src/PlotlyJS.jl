@@ -36,7 +36,7 @@ Plot(data::AbstractTrace, layout=Layout()) = Plot([data], layout)
 export
 
     # core types
-    Plot, GenericTrace, Layout,
+    Plot, GenericTrace, Layout, ElectronDisplay, JupyterDisplay,
 
     # other methods
     savefig, svg_data, png_data, jpeg_data, webp_data,
