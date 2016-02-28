@@ -88,8 +88,8 @@ end
         addtraces!(p2, 2, t4)
         @test length(p2.data) == 4
         @test p2.data[1] == t1
-        @test p2.data[2] == t2
-        @test p2.data[3] == t4
+        @test p2.data[2] == t4
+        @test p2.data[3] == t2
         @test p2.data[4] == t3
 
         # test add multiple trace middle
@@ -98,10 +98,10 @@ end
         addtraces!(p2, 2, t5, t6)
         @test length(p2.data) == 6
         @test p2.data[1] == t1
-        @test p2.data[2] == t2
-        @test p2.data[3] == t5
-        @test p2.data[4] == t6
-        @test p2.data[5] == t4
+        @test p2.data[2] == t5
+        @test p2.data[3] == t6
+        @test p2.data[4] == t4
+        @test p2.data[5] == t2
         @test p2.data[6] == t3
     end
 

@@ -224,10 +224,10 @@ addtraces!(p::Plot, traces::AbstractTrace...) = push!(p.data, traces...)
 """
 Add trace(s) at a specified location in the Plot's array of data.
 
-The new traces will start at index `p.data[where+1]`
+The new traces will start at index `p.data[where]`
 """
 function addtraces!(p::Plot, where::Int, traces::AbstractTrace...)
-    new_data = vcat(p.data[1:where], traces..., p.data[where+1:end])
+    new_data = vcat(p.data[1:where-1], traces..., p.data[where:end])
     p.data = new_data
 end
 
