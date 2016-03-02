@@ -33,9 +33,6 @@ kind(l::Layout) = "layout"
 
 typealias HasFields Union{GenericTrace, Layout}
 
-Base.writemime(io::IO, ::MIME"text/plain", g::HasFields) =
-    println(io, json(g, 2))
-
 # methods that allow you to do `obj["first.second.third"] = val`
 Base.setindex!(gt::HasFields, val, key::ASCIIString) =
     setindex!(gt, val, map(symbol, split(key, "."))...)
@@ -114,7 +111,7 @@ function Base.getindex(gt::HasFields, k1::Symbol, k2::Symbol,
 end
 
 # Function used to have meaningful display of traces and layouts
-function _describe(x::Union{GenericTrace, Layout})
+function _describe(x::HasFields)
     fields = sort(map(string, keys(x.fields)))
     n_fields = length(fields)
     if n_fields == 0
@@ -127,3 +124,6 @@ function _describe(x::Union{GenericTrace, Layout})
         return "$(kind(x)) with fields $(join(fields, ", ", ", and "))"
     end
 end
+
+Base.writemime(io::IO, ::MIME"text/plain", g::HasFields) =
+    println(io, _describe(g))
