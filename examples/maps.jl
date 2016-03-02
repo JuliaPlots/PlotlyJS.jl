@@ -1,6 +1,6 @@
 using PlotlyJS
 
-function maps1(showme=true)
+function maps1()
     marker = Dict(:size=>[20, 30, 15, 10],
                   :color=>[10, 20, 40, 50],
                   :cmin=>0,
@@ -14,12 +14,10 @@ function maps1(showme=true)
                         marker=marker, name="Europe Data")
     layout = Layout(geo_scope="europe", geo_resolution=50, width=500, height=550,
                     margin=Dict(:l=>0, :r=>0, :t=>10, :b=>0))
-    p = Plot(trace, layout)
-    showme && show(p)
-    p
+    plot(trace, layout)
 end
 
-function maps2(showme=true)
+function maps2()
     @eval using DataFrames
 
     # read Data into dataframe
@@ -46,7 +44,5 @@ function maps2(showme=true)
                :countrycolor => "rgb(255,255,255)")
 
     layout = Layout(;title="2014 US City Populations", showlegend=false, geo=geo)
-    p = Plot(trace, layout)
-    showme && show(p)
-    p
+    plot(trace, layout)
 end

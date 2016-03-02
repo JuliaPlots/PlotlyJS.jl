@@ -1,15 +1,13 @@
 using PlotlyJS
 
-function linescatter1(showme=true)
+function linescatter1()
     trace1 = scatter(;x=1:4, y=[10, 15, 13, 17], mode="markers")
     trace2 = scatter(;x=2:5, y=[16, 5, 11, 9], mode="lines")
     trace3 = scatter(;x=1:4, y=[12, 9, 15, 12], mode="lines+markers")
-    p = Plot([trace1, trace2, trace3])
-    showme && show(p)
-    p
+    plot([trace1, trace2, trace3])
 end
 
-function linescatter2(showme=true)
+function linescatter2()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers", name="Team A",
                       text=["A-1", "A-2", "A-3", "A-4", "A-5"],
@@ -24,12 +22,10 @@ function linescatter2(showme=true)
     data = [trace1, trace2]
     layout = Layout(;title="Data Labels Hover", xaxis_range=[0.75, 5.25],
                      yaxis_range=[0, 8])
-    p = Plot(data, layout)
-    showme && show(p)
-    p
+    plot(data, layout)
 end
 
-function linescatter3(showme=true)
+function linescatter3()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers+text", name="Team A",
                       textposition="top center",
@@ -48,21 +44,17 @@ function linescatter3(showme=true)
                      yaxis_range=[0, 8], legend_y=0.5, legend_yref="paper",
                      legend_font=Dict(:family => "Arial, sans-serif", :size => 20,
                                       :color => "grey"))
-    p = Plot(data, layout)
-    showme && show(p)
-    p
+    plot(data, layout)
 end
 
-function linescatter4(showme=true)
+function linescatter4()
     trace1 = scatter(;y=fill(5, 40), mode="markers", marker_size=40,
                       marker_color=0:39)
     layout = Layout(title="Scatter Plot with a Color Dimension")
-    p = Plot(trace1, layout)
-    showme && show(p)
-    p
+    plot(trace1, layout)
 end
 
-function linescatter5(showme=true)
+function linescatter5()
 
     country = ["Switzerland (2011)", "Chile (2013)", "Japan (2014)",
                "United States (2012)", "Slovenia (2014)", "Canada (2011)",
@@ -107,12 +99,10 @@ function linescatter5(showme=true)
     layout["legend"] = Dict(:font => Dict(:size => 10),
                             :yanchor => "middle",
                             :xanchor => "right")
-    p = Plot(data, layout)
-    showme && show(p)
-    p
+    plot(data, layout)
 end
 
-function linescatter6(showme=true)
+function linescatter6()
     trace1 = scatter(;x=[52698, 43117], y=[53, 31],
                       mode="markers",
                       name="North America",
@@ -149,7 +139,5 @@ function linescatter6(showme=true)
     layout["xaxis"] = Dict(:title => "GDP per Capita", :showgrid => false, :zeroline => false)
     layout["yaxis"] = Dict(:title => "Percent", :showline => false)
 
-    p = Plot(data, layout)
-    showme && show(p)
-    p
+    plot(data, layout)
 end
