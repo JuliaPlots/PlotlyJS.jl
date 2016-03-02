@@ -102,3 +102,10 @@ function Base.hvcat(rows::Tuple{Vararg{Int}}, ps::Plot...)
     end
     _cat(nr, nc, ps...)
 end
+
+# methods on syncplot
+Base.hcat{TP<:SyncPlot}(sps::TP...) = TP(hcat([sp.plot for sp in sps]...))
+Base.vcat{TP<:SyncPlot}(sps::TP...) = TP(vcat([sp.plot for sp in sps]...))
+Base.vect{TP<:SyncPlot}(sps::TP...) = vcat(sps...)
+Base.hvcat{TP<:SyncPlot}(rows::Tuple{Vararg{Int}}, sps::TP...) =
+    TP(hvcat(rows, [sp.plot for sp in sps]...))
