@@ -32,6 +32,7 @@ function get_window(ed::ElectronDisplay; kwargs...)
 end
 
 js_loaded(ed::ElectronDisplay) = ed.js_loaded
+
 function loadjs(ed::ElectronDisplay)
     if !ed.js_loaded
         Blink.load!(get_window(ed), _js_path)
@@ -60,10 +61,28 @@ function Base.display(p::ElectronPlot)
 end
 
 ## API Methods for ElectronDisplay
-getdiv(p::ElectronDisplay) = :(document.getElementById($(string(p.plot.divid))))
+function _img_data(p::ElectronPlot, format::ASCIIString)
+    _formats = ["png", "jpeg", "webp", "svg"]
+    if !(format in _formats)
+        error("Unsupported format $format, must be one of $_formats")
+    end
+
+    display(p)
+
+    @js p.view begin
+        ev = Plotly.Snapshot.toImage(this, d("format"=>$format))
+        @new Promise(resolve -> ev.once("success", resolve))
+    end
+end
+
+svg_data(p::ElectronPlot, format="png") =
+    @js p.view Plotly.Snapshot.toSVG(this, $format)
 
 Blink.js(p::ElectronDisplay, code::JSString; callback=true) =
     Blink.js(get_window(p), :(Blink.evalwith(thediv, $(Blink.jsstring(code)))), callback=callback)
+
+Blink.js(p::ElectronPlot, code::JSString; callback=true) =
+    Blink.js(p.view, code; callback=callback)
 
 relayout!(p::ElectronDisplay, update::Associative=Dict(); kwargs...) =
     @js_ p Plotly.relayout(this, $(merge(update, prep_kwargs(kwargs))))

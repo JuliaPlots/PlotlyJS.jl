@@ -60,6 +60,14 @@ function call_plotlyjs(jd::JupyterDisplay, func::AbstractString, args...)
     </script>""")
 end
 
+function svg_data(jp::JupyterPlot, format="png")
+    # display("text/html", """<script>
+    #     var thediv = document.getElementById('$(jp.view.divid)');
+    #     foobar = Plotly.Snapshot.toSVG(thediv, '$format')
+    # </script>""")
+    error("Not implemented (yet). Use Electron frontend to save figures")
+end
+
 relayout!(jd::JupyterDisplay, update::Associative=Dict(); kwargs...) =
     call_plotlyjs(jd, "relayout", merge(update, prep_kwargs(kwargs)))
 

@@ -8,14 +8,6 @@ prep_kwargs(pairs::Vector) = Dict(map(prep_kwarg, pairs))
 Base.size(p::Plot) = (get(p.layout.fields, :width, 800),
                       get(p.layout.fields, :height, 450))
 
-Base.resize!(p::Plot, w::Int, h::Int) = size(get_window(p), w, h)
-function Base.resize!(p::Plot)
-    sz = size(p)
-    # this padding was found by trial and error to not show vertical or
-    # horizontal scroll bars
-    resize!(p, sz[1]+10, sz[2]+25)
-end
-
 for t in [:histogram, :scatter3d, :surface, :mesh3d, :bar, :histogram2d,
           :histogram2dcontour, :scatter, :pie, :heatmap, :contour,
           :scattergl, :box, :area, :scattergeo, :choropleth]
@@ -27,6 +19,11 @@ end
 Base.copy(gt::GenericTrace) = GenericTrace(gt.kind, deepcopy(gt.fields))
 Base.copy(l::Layout) = Layout(deepcopy(l.fields))
 Base.copy(p::Plot) = Plot([copy(t) for t in p.data], copy(p.layout))
+
+# now add methods on syncplot
+for func in [:size, :copy]
+    @eval Base.$(func)(sp::SyncPlot) = $(func)(sp.plot)
+end
 
 # TODO: add width and height and figure out how to convert from measures to the
 #       pixels that will be expected in the SVG
@@ -128,36 +125,65 @@ function savefig(p::Plot, fn::AbstractString; js::Symbol=:local
     p
 end
 
-function png_data(p::Plot)
+function savefig3(p::SyncPlot, fn::AbstractString; js::Symbol=:local)
+    suf = split(fn, ".")[end]
+
+    # if html we don't need a plot window
+    if suf == "html"
+        open(fn, "w") do f
+            writemime(f, MIME"text/html"(), p, js)
+        end
+        return p
+    end
+
+    # for all the rest we need raw svg data
+    raw_svg = svg_data(p)
+
+    # we can export svg directly
+    if suf == "svg"
+        open(fn, "w") do f
+            write(f, raw_svg)
+        end
+        return p
+    end
+
+    # now we need to use librsvg/Cairo to finish
+    @eval import Rsvg
+    @eval import Cairo
+
+    if suf == "pdf"
+        r = Rsvg.handle_new_from_data(raw_svg)
+        cs = Cairo.CairoPDFSurface(fn, size(p.plot)...)
+        ctx = Cairo.CairoContext(cs)
+        Rsvg.handle_render_cairo(ctx, r)
+        Cairo.show_page(ctx)
+        Cairo.finish(cs)
+    elseif suf == "png"
+        r = Rsvg.handle_new_from_data(raw_svg)
+        cs = Cairo.CairoImageSurface(size(p.plot)...,Cairo.FORMAT_ARGB32)
+        ctx = Cairo.CairoContext(cs)
+        Rsvg.handle_render_cairo(ctx, r)
+        Cairo.write_to_png(cs, fn)
+    else
+        error("Only html, svg, png, pdf output supported")
+    end
+
+    p
+end
+
+function png_data(p::SyncPlot)
     raw = _img_data(p, "png")
     raw[length("data:image/png;base64,")+1:end]
 end
 
-function jpeg_data(p::Plot)
+function jpeg_data(p::SyncPlot)
     raw = _img_data(p, "jpeg")
     raw[length("data:image/jpeg;base64,")+1:end]
 end
 
-function webp_data(p::Plot)
+function webp_data(p::SyncPlot)
     raw = _img_data(p, "webp")
     raw[length("data:image/webp;base64,")+1:end]
-end
-
-# TODO: somehow `length(svg_data(p))` is not idempotent
-svg_data(p::Plot, format="pdf") = @js p Plotly.Snapshot.toSVG(this, $format)
-
-function _img_data(p::Plot, format::ASCIIString)
-    _formats = ["png", "jpeg", "webp", "svg"]
-    if !(format in _formats)
-        error("Unsupported format $format, must be one of $_formats")
-    end
-
-    display(p)
-
-    @js p begin
-        ev = Plotly.Snapshot.toImage(this, d("format"=>$format))
-        @new Promise(resolve -> ev.once("success", resolve))
-    end
 end
 
 const _mimeformats =  Dict("application/eps"         => "eps",
@@ -170,7 +196,7 @@ const _mimeformats =  Dict("application/eps"         => "eps",
 )
 
 for (mime, fmt) in _mimeformats
-    @eval function Base.writemime(io::IO, ::MIME{symbol($mime)}, p::Plot)
+    @eval function Base.writemime(io::IO, ::MIME{symbol($mime)}, p::SyncPlot)
         @eval import ImageMagick
 
         # construct a magic wand and read the image data from png
