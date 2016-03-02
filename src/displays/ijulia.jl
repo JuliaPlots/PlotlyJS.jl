@@ -7,10 +7,9 @@ type JupyterDisplay <: AbstractPlotlyDisplay
     displayed::Bool
 end
 
-JupyterDisplay(p::Plot) = JupyterDisplay(p.divid, false)
-
 typealias JupyterPlot SyncPlot{JupyterDisplay}
 
+JupyterDisplay(p::Plot) = JupyterDisplay(p.divid, false)
 JupyterPlot(p::Plot) = JupyterPlot(p, JupyterDisplay(p))
 
 fork(jp::JupyterPlot) = JupyterPlot(fork(jp.plot))
@@ -51,13 +50,21 @@ else
 end
 
 ## API Methods for JupyterDisplay
-function call_plotlyjs(jd::JupyterDisplay, func::AbstractString, args...)
-    arg_str = length(args) > 0 ? string(",", join(map(json, args), ", ")) :
-                                 ""
-    display("text/html", """<script>
-        var thediv = document.getElementById('$(jd.divid)');
-        Plotly.$func(thediv $arg_str)
-    </script>""")
+function _img_data(p::JupyterPlot, format::ASCIIString)
+    # _formats = ["png", "jpeg", "webp", "svg"]
+    # if !(format in _formats)
+    #     error("Unsupported format $format, must be one of $_formats")
+    # end
+    #
+    # # make sure plot has been displayed
+    # display(p)
+    #
+    # # TODO: figure out how to resolve the promise
+    # display("text/html", """<script>
+    #     ev = Plotly.Snapshot.toImage(this, {'format': '$format'})
+    #     new Promise(resolve -> ev.once("success", resolve))
+    # </script>""")
+    error("Not implemented (yet). Use Electron frontend to save figures")
 end
 
 function svg_data(jp::JupyterPlot, format="png")
@@ -68,6 +75,17 @@ function svg_data(jp::JupyterPlot, format="png")
     error("Not implemented (yet). Use Electron frontend to save figures")
 end
 
+
+function call_plotlyjs(jd::JupyterDisplay, func::AbstractString, args...)
+    arg_str = length(args) > 0 ? string(",", join(map(json, args), ", ")) :
+                                 ""
+    display("text/html", """<script>
+        var thediv = document.getElementById('$(jd.divid)');
+        Plotly.$func(thediv $arg_str)
+    </script>""")
+end
+
+# Methods from javascript API
 relayout!(jd::JupyterDisplay, update::Associative=Dict(); kwargs...) =
     call_plotlyjs(jd, "relayout", merge(update, prep_kwargs(kwargs)))
 

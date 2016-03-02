@@ -13,6 +13,7 @@ const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
 include("traces_layouts.jl")
 abstract AbstractPlotlyDisplay
 
+# core plot object
 type Plot{TT<:AbstractTrace}
     data::Vector{TT}
     layout::AbstractLayout
@@ -20,10 +21,11 @@ type Plot{TT<:AbstractTrace}
 end
 
 # include the rest of the core parts of the package
+include("json.jl")
+include("subplots.jl")
 include("display.jl")
 include("api.jl")
-include("subplots.jl")
-include("json.jl")
+include("savefig.jl")
 
 # Set some defaults for constructing `Plot`s
 Plot() = Plot(GenericTrace{Dict{Symbol,Any}}[], Layout(), Base.Random.uuid4())
@@ -33,12 +35,12 @@ Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout()) =
 
 Plot(data::AbstractTrace, layout=Layout()) = Plot([data], layout)
 
-fork(p::Plot) = Plot(deepcopy(p.data), copy(p.layout), Base.Random.uuid4())
-
+# NOTE: we export trace constructing types from inside api.jl
 export
 
     # core types
     Plot, GenericTrace, Layout, ElectronDisplay, JupyterDisplay,
+    ElectronPlot, JupyterPlot,
 
     # other methods
     savefig, svg_data, png_data, jpeg_data, webp_data,

@@ -10,6 +10,7 @@ end
 typealias ElectronPlot SyncPlot{ElectronDisplay}
 
 ElectronDisplay() = ElectronDisplay(Nullable{Window}(), false)
+ElectronPlot(p::Plot) = ElectronPlot(p, ElectronDisplay())
 
 fork(jp::ElectronPlot) = ElectronPlot(fork(jp.plot), ElectronDisplay())
 
@@ -78,12 +79,14 @@ end
 svg_data(p::ElectronPlot, format="png") =
     @js p.view Plotly.Snapshot.toSVG(this, $format)
 
+
 Blink.js(p::ElectronDisplay, code::JSString; callback=true) =
     Blink.js(get_window(p), :(Blink.evalwith(thediv, $(Blink.jsstring(code)))), callback=callback)
 
 Blink.js(p::ElectronPlot, code::JSString; callback=true) =
     Blink.js(p.view, code; callback=callback)
 
+# Methods from javascript API (docstrings found in api.jl)
 relayout!(p::ElectronDisplay, update::Associative=Dict(); kwargs...) =
     @js_ p Plotly.relayout(this, $(merge(update, prep_kwargs(kwargs))))
 

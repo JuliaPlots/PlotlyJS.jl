@@ -88,18 +88,33 @@ for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
     end
 end
 
-# -------------- #
-# Other displays #
-# -------------- #
+# Add some basic Julia API methods on SyncPlot that just forward onto the Plot
+Base.size(sp::SyncPlot) = size(sp.plot)
+Base.copy(sp::SyncPlot) = fork(sp)  # defined by each SyncPlot{TD}
+
+# ----------------- #
+# Display frontends #
+# ----------------- #
+
 include("displays/electron.jl")
 include("displays/ijulia.jl")
+
+# methods to convert from one frontend to another
+let
+    all_frontends = [:ElectronPlot, :JupyterPlot]
+    for fe_to in all_frontends
+        for fe_from in all_frontends
+            @eval $(fe_to)(sp::$(fe_from)) = $(fe_to)(sp.plot)
+        end
+    end
+end
 
 # -------- #
 # Defaults #
 # -------- #
 
 if isdefined(Main, :IJulia) && Main.IJulia.inited
-    # default to ElectronDisplay
+    # default to JupyterDisplay
     SyncPlot(p::Plot) = SyncPlot(p, JupyterDisplay(p))
 else
     # default to ElectronDisplay
