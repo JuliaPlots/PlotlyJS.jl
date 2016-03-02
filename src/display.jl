@@ -2,7 +2,6 @@
 # Display-esque functions #
 # ----------------------- #
 
-
 function html_body(p::Plot)
     """
     <div id="$(p.divid)"></div>
@@ -63,8 +62,61 @@ end
 
 Base.show(io::IO, p::Plot) = writemime(io, MIME("text/plain"), p)
 
-# -------------- #
-# Other displays #
-# -------------- #
+# ----------------------------------------- #
+# SyncPlot -- sync Plot object with display #
+# ----------------------------------------- #
+immutable SyncPlot{TD<:AbstractPlotlyDisplay}
+    plot::Plot
+    view::TD
+end
+
+plot(args...; kwargs...) = SyncPlot(Plot(args...; kwargs...))
+
+## API methods for SyncPlot
+for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
+          :redraw!, :extendtraces!, :prependtraces!]
+    @eval function $(f)(sp::SyncPlot, args...; kwargs...)
+        $(f)(sp.plot, args...; kwargs...)
+        $(f)(sp.view, args...; kwargs...)
+    end
+
+    no_!_method = symbol(string(f)[1:end-1])
+    @eval function $(no_!_method)(sp::SyncPlot, args...; kwargs...)
+        sp2 = fork(sp)
+        $f(sp2.plot, args...; kwargs...)  # only need to update the julia side
+        sp2  # return so we display fresh
+    end
+end
+
+# Add some basic Julia API methods on SyncPlot that just forward onto the Plot
+Base.size(sp::SyncPlot) = size(sp.plot)
+Base.copy(sp::SyncPlot) = fork(sp)  # defined by each SyncPlot{TD}
+
+# ----------------- #
+# Display frontends #
+# ----------------- #
+
 include("displays/electron.jl")
 include("displays/ijulia.jl")
+
+# methods to convert from one frontend to another
+let
+    all_frontends = [:ElectronPlot, :JupyterPlot]
+    for fe_to in all_frontends
+        for fe_from in all_frontends
+            @eval $(fe_to)(sp::$(fe_from)) = $(fe_to)(sp.plot)
+        end
+    end
+end
+
+# -------- #
+# Defaults #
+# -------- #
+
+if isdefined(Main, :IJulia) && Main.IJulia.inited
+    # default to JupyterDisplay
+    SyncPlot(p::Plot) = SyncPlot(p, JupyterDisplay(p))
+else
+    # default to ElectronDisplay
+    SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay())
+end

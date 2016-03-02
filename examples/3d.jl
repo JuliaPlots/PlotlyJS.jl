@@ -1,6 +1,6 @@
 using PlotlyJS
 
-function random_line(showme=true)
+function random_line()
     n = 400
     rw() = cumsum(randn(n))
     trace1 = scatter3d(;x=rw(),y=rw(), z=rw(), mode="lines",
@@ -20,12 +20,10 @@ function random_line(showme=true)
                         line_color="#bcbd22", line_width=1)
     layout = Layout(autosize=false, width=500, height=500,
                     margin=Dict(:l => 0, :r => 0, :b => 0, :t => 65))
-    p = Plot([trace1, trace2, trace3], layout)
-    showme && show(p)
-    p
+    plot([trace1, trace2, trace3], layout)
 end
 
-function topo_surface(showme=true)
+function topo_surface()
     z = Vector[[27.80985, 49.61936, 83.08067, 116.6632, 130.414, 150.7206, 220.1871,
                 156.1536, 148.6416, 203.7845, 206.0386, 107.1618, 68.36975, 45.3359,
                 49.96142, 21.89279, 17.02552, 11.74317,   14.75226, 13.6671, 5.677561,
@@ -117,12 +115,10 @@ function topo_surface(showme=true)
     layout = Layout(title="Mt. Bruno Elevation", autosize=false, width=500,
                     height=500,
                     margin=Dict(:l => 65, :r => 50, :b => 65, :t => 90))
-    p = Plot(trace, layout)
-    showme && show(p)
-    p
+    plot(trace, layout)
 end
 
-function multiple_surface(showme=true)
+function multiple_surface()
     z1 = Vector[[8.83, 8.89, 8.81, 8.87, 8.9, 8.87],
                 [8.89, 8.94, 8.85, 8.94, 8.96, 8.92],
                 [8.84, 8.9, 8.82, 8.92, 8.93, 8.91],
@@ -143,12 +139,10 @@ function multiple_surface(showme=true)
     trace1 = surface(z=z1)
     trace2 = surface(z=z2, showscale=false, opacity=0.9)
     trace3 = surface(z=z3, showscale=false, opacity=0.9)
-    p = Plot([trace1, trace2, trace3])
-    showme && show(p)
-    p
+    plot([trace1, trace2, trace3])
 end
 
-function clustering_alpha_shapes(showme=true)
+function clustering_alpha_shapes()
     @eval using DataFrames, RDatasets, Colors
 
     # load data
@@ -187,12 +181,10 @@ function clustering_alpha_shapes(showme=true)
                                            :backgroundcolor=>"rgb(230, 230,230)"),
                                :aspectratio=>Dict( :x=>1, :y=>1, :z=>0.7 ),
                                :aspectmode => "manual"))
-    p = Plot(data, layout)
-    showme && show(p)
-    p
+    plot(data, layout)
 end
 
-function scatter_3d(showme=true)
+function scatter_3d()
     @eval using Distributions
     Σ = fill(0.5, 3, 3) + Diagonal([0.5, 0.5, 0.5])
     obs1 = rand(MvNormal(zeros(3), Σ), 200)'
@@ -211,7 +203,5 @@ function scatter_3d(showme=true)
 
     layout = Layout(margin=Dict(:l=>0, :r=>0, :t=>0, :b=>0))
 
-    p = Plot([trace1, trace2], layout)
-    showme && show(p)
-    p
+    plot([trace1, trace2], layout)
 end

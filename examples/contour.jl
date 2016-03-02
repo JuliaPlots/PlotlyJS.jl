@@ -1,6 +1,6 @@
 using PlotlyJS
 
-function contour1(showme=false)
+function contour1()
     x = [-9, -6, -5 , -3, -1]
     y = [0, 1, 4, 5, 7]
     z = [10     10.625  12.5  15.625  20
@@ -11,7 +11,5 @@ function contour1(showme=false)
     trace = contour(x=x, y=y, z=z)
 
     layout = Layout(title="Setting the X and Y Coordinates in a Contour Plot")
-    p = Plot(trace, layout)
-    showme && show(p)
-    p
+    plot(trace, layout)
 end
