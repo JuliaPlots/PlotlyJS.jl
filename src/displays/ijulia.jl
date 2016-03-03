@@ -39,7 +39,7 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
             nothing
         else
             p.view.displayed = true
-            Dict("text/html" => sprint(writemime, "text/html", p.plot))
+            Dict("text/html" => html_body(p.plot))
         end
     end
 
