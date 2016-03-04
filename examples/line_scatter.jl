@@ -1,13 +1,15 @@
 using PlotlyJS
 
-function linescatter1()
+function exlinescatter1()
+    # Begin Example
     trace1 = scatter(;x=1:4, y=[10, 15, 13, 17], mode="markers")
     trace2 = scatter(;x=2:5, y=[16, 5, 11, 9], mode="lines")
     trace3 = scatter(;x=1:4, y=[12, 9, 15, 12], mode="lines+markers")
     plot([trace1, trace2, trace3])
+    # End Example
 end
 
-function linescatter2()
+function exlinescatter2()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers", name="Team A",
                       text=["A-1", "A-2", "A-3", "A-4", "A-5"],
@@ -25,7 +27,7 @@ function linescatter2()
     plot(data, layout)
 end
 
-function linescatter3()
+function exlinescatter3()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers+text", name="Team A",
                       textposition="top center",
