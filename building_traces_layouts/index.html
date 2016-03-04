@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="no-js ie6"><![endif]-->
+<!--[if IE 7 ]><html class="no-js ie7"><![endif]-->
+<!--[if IE 8 ]><html class="no-js ie8"><![endif]-->
+<!--[if IE 9 ]><html class="no-js ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    
+      
+        <title>Building Blocks - PlotlyJS.jl</title>
+      
+      
+      
+      
+        <meta name="author" content="Spencer Lyon">
+      
+    
+    <meta property="og:url" content="None">
+    <meta property="og:title" content="PlotlyJS.jl">
+    <meta property="og:image" content="None/../">
+    <meta name="apple-mobile-web-app-title" content="PlotlyJS.jl">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon-e565ddfa3b.ico">
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon-e565ddfa3b.ico">
+    <style>
+      @font-face {
+      	font-family: 'Icon';
+      	src: url('../assets/fonts/icon.eot?52m981');
+      	src: url('../assets/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+      		   url('../assets/fonts/icon.woff?52m981')
+               format('woff'),
+      		   url('../assets/fonts/icon.ttf?52m981')
+               format('truetype'),
+      		   url('../assets/fonts/icon.svg?52m981#icon')
+               format('svg');
+      	font-weight: normal;
+      	font-style: normal;
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/stylesheets/application-21e06ffc21.css">
+    
+    
+      
+      
+      
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu+Mono">
+      <style>
+        body, input {
+          font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+        }
+        pre, code {
+          font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+        }
+      </style>
+    
+    
+      <link rel="stylesheet" href="../css/github.css">
+    
+    
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <script src="../assets/javascripts/modernizr-4a5cc7e01e.js"></script>
+    
+  </head>
+  
+  
+  
+  <body class=" ">
+    
+      
+      
+    
+    <div class="backdrop">
+      <div class="backdrop-paper"></div>
+    </div>
+    <input class="toggle" type="checkbox" id="toggle-drawer">
+    <input class="toggle" type="checkbox" id="toggle-search">
+    <label class="toggle-button overlay" for="toggle-drawer"></label>
+    <header class="header">
+      <nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        
+          <span class="path">
+            
+              
+                User Guide <i class="icon icon-link"></i>
+              
+            
+          </span>
+        
+        Building Blocks
+      </div>
+    </div>
+    
+    
+      
+      <div class="button button-github" role="button" aria-label="GitHub">
+        <a href="https://github.com/spencerlyon2" title="@spencerlyon2 on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+      </div>
+    
+    <div class="button button-search" role="button" aria-label="Search">
+      <label class="toggle-button icon icon-search" title="Search" for="toggle-search"></label>
+    </div>
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+    </header>
+    <main class="main">
+      
+      <div class="drawer">
+        <nav aria-label="Navigation">
+  
+  <a href="https://github.com/spencerlyon2/PlotlyJS.jl" class="project">
+    <div class="banner">
+      
+      <div class="name">
+        <strong>PlotlyJS.jl 0.1.0</strong>
+        
+          <br>
+          spencerlyon2/PlotlyJS.jl
+        
+      </div>
+    </div>
+  </a>
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            
+            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.1.0.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+      <div class="toc">
+        <ul>
+          
+            
+  <li>
+    <a class="" title="Home" href="..">
+      Home
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <span class="section">User Guide</span>
+    <ul>
+      
+        
+  <li>
+    <a class="" title="Preliminaries" href="../basics/">
+      Preliminaries
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="current" title="Building Blocks" href="./">
+      Building Blocks
+    </a>
+    
+      
+      
+        <ul>
+          
+            <li class="anchor">
+              <a title="Traces" href="#traces">
+                Traces
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Layouts" href="#layouts">
+                Layouts
+              </a>
+            </li>
+          
+        </ul>
+      
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Putting it together" href="../syncplots/">
+      Putting it together
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Working with plots" href="../manipulating_plots/">
+      Working with plots
+    </a>
+    
+  </li>
+
+      
+    </ul>
+  </li>
+
+          
+            
+  <li>
+    <span class="section">Examples</span>
+    <ul>
+      
+        
+  <li>
+    <a class="" title="3d" href="../examples/3d/">
+      3d
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Area" href="../examples/area/">
+      Area
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Contour" href="../examples/contour/">
+      Contour
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Histograms" href="../examples/histograms/">
+      Histograms
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Line scatter" href="../examples/line_scatter/">
+      Line scatter
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Maps" href="../examples/maps/">
+      Maps
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Subplots" href="../examples/subplots/">
+      Subplots
+    </a>
+    
+  </li>
+
+      
+    </ul>
+  </li>
+
+          
+        </ul>
+        
+          <hr>
+          <span class="section">The author</span>
+          <ul>
+            
+            
+              
+              <li>
+                <a href="https://github.com/spencerlyon2" target="_blank" title="@spencerlyon2 on GitHub">
+                  @spencerlyon2 on GitHub
+                </a>
+              </li>
+            
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+      </div>
+      <article class="article">
+        <div class="wrapper">
+          
+            <h1>Building Blocks</h1>
+          
+          <p>Recall that the <code>Plotly.newPlot</code> javascript function expects to receive an
+array of <code>trace</code> objects and, optionally, a <code>layout</code> object. In this section we
+will learn how to build these object in Julia.  </p>
+<h2 id="traces">Traces<a class="headerlink" href="#traces" title="Permanent link">¶</a></h2>
+<p>A <code>Plot</code> instance will have a vector of <code>trace</code>s. These should each be a subtype of <code>AbstractTrace</code>.</p>
+<p>PlotlyJS.jl defines one such subtype:</p>
+<div class="codehilite"><pre><span class="k">type</span><span class="nc"> GenericTrace</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">Associative</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractTrace</span>
+    <span class="n">kind</span><span class="p">::</span><span class="n">ASCIIString</span>
+    <span class="n">fields</span><span class="p">::</span><span class="n">T</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>The <code>kind</code> field specifies the type of trace and the <code>fields</code> is an Associative object that maps trace attributes to their values.</p>
+<p>Let's consider an example. Suppose we would like to build the following JSON
+object:</p>
+<div class="codehilite"><pre><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+  <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+  <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;markers+text&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Team A&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;A-1&quot;</span><span class="p">,</span> <span class="s2">&quot;A-2&quot;</span><span class="p">,</span> <span class="s2">&quot;A-3&quot;</span><span class="p">,</span> <span class="s2">&quot;A-4&quot;</span><span class="p">,</span> <span class="s2">&quot;A-5&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;textposition&quot;</span><span class="p">:</span> <span class="s2">&quot;top center&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;textfont&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;family&quot;</span><span class="p">:</span>  <span class="s2">&quot;Raleway, sans-serif&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;marker&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>One way to do this in Julia is:</p>
+<div class="codehilite"><pre><span class="n">fields</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}(:</span><span class="k">type</span><span class="nc"> </span><span class="err">=&gt; &quot;</span><span class="nc">scatter</span><span class="s">&quot;,</span>
+<span class="s">                          :x =&gt; [1, 2, 3, 4, 5],</span>
+<span class="s">                          :y =&gt; [1, 6, 3, 6, 1],</span>
+<span class="s">                          :mode =&gt; &quot;</span><span class="n">markers</span><span class="o">+</span><span class="n">text</span><span class="s">&quot;,</span>
+<span class="s">                          :name =&gt; &quot;</span><span class="n">Team</span> <span class="n">A</span><span class="s">&quot;,</span>
+<span class="s">                          :text =&gt; [&quot;</span><span class="n">A</span><span class="o">-</span><span class="mi">1</span><span class="s">&quot;, &quot;</span><span class="n">A</span><span class="o">-</span><span class="mi">2</span><span class="s">&quot;, &quot;</span><span class="n">A</span><span class="o">-</span><span class="mi">3</span><span class="s">&quot;, &quot;</span><span class="n">A</span><span class="o">-</span><span class="mi">4</span><span class="s">&quot;, &quot;</span><span class="n">A</span><span class="o">-</span><span class="mi">5</span><span class="s">&quot;],</span>
+<span class="s">                          :textposition =&gt; &quot;</span><span class="n">top</span> <span class="n">center</span><span class="s">&quot;,</span>
+<span class="s">                          :textfont =&gt; Dict(:family =&gt;  &quot;</span><span class="n">Raleway</span><span class="p">,</span> <span class="n">sans</span><span class="o">-</span><span class="n">serif</span><span class="s">&quot;),</span>
+<span class="s">                          :marker =&gt; Dict(:size =&gt; 12))</span>
+<span class="s">GenericTrace(&quot;</span><span class="n">scatter</span><span class="s">&quot;, fields)</span>
+</pre></div>
+
+
+<p>A more convenient syntax is:</p>
+<div class="codehilite"><pre><span class="n">t1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+              <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+              <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers+text&quot;</span><span class="p">,</span>
+              <span class="n">name</span><span class="o">=</span><span class="s">&quot;Team A&quot;</span><span class="p">,</span>
+              <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;A-1&quot;</span><span class="p">,</span> <span class="s">&quot;A-2&quot;</span><span class="p">,</span> <span class="s">&quot;A-3&quot;</span><span class="p">,</span> <span class="s">&quot;A-4&quot;</span><span class="p">,</span> <span class="s">&quot;A-5&quot;</span><span class="p">],</span>
+              <span class="n">textposition</span><span class="o">=</span><span class="s">&quot;top center&quot;</span><span class="p">,</span>
+              <span class="n">textfont_family</span><span class="o">=</span><span class="s">&quot;Raleway, sans-serif&quot;</span><span class="p">,</span>
+              <span class="n">marker_size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Notice a few things:</p>
+<ul>
+<li>The trace <code>type</code> became the function name. There is a similar method for all
+plotly.js traces types.</li>
+<li>All other trace attributes were set using keyword arguments. This allows us
+to avoid typing out the symbol prefix (<code>:</code>) and the arrows (<code>=&gt;</code>) that were
+necessary when constructing the <code>Dict</code></li>
+<li>We can set nested attributes using underscores. Notice that the JSON
+<code>"marker": { "size": 12 }</code> was written <code>marker_size=12</code>.</li>
+</ul>
+<p>We can verify that this is indeed equivalent JSON by printing the JSON obtained
+from <code>JSON.json(t1, 2)</code> which is (note the order of the attributes is different,
+but the content is identical):</p>
+<div class="codehilite"><pre><span class="p">{</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">6</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">,</span>
+    <span class="mi">6</span><span class="p">,</span>
+    <span class="mi">1</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;A-1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;A-2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;A-3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;A-4&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;A-5&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;textfont&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;family&quot;</span><span class="p">:</span> <span class="s2">&quot;Raleway, sans-serif&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Team A&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">,</span>
+    <span class="mi">5</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;textposition&quot;</span><span class="p">:</span> <span class="s2">&quot;top center&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;markers+text&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;marker&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="accessing-attributes">Accessing attributes<a class="headerlink" href="#accessing-attributes" title="Permanent link">¶</a></h3>
+<p>If we then wanted to extract a particular attribute, we can do so using
+<code>getindex(t1, :attrname)</code>, or the syntactic sugar <code>t1[:attrname]</code>. Note that
+both symbols and strings can be used in a call to <code>getindex</code>:</p>
+<div class="codehilite"><pre>julia&gt; t1[&quot;marker&quot;]
+Dict{Any,Any} with 1 entry:
+  :size =&gt; 12
+
+julia&gt; t1[:marker]
+Dict{Any,Any} with 1 entry:
+  :size =&gt; 12
+</pre></div>
+
+
+<p>To access a nested property use <code>parent.child</code></p>
+<div class="codehilite"><pre>julia&gt; t1[&quot;textfont.family&quot;]
+&quot;Raleway, sans-serif&quot;
+</pre></div>
+
+
+<h3 id="setting-additional-attributes">Setting additional attributes<a class="headerlink" href="#setting-additional-attributes" title="Permanent link">¶</a></h3>
+<p>We can also set additional attributes. Suppose we wanted to set <code>marker.color</code>
+to be red. We can do this with a call to <code>setindex!(t1, "red", :marker_color)</code>,
+or equivalently <code>t1["marker_color"] = "red"</code>:</p>
+<div class="codehilite"><pre>julia&gt; t1[&quot;marker_color&quot;] = &quot;red&quot;
+&quot;red&quot;
+
+julia&gt; println(JSON.json(t1, 2))
+{
+  &quot;type&quot;: &quot;scatter&quot;,
+  &quot;y&quot;: [
+    1,
+    6,
+    3,
+    6,
+    1
+  ],
+  &quot;text&quot;: [
+    &quot;A-1&quot;,
+    &quot;A-2&quot;,
+    &quot;A-3&quot;,
+    &quot;A-4&quot;,
+    &quot;A-5&quot;
+  ],
+  &quot;textfont&quot;: {
+    &quot;family&quot;: &quot;Raleway, sans-serif&quot;
+  },
+  &quot;name&quot;: &quot;Team A&quot;,
+  &quot;x&quot;: [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  &quot;textposition&quot;: &quot;top center&quot;,
+  &quot;mode&quot;: &quot;markers+text&quot;,
+  &quot;marker&quot;: {
+    &quot;size&quot;: 12,
+    &quot;color&quot;: &quot;red&quot;
+  }
+}
+</pre></div>
+
+
+<p>Notice how the <code>color</code> attribute was correctly added within the existing
+<code>marker</code> attribute (alongside <code>size</code>), instead of replacing the <code>marker</code>
+attribute.</p>
+<p>You can also use this syntax to add completely new nested attributes:</p>
+<div class="codehilite"><pre>julia&gt; t1[&quot;line_width&quot;] = 5
+5
+
+julia&gt; println(JSON.json(t1, 2))
+{
+  &quot;type&quot;: &quot;scatter&quot;,
+  &quot;y&quot;: [
+    1,
+    6,
+    3,
+    6,
+    1
+  ],
+  &quot;text&quot;: [
+    &quot;A-1&quot;,
+    &quot;A-2&quot;,
+    &quot;A-3&quot;,
+    &quot;A-4&quot;,
+    &quot;A-5&quot;
+  ],
+  &quot;textfont&quot;: {
+    &quot;family&quot;: &quot;Raleway, sans-serif&quot;
+  },
+  &quot;name&quot;: &quot;Team A&quot;,
+  &quot;line&quot;: {
+    &quot;width&quot;: 5
+  },
+  &quot;x&quot;: [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  &quot;textposition&quot;: &quot;top center&quot;,
+  &quot;mode&quot;: &quot;markers+text&quot;,
+  &quot;marker&quot;: {
+    &quot;size&quot;: 12,
+    &quot;color&quot;: &quot;red&quot;
+  }
+}
+</pre></div>
+
+
+<h2 id="layouts">Layouts<a class="headerlink" href="#layouts" title="Permanent link">¶</a></h2>
+<p>The <code>Layout</code> type is defined as</p>
+<div class="codehilite"><pre><span class="k">type</span><span class="nc"> Layout</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">Associative</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractLayout</span>
+    <span class="n">fields</span><span class="p">::</span><span class="n">T</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>You can construct a layout using the same convenient keyword argument syntax
+that we used for traces:</p>
+<div class="codehilite"><pre>julia&gt; l = Layout(;title=&quot;Penguins&quot;,
+                   xaxis_range=[0, 42.0], xaxis_title=&quot;fish&quot;,
+                   yaxis_title=&quot;Weight&quot;,
+                   xaxis_showgrid=true, yaxis_showgrid=true,
+                   legend_y=1.15, legend_x=0.7)
+layout with fields legend, margin, title, xaxis, and yaxis
+
+
+julia&gt; println(JSON.json(l, 2))
+{
+  &quot;yaxis&quot;: {
+    &quot;title&quot;: &quot;Weight&quot;,
+    &quot;showgrid&quot;: true
+  },
+  &quot;legend&quot;: {
+    &quot;y&quot;: 1.15,
+    &quot;x&quot;: 0.7
+  },
+  &quot;xaxis&quot;: {
+    &quot;range&quot;: [
+      0.0,
+      42.0
+    ],
+    &quot;title&quot;: &quot;fish&quot;,
+    &quot;showgrid&quot;: true
+  },
+  &quot;title&quot;: &quot;Penguins&quot;,
+  &quot;margin&quot;: {
+    &quot;r&quot;: 50,
+    &quot;l&quot;: 50,
+    &quot;b&quot;: 50,
+    &quot;t&quot;: 60
+  }
+}
+</pre></div>
+          <aside class="copyright" role="note">
+            
+              Copyright &copy; 2016 <a href="http://spencerlyon.com/">Spencer Lyon</a> &ndash;
+            
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="http://squidfunk.github.io/mkdocs-material/" target="_blank">
+              Material
+            </a>
+            theme.
+          </aside>
+          
+            <footer class="footer">
+              
+  <nav class="pagination" aria-label="Footer">
+    <div class="previous">
+      
+        <a href="../basics/" title="Preliminaries">
+          <span class="direction">
+            Previous
+          </span>
+          <div class="page">
+            <div class="button button-previous" role="button" aria-label="Previous">
+              <i class="icon icon-back"></i>
+            </div>
+            <div class="stretch">
+              <div class="title">
+                Preliminaries
+              </div>
+            </div>
+          </div>
+        </a>
+      
+    </div>
+    <div class="next">
+      
+        <a href="../syncplots/" title="Putting it together">
+          <span class="direction">
+            Next
+          </span>
+          <div class="page">
+            <div class="stretch">
+              <div class="title">
+                Putting it together
+              </div>
+            </div>
+            <div class="button button-next" role="button" aria-label="Next">
+              <i class="icon icon-forward"></i>
+            </div>
+          </div>
+        </a>
+      
+    </div>
+  </nav>
+
+            </footer>
+          
+        </div>
+      </article>
+      <div class="results" role="status" aria-live="polite">
+        <div class="scrollable">
+          <div class="wrapper">
+            <div class="meta"></div>
+            <div class="list"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      var base_url = '..';
+      var repo_id  = 'spencerlyon2/PlotlyJS.jl';
+    </script>
+    <script src="../assets/javascripts/application-dfb6964a49.js"></script>
+    
+  </body>
+</html>

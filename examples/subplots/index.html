@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="no-js ie6"><![endif]-->
+<!--[if IE 7 ]><html class="no-js ie7"><![endif]-->
+<!--[if IE 8 ]><html class="no-js ie8"><![endif]-->
+<!--[if IE 9 ]><html class="no-js ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    
+      
+        <title>Subplots - PlotlyJS.jl</title>
+      
+      
+      
+      
+        <meta name="author" content="Spencer Lyon">
+      
+    
+    <meta property="og:url" content="None">
+    <meta property="og:title" content="PlotlyJS.jl">
+    <meta property="og:image" content="None/../../">
+    <meta name="apple-mobile-web-app-title" content="PlotlyJS.jl">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon-e565ddfa3b.ico">
+    <link rel="icon" type="image/x-icon" href="../../assets/images/favicon-e565ddfa3b.ico">
+    <style>
+      @font-face {
+      	font-family: 'Icon';
+      	src: url('../../assets/fonts/icon.eot?52m981');
+      	src: url('../../assets/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+      		   url('../../assets/fonts/icon.woff?52m981')
+               format('woff'),
+      		   url('../../assets/fonts/icon.ttf?52m981')
+               format('truetype'),
+      		   url('../../assets/fonts/icon.svg?52m981#icon')
+               format('svg');
+      	font-weight: normal;
+      	font-style: normal;
+      }
+    </style>
+    <link rel="stylesheet" href="../../assets/stylesheets/application-21e06ffc21.css">
+    
+    
+      
+      
+      
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu+Mono">
+      <style>
+        body, input {
+          font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+        }
+        pre, code {
+          font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+        }
+      </style>
+    
+    
+      <link rel="stylesheet" href="../../css/github.css">
+    
+    
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <script src="../../assets/javascripts/modernizr-4a5cc7e01e.js"></script>
+    
+  </head>
+  
+  
+  
+  <body class=" ">
+    
+      
+      
+    
+    <div class="backdrop">
+      <div class="backdrop-paper"></div>
+    </div>
+    <input class="toggle" type="checkbox" id="toggle-drawer">
+    <input class="toggle" type="checkbox" id="toggle-search">
+    <label class="toggle-button overlay" for="toggle-drawer"></label>
+    <header class="header">
+      <nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        
+          <span class="path">
+            
+              
+                Examples <i class="icon icon-link"></i>
+              
+            
+          </span>
+        
+        Subplots
+      </div>
+    </div>
+    
+    
+      
+      <div class="button button-github" role="button" aria-label="GitHub">
+        <a href="https://github.com/spencerlyon2" title="@spencerlyon2 on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+      </div>
+    
+    <div class="button button-search" role="button" aria-label="Search">
+      <label class="toggle-button icon icon-search" title="Search" for="toggle-search"></label>
+    </div>
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+    </header>
+    <main class="main">
+      
+      <div class="drawer">
+        <nav aria-label="Navigation">
+  
+  <a href="https://github.com/spencerlyon2/PlotlyJS.jl" class="project">
+    <div class="banner">
+      
+      <div class="name">
+        <strong>PlotlyJS.jl 0.1.0</strong>
+        
+          <br>
+          spencerlyon2/PlotlyJS.jl
+        
+      </div>
+    </div>
+  </a>
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            
+            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.1.0.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+      <div class="toc">
+        <ul>
+          
+            
+  <li>
+    <a class="" title="Home" href="../..">
+      Home
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <span class="section">User Guide</span>
+    <ul>
+      
+        
+  <li>
+    <a class="" title="Preliminaries" href="../../basics/">
+      Preliminaries
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Building Blocks" href="../../building_traces_layouts/">
+      Building Blocks
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Putting it together" href="../../syncplots/">
+      Putting it together
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Working with plots" href="../../manipulating_plots/">
+      Working with plots
+    </a>
+    
+  </li>
+
+      
+    </ul>
+  </li>
+
+          
+            
+  <li>
+    <span class="section">Examples</span>
+    <ul>
+      
+        
+  <li>
+    <a class="" title="3d" href="../3d/">
+      3d
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Area" href="../area/">
+      Area
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Contour" href="../contour/">
+      Contour
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Histograms" href="../histograms/">
+      Histograms
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Line scatter" href="../line_scatter/">
+      Line scatter
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Maps" href="../maps/">
+      Maps
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="current" title="Subplots" href="./">
+      Subplots
+    </a>
+    
+      
+      
+        <ul>
+          
+        </ul>
+      
+    
+  </li>
+
+      
+    </ul>
+  </li>
+
+          
+        </ul>
+        
+          <hr>
+          <span class="section">The author</span>
+          <ul>
+            
+            
+              
+              <li>
+                <a href="https://github.com/spencerlyon2" target="_blank" title="@spencerlyon2 on GitHub">
+                  @spencerlyon2 on GitHub
+                </a>
+              </li>
+            
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+      </div>
+      <article class="article">
+        <div class="wrapper">
+          
+            <h1>Subplots</h1>
+          
+          <div class="codehilite"><pre><span class="k">function</span><span class="nf"> exsubplots1</span><span class="p">()</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">exlinescatter1</span><span class="p">()</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">exlinescatter2</span><span class="p">()</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">]</span>
+    <span class="n">p</span>
+<span class="k">end</span>
+<span class="n">exsubplots1</span><span class="p">()</span>
+</pre></div>
+
+
+<div id="f88a1cfc-766b-4145-b920-4dd622a671c4"></div>
+
+<script>
+   thediv = document.getElementById('f88a1cfc-766b-4145-b920-4dd622a671c4');
+var data = [{"type":"scatter","yaxis":"y1","y":[10,15,13,17],"xaxis":"x1","x":[1,2,3,4],"mode":"markers"},{"type":"scatter","yaxis":"y1","y":[16,5,11,9],"xaxis":"x1","x":[2,3,4,5],"mode":"lines"},{"type":"scatter","yaxis":"y1","y":[12,9,15,12],"xaxis":"x1","x":[1,2,3,4],"mode":"lines+markers"},{"type":"scatter","yaxis":"y2","y":[1,6,3,6,1],"text":["A-1","A-2","A-3","A-4","A-5"],"name":"Team A","xaxis":"x2","x":[1,2,3,4,5],"mode":"markers","marker":{"size":12}},{"type":"scatter","yaxis":"y2","y":[4,1,7,1,4],"text":["B-a","B-b","B-c","B-d","B-e"],"name":"Team B","xaxis":"x2","x":[1.0,2.0,3.0,4.0,5.0],"mode":"markers","marker":{"size":12}}]
+var layout = {"annotations":[{"text":"Data Labels Hover","y":1.0,"font":{"size":16},"xanchor":"center","xref":"paper","showarrow":false,"x":0.775,"yanchor":"bottom","yref":"paper"}],"yaxis2":{"range":[0,8],"domain":[0.0,1.0],"anchor":"x2"},"yaxis1":{"domain":[0.0,1.0],"anchor":"x1"},"xaxis1":{"domain":[0.0,0.45],"anchor":"y1"},"margin":{"r":50,"l":50,"b":50,"t":60},"xaxis2":{"range":[0.75,5.25],"domain":[0.55,1.0],"anchor":"y2"}}
+
+Plotly.plot(thediv, data,  layout, {showLink: false});
+
+ </script>
+
+<div class="codehilite"><pre><span class="k">function</span><span class="nf"> exsubplots2</span><span class="p">()</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">exlinescatter1</span><span class="p">()</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">exlinescatter2</span><span class="p">()</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">]</span>
+    <span class="n">p</span>
+<span class="k">end</span>
+<span class="n">exsubplots2</span><span class="p">()</span>
+</pre></div>
+
+
+<div id="232fbe83-684e-43e2-bc95-a366f3883dd6"></div>
+
+<script>
+   thediv = document.getElementById('232fbe83-684e-43e2-bc95-a366f3883dd6');
+var data = [{"type":"scatter","yaxis":"y1","y":[10,15,13,17],"xaxis":"x1","x":[1,2,3,4],"mode":"markers"},{"type":"scatter","yaxis":"y1","y":[16,5,11,9],"xaxis":"x1","x":[2,3,4,5],"mode":"lines"},{"type":"scatter","yaxis":"y1","y":[12,9,15,12],"xaxis":"x1","x":[1,2,3,4],"mode":"lines+markers"},{"type":"scatter","yaxis":"y2","y":[1,6,3,6,1],"text":["A-1","A-2","A-3","A-4","A-5"],"name":"Team A","xaxis":"x2","x":[1,2,3,4,5],"mode":"markers","marker":{"size":12}},{"type":"scatter","yaxis":"y2","y":[4,1,7,1,4],"text":["B-a","B-b","B-c","B-d","B-e"],"name":"Team B","xaxis":"x2","x":[1.0,2.0,3.0,4.0,5.0],"mode":"markers","marker":{"size":12}}]
+var layout = {"annotations":[{"text":"Data Labels Hover","y":0.36250000000000004,"font":{"size":16},"xanchor":"center","xref":"paper","showarrow":false,"x":0.5,"yanchor":"bottom","yref":"paper"}],"yaxis2":{"range":[0,8],"domain":[5.551115123125783e-17,0.36250000000000004],"anchor":"x2"},"yaxis1":{"domain":[0.6375,1.0],"anchor":"x1"},"xaxis1":{"domain":[0.0,1.0],"anchor":"y1"},"margin":{"r":50,"l":50,"b":50,"t":60},"xaxis2":{"range":[0.75,5.25],"domain":[0.0,1.0],"anchor":"y2"}}
+
+Plotly.plot(thediv, data,  layout, {showLink: false});
+
+ </script>
+
+<div class="codehilite"><pre><span class="k">function</span><span class="nf"> exsubplots3</span><span class="p">()</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">exlinescatter6</span><span class="p">()</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">exlinescatter2</span><span class="p">()</span>
+    <span class="n">p3</span> <span class="o">=</span> <span class="n">exlinescatter3</span><span class="p">()</span>
+    <span class="n">p4</span> <span class="o">=</span> <span class="n">exlinescatter4</span><span class="p">()</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">;</span> <span class="n">p3</span> <span class="n">p4</span><span class="p">]</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="s">&quot;showlegend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">false</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="s">&quot;width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="s">&quot;height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
+    <span class="n">p</span>
+<span class="k">end</span>
+<span class="n">exsubplots3</span><span class="p">()</span>
+</pre></div>
+
+
+<div id="884df30a-0b42-44c4-8b53-c44e40d5b821"></div>
+
+<script>
+   thediv = document.getElementById('884df30a-0b42-44c4-8b53-c44e40d5b821');
+var data = [{"type":"scatter","yaxis":"y1","y":[53,31],"text":["United States","Canada"],"name":"North America","xaxis":"x1","x":[52698,43117],"mode":"markers","marker":{"line":{"width":0.5,"color":"white"},"size":12,"color":"rgb(164, 194, 244)"}},{"type":"scatter","yaxis":"y1","y":[33,20,13,19,27,19,49,44,38],"text":["Germany","Britain","France","Spain","Italy","Czech Rep.","Greece","Poland"],"name":"Europe","xaxis":"x1","x":[39317,37236,35650,30066,29570,27159,23557,21046,18007],"mode":"markers","marker":{"size":12,"color":"rgb(255, 217, 102)"}},{"type":"scatter","yaxis":"y1","y":[23,42,54,89,14,99,93,70],"text":["Australia","Japan","South Korea","Malaysia","China","Indonesia","Philippines","India"],"name":"Asia/Pacific","xaxis":"x1","x":[42952,37037,33106,17478,9813,5253,4692,3899],"mode":"markers","marker":{"size":12,"color":"rgb(234, 153, 153)"}},{"type":"scatter","yaxis":"y1","y":[43,47,56,80,86,93,80],"text":["Chile","Argentina","Mexico","Venezuela","Venezuela","El Salvador","Bolivia"],"name":"Latin America","xaxis":"x1","x":[19097,18601,15595,13546,12026,7434,5419],"mode":"markers","marker":{"size":12,"color":"rgb(142, 124, 195)"}},{"type":"scatter","yaxis":"y2","y":[1,6,3,6,1],"text":["A-1","A-2","A-3","A-4","A-5"],"name":"Team A","xaxis":"x2","x":[1,2,3,4,5],"mode":"markers","marker":{"size":12}},{"type":"scatter","yaxis":"y2","y":[4,1,7,1,4],"text":["B-a","B-b","B-c","B-d","B-e"],"name":"Team B","xaxis":"x2","x":[1.0,2.0,3.0,4.0,5.0],"mode":"markers","marker":{"size":12}},{"type":"scatter","yaxis":"y3","y":[1,6,3,6,1],"text":["A-1","A-2","A-3","A-4","A-5"],"textfont":{"family":"Raleway, sans-serif"},"name":"Team A","xaxis":"x3","x":[1,2,3,4,5],"textposition":"top center","mode":"markers+text","marker":{"size":12}},{"type":"scatter","yaxis":"y3","y":[4,1,7,1,4],"text":["B-a","B-b","B-c","B-d","B-e"],"textfont":{"family":"Times New Roman"},"name":"Team B","xaxis":"x3","x":[1.0,2.0,3.0,4.0,5.0],"textposition":"bottom center","mode":"markers+text","marker":{"size":12}},{"type":"scatter","yaxis":"y4","y":[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],"xaxis":"x4","mode":"markers","marker":{"size":40,"color":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39]}}]
+var layout = {"annotations":[{"text":"Quarter 1 Growth","y":1.0,"font":{"size":16},"xanchor":"center","xref":"paper","showarrow":false,"x":0.225,"yanchor":"bottom","yref":"paper"},{"text":"Data Labels on the Plot","y":0.36250000000000004,"font":{"size":16},"xanchor":"center","xref":"paper","showarrow":false,"x":0.225,"yanchor":"bottom","yref":"paper"},{"text":"Data Labels Hover","y":1.0,"font":{"size":16},"xanchor":"center","xref":"paper","showarrow":false,"x":0.775,"yanchor":"bottom","yref":"paper"},{"text":"Scatter Plot with a Color Dimension","y":0.36250000000000004,"font":{"size":16},"xanchor":"center","xref":"paper","showarrow":false,"x":0.775,"yanchor":"bottom","yref":"paper"}],"width":1000,"showlegend":false,"yaxis2":{"range":[0,8],"domain":[0.6375,1.0],"anchor":"x2"},"xaxis2":{"range":[0.75,5.25],"domain":[0.55,1.0],"anchor":"y2"},"yaxis3":{"range":[0,8],"domain":[5.551115123125783e-17,0.36250000000000004],"anchor":"x3"},"xaxis3":{"range":[0.75,5.25],"domain":[0.0,0.45],"anchor":"y3"},"margin":{"r":50,"l":50,"b":50,"t":60},"height":600,"xaxis1":{"domain":[0.0,0.45],"title":"GDP per Capita","showgrid":false,"zeroline":false,"anchor":"y1"},"yaxis1":{"showline":false,"domain":[0.6375,1.0],"title":"Percent","anchor":"x1"},"yaxis4":{"domain":[5.551115123125783e-17,0.36250000000000004],"anchor":"x4"},"xaxis4":{"domain":[0.55,1.0],"anchor":"y4"}}
+
+Plotly.plot(thediv, data,  layout, {showLink: false});
+
+ </script>
+          <aside class="copyright" role="note">
+            
+              Copyright &copy; 2016 <a href="http://spencerlyon.com/">Spencer Lyon</a> &ndash;
+            
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="http://squidfunk.github.io/mkdocs-material/" target="_blank">
+              Material
+            </a>
+            theme.
+          </aside>
+          
+            <footer class="footer">
+              
+  <nav class="pagination" aria-label="Footer">
+    <div class="previous">
+      
+        <a href="../maps/" title="Maps">
+          <span class="direction">
+            Previous
+          </span>
+          <div class="page">
+            <div class="button button-previous" role="button" aria-label="Previous">
+              <i class="icon icon-back"></i>
+            </div>
+            <div class="stretch">
+              <div class="title">
+                Maps
+              </div>
+            </div>
+          </div>
+        </a>
+      
+    </div>
+    <div class="next">
+      
+    </div>
+  </nav>
+
+            </footer>
+          
+        </div>
+      </article>
+      <div class="results" role="status" aria-live="polite">
+        <div class="scrollable">
+          <div class="wrapper">
+            <div class="meta"></div>
+            <div class="list"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      var base_url = '../..';
+      var repo_id  = 'spencerlyon2/PlotlyJS.jl';
+    </script>
+    <script src="../../assets/javascripts/application-dfb6964a49.js"></script>
+    
+  </body>
+</html>
