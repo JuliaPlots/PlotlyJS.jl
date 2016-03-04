@@ -5,6 +5,12 @@
 prep_kwarg(pair::Tuple) = (symbol(replace(string(pair[1]), "_", ".")), pair[2])
 prep_kwargs(pairs::Vector) = Dict(map(prep_kwarg, pairs))
 
+"""
+`size(::PlotlyJS.Plot)`
+
+Return the size of the plot in pixels. Obtained from the `layout.width` and
+`layout.height` fields.
+"""
 Base.size(p::Plot) = (get(p.layout.fields, :width, 800),
                       get(p.layout.fields, :height, 450))
 

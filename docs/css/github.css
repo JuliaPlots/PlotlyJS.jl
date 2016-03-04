@@ -58,6 +58,5 @@
 .codehilite .il { color: #009999; }
 .codehilite .gc { color: #999; background-color: #EAF2F5; }
 
-.article code {color: #009999;}
-.footer, .header {background: #2d2d2d;}
-.repo a {background: #8959a8}
+/* Make plotly menubar go behind header instead of on top when scrolling */
+.modebar {z-index: 0;}

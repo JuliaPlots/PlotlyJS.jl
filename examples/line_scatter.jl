@@ -1,12 +1,10 @@
 using PlotlyJS
 
 function exlinescatter1()
-    # Begin Example
     trace1 = scatter(;x=1:4, y=[10, 15, 13, 17], mode="markers")
     trace2 = scatter(;x=2:5, y=[16, 5, 11, 9], mode="lines")
     trace3 = scatter(;x=1:4, y=[12, 9, 15, 12], mode="lines+markers")
     plot([trace1, trace2, trace3])
-    # End Example
 end
 
 function exlinescatter2()
@@ -49,14 +47,14 @@ function exlinescatter3()
     plot(data, layout)
 end
 
-function linescatter4()
+function exlinescatter4()
     trace1 = scatter(;y=fill(5, 40), mode="markers", marker_size=40,
                       marker_color=0:39)
     layout = Layout(title="Scatter Plot with a Color Dimension")
     plot(trace1, layout)
 end
 
-function linescatter5()
+function exlinescatter5()
 
     country = ["Switzerland (2011)", "Chile (2013)", "Japan (2014)",
                "United States (2012)", "Slovenia (2014)", "Canada (2011)",
@@ -104,7 +102,7 @@ function linescatter5()
     plot(data, layout)
 end
 
-function linescatter6()
+function exlinescatter6()
     trace1 = scatter(;x=[52698, 43117], y=[53, 31],
                       mode="markers",
                       name="North America",

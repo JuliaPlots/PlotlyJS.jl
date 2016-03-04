@@ -66,7 +66,8 @@ t1 = scatter(;x=[1, 2, 3, 4, 5],
 
 Notice a few things:
 
-- The trace `type` became the function name
+- The trace `type` became the function name. There is a similar method for all
+plotly.js traces types.
 - All other trace attributes were set using keyword arguments. This allows us
 to avoid typing out the symbol prefix (`:`) and the arrows (`=>`) that were
 necessary when constructing the `Dict`

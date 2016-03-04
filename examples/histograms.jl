@@ -1,6 +1,6 @@
 using PlotlyJS
 
-function two_hists()
+function extwo_hists()
     x0 = randn(500)
     x1 = x0+1
 

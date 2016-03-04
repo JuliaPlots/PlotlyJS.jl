@@ -1,0 +1,2 @@
+rm -rf theme
+cp -R /Users/sglyon/src/Python/mkdocs-material/material/ theme

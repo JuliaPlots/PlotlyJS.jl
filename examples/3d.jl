@@ -1,6 +1,6 @@
 using PlotlyJS
 
-function random_line()
+function exrandom_line()
     n = 400
     rw() = cumsum(randn(n))
     trace1 = scatter3d(;x=rw(),y=rw(), z=rw(), mode="lines",
@@ -23,7 +23,7 @@ function random_line()
     plot([trace1, trace2, trace3], layout)
 end
 
-function topo_surface()
+function extopo_surface()
     z = Vector[[27.80985, 49.61936, 83.08067, 116.6632, 130.414, 150.7206, 220.1871,
                 156.1536, 148.6416, 203.7845, 206.0386, 107.1618, 68.36975, 45.3359,
                 49.96142, 21.89279, 17.02552, 11.74317,   14.75226, 13.6671, 5.677561,
@@ -118,7 +118,7 @@ function topo_surface()
     plot(trace, layout)
 end
 
-function multiple_surface()
+function exmultiple_surface()
     z1 = Vector[[8.83, 8.89, 8.81, 8.87, 8.9, 8.87],
                 [8.89, 8.94, 8.85, 8.94, 8.96, 8.92],
                 [8.84, 8.9, 8.82, 8.92, 8.93, 8.91],
@@ -142,7 +142,7 @@ function multiple_surface()
     plot([trace1, trace2, trace3])
 end
 
-function clustering_alpha_shapes()
+function exclustering_alpha_shapes()
     @eval using DataFrames, RDatasets, Colors
 
     # load data
@@ -184,7 +184,7 @@ function clustering_alpha_shapes()
     plot(data, layout)
 end
 
-function scatter_3d()
+function exscatter_3d()
     @eval using Distributions
     Σ = fill(0.5, 3, 3) + Diagonal([0.5, 0.5, 0.5])
     obs1 = rand(MvNormal(zeros(3), Σ), 200)'

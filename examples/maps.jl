@@ -1,6 +1,6 @@
 using PlotlyJS
 
-function maps1()
+function exmaps1()
     marker = Dict(:size=>[20, 30, 15, 10],
                   :color=>[10, 20, 40, 50],
                   :cmin=>0,
@@ -17,7 +17,7 @@ function maps1()
     plot(trace, layout)
 end
 
-function maps2()
+function exmaps2()
     @eval using DataFrames
 
     # read Data into dataframe
