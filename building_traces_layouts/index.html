@@ -451,19 +451,19 @@ but the content is identical):</p>
 <p>If we then wanted to extract a particular attribute, we can do so using
 <code>getindex(t1, :attrname)</code>, or the syntactic sugar <code>t1[:attrname]</code>. Note that
 both symbols and strings can be used in a call to <code>getindex</code>:</p>
-<div class="codehilite"><pre>julia&gt; t1[&quot;marker&quot;]
-Dict{Any,Any} with 1 entry:
-  :size =&gt; 12
+<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;marker&quot;</span><span class="p">]</span>
+<span class="go">Dict{Any,Any} with 1 entry:</span>
+<span class="go">  :size =&gt; 12</span>
 
-julia&gt; t1[:marker]
-Dict{Any,Any} with 1 entry:
-  :size =&gt; 12
+<span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[:</span><span class="n">marker</span><span class="p">]</span>
+<span class="go">Dict{Any,Any} with 1 entry:</span>
+<span class="go">  :size =&gt; 12</span>
 </pre></div>
 
 
 <p>To access a nested property use <code>parent.child</code></p>
-<div class="codehilite"><pre>julia&gt; t1[&quot;textfont.family&quot;]
-&quot;Raleway, sans-serif&quot;
+<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;textfont.family&quot;</span><span class="p">]</span>
+<span class="go">&quot;Raleway, sans-serif&quot;</span>
 </pre></div>
 
 
@@ -471,44 +471,44 @@ Dict{Any,Any} with 1 entry:
 <p>We can also set additional attributes. Suppose we wanted to set <code>marker.color</code>
 to be red. We can do this with a call to <code>setindex!(t1, "red", :marker_color)</code>,
 or equivalently <code>t1["marker_color"] = "red"</code>:</p>
-<div class="codehilite"><pre>julia&gt; t1[&quot;marker_color&quot;] = &quot;red&quot;
-&quot;red&quot;
+<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;marker_color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;red&quot;</span>
+<span class="go">&quot;red&quot;</span>
 
-julia&gt; println(JSON.json(t1, 2))
-{
-  &quot;type&quot;: &quot;scatter&quot;,
-  &quot;y&quot;: [
-    1,
-    6,
-    3,
-    6,
-    1
-  ],
-  &quot;text&quot;: [
-    &quot;A-1&quot;,
-    &quot;A-2&quot;,
-    &quot;A-3&quot;,
-    &quot;A-4&quot;,
-    &quot;A-5&quot;
-  ],
-  &quot;textfont&quot;: {
-    &quot;family&quot;: &quot;Raleway, sans-serif&quot;
-  },
-  &quot;name&quot;: &quot;Team A&quot;,
-  &quot;x&quot;: [
-    1,
-    2,
-    3,
-    4,
-    5
-  ],
-  &quot;textposition&quot;: &quot;top center&quot;,
-  &quot;mode&quot;: &quot;markers+text&quot;,
-  &quot;marker&quot;: {
-    &quot;size&quot;: 12,
-    &quot;color&quot;: &quot;red&quot;
-  }
-}
+<span class="gp">julia&gt;</span> <span class="n">println</span><span class="p">(</span><span class="n">JSON</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">  &quot;type&quot;: &quot;scatter&quot;,</span>
+<span class="go">  &quot;y&quot;: [</span>
+<span class="go">    1,</span>
+<span class="go">    6,</span>
+<span class="go">    3,</span>
+<span class="go">    6,</span>
+<span class="go">    1</span>
+<span class="go">  ],</span>
+<span class="go">  &quot;text&quot;: [</span>
+<span class="go">    &quot;A-1&quot;,</span>
+<span class="go">    &quot;A-2&quot;,</span>
+<span class="go">    &quot;A-3&quot;,</span>
+<span class="go">    &quot;A-4&quot;,</span>
+<span class="go">    &quot;A-5&quot;</span>
+<span class="go">  ],</span>
+<span class="go">  &quot;textfont&quot;: {</span>
+<span class="go">    &quot;family&quot;: &quot;Raleway, sans-serif&quot;</span>
+<span class="go">  },</span>
+<span class="go">  &quot;name&quot;: &quot;Team A&quot;,</span>
+<span class="go">  &quot;x&quot;: [</span>
+<span class="go">    1,</span>
+<span class="go">    2,</span>
+<span class="go">    3,</span>
+<span class="go">    4,</span>
+<span class="go">    5</span>
+<span class="go">  ],</span>
+<span class="go">  &quot;textposition&quot;: &quot;top center&quot;,</span>
+<span class="go">  &quot;mode&quot;: &quot;markers+text&quot;,</span>
+<span class="go">  &quot;marker&quot;: {</span>
+<span class="go">    &quot;size&quot;: 12,</span>
+<span class="go">    &quot;color&quot;: &quot;red&quot;</span>
+<span class="go">  }</span>
+<span class="go">}</span>
 </pre></div>
 
 
@@ -516,47 +516,47 @@ julia&gt; println(JSON.json(t1, 2))
 <code>marker</code> attribute (alongside <code>size</code>), instead of replacing the <code>marker</code>
 attribute.</p>
 <p>You can also use this syntax to add completely new nested attributes:</p>
-<div class="codehilite"><pre>julia&gt; t1[&quot;line_width&quot;] = 5
-5
+<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;line_width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="go">5</span>
 
-julia&gt; println(JSON.json(t1, 2))
-{
-  &quot;type&quot;: &quot;scatter&quot;,
-  &quot;y&quot;: [
-    1,
-    6,
-    3,
-    6,
-    1
-  ],
-  &quot;text&quot;: [
-    &quot;A-1&quot;,
-    &quot;A-2&quot;,
-    &quot;A-3&quot;,
-    &quot;A-4&quot;,
-    &quot;A-5&quot;
-  ],
-  &quot;textfont&quot;: {
-    &quot;family&quot;: &quot;Raleway, sans-serif&quot;
-  },
-  &quot;name&quot;: &quot;Team A&quot;,
-  &quot;line&quot;: {
-    &quot;width&quot;: 5
-  },
-  &quot;x&quot;: [
-    1,
-    2,
-    3,
-    4,
-    5
-  ],
-  &quot;textposition&quot;: &quot;top center&quot;,
-  &quot;mode&quot;: &quot;markers+text&quot;,
-  &quot;marker&quot;: {
-    &quot;size&quot;: 12,
-    &quot;color&quot;: &quot;red&quot;
-  }
-}
+<span class="gp">julia&gt;</span> <span class="n">println</span><span class="p">(</span><span class="n">JSON</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">  &quot;type&quot;: &quot;scatter&quot;,</span>
+<span class="go">  &quot;y&quot;: [</span>
+<span class="go">    1,</span>
+<span class="go">    6,</span>
+<span class="go">    3,</span>
+<span class="go">    6,</span>
+<span class="go">    1</span>
+<span class="go">  ],</span>
+<span class="go">  &quot;text&quot;: [</span>
+<span class="go">    &quot;A-1&quot;,</span>
+<span class="go">    &quot;A-2&quot;,</span>
+<span class="go">    &quot;A-3&quot;,</span>
+<span class="go">    &quot;A-4&quot;,</span>
+<span class="go">    &quot;A-5&quot;</span>
+<span class="go">  ],</span>
+<span class="go">  &quot;textfont&quot;: {</span>
+<span class="go">    &quot;family&quot;: &quot;Raleway, sans-serif&quot;</span>
+<span class="go">  },</span>
+<span class="go">  &quot;name&quot;: &quot;Team A&quot;,</span>
+<span class="go">  &quot;line&quot;: {</span>
+<span class="go">    &quot;width&quot;: 5</span>
+<span class="go">  },</span>
+<span class="go">  &quot;x&quot;: [</span>
+<span class="go">    1,</span>
+<span class="go">    2,</span>
+<span class="go">    3,</span>
+<span class="go">    4,</span>
+<span class="go">    5</span>
+<span class="go">  ],</span>
+<span class="go">  &quot;textposition&quot;: &quot;top center&quot;,</span>
+<span class="go">  &quot;mode&quot;: &quot;markers+text&quot;,</span>
+<span class="go">  &quot;marker&quot;: {</span>
+<span class="go">    &quot;size&quot;: 12,</span>
+<span class="go">    &quot;color&quot;: &quot;red&quot;</span>
+<span class="go">  }</span>
+<span class="go">}</span>
 </pre></div>
 
 
@@ -570,40 +570,42 @@ julia&gt; println(JSON.json(t1, 2))
 
 <p>You can construct a layout using the same convenient keyword argument syntax
 that we used for traces:</p>
-<div class="codehilite"><pre>julia&gt; l = Layout(;title=&quot;Penguins&quot;,
-                   xaxis_range=[0, 42.0], xaxis_title=&quot;fish&quot;,
-                   yaxis_title=&quot;Weight&quot;,
-                   xaxis_showgrid=true, yaxis_showgrid=true,
-                   legend_y=1.15, legend_x=0.7)
-layout with fields legend, margin, title, xaxis, and yaxis
+<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Penguins&quot;</span><span class="p">,</span>
+
+<span class="gt">                   xaxis_range=[0, 42.0], xaxis_title=&quot;fish&quot;,</span>
+
+<span class="gt">                   yaxis_title=&quot;Weight&quot;,</span>
+
+<span class="gt">                   xaxis_showgrid=true, yaxis_showgrid=true,</span>
+
+<span class="gt">                   legend_y=1.15, legend_x=0.7)</span>
+<span class="go">layout with fields legend, margin, title, xaxis, and yaxis</span>
 
 
-julia&gt; println(JSON.json(l, 2))
-{
-  &quot;yaxis&quot;: {
-    &quot;title&quot;: &quot;Weight&quot;,
-    &quot;showgrid&quot;: true
-  },
-  &quot;legend&quot;: {
-    &quot;y&quot;: 1.15,
-    &quot;x&quot;: 0.7
-  },
-  &quot;xaxis&quot;: {
-    &quot;range&quot;: [
-      0.0,
-      42.0
-    ],
-    &quot;title&quot;: &quot;fish&quot;,
-    &quot;showgrid&quot;: true
-  },
-  &quot;title&quot;: &quot;Penguins&quot;,
-  &quot;margin&quot;: {
-    &quot;r&quot;: 50,
-    &quot;l&quot;: 50,
-    &quot;b&quot;: 50,
-    &quot;t&quot;: 60
-  }
-}
+<span class="gp">julia&gt;</span> <span class="n">println</span><span class="p">(</span><span class="n">JSON</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">{</span>
+<span class="go">  &quot;yaxis&quot;: {</span>
+<span class="go">    &quot;title&quot;: &quot;Weight&quot;,</span>
+<span class="go">    &quot;showgrid&quot;: true</span>
+<span class="go">  },</span>
+<span class="go">  &quot;legend&quot;: {</span>
+<span class="go">    &quot;y&quot;: 1.15,</span>
+<span class="go">    &quot;x&quot;: 0.7</span>
+<span class="go">  },</span>
+<span class="go">  &quot;xaxis&quot;: {</span>
+<span class="go">    &quot;range&quot;: [</span>
+<span class="go">    ],</span>
+<span class="go">    &quot;title&quot;: &quot;fish&quot;,</span>
+<span class="go">    &quot;showgrid&quot;: true</span>
+<span class="go">  },</span>
+<span class="go">  &quot;title&quot;: &quot;Penguins&quot;,</span>
+<span class="go">  &quot;margin&quot;: {</span>
+<span class="go">    &quot;r&quot;: 50,</span>
+<span class="go">    &quot;l&quot;: 50,</span>
+<span class="go">    &quot;b&quot;: 50,</span>
+<span class="go">    &quot;t&quot;: 60</span>
+<span class="go">  }</span>
+<span class="go">}</span>
 </pre></div>
           <aside class="copyright" role="note">
             
