@@ -59,4 +59,4 @@
 .codehilite .gc { color: #999; background-color: #EAF2F5; }
 
 /* Make plotly menubar go behind header instead of on top when scrolling */
-div.modebar.modebar--hover {z-index: 0;}
+div.modebar.modebar--hover {z-index: 0 !important;}
