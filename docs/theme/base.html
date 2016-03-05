@@ -71,11 +71,11 @@
         }
       </style>
     {% endif %}
-    {% for path in extra_css %}
-      <link rel="stylesheet" href="{{ path }}">
-    {% endfor %}
     {% for path in extra_javascript %}
       <script src="{{ path }}"></script>
+    {% endfor %}
+    {% for path in extra_css %}
+      <link rel="stylesheet" href="{{ path }}">
     {% endfor %}
     <script src="{{ base_url }}/assets/javascripts/modernizr-4a5cc7e01e.js"></script>
     {% block extrahead %}{% endblock %}

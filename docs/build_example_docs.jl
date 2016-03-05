@@ -13,7 +13,8 @@ using CodeTools
 using PlotlyJS
 
 # Read all file names in
-all_file_names = readdir("../examples")
+this_dir = dirname(@__FILE__)
+all_file_names = readdir(joinpath(this_dir, "..", "examples"))
 nfiles = length(all_file_names)
 
 # Check whether files are julia files and select julia files
@@ -22,16 +23,16 @@ am_i_julia_file = map(cft, all_file_names)
 all_julia_files = all_file_names[am_i_julia_file]
 for i in all_julia_files
     println(i)
-    include("../examples/$i")
+    include(joinpath(this_dir, "..", "examples", i))
 end
 
 # Walk through each example in a file and get the markdown from `single_example`
 function single_file(filename::AbstractString)
     # Open a file to write to
-    outfile = open(joinpath("examples", filename[1:end-3]*".md"), "w")
+    outfile = open(joinpath(this_dir, "examples", filename[1:end-3]*".md"), "w")
 
     # Read lines from a files
-    fulltext = open(readall, "../examples/$filename", "r")
+    fulltext = open(readall, joinpath(this_dir, "..", "examples", filename), "r")
     all_lines = split(fulltext, "\n")
     l = 1
 
