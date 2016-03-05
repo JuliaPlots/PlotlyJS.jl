@@ -337,10 +337,10 @@
 </pre></div>
 
 
-<div id="7612f827-8e75-4f5e-894f-74fcf4582fee"></div>
+<div id="ae591b09-b846-4a4f-af57-0c83ef90bf62"></div>
 
 <script>
-   thediv = document.getElementById('7612f827-8e75-4f5e-894f-74fcf4582fee');
+   thediv = document.getElementById('ae591b09-b846-4a4f-af57-0c83ef90bf62');
 var data = [{"type":"scatter","y":[0,2,3,5],"x":[1,2,3,4],"fill":"tozeroy"},{"type":"scatter","y":[3,5,1,7],"x":[1,2,3,4],"fill":"tonexty"}]
 var layout = {"margin":{"r":50,"l":50,"b":50,"t":60}}
 
@@ -349,6 +349,15 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
  </script>
 
 <div class="codehilite"><pre><span class="k">function</span><span class="nf"> exarea2</span><span class="p">()</span>
+    <span class="k">function</span><span class="nf"> _stacked_area</span><span class="o">!</span><span class="p">(</span><span class="n">traces</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tr</span><span class="p">)</span> <span class="k">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">traces</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="k">end</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">min</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">traces</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&quot;y&quot;</span><span class="p">]),</span> <span class="n">length</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="s">&quot;y&quot;</span><span class="p">]))</span>
+                <span class="n">tr</span><span class="p">[</span><span class="s">&quot;y&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">traces</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&quot;y&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+        <span class="n">traces</span>
+    <span class="k">end</span>
+
     <span class="n">traces</span> <span class="o">=</span> <span class="p">[</span><span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozeroy&quot;</span><span class="p">),</span>
               <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">),</span>
               <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">)]</span>
@@ -360,10 +369,10 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
 </pre></div>
 
 
-<div id="3bcf8c1f-7b6d-4158-aaf9-b922fb565760"></div>
+<div id="73e34a26-7fe2-4279-93ce-39a9a4362b84"></div>
 
 <script>
-   thediv = document.getElementById('3bcf8c1f-7b6d-4158-aaf9-b922fb565760');
+   thediv = document.getElementById('73e34a26-7fe2-4279-93ce-39a9a4362b84');
 var data = [{"type":"scatter","y":[2,1,4],"x":[1,2,3],"fill":"tozeroy"},{"type":"scatter","y":[3,2,6],"x":[1,2,3],"fill":"tonexty"},{"type":"scatter","y":[6,2,8],"x":[1,2,3],"fill":"tonexty"}]
 var layout = {"title":"stacked and filled line chart","margin":{"r":50,"l":50,"b":50,"t":60}}
 
@@ -381,10 +390,10 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
 </pre></div>
 
 
-<div id="9241bf07-63cf-475e-8ff7-719c15d24d07"></div>
+<div id="b152bc33-a233-41f8-a4a9-af14501d4b59"></div>
 
 <script>
-   thediv = document.getElementById('9241bf07-63cf-475e-8ff7-719c15d24d07');
+   thediv = document.getElementById('b152bc33-a233-41f8-a4a9-af14501d4b59');
 var data = [{"type":"scatter","y":[0,2,3,5],"x":[1,2,3,4],"fill":"tozeroy","mode":"none"},{"type":"scatter","y":[3,5,1,7],"x":[1,2,3,4],"fill":"tonexty","mode":"none"}]
 var layout = {"title":"Overlaid Chart Without Boundary Lines","margin":{"r":50,"l":50,"b":50,"t":60}}
 
