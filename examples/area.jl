@@ -6,16 +6,16 @@ function exarea1()
     plot([trace1, trace2])
 end
 
-function _stacked_area!(traces)
-    for (i, tr) in enumerate(traces[2:end])
-        for j in 1:min(length(traces[i]["y"]), length(tr["y"]))
-            tr["y"][j] += traces[i]["y"][j]
-        end
-    end
-    traces
-end
-
 function exarea2()
+    function _stacked_area!(traces)
+        for (i, tr) in enumerate(traces[2:end])
+            for j in 1:min(length(traces[i]["y"]), length(tr["y"]))
+                tr["y"][j] += traces[i]["y"][j]
+            end
+        end
+        traces
+    end
+    
     traces = [scatter(;x=1:3, y=[2, 1, 4], fill="tozeroy"),
               scatter(;x=1:3, y=[1, 1, 2], fill="tonexty"),
               scatter(;x=1:3, y=[3, 0, 2], fill="tonexty")]
