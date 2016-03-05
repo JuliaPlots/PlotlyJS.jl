@@ -238,6 +238,12 @@
               </a>
             </li>
           
+            <li class="anchor">
+              <a title="Saving figures" href="#saving-figures">
+                Saving figures
+              </a>
+            </li>
+          
         </ul>
       
     
@@ -449,6 +455,66 @@ var layout = {"yaxis4":{"domain":[5.551115123125783e-17,0.42500000000000004],"an
 Plotly.plot(thediv, data,  layout, {showLink: false});
 
 </script>
+
+<h2 id="saving-figures">Saving figures<a class="headerlink" href="#saving-figures" title="Permanent link">¶</a></h2>
+<p>Right now saving figures to a file is a work in progress. It only works when
+using the <code>ElectronDisplay</code> frontend.</p>
+<p>The following syntaxes are currently supported without any other packages</p>
+<div class="codehilite"><pre><span class="c"># save to html. `js` is a keyword argument that specifies  how plotly.js can be</span>
+<span class="c"># included. Supported values are `:local`, `:remote`, `:embed`. See docstring</span>
+<span class="c"># for more details</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.html&quot;</span><span class="p">;</span> <span class="n">js</span><span class="p">::</span><span class="n">Symbol</span><span class="p">)</span>
+
+<span class="c"># save svg</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.svg&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Other routines are available for saving figures, but they require the
+independent installation of various Julia packages.</p>
+<h3 id="imagemagick">ImageMagick<a class="headerlink" href="#imagemagick" title="Permanent link">¶</a></h3>
+<p>If you have <a href="https://github.com/JuliaIO/ImageMagick.jl">ImageMagick.jl</a>
+properly installed in your Julia installation you can also do the following:</p>
+<div class="codehilite"><pre><span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.png&quot;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.pdf&quot;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.jpeg&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Please note that the maximum DPI resolution for any of these formats is 96.</p>
+<p>To get true vector quality pdf files, we recommend using the Rsvg backend.</p>
+<h3 id="rsvg">Rsvg<a class="headerlink" href="#rsvg" title="Permanent link">¶</a></h3>
+<p>If you have installed the unregistered package
+<a href="https://github.com/lobingera/Rsvg.jl">Rsvg.jl</a>  you can use the following
+routines:</p>
+<div class="codehilite"><pre><span class="n">savefig3</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.pdf&quot;</span><span class="p">)</span>
+<span class="n">savefig3</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.png&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Note that the pdf export in this case will be a true vector image. This allows
+you to have infinitely zoomable quality. This is the recommended way to obtain
+a pdf of your plot, but comes with the extra step of installing Rsvg.jl via:</p>
+<div class="codehilite"><pre><span class="n">Pkg</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="s">&quot;https://github.com/lobingera/Rsvg.jl.git&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="cairosvg">cairosvg<a class="headerlink" href="#cairosvg" title="Permanent link">¶</a></h3>
+<p>There is one more routine you can use to save a figure to a file. This routine
+requires that you have properly installed the <a href="http://cairosvg.org">cairosvg</a>
+python package and that the <code>cairosvg</code> command is on your PATH.</p>
+<p>If <code>cairosvg</code> can be found, you can use the following routines:</p>
+<div class="codehilite"><pre><span class="n">savefig2</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.png&quot;</span><span class="p">)</span>
+<span class="n">savefig2</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.pdf&quot;</span><span class="p">)</span>
+<span class="n">savefig2</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.ps&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Once Rsvg.jl has matured and been registered, the <code>savefig2</code> function will
+probably be deleted.</p>
+</div>
           <aside class="copyright" role="note">
             
               Copyright &copy; 2016 <a href="http://spencerlyon.com/">Spencer Lyon</a> &ndash;
