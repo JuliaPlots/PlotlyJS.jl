@@ -63,6 +63,12 @@ The `display` of a `SyncPlot` follows the standard Julia mechanisms and
 `display` called automatically if you ask Julia to echo back a `SyncPlot` at
 the REPL or in a Jupyter notebook.
 
+!!! note
+    The `Plot` function will create a new `Plot` object and the `plot` function
+    will create a new `SyncPlot`. Which frontend is selected will depend on
+    context: if the Jupyter notebook is active the `JupyterDisplay` is chosen,
+    otherwise the `ElectronDisplay` will be used.
+
 As of the time of writing there are two supported frontends...
 
 ### `ElectronPlot`
