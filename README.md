@@ -7,3 +7,7 @@
 Julia interface to [plotly.js][_plotlyjs] visualization library.
 
 Check out the [docs](http://spencerlyon.com/PlotlyJS.jl/)!
+
+
+
+[_plotlyjs]: https://plot.ly/javascript

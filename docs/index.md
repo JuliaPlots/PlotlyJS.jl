@@ -16,3 +16,26 @@ plotly graphics to files
 
 [_plotlyjs]: https://plot.ly/javascript
 [_plotlyref]: https://plot.ly/javascript/reference
+
+## Installation
+
+To install PlotlyJS.jl enter the following at the Julia prompt:
+
+```
+Pkg.add("PlotlyJS")
+```
+
+This will download an install PlotlyJS and all dependencies. If you have not
+previously used the Blink.jl package and would like to use the
+[Electron](http://spencerlyon.com/PlotlyJS.jl/syncplots/#electronplot) display
+frontent from the REPL (recommended) you will need to enter evaluate the
+following code at the REPL:
+
+```julia
+using Blink
+Blink.AtomShell.install()
+```
+
+If you would like to be able to save plotly graphics to png or pdf formats you
+will need additional packages. Please see the documentation on exporting
+figures for more information.

@@ -117,5 +117,6 @@ A `SyncPlot` with a `JupyterDisplay` also has a typealias:
 typealias JupyterPlot SyncPlot{JupyterDisplay}
 ```
 
-**Note:** 2 way communication between javascript and Julia is possible in the
-notebook, it just has not been implemented
+!!! note
+    2 way communication between javascript and Julia is possible in the
+    notebook, it just has not been implemented
