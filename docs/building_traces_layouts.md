@@ -120,7 +120,7 @@ If we then wanted to extract a particular attribute, we can do so using
 `getindex(t1, :attrname)`, or the syntactic sugar `t1[:attrname]`. Note that
 both symbols and strings can be used in a call to `getindex`:
 
-```juliacon
+```jlcon
 julia> t1["marker"]
 Dict{Any,Any} with 1 entry:
   :size => 12
@@ -132,7 +132,7 @@ Dict{Any,Any} with 1 entry:
 
 To access a nested property use `parent.child`
 
-```juliacon
+```jlcon
 julia> t1["textfont.family"]
 "Raleway, sans-serif"
 ```
@@ -143,7 +143,7 @@ We can also set additional attributes. Suppose we wanted to set `marker.color`
 to be red. We can do this with a call to `setindex!(t1, "red", :marker_color)`,
 or equivalently `t1["marker_color"] = "red"`:
 
-```juliacon
+```jlcon
 julia> t1["marker_color"] = "red"
 "red"
 
@@ -190,7 +190,7 @@ attribute.
 
 You can also use this syntax to add completely new nested attributes:
 
-```juliacon
+```jlcon
 julia> t1["line_width"] = 5
 5
 
@@ -247,7 +247,7 @@ end
 You can construct a layout using the same convenient keyword argument syntax
 that we used for traces:
 
-```juliacon
+```jlcon
 julia> l = Layout(;title="Penguins",
                    xaxis_range=[0, 42.0], xaxis_title="fish",
                    yaxis_title="Weight",
