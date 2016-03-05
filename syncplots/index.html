@@ -394,6 +394,13 @@ figure behind a <code>SyncPlot</code> named <code>p</code> you can simply call <
 The <code>display</code> of a <code>SyncPlot</code> follows the standard Julia mechanisms and
 <code>display</code> called automatically if you ask Julia to echo back a <code>SyncPlot</code> at
 the REPL or in a Jupyter notebook.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>Plot</code> function will create a new <code>Plot</code> object and the <code>plot</code> function
+will create a new <code>SyncPlot</code>. Which frontend is selected will depend on
+context: if the Jupyter notebook is active the <code>JupyterDisplay</code> is chosen,
+otherwise the <code>ElectronDisplay</code> will be used.</p>
+</div>
 <p>As of the time of writing there are two supported frontends...</p>
 <h3 id="electronplot"><code>ElectronPlot</code><a class="headerlink" href="#electronplot" title="Permanent link">¶</a></h3>
 <p>The first subtype of <code>AbstractPlotlyDisplay</code> is <code>ElectronDisplay</code>. This display
