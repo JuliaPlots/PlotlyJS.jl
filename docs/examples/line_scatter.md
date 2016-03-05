@@ -9,10 +9,10 @@ exlinescatter1()
 ```
 
 
-<div id="1abb886f-93df-4637-abf6-8e5219f5e5f5"></div>
+<div id="af9d6a53-38fc-4ba3-931b-cd8ccbae513a"></div>
 
 <script>
-   thediv = document.getElementById('1abb886f-93df-4637-abf6-8e5219f5e5f5');
+   thediv = document.getElementById('af9d6a53-38fc-4ba3-931b-cd8ccbae513a');
 var data = [{"type":"scatter","y":[10,15,13,17],"x":[1,2,3,4],"mode":"markers"},{"type":"scatter","y":[16,5,11,9],"x":[2,3,4,5],"mode":"lines"},{"type":"scatter","y":[12,9,15,12],"x":[1,2,3,4],"mode":"lines+markers"}]
 var layout = {"margin":{"r":50,"l":50,"b":50,"t":60}}
 
@@ -44,10 +44,10 @@ exlinescatter2()
 ```
 
 
-<div id="947282f0-d88a-4c54-8180-490fc072945f"></div>
+<div id="fd54d500-45fc-43fb-b5d7-f4e22b45f674"></div>
 
 <script>
-   thediv = document.getElementById('947282f0-d88a-4c54-8180-490fc072945f');
+   thediv = document.getElementById('fd54d500-45fc-43fb-b5d7-f4e22b45f674');
 var data = [{"type":"scatter","y":[1,6,3,6,1],"text":["A-1","A-2","A-3","A-4","A-5"],"name":"Team A","x":[1,2,3,4,5],"mode":"markers","marker":{"size":12}},{"type":"scatter","y":[4,1,7,1,4],"text":["B-a","B-b","B-c","B-d","B-e"],"name":"Team B","x":[1.0,2.0,3.0,4.0,5.0],"mode":"markers","marker":{"size":12}}]
 var layout = {"yaxis":{"range":[0,8]},"xaxis":{"range":[0.75,5.25]},"title":"Data Labels Hover","margin":{"r":50,"l":50,"b":50,"t":60}}
 
@@ -83,10 +83,10 @@ exlinescatter3()
 ```
 
 
-<div id="624d2a5a-473a-4b70-bba5-f155b095fb9f"></div>
+<div id="a92db82f-7ddc-4007-8170-5da2c2461d0f"></div>
 
 <script>
-   thediv = document.getElementById('624d2a5a-473a-4b70-bba5-f155b095fb9f');
+   thediv = document.getElementById('a92db82f-7ddc-4007-8170-5da2c2461d0f');
 var data = [{"type":"scatter","y":[1,6,3,6,1],"text":["A-1","A-2","A-3","A-4","A-5"],"textfont":{"family":"Raleway, sans-serif"},"name":"Team A","x":[1,2,3,4,5],"textposition":"top center","mode":"markers+text","marker":{"size":12}},{"type":"scatter","y":[4,1,7,1,4],"text":["B-a","B-b","B-c","B-d","B-e"],"textfont":{"family":"Times New Roman"},"name":"Team B","x":[1.0,2.0,3.0,4.0,5.0],"textposition":"bottom center","mode":"markers+text","marker":{"size":12}}]
 var layout = {"yaxis":{"range":[0,8]},"legend":{"y":0.5,"font":{"size":20,"color":"grey","family":"Arial, sans-serif"},"yref":"paper"},"xaxis":{"range":[0.75,5.25]},"title":"Data Labels on the Plot","margin":{"r":50,"l":50,"b":50,"t":60}}
 
@@ -107,10 +107,10 @@ exlinescatter4()
 ```
 
 
-<div id="ec422d7f-d3f8-4c69-95ac-f314a1fd5a2e"></div>
+<div id="dd8d699b-09ce-4514-974f-8b7f835ce7d9"></div>
 
 <script>
-   thediv = document.getElementById('ec422d7f-d3f8-4c69-95ac-f314a1fd5a2e');
+   thediv = document.getElementById('dd8d699b-09ce-4514-974f-8b7f835ce7d9');
 var data = [{"type":"scatter","y":[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],"mode":"markers","marker":{"size":40,"color":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39]}}]
 var layout = {"title":"Scatter Plot with a Color Dimension","margin":{"r":50,"l":50,"b":50,"t":60}}
 
@@ -172,10 +172,10 @@ exlinescatter5()
 ```
 
 
-<div id="0a9cb56d-27ec-40e8-a438-1dc28f8d8b51"></div>
+<div id="95359767-cfe1-4a9b-a927-7735a6c732c2"></div>
 
 <script>
-   thediv = document.getElementById('0a9cb56d-27ec-40e8-a438-1dc28f8d8b51');
+   thediv = document.getElementById('95359767-cfe1-4a9b-a927-7735a6c732c2');
 var data = [{"type":"scatter","y":["Switzerland (2011)","Chile (2013)","Japan (2014)","United States (2012)","Slovenia (2014)","Canada (2011)","Poland (2010)","Estonia (2015)","Luxembourg (2013)","Portugal (2011)"],"name":"Percent of estimated voting age population","x":[40.0,45.7,52.0,53.6,54.1,54.2,54.5,54.7,55.1,56.6],"mode":"markers","marker":{"symbol":"circle","line":{"width":1,"color":"rgba(156, 165, 196, 1.0)"},"size":16,"color":"rgba(156, 165, 196, 0.95)"}},{"type":"scatter","y":["Switzerland (2011)","Chile (2013)","Japan (2014)","United States (2012)","Slovenia (2014)","Canada (2011)","Poland (2010)","Estonia (2015)","Luxembourg (2013)","Portugal (2011)"],"name":"Percent of estimated registered voters","x":[49.1,42.0,52.7,84.3,51.7,61.1,55.3,64.2,91.1,58.9],"mode":"markers","marker":{"symbol":"circle","line":{"width":1,"color":"rgba(217, 217, 217, 1.0)"},"size":16,"color":"rgba(204, 204, 204, 0.95)"}}]
 var layout = {"width":600,"hovermode":"closest","plot_bgcolor":"rgb(254, 247, 234)","legend":{"font":{"size":10},"xanchor":"right","yanchor":"middle"},"xaxis":{"linecolor":"rgb(102, 102, 102)","showline":true,"titlefont":{"font":{"color":"rgb(204, 204, 204)"}},"tickcolor":"rgb(102, 102, 102)","showgrid":false,"tickfont":{"font":{"color":"rgb(102, 102, 102)"}},"dtick":10,"ticks":"outside","autotick":false},"paper_bgcolor":"rgb(254, 247, 234)","title":"Votes cast for ten lowest voting age population in OECD countries","margin":{"r":40,"l":140,"b":50,"t":80},"height":600}
 
@@ -229,10 +229,10 @@ exlinescatter6()
 ```
 
 
-<div id="1072e36e-9723-4637-ad45-859d22c8353c"></div>
+<div id="06355c04-5575-4cab-83e5-9cea24a4c73c"></div>
 
 <script>
-   thediv = document.getElementById('1072e36e-9723-4637-ad45-859d22c8353c');
+   thediv = document.getElementById('06355c04-5575-4cab-83e5-9cea24a4c73c');
 var data = [{"type":"scatter","y":[53,31],"text":["United States","Canada"],"name":"North America","x":[52698,43117],"mode":"markers","marker":{"line":{"width":0.5,"color":"white"},"size":12,"color":"rgb(164, 194, 244)"}},{"type":"scatter","y":[33,20,13,19,27,19,49,44,38],"text":["Germany","Britain","France","Spain","Italy","Czech Rep.","Greece","Poland"],"name":"Europe","x":[39317,37236,35650,30066,29570,27159,23557,21046,18007],"mode":"markers","marker":{"size":12,"color":"rgb(255, 217, 102)"}},{"type":"scatter","y":[23,42,54,89,14,99,93,70],"text":["Australia","Japan","South Korea","Malaysia","China","Indonesia","Philippines","India"],"name":"Asia/Pacific","x":[42952,37037,33106,17478,9813,5253,4692,3899],"mode":"markers","marker":{"size":12,"color":"rgb(234, 153, 153)"}},{"type":"scatter","y":[43,47,56,80,86,93,80],"text":["Chile","Argentina","Mexico","Venezuela","Venezuela","El Salvador","Bolivia"],"name":"Latin America","x":[19097,18601,15595,13546,12026,7434,5419],"mode":"markers","marker":{"size":12,"color":"rgb(142, 124, 195)"}}]
 var layout = {"yaxis":{"showline":false,"title":"Percent"},"xaxis":{"title":"GDP per Capita","showgrid":false,"zeroline":false},"title":"Quarter 1 Growth","margin":{"r":50,"l":50,"b":50,"t":60}}
 
