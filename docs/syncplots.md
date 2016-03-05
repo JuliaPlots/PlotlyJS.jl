@@ -85,12 +85,19 @@ This enables many features:
 attributes
 - Asking plotly.js to return the raw svg data for the plot, so we can further
 process it and save to pdf, png, jpeg, or eps files
-- A steaming workflow where we can efficiently update portions of the
+- A steaming workflow where we can efficiently update portions of the plot
 - (_Not implemented yet_) using Julia functions as callbacks to
 [plotly.js events](https://plot.ly/javascript/#chart-events)
 
 This is the most feature complete frontend and is a key feature of this
 package.
+
+A convenient typealias has been defined for `SyncPlot`s with the
+`ElectronDisplay` frontend:
+
+```julia
+typealias ElectronPlot SyncPlot{ElectronDisplay}
+```
 
 ### `JupyerPlot`
 
@@ -103,6 +110,12 @@ However, communication within the notebook is only Julia -> javascript right
 now. This means that we have not implemented features that require Julia to
 receive a return value from javascript. This includes obtaining raw svg data
 for the plot as well as registering Julia functions as callbacks.
+
+A `SyncPlot` with a `JupyterDisplay` also has a typealias:
+
+```julia
+typealias JupyterPlot SyncPlot{JupyterDisplay}
+```
 
 **Note:** 2 way communication between javascript and Julia is possible in the
 notebook, it just has not been implemented

@@ -1,7 +1,7 @@
 <!-- TODO: create API docs from docstrings and add link below -->
 
 There are various methods defined on the `Plot` type. We will cover a few of
-them here, but consult the API docs for more exhaustive coverage.
+them here, but consult the (forthcoming) API docs for more exhaustive coverage.
 
 ## Julian functions
 
@@ -38,8 +38,8 @@ plot, it keeps the Julia object and the display in sync.
 
 <!-- TODO: create API docs from docstrings and add link below -->
 
-For more details on which methods are available for each of the above methods
-consult the docstrings or API documentation.
+For more details on which methods are available for each of the above functions
+consult the docstrings or (forthcoming) API documentation.
 
 ## Subplots
 
