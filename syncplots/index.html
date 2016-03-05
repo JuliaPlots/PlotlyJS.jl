@@ -412,12 +412,18 @@ datatypes.</p>
 attributes</li>
 <li>Asking plotly.js to return the raw svg data for the plot, so we can further
 process it and save to pdf, png, jpeg, or eps files</li>
-<li>A steaming workflow where we can efficiently update portions of the</li>
+<li>A steaming workflow where we can efficiently update portions of the plot</li>
 <li>(<em>Not implemented yet</em>) using Julia functions as callbacks to
 <a href="https://plot.ly/javascript/#chart-events">plotly.js events</a></li>
 </ul>
 <p>This is the most feature complete frontend and is a key feature of this
 package.</p>
+<p>A convenient typealias has been defined for <code>SyncPlot</code>s with the
+<code>ElectronDisplay</code> frontend:</p>
+<div class="codehilite"><pre><span class="k">typealias</span><span class="nc"> ElectronPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">ElectronDisplay</span><span class="p">}</span>
+</pre></div>
+
+
 <h3 id="jupyerplot"><code>JupyerPlot</code><a class="headerlink" href="#jupyerplot" title="Permanent link">¶</a></h3>
 <p>We also have <code>JupyterDisplay &lt;: AbstractPlotlyDisplay</code>, which can be used to
 display PlotlyJS figures in Jupyter notebooks. Because the notebook is inside
@@ -427,6 +433,11 @@ of the features above.</p>
 now. This means that we have not implemented features that require Julia to
 receive a return value from javascript. This includes obtaining raw svg data
 for the plot as well as registering Julia functions as callbacks.</p>
+<p>A <code>SyncPlot</code> with a <code>JupyterDisplay</code> also has a typealias:</p>
+<div class="codehilite"><pre><span class="k">typealias</span><span class="nc"> JupyterPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">JupyterDisplay</span><span class="p">}</span>
+</pre></div>
+
+
 <p><strong>Note:</strong> 2 way communication between javascript and Julia is possible in the
 notebook, it just has not been implemented</p>
           <aside class="copyright" role="note">
