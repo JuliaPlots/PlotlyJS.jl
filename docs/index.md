@@ -37,5 +37,6 @@ Blink.AtomShell.install()
 ```
 
 If you would like to be able to save plotly graphics to png or pdf formats you
-will need additional packages. Please see the documentation on exporting
-figures for more information.
+will need additional packages. Please see the documentation on [exporting
+figures](http://spencerlyon.com/PlotlyJS.jl/manipulating_plots/#saving-figures)
+for more information.
