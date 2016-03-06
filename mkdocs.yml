@@ -28,6 +28,8 @@ markdown_extensions:
         permalink: ¶
     - admonition
 
+google_analytics: ['UA-36732392-3', 'auto']
+
 extra:
   version: '0.1.0'
   author:
