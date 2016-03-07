@@ -1,6 +1,6 @@
 using PlotlyJS
 
-function excontour1()
+function contour1()
     x = [-9, -6, -5 , -3, -1]
     y = [0, 1, 4, 5, 7]
     z = [10     10.625  12.5  15.625  20

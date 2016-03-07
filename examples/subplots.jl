@@ -1,25 +1,25 @@
 include("line_scatter.jl")
 
-function exsubplots1()
-    p1 = exlinescatter1()
-    p2 = exlinescatter2()
+function subplots1()
+    p1 = linescatter1()
+    p2 = linescatter2()
     p = [p1 p2]
     p
 end
 
-function exsubplots2()
-    p1 = exlinescatter1()
-    p2 = exlinescatter2()
+function subplots2()
+    p1 = linescatter1()
+    p2 = linescatter2()
     p = [p1, p2]
     p
 end
 
 
-function exsubplots3()
-    p1 = exlinescatter6()
-    p2 = exlinescatter2()
-    p3 = exlinescatter3()
-    p4 = exlinescatter4()
+function subplots3()
+    p1 = linescatter6()
+    p2 = linescatter2()
+    p3 = linescatter3()
+    p4 = batman()
     p = [p1 p2; p3 p4]
     p.plot.layout["showlegend"] = false
     p.plot.layout["width"] = 1000

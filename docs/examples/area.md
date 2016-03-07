@@ -1,17 +1,17 @@
 ```julia
-function exarea1()
+function area1()
     trace1 = scatter(;x=1:4, y=[0, 2, 3, 5], fill="tozeroy")
     trace2 = scatter(;x=1:4, y=[3, 5, 1, 7], fill="tonexty")
     plot([trace1, trace2])
 end
-exarea1()
+area1()
 ```
 
 
-<div id="f1f033c8-44df-4678-960a-9311c944ce92"></div>
+<div id="fb764b71-279b-491b-9f5a-566cfaad4023"></div>
 
 <script>
-   thediv = document.getElementById('f1f033c8-44df-4678-960a-9311c944ce92');
+   thediv = document.getElementById('fb764b71-279b-491b-9f5a-566cfaad4023');
 var data = [{"type":"scatter","y":[0,2,3,5],"x":[1,2,3,4],"fill":"tozeroy"},{"type":"scatter","y":[3,5,1,7],"x":[1,2,3,4],"fill":"tonexty"}]
 var layout = {"margin":{"r":50,"l":50,"b":50,"t":60}}
 
@@ -22,7 +22,7 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
 
 
 ```julia
-function exarea2()
+function area2()
     function _stacked_area!(traces)
         for (i, tr) in enumerate(traces[2:end])
             for j in 1:min(length(traces[i]["y"]), length(tr["y"]))
@@ -31,7 +31,7 @@ function exarea2()
         end
         traces
     end
-    
+
     traces = [scatter(;x=1:3, y=[2, 1, 4], fill="tozeroy"),
               scatter(;x=1:3, y=[1, 1, 2], fill="tonexty"),
               scatter(;x=1:3, y=[3, 0, 2], fill="tonexty")]
@@ -39,14 +39,14 @@ function exarea2()
 
     plot(traces, Layout(title="stacked and filled line chart"))
 end
-exarea2()
+area2()
 ```
 
 
-<div id="f30fa0b2-f6dd-439f-be50-fb4401280fda"></div>
+<div id="7acae847-5fac-4e0b-936b-d37b7de212b5"></div>
 
 <script>
-   thediv = document.getElementById('f30fa0b2-f6dd-439f-be50-fb4401280fda');
+   thediv = document.getElementById('7acae847-5fac-4e0b-936b-d37b7de212b5');
 var data = [{"type":"scatter","y":[2,1,4],"x":[1,2,3],"fill":"tozeroy"},{"type":"scatter","y":[3,2,6],"x":[1,2,3],"fill":"tonexty"},{"type":"scatter","y":[6,2,8],"x":[1,2,3],"fill":"tonexty"}]
 var layout = {"title":"stacked and filled line chart","margin":{"r":50,"l":50,"b":50,"t":60}}
 
@@ -57,20 +57,20 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
 
 
 ```julia
-function exarea3()
+function area3()
     trace1 = scatter(;x=1:4, y=[0, 2, 3, 5], fill="tozeroy", mode="none")
     trace2 = scatter(;x=1:4, y=[3, 5, 1, 7], fill="tonexty", mode="none")
     plot([trace1, trace2],
          Layout(title="Overlaid Chart Without Boundary Lines"))
 end
-exarea3()
+area3()
 ```
 
 
-<div id="38f0ef1b-7dc7-47a2-87ca-adb6c2490de8"></div>
+<div id="b999cd03-b6f2-4e62-8720-892cde2fc954"></div>
 
 <script>
-   thediv = document.getElementById('38f0ef1b-7dc7-47a2-87ca-adb6c2490de8');
+   thediv = document.getElementById('b999cd03-b6f2-4e62-8720-892cde2fc954');
 var data = [{"type":"scatter","y":[0,2,3,5],"x":[1,2,3,4],"fill":"tozeroy","mode":"none"},{"type":"scatter","y":[3,5,1,7],"x":[1,2,3,4],"fill":"tonexty","mode":"none"}]
 var layout = {"title":"Overlaid Chart Without Boundary Lines","margin":{"r":50,"l":50,"b":50,"t":60}}
 

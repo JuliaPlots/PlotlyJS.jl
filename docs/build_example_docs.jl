@@ -35,17 +35,18 @@ function single_file(filename::AbstractString)
     fulltext = open(readall, joinpath(this_dir, "..", "examples", filename), "r")
     all_lines = split(fulltext, "\n")
     l = 1
+    regex = r"function ([^_].+?)\("
 
     while true
-        # Find next function nam (break if none)
-        l = findnext(x -> startswith(x, "function ex"), all_lines, l+1)
+        # Find next function name (break if none)
+        l = findnext(x -> match(regex, x) != nothing, all_lines, l+1)
         if l == 0
             break
         end
 
         # Pull out function text
         func_block = CodeTools.getblock(fulltext, l)[1]
-        fun_name = match(r"^function (.+?)\(", func_block)[1]
+        fun_name = match(regex, all_lines[l])[1]
 
         println("adding $fun_name")
 

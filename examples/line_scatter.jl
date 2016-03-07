@@ -1,13 +1,13 @@
 using PlotlyJS
 
-function exlinescatter1()
+function linescatter1()
     trace1 = scatter(;x=1:4, y=[10, 15, 13, 17], mode="markers")
     trace2 = scatter(;x=2:5, y=[16, 5, 11, 9], mode="lines")
     trace3 = scatter(;x=1:4, y=[12, 9, 15, 12], mode="lines+markers")
     plot([trace1, trace2, trace3])
 end
 
-function exlinescatter2()
+function linescatter2()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers", name="Team A",
                       text=["A-1", "A-2", "A-3", "A-4", "A-5"],
@@ -25,7 +25,7 @@ function exlinescatter2()
     plot(data, layout)
 end
 
-function exlinescatter3()
+function linescatter3()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers+text", name="Team A",
                       textposition="top center",
@@ -47,14 +47,14 @@ function exlinescatter3()
     plot(data, layout)
 end
 
-function exlinescatter4()
+function linescatter4()
     trace1 = scatter(;y=fill(5, 40), mode="markers", marker_size=40,
                       marker_color=0:39)
     layout = Layout(title="Scatter Plot with a Color Dimension")
     plot(trace1, layout)
 end
 
-function exlinescatter5()
+function linescatter5()
 
     country = ["Switzerland (2011)", "Chile (2013)", "Japan (2014)",
                "United States (2012)", "Slovenia (2014)", "Canada (2011)",
@@ -102,7 +102,7 @@ function exlinescatter5()
     plot(data, layout)
 end
 
-function exlinescatter6()
+function linescatter6()
     trace1 = scatter(;x=[52698, 43117], y=[53, 31],
                       mode="markers",
                       name="North America",
@@ -140,4 +140,23 @@ function exlinescatter6()
     layout["yaxis"] = Dict(:title => "Percent", :showline => false)
 
     plot(data, layout)
+end
+
+function batman()
+    σ(x) = √(1-x.^2)
+    el(x) = 3*σ(x/7)
+    s(x) = 4.2 - 0.5*x - 2.0*σ(0.5*x-0.5)
+    b(x) = σ(abs(2-x)-1) - x.^2/11 + 0.5x - 3
+    c(x) = [1.7, 1.7, 2.6, 0.9]
+
+    p(i, f; kwargs...) = scatter(;x=[-i; 0.0; i], y=[f(i); NaN; f(i)],
+                                  marker_color="black", showlegend=false,
+                                  kwargs...)
+    traces = vcat(p(3:0.1:7, el; name="wings 1"),
+                  p(4:0.1:7, t->-el(t); name="wings 2"),
+                  p(1:0.1:3, s; name="Shoulders"),
+                  p(0:0.1:4, b; name="Bottom"),
+                  p([0, 0.5, 0.8, 1], c; name="head"))
+
+    plot(traces, Layout(title="Batman"))
 end
