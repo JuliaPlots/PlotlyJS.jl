@@ -143,6 +143,7 @@ function linescatter6()
 end
 
 function batman()
+    # reference: https://github.com/alanedelman/18.337_2015/blob/master/Lecture01_0909/The%20Bat%20Curve.ipynb
     σ(x) = √(1-x.^2)
     el(x) = 3*σ(x/7)
     s(x) = 4.2 - 0.5*x - 2.0*σ(0.5*x-0.5)
