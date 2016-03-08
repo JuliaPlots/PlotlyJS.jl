@@ -16,6 +16,8 @@ fork(jp::ElectronPlot) = ElectronPlot(fork(jp.plot), ElectronDisplay())
 
 isactive(ed::ElectronDisplay) = isnull(ed.w) ? false : Blink.active(get(ed.w))
 
+Base.close(ed::ElectronDisplay) = isactive(ed) && close(get(ed.w))
+
 function get_window(p::ElectronPlot, kwargs...)
     w, h = size(p.plot)
     get_window(p.view; width=w, height=h, kwargs...)
@@ -79,6 +81,7 @@ end
 svg_data(p::ElectronPlot, format="png") =
     @js p.view Plotly.Snapshot.toSVG(this, $format)
 
+Base.close(p::ElectronPlot) = close(p.view)
 
 Blink.js(p::ElectronDisplay, code::JSString; callback=true) =
     Blink.js(get_window(p), :(Blink.evalwith(thediv, $(Blink.jsstring(code)))), callback=callback)
