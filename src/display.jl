@@ -88,6 +88,9 @@ for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
     end
 end
 
+Base.writemime(io::IO, ::MIME"text/html", sp::SyncPlot, js::Symbol=:local) =
+    print(io, stringmime(MIME"text/html"(), sp.plot, js))
+
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
 Base.size(sp::SyncPlot) = size(sp.plot)
 Base.copy(sp::SyncPlot) = fork(sp)  # defined by each SyncPlot{TD}
