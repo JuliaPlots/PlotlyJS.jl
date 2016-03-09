@@ -15,7 +15,8 @@ create a new `divid`
 
 All exported functions from the plotly.js
 [API](https://plot.ly/javascript/plotlyjs-function-reference/) have been
-exposed to Julia and operate on both `Plot` and `SyncPlot` instances.
+exposed to Julia and operate on both `Plot` and `SyncPlot` instances. Each of
+these functions has semantics that match the semantics of plotly.js
 
 In PlotlyJS.jl these functions are spelled:
 
@@ -40,6 +41,11 @@ plot, it keeps the Julia object and the display in sync.
 
 For more details on which methods are available for each of the above functions
 consult the docstrings or (forthcoming) API documentation.
+
+!!! note
+    Be especially careful when trying to use `restyle!` to set a single
+    attribute `k` on the `i`th trace to be an array `v`. See the docstring
+    for `restyle!` for details and examples
 
 ## Subplots
 

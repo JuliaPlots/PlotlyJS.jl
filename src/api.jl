@@ -31,34 +31,159 @@ fork(p::Plot) = Plot(deepcopy(p.data), copy(p.layout), Base.Random.uuid4())
 # Javascript API #
 # -------------- #
 
-function _update_fields(hf::HasFields, update::Dict=Dict(); kwargs...)
-    map(x->setindex!(hf, x[2], x[1]), update)
-    map(x->setindex!(hf, x[2], x[1]), kwargs)
+#=
+
+this function is internal and allows us to match plotly.js semantics in
+`resytle!`. The reason is that if you try to set an attribute on a trace with
+and array, Plotly.restyle expects an array of arrays.
+
+This means that to set the :x field with [1,2,3], the json should look
+something like `[[1,2,3]]`. In Julia we can get this with a one row matrix `[1
+2 3]'` or a tuple of arrays `([1, 2, 3], )`. This function applies that logic
+and extracts the first element from an array or a tuple before calling
+setindex.
+
+All other field types are let through directly
+
+NOTE that the argument `i` here is _not_ the same as the argument `ind` below.
+`i` tracks which index we should use when extracting an element from
+`v::Union{AbstractArray,Tuple}` whereas `ind` below specifies which trace to
+apply the update to.
+
+=#
+function _apply_restyle_setindex!(hf::HasFields, k::Symbol,
+                                  v::Union{AbstractArray,Tuple}, i::Int)
+    setindex!(hf, v[i], k)
 end
 
-"Update layout using update dict and/or kwargs"
-relayout!(l::Layout, update::Associative=Dict(); kwargs...) =
-    _update_fields(l, update; kwargs...)
+_apply_restyle_setindex!(hf::HasFields, k::Symbol, v, i::Int) =
+    setindex!(hf, v, k)
 
-"Update layout using update dict and/or kwargs"
+#=
+Wrap the vector so it repeats to be at least length N
+
+This means
+
+```julia
+_prep_restyle_vec_setindex([1, 2], 2) --> [1, 2]
+_prep_restyle_vec_setindex([1, 2], 3) --> [1, 2, 1]
+_prep_restyle_vec_setindex([1, 2], 4) --> [1, 2, 1, 2]
+
+_prep_restyle_vec_setindex((1, [42, 4]), 2) --> [1, [42, 4]]
+_prep_restyle_vec_setindex((1, [42, 4]), 3) --> [1, [42, 4], 1]
+_prep_restyle_vec_setindex((1, [42, 4]), 4) --> [1, [42, 4], 1, [42, 4]]
+```
+=#
+_prep_restyle_vec_setindex(v::AbstractVector, N::Int) =
+    repeat(v, outer=[ceil(Int, N/length(v))])[1:N]
+
+# treat tuples like vectors, just like JSON.json does
+_prep_restyle_vec_setindex(v::Tuple, N::Int) =
+    _prep_restyle_vec_setindex(Any[i for i in v], N)
+
+# everything else just goes through
+_prep_restyle_vec_setindex(v, N::Int) = v
+
+function _update_fields(hf::GenericTrace, i::Int, update::Dict=Dict(); kwargs...)
+    for d in (update, kwargs)
+        for (k, v) in d
+            _apply_restyle_setindex!(hf, k, v, i)
+        end
+    end
+end
+
+"""
+`relayout!(l::Layout, update::Associative=Dict(); kwargs...)`
+
+Update `l` using update dict and/or kwargs
+"""
+relayout!(l::Layout, update::Associative=Dict(); kwargs...) =
+    map(x -> setindex!(l, x[2], x[1]), merge(update, Dict(kwargs))  )
+
+"""
+`relayout!(p::Plot, update::Associative=Dict(); kwargs...)`
+
+Update `p.layout` on using update dict and/or kwargs
+"""
 relayout!(p::Plot, update::Associative=Dict(); kwargs...) =
     relayout!(p.layout, update; kwargs...)
 
-"update a trace using update dict and/or kwargs"
-restyle!(gt::GenericTrace, update::Associative=Dict(); kwargs...) =
-    _update_fields(gt, update; kwargs...)
+"""
+`restyle!(gt::GenericTrace, i::Int=1, update::Associative=Dict(); kwargs...)`
 
-"Update a single trace using update dict and/or kwargs"
+Update trace `gt` using dict/kwargs, assuming it was the `i`th ind in a call
+to `restyle!(::Plot, ...)`
+"""
+restyle!(gt::GenericTrace, i::Int=1, update::Associative=Dict(); kwargs...) =
+    _update_fields(gt, i, update; kwargs...)
+
+"""
+`restyle!(p::Plot, ind::Int=1, update::Associative=Dict(); kwargs...)`
+
+Update `p.data[ind]` using update dict and/or kwargs
+"""
 restyle!(p::Plot, ind::Int=1, update::Associative=Dict(); kwargs...) =
-    restyle!(p.data[ind], update; kwargs...)
+    restyle!(p.data[ind], 1, update; kwargs...)
 
-"Update specific traces using update dict and/or kwargs"
-restyle!(p::Plot, inds::AbstractVector{Int}, update::Associative=Dict(); kwargs...) =
-    map(ind -> restyle!(p.data[ind], update; kwargs...), inds)
+"""
+`restyle!(::Plot, ::AbstractVector{Int}, ::Associative=Dict(); kwargs...)`
 
-"Update all traces using update dict and/or kwargs"
+Update specific traces at `p.data[inds]` using update dict and/or kwargs
+"""
+function restyle!(p::Plot, inds::AbstractVector{Int},
+                  update::Associative=Dict(); kwargs...)
+    N = length(inds)
+    d = merge(update, Dict(kwargs))
+
+    for (k, v) in d
+        d[k] = _prep_restyle_vec_setindex(v, N)
+    end
+
+    map((ind, i) -> restyle!(p.data[ind], i, d), inds, 1:N)
+end
+
+"""
+`restyle!(p::Plot, update::Associative=Dict(); kwargs...)`
+
+Update all traces using update dict and/or kwargs
+"""
 restyle!(p::Plot, update::Associative=Dict(); kwargs...) =
     restyle!(p, 1:length(p.data), update; kwargs...)
+
+@doc """
+The `restyle!` method follows the semantics of the `Plotly.restyle` function in
+plotly.js. Specifically the following rules are applied when trying to set
+an attribute `k` to a value `v` on trace `ind`, which happens to be the `i`th
+trace listed in the vector of `ind`s (if `ind` is a scalar then `i` is always
+equal to 1)
+
+- if `v` is an array or a tuple (both translated to javascript arrays when
+`json(v)` is called) then `p.data[ind][k]` will be set to `v[i]`. See examples
+below
+- if `v` is any other type (any scalar type), then `k` is set directly to `v`.
+
+**Examples**
+
+```julia
+# set marker color on first two traces to be red
+restyle!(p, [1, 2], marker_color="red")
+
+# set marker color on trace 1 to be green and trace 2 to be red
+restyle!(p, [2, 1], marker_color=["red", "green"])
+
+# set marker color on trace 1 to be red. green is not used
+restyle!(p, 1, marker_color=["red", "green"])
+
+# set the first marker on trace 1 to red, the second marker on trace 1 to green
+restyle!(p, 1, marker_color=(["red", "green"],))
+
+# suppose p has 3 traces.
+# sets marker color on trace 1 to ["red", "green"]
+# sets marker color on trace 2 to "blue"
+# sets marker color on trace 3 to ["red", "green"]
+restyle!(p, 1:3, marker_color=(["red", "green"], "blue"))
+```
+""" restyle!
 
 "Add trace(s) to the end of the Plot's array of data"
 addtraces!(p::Plot, traces::AbstractTrace...) = push!(p.data, traces...)
