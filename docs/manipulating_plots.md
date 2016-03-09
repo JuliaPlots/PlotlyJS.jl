@@ -43,9 +43,9 @@ For more details on which methods are available for each of the above functions
 consult the docstrings or (forthcoming) API documentation.
 
 !!! note
-    Be especially careful when trying to use `restyle!` to set a single
-    attribute `k` on the `i`th trace to be an array `v`. See the docstring
-    for `restyle!` for details and examples
+    Be especially careful when trying to use `restyle!` to set attributes that
+    are arrays. The semantics are a bit subtle. Check the docstring for details
+    and examples
 
 ## Subplots
 
