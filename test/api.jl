@@ -9,23 +9,31 @@ end
 
 @testset "Test api methods on Plot" begin
 
+    @testset "test helpers" begin
+        @test PlotlyJS._prep_restyle_vec_setindex([1, 2], 2) == [1, 2]
+        @test PlotlyJS._prep_restyle_vec_setindex([1, 2], 3) == [1, 2, 1]
+        @test PlotlyJS._prep_restyle_vec_setindex([1, 2], 4) == [1, 2, 1, 2]
+
+        @test PlotlyJS._prep_restyle_vec_setindex((1, [42, 4]), 2) == Any[1, [42, 4]]
+        @test PlotlyJS._prep_restyle_vec_setindex((1, [42, 4]), 3) == Any[1, [42, 4], 1]
+        @test PlotlyJS._prep_restyle_vec_setindex((1, [42, 4]), 4) == Any[1, [42, 4], 1, [42, 4]]
+    end
+
     @testset "test _update_fields" begin
         t1, t2, t3, l, p = fresh_data()
         # test dict version
-        for obj in [t1, l]
-            o = copy(obj)
-            PlotlyJS._update_fields(o, Dict{Symbol,Any}(:foo=>"Bar"))
-            @test o["foo"] == "Bar"
-            # kwarg version
-            PlotlyJS._update_fields(o; foo="Foo")
-            @test o["foo"] == "Foo"
+        o = copy(t1)
+        PlotlyJS._update_fields(o, 1, Dict{Symbol,Any}(:foo=>"Bar"))
+        @test o["foo"] == "Bar"
+        # kwarg version
+        PlotlyJS._update_fields(o, 1; foo="Foo")
+        @test o["foo"] == "Foo"
 
-            # dict + kwarg version
-            PlotlyJS._update_fields(o, Dict{Symbol,Any}(:foo=>"Fuzzy");
-                                    fuzzy_wuzzy="?")
-            @test o["foo"] == "Fuzzy"
-            @test o["fuzzy.wuzzy"] == "?"
-        end
+        # dict + kwarg version
+        PlotlyJS._update_fields(o, 1, Dict{Symbol,Any}(:foo=>"Fuzzy");
+                                fuzzy_wuzzy="?")
+        @test o["foo"] == "Fuzzy"
+        @test o["fuzzy.wuzzy"] == "?"
     end
 
     @testset "test relayout!" begin
@@ -44,7 +52,7 @@ end
     @testset "test restyle!" begin
         t1, t2, t3, l, p = fresh_data()
         # test on trace object
-        restyle!(t1, Dict{Symbol,Any}(:opacity=>0.4); marker_color="red")
+        restyle!(t1, 1, Dict{Symbol,Any}(:opacity=>0.4); marker_color="red")
         @test t1["opacity"] == 0.4
         @test t1["marker.color"] == "red"
 
@@ -65,6 +73,62 @@ end
         for i in 1:3
             @test p.data[i]["opacity"] == 0.42
             @test p.data[i]["marker.color"] == "white"
+        end
+
+        @testset "test restyle with vector attributes applied to all traces" begin
+            # test that short arrays repeat
+            restyle!(p, marker_color=["red", "green"])
+            @test p.data[1]["marker.color"] == "red"
+            @test p.data[2]["marker.color"] == "green"
+            @test p.data[3]["marker.color"] == "red"
+
+            # test that array of arrays is repeated and applied everywhere
+            restyle!(p, marker_color=(["red", "green"],))
+            @test p.data[1]["marker.color"] == ["red", "green"]
+            @test p.data[2]["marker.color"] == ["red", "green"]
+            @test p.data[3]["marker.color"] == ["red", "green"]
+
+            # test that array of arrays is repeated and applied everywhere
+            restyle!(p, marker_color=(["red", "green"], "blue"))
+            @test p.data[1]["marker.color"] == ["red", "green"]
+            @test p.data[2]["marker.color"] == "blue"
+            @test p.data[3]["marker.color"] == ["red", "green"]
+        end
+
+        @testset "test restyle with vector attributes applied to vector of traces" begin
+            # test that short arrays repeat
+            restyle!(p, 1:3, marker_color=["red", "green"])
+            @test p.data[1]["marker.color"] == "red"
+            @test p.data[2]["marker.color"] == "green"
+            @test p.data[3]["marker.color"] == "red"
+
+            # test that array of arrays is repeated and applied everywhere
+            restyle!(p, 1:3, marker_color=(["red", "green"],))
+            @test p.data[1]["marker.color"] == ["red", "green"]
+            @test p.data[2]["marker.color"] == ["red", "green"]
+            @test p.data[3]["marker.color"] == ["red", "green"]
+
+            # test that array of arrays is repeated and applied everywhere
+            restyle!(p, 1:3, marker_color=(["red", "green"], "blue"))
+            @test p.data[1]["marker.color"] == ["red", "green"]
+            @test p.data[2]["marker.color"] == "blue"
+            @test p.data[3]["marker.color"] == ["red", "green"]
+        end
+
+        @testset "test restyle with vector attributes applied to trace object" begin
+            restyle!(t1, 1, x=[1, 2, 3])
+            @test t1["x"] == 1
+
+            restyle!(t1, 1, x=([1, 2, 3],))
+            @test t1["x"] == [1, 2, 3]
+        end
+
+        @testset "test restyle with vector attributes applied to single trace " begin
+            restyle!(p, 2, x=[1, 2, 3])
+            @test p.data[2]["x"] == 1
+
+            restyle!(p, 2, x=([1, 2, 3],))
+            @test p.data[2]["x"] == [1, 2, 3]
         end
     end
 
