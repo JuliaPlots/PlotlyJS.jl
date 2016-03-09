@@ -94,10 +94,10 @@ relayout!(p::ElectronDisplay, update::Associative=Dict(); kwargs...) =
     @js_ p Plotly.relayout(this, $(merge(update, prep_kwargs(kwargs))))
 
 restyle!(p::ElectronDisplay, ind::Int, update::Associative=Dict(); kwargs...) =
-    @js_ p Plotly.restyle(this, $(prep_kwargs(kwargs)), $(ind-1))
+    @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))), $(ind-1))
 
 restyle!(p::ElectronDisplay, inds::AbstractVector{Int}, update::Associative=Dict(); kwargs...) =
-    @js_ p Plotly.restyle(this, $(prep_kwargs(kwargs)), $(inds-1))
+    @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))), $(inds-1))
 
 restyle!(p::ElectronDisplay, update=Dict(); kwargs...) =
     @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))))
