@@ -366,7 +366,8 @@ create a new <code>divid</code></li>
 <h2 id="api-functions">API functions<a class="headerlink" href="#api-functions" title="Permanent link">¶</a></h2>
 <p>All exported functions from the plotly.js
 <a href="https://plot.ly/javascript/plotlyjs-function-reference/">API</a> have been
-exposed to Julia and operate on both <code>Plot</code> and <code>SyncPlot</code> instances.</p>
+exposed to Julia and operate on both <code>Plot</code> and <code>SyncPlot</code> instances. Each of
+these functions has semantics that match the semantics of plotly.js</p>
 <p>In PlotlyJS.jl these functions are spelled:</p>
 <ul>
 <li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotly-restyle"><code>restyle!</code></a>: edit attributes on one or more traces</li>
@@ -389,6 +390,12 @@ plot, it keeps the Julia object and the display in sync.</p>
 
 <p>For more details on which methods are available for each of the above functions
 consult the docstrings or (forthcoming) API documentation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be especially careful when trying to use <code>restyle!</code> to set a single
+attribute <code>k</code> on the <code>i</code>th trace to be an array <code>v</code>. See the docstring
+for <code>restyle!</code> for details and examples</p>
+</div>
 <h2 id="subplots">Subplots<a class="headerlink" href="#subplots" title="Permanent link">¶</a></h2>
 <p>A common task is to construct subpots, or plots with more than one set of axes.
 This is possible using the declarative plotly.js syntax, but can be tedious at
