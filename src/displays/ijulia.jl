@@ -36,7 +36,7 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
 
     function IJulia.display_dict(p::JupyterPlot)
         if p.view.displayed
-            nothing
+            Dict()
         else
             p.view.displayed = true
             Dict("text/html" => html_body(p.plot))
