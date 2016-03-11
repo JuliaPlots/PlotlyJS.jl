@@ -1,5 +1,4 @@
 site_name: PlotlyJS.jl
-# site_url: http://www.mkdocs.org
 site_description: Julia + plotly.js
 site_author: Spencer Lyon
 theme_dir: 'docs/theme'
@@ -21,6 +20,7 @@ pages:
     - examples/line_scatter.md
     - examples/maps.md
     - examples/subplots.md
+    - examples/shapes.md
 
 markdown_extensions:
     - codehilite
@@ -38,4 +38,3 @@ extra_css: [css/github.css]
 extra_javascript: ["https://cdn.plot.ly/plotly-latest.min.js"]
 
 copyright: Copyright &copy; 2016 <a href="http://spencerlyon.com/">Spencer Lyon</a>
-# google_analytics: ['UA-27795084-5', 'mkdocs.org']

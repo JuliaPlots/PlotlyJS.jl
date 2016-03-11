@@ -204,3 +204,63 @@ end
         @test gt[k] == gt2[k]
     end
 end
+
+@testset "testing vline hline" begin
+
+    vl = vline(0)
+    @test vl["x0"] == 0
+    @test vl["y0"] == 0
+    @test vl["y1"] == 1
+    @test vl.kind == "line"
+    @test vl["xref"] == "x"
+    @test vl["yref"] == "paper"
+
+    hl = hline(0)
+    @test hl["y0"] == 0
+    @test hl["x0"] == 0
+    @test hl["x1"] == 1
+    @test hl.kind == "line"
+    @test hl["yref"] == "y"
+    @test hl["xref"] == "paper"
+
+    av, b1v, b2v = 1:3, 5:7, 9:11
+    _want_i(x::Number, i) = x
+    _want_i(x::AbstractVector, i) = x[i]
+    for (a, b1, b2) in [(av, 1, 2),
+                        (av, b1v, 2),
+                        (av, b1v, b2v),
+                        (av, 1, b2v),
+                        (0, b1v, 2),
+                        (0, b1v, b2v),
+                        (0, 1, b2v)]
+
+        vl = vline(a, b1, b2)
+        for (i, v) in enumerate(vl)
+            @test v["x0"] == _want_i(a, i)
+            @test v["y0"] == _want_i(b1, i)
+            @test v["y1"] == _want_i(b2, i)
+        end
+
+        hl = hline(a, b1, b2)
+        for (i, h) in enumerate(hl)
+            @test h["y0"] == _want_i(a, i)
+            @test h["x0"] == _want_i(b1, i)
+            @test h["x1"] == _want_i(b2, i)
+        end
+    end
+end
+
+@testset "test other shapes" begin
+    # constructor logic was taken care of above. Just need to test
+    # rect/path/circle specfic things here
+    r = rect(1, 2, 3, 4)
+    @test r.kind == "rect"
+
+    c = circle(1, 2, 3, 4)
+    @test c.kind == "circle"
+
+    _path = "M 1 1 L 1 3 L 4 1 Z"
+    p = path(_path)
+    @test p.kind == "path"
+    @test p["path"] == _path
+end

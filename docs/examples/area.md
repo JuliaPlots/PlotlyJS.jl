@@ -8,10 +8,10 @@ area1()
 ```
 
 
-<div id="f020445c-9836-4dcb-8da5-ac7e07eaf5c8"></div>
+<div id="e0df3322-f87e-4acc-be50-1da97a44d819"></div>
 
 <script>
-   thediv = document.getElementById('f020445c-9836-4dcb-8da5-ac7e07eaf5c8');
+   thediv = document.getElementById('e0df3322-f87e-4acc-be50-1da97a44d819');
 var data = [{"type":"scatter","y":[0,2,3,5],"x":[1,2,3,4],"fill":"tozeroy"},{"type":"scatter","y":[3,5,1,7],"x":[1,2,3,4],"fill":"tonexty"}]
 var layout = {"margin":{"r":50,"l":50,"b":50,"t":60}}
 
@@ -43,10 +43,10 @@ area2()
 ```
 
 
-<div id="45da58bb-67f2-43ba-83b0-0dd74ac1ac0e"></div>
+<div id="cde8f436-ae91-4aee-acc7-9f4e7ce02244"></div>
 
 <script>
-   thediv = document.getElementById('45da58bb-67f2-43ba-83b0-0dd74ac1ac0e');
+   thediv = document.getElementById('cde8f436-ae91-4aee-acc7-9f4e7ce02244');
 var data = [{"type":"scatter","y":[2,1,4],"x":[1,2,3],"fill":"tozeroy"},{"type":"scatter","y":[3,2,6],"x":[1,2,3],"fill":"tonexty"},{"type":"scatter","y":[6,2,8],"x":[1,2,3],"fill":"tonexty"}]
 var layout = {"title":"stacked and filled line chart","margin":{"r":50,"l":50,"b":50,"t":60}}
 
@@ -67,10 +67,10 @@ area3()
 ```
 
 
-<div id="cf557739-1535-4176-8f58-6c9f3e028844"></div>
+<div id="2e974609-81cb-43ef-8846-4e0dc8eae0ba"></div>
 
 <script>
-   thediv = document.getElementById('cf557739-1535-4176-8f58-6c9f3e028844');
+   thediv = document.getElementById('2e974609-81cb-43ef-8846-4e0dc8eae0ba');
 var data = [{"type":"scatter","y":[0,2,3,5],"x":[1,2,3,4],"fill":"tozeroy","mode":"none"},{"type":"scatter","y":[3,5,1,7],"x":[1,2,3,4],"fill":"tonexty","mode":"none"}]
 var layout = {"title":"Overlaid Chart Without Boundary Lines","margin":{"r":50,"l":50,"b":50,"t":60}}
 

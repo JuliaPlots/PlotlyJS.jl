@@ -31,7 +31,108 @@ Layout{T<:Associative{Symbol,Any}}(fields::T=Dict{Symbol,Any}(); kwargs...) =
 kind(gt::GenericTrace) = gt.kind
 kind(l::Layout) = "layout"
 
-typealias HasFields Union{GenericTrace, Layout}
+# -------------------------------------------- #
+# Specific types of trace or layout attributes #
+# -------------------------------------------- #
+
+abstract AbstractLayoutAttribute
+abstract AbstractShape <: AbstractLayoutAttribute
+
+kind{T<:AbstractLayoutAttribute}(::T) = string(T)
+
+# TODO: maybe loosen some day
+typealias _Scalar Union{Base.Dates.Date,Number,AbstractString}
+
+# ------ #
+# Shapes #
+# ------ #
+
+type Shape <: AbstractLayoutAttribute
+    kind::ASCIIString
+    fields::Associative{Symbol}
+end
+
+function Shape(kind::AbstractString, fields=Dict{Symbol,Any}(); kwargs...)
+    # use setindex! methods below to handle `_` substitution
+    s = Shape(kind, fields)
+    map(x->setindex!(s, x[2], x[1]), kwargs)
+    s
+end
+
+# helper method needed below
+_rep(x) = Base.cycle(x)
+_rep(x::_Scalar) = Base.cycle([x])
+_rep(x::Union{AbstractArray,Tuple}) = x
+
+# line, circle, and rect share same x0, x1, y0, y1 args. Define methods for
+# them here
+for t in [:line, :circle, :rect]
+    str_t = string(t)
+    @eval $t(d::Associative=Dict{Symbol,Any}(), ;kwargs...) =
+        Shape($str_t, d; kwargs...)
+    eval(Expr(:export, t))
+
+    @eval function $(t)(x0::_Scalar, x1::_Scalar, y0::_Scalar, y1::_Scalar,
+                        fields::Associative=Dict{Symbol,Any}(); kwargs...)
+        $(t)(fields; x0=x0, x1=x1, y0=y0, y1=y1, kwargs...)
+    end
+
+
+    @eval function $(t)(x0::Union{AbstractVector,_Scalar},
+                        x1::Union{AbstractVector,_Scalar},
+                        y0::Union{AbstractVector,_Scalar},
+                        y1::Union{AbstractVector,_Scalar},
+                        fields::Associative=Dict{Symbol,Any}(); kwargs...)
+        f(_x0, _x1, _y0, _y1) = $(t)(_x0, _x1, _y0, _y1, copy(fields); kwargs...)
+        map(f, _rep(x0), _rep(x1), _rep(y0), _rep(y1))
+    end
+end
+
+@doc "Draw a line through the points (x0, y0) and (x1, y2)" line
+
+@doc """
+Draw a circle from ((`x0`+`x1`)/2, (`y0`+`y1`)/2)) with radius
+ (|(`x0`+`x1`)/2 - `x0`|, |(`y0`+`y1`)/2 -`y0`)|) """ circle
+
+@doc """
+Draw a rectangle linking (`x0`,`y0`), (`x1`,`y0`),
+(`x1`,`y1`), (`x0`,`y1`), (`x0`,`y0`)""" rect
+
+
+"Draw an arbitrary svg path"
+path(p::AbstractString; kwargs...) = Shape("path"; path=p, kwargs...)
+
+export path
+
+# derived shapes
+
+vline(x, ymin, ymax, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
+    line(x, x, ymin, ymax, fields; kwargs...)
+
+"""
+`vline(x, fields::Associative=Dict{Symbol,Any}(); kwargs...)`
+
+Draw vertical lines at each point in `x` that span the height of the plot
+"""
+vline(x, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
+    vline(x, 0, 1, fields; xref="x", yref="paper")
+
+hline(y, xmin, xmax, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
+    line(xmin, xmax, y, y, fields; kwargs...)
+
+"""
+`hline(y, fields::Associative=Dict{Symbol,Any}(); kwargs...)`
+
+Draw horizontal lines at each point in `y` that span the width of the plot
+"""
+hline(y, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
+    hline(y, 0, 1, fields; xref="paper", yref="y")
+
+# ---------------------------------------- #
+# Implementation of getindex and setindex! #
+# ---------------------------------------- #
+
+typealias HasFields Union{GenericTrace,Layout,Shape}
 
 # methods that allow you to do `obj["first.second.third"] = val`
 Base.setindex!(gt::HasFields, val, key::ASCIIString) =

@@ -1,7 +1,8 @@
 # -------------------------------- #
 # Custom JSON output for our types #
 # -------------------------------- #
-function JSON._print(io::IO, state::JSON.State, a::GenericTrace)
+# Shape and GenericTrace have the same fields and json representation
+function JSON._print(io::IO, state::JSON.State, a::Union{Shape,GenericTrace})
     JSON.start_object(io, state, true)
     range = keys(a.fields)
     if length(range) > 0

@@ -36,10 +36,11 @@ Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout()) =
 Plot(data::AbstractTrace, layout=Layout()) = Plot([data], layout)
 
 # NOTE: we export trace constructing types from inside api.jl
+# NOTE: we export names of shapes from traces_layouts.jl
 export
 
     # core types
-    Plot, GenericTrace, Layout, ElectronDisplay, JupyterDisplay,
+    Plot, GenericTrace, Layout, Shape, ElectronDisplay, JupyterDisplay,
     ElectronPlot, JupyterPlot,
 
     # other methods
@@ -54,6 +55,6 @@ export
     extendtraces, prependtraces,
 
     # helper methods
-    plot, fork
+    plot, fork, vline, hline
 
 end # module
