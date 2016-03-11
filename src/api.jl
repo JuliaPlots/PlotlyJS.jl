@@ -260,7 +260,8 @@ extendtraces!(p, Dict("marker.size"=>Vector[[1, 3], [5, 5, 6]]), [3, 5], 10)
 ```
 
 """
-function extendtraces!(p::Plot, update::Dict, indices::Vector{Int}=[1], maxpoints=-1)
+function extendtraces!(p::Plot, update::Associative, indices::Vector{Int}=[1],
+                       maxpoints=-1)
     # TODO: maxpoints not handled here
     for ix in indices
         tr = p.data[ix]
@@ -276,7 +277,8 @@ The API for `prependtraces` is equivalent to that for `extendtraces` except that
 the data is added to the front of the traces attributes instead of the end. See
 Those docstrings for more information
 """
-function prependtraces!(p::Plot, update::Dict, indices::Vector{Int}=[1], maxpoints=-1)
+function prependtraces!(p::Plot, update::Associative, indices::Vector{Int}=[1],
+                        maxpoints=-1)
     # TODO: maxpoints not handled here
     for ix in indices
         tr = p.data[ix]
@@ -289,12 +291,14 @@ end
 
 
 for f in (:extendtraces!, :prependtraces!)
-    @eval $(f)(p::Plot, inds::Vector{Int}=[0], maxpoints=-1; update...) =
-        ($f)(p, Dict(map(x->(x[1], _tovec(x[2])), update)), inds, maxpoints)
+    @eval begin
+        $(f)(p::Plot, inds::Vector{Int}=[0], maxpoints=-1; update...) =
+            ($f)(p, Dict(map(x->(x[1], _tovec(x[2])), update)), inds, maxpoints)
 
-    @eval $(f)(p::Plot, inds::Int, maxpoints=-1, update...) =
-        ($f)(p, [inds], maxpoints, update...)
+        $(f)(p::Plot, ind::Int, maxpoints=-1; update...) =
+            ($f)(p, [ind], maxpoints; update...)
 
-    @eval $(f)(p::Plot, update::Dict, inds::Int, maxpoints=-1) =
-        ($f)(p, update, [inds], maxpoints)
+        $(f)(p::Plot, update::Associative, ind::Int, maxpoints=-1) =
+            ($f)(p, update, [ind], maxpoints)
+    end
 end

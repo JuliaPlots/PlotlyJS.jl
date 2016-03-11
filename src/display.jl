@@ -88,6 +88,26 @@ for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
     end
 end
 
+# add extra same extra methods we have on ::Plot for these functions
+for f in (:extendtraces!, :prependtraces!)
+    @eval begin
+        function $(f)(p::AbstractPlotlyDisplay, inds::Vector{Int}=[0],
+                      maxpoints=-1; update...)
+            ($f)(p, Dict(map(x->(x[1], _tovec(x[2])), update)), inds, maxpoints)
+        end
+
+        function $(f)(p::AbstractPlotlyDisplay, ind::Int, maxpoints=-1;
+                      update...)
+            ($f)(p, [ind], maxpoints; update...)
+        end
+
+        function $(f)(p::AbstractPlotlyDisplay, update::Associative, ind::Int,
+                      maxpoints=-1)
+            ($f)(p, update, [ind], maxpoints)
+        end
+    end
+end
+
 Base.writemime(io::IO, ::MIME"text/html", sp::SyncPlot, js::Symbol=:local) =
     print(io, stringmime(MIME"text/html"(), sp.plot, js))
 
