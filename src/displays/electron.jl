@@ -83,8 +83,13 @@ svg_data(p::ElectronPlot, format="png") =
 
 Base.close(p::ElectronPlot) = close(p.view)
 
-Blink.js(p::ElectronDisplay, code::JSString; callback=true) =
-    Blink.js(get_window(p), :(Blink.evalwith(thediv, $(Blink.jsstring(code)))), callback=callback)
+function Blink.js(p::ElectronDisplay, code::JSString; callback=true)
+    if !isactive(p)
+        return
+    end
+    Blink.js(get_window(p),
+             :(Blink.evalwith(thediv, $(Blink.jsstring(code)))), callback=callback)
+end
 
 Blink.js(p::ElectronPlot, code::JSString; callback=true) =
     Blink.js(p.view, code; callback=callback)
