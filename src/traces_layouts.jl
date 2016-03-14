@@ -51,7 +51,7 @@ Base.merge(a::PlotlyAttribute, d::Dict) = merge(a.fields, d)
 abstract AbstractLayoutAttribute
 abstract AbstractShape <: AbstractLayoutAttribute
 
-kind{T<:AbstractLayoutAttribute}(::T) = string(T)
+kind{T<:Union{PlotlyAttribute,AbstractLayoutAttribute}}(::T) = string(T)
 
 # TODO: maybe loosen some day
 typealias _Scalar Union{Base.Dates.Date,Number,AbstractString}

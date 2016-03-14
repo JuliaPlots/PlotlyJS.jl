@@ -41,7 +41,7 @@ export
 
     # core types
     Plot, GenericTrace, Layout, Shape, ElectronDisplay, JupyterDisplay,
-    ElectronPlot, JupyterPlot,
+    ElectronPlot, JupyterPlot, AbstractTrace, AbstractLayout,
 
     # other methods
     savefig, svg_data, png_data, jpeg_data, webp_data,
