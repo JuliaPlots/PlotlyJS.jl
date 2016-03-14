@@ -4,22 +4,19 @@ function random_line()
     n = 400
     rw() = cumsum(randn(n))
     trace1 = scatter3d(;x=rw(),y=rw(), z=rw(), mode="lines",
-                        marker=Dict(:color => "#1f77b4", :size => 12,
-                                    :symbol => "circle",
-                                    :line => Dict(:color => "rgb(0,0,0)", :width=>0)),
-                        line_color="#1f77b4", line_width=1)
+                        marker=attr(color="#1f77b4", size=12, symbol="circle",
+                                    line=attr(color="rgb(0,0,0)", width=0)),
+                        line=attr(color="#1f77b4", width=1))
     trace2 = scatter3d(;x=rw(),y=rw(), z=rw(), mode="lines",
-                        marker=Dict(:color => "#9467bd", :size => 12,
-                                    :symbol => "circle",
-                                    :line => Dict(:color => "rgb(0,0,0)", :width=>0)),
-                        line_color="rgb(44, 160, 44)", line_width=1)
+                        marker=attr(color="#9467bd", size=12, symbol="circle",
+                                    line=attr(color="rgb(0,0,0)", width=0)),
+                        line=attr(color="rgb(44, 160, 44)", width=1))
     trace3 = scatter3d(;x=rw(),y=rw(), z=rw(), mode="lines",
-                        marker=Dict(:color => "#bcbd22", :size => 12,
-                                    :symbol => "circle",
-                                    :line => Dict(:color => "rgb(0,0,0)", :width=>0)),
-                        line_color="#bcbd22", line_width=1)
+                        marker=attr(color="#bcbd22", size=12, symbol="circle",
+                                    line=attr(color="rgb(0,0,0)", width=0)),
+                        line=attr(color="#bcbd22", width=1))
     layout = Layout(autosize=false, width=500, height=500,
-                    margin=Dict(:l => 0, :r => 0, :b => 0, :t => 65))
+                    margin=attr(l=0, r=0, b=0, t=65))
     plot([trace1, trace2, trace3], layout)
 end
 
@@ -113,8 +110,7 @@ function topo_surface()
                 5.833817, 3.568177]]
     trace = surface(z=z)
     layout = Layout(title="Mt. Bruno Elevation", autosize=false, width=500,
-                    height=500,
-                    margin=Dict(:l => 65, :r => 50, :b => 65, :t => 90))
+                    height=500, margin=attr(l=65, r=50, b=65, t=90))
     plot(trace, layout)
 end
 
@@ -166,21 +162,22 @@ function clustering_alpha_shapes()
         push!(data, cluster)
     end
 
+    # notice the nested attrs to create complex JSON objects
     layout = Layout(width=800, height=550, autosize=false, title="Iris dataset",
-                    scene=Dict(:xaxis=>Dict(:gridcolor=>"rgb(255, 255, 255)",
-                                            :zerolinecolor=>"rgb(255, 255, 255)",
-                                            :showbackground=>true,
-                                            :backgroundcolor=>"rgb(230, 230,230)"),
-                               :yaxis=>Dict(:gridcolor=>"rgb(255, 255, 255)",
-                                           :zerolinecolor=>"rgb(255, 255, 255)",
-                                           :showbackground=>true,
-                                           :backgroundcolor=>"rgb(230, 230,230)"),
-                               :zaxis=>Dict(:gridcolor=>"rgb(255, 255, 255)",
-                                           :zerolinecolor=>"rgb(255, 255, 255)",
-                                           :showbackground=>true,
-                                           :backgroundcolor=>"rgb(230, 230,230)"),
-                               :aspectratio=>Dict( :x=>1, :y=>1, :z=>0.7 ),
-                               :aspectmode => "manual"))
+                    scene=attr(xaxis=attr(gridcolor="rgb(255, 255, 255)",
+                                          zerolinecolor="rgb(255, 255, 255)",
+                                          showbackground=true,
+                                          backgroundcolor="rgb(230, 230,230)"),
+                               yaxis=attr(gridcolor="rgb(255, 255, 255)",
+                                           zerolinecolor="rgb(255, 255, 255)",
+                                           showbackground=true,
+                                           backgroundcolor="rgb(230, 230,230)"),
+                               zaxis=attr(gridcolor="rgb(255, 255, 255)",
+                                           zerolinecolor="rgb(255, 255, 255)",
+                                           showbackground=true,
+                                           backgroundcolor="rgb(230, 230,230)"),
+                               aspectratio=attr(x=1, y=1, z=0.7),
+                               aspectmode = "manual"))
     plot(data, layout)
 end
 
@@ -197,11 +194,11 @@ function scatter_3d()
 
     trace2 = scatter3d(;x=obs2[:, 1], y=obs2[:, 2], z=obs2[:, 3],
                         mode="markers", opacity=0.9,
-                        marker_color="rgb(127, 127, 127)",
-                        marker_symbol="circle", marker_line_width=1.0,
-                        marker_line_color="rgb(204, 204, 204)")
+                        marker=attr(color="rgb(127, 127, 127)",
+                                    symbol="circle", line_width=1.0,
+                                    line_color="rgb(204, 204, 204)"))
 
-    layout = Layout(margin=Dict(:l=>0, :r=>0, :t=>0, :b=>0))
+    layout = Layout(margin=attr(l=0, r=0, t=0, b=0))
 
     plot([trace1, trace2], layout)
 end

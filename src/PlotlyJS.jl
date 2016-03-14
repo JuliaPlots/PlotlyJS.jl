@@ -55,6 +55,6 @@ export
     extendtraces, prependtraces,
 
     # helper methods
-    plot, fork, vline, hline
+    plot, fork, vline, hline, attr
 
 end # module

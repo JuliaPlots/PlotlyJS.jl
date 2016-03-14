@@ -19,7 +19,8 @@ function JSON._print(io::IO, state::JSON.State, a::Union{Shape,GenericTrace})
     JSON.end_object(io, state, true)
 end
 
-JSON._print(io::IO, state::JSON.State, a::Layout) = JSON._print(io, state, a.fields)
+JSON._print(io::IO, state::JSON.State, a::Union{PlotlyAttribute,Layout}) =
+    JSON._print(io, state, a.fields)
 
 JSON._print(io::IO, state::JSON.State, a::Colors.Colorant) =
     JSON._print(io, state, string("#", hex(a)))

@@ -42,8 +42,8 @@ function linescatter3()
 
     layout = Layout(;title="Data Labels on the Plot", xaxis_range=[0.75, 5.25],
                      yaxis_range=[0, 8], legend_y=0.5, legend_yref="paper",
-                     legend_font=Dict(:family => "Arial, sans-serif", :size => 20,
-                                      :color => "grey"))
+                     legend=attr(family="Arial, sans-serif", size=20,
+                                 color="grey"))
     plot(data, layout)
 end
 
@@ -64,12 +64,12 @@ function linescatter5()
     votingPop = [40, 45.7, 52, 53.6, 54.1, 54.2, 54.5, 54.7, 55.1, 56.6]
     regVoters = [49.1, 42, 52.7, 84.3, 51.7, 61.1, 55.3, 64.2, 91.1, 58.9]
 
+    # notice use of `attr` function to make nested attributes
     trace1 = scatter(;x=votingPop, y=country, mode="markers",
                       name="Percent of estimated voting age population",
-                      marker_color="rgba(156, 165, 196, 0.95)",
-                      marker_line_color="rgba(156, 165, 196, 1.0)",
-                      marker_line_width=1,
-                      marker_size=16, marker_symbol="circle")
+                      marker=attr(color="rgba(156, 165, 196, 0.95)",
+                                  line_color="rgba(156, 165, 196, 1.0)",
+                                  line_width=1, size=16, symbol="circle"))
 
     trace2 = scatter(;x=regVoters, y=country, mode="markers",
                       name="Percent of estimated registered voters")
@@ -81,24 +81,20 @@ function linescatter5()
                            :size => 16)
 
     data = [trace1, trace2]
-
-    layout = Layout(title="Votes cast for ten lowest voting age population in OECD countries",
+    layout = Layout(Dict{Symbol,Any}(:paper_bgcolor => "rgb(254, 247, 234)",
+                                     :plot_bgcolor => "rgb(254, 247, 234)");
+                    title="Votes cast for ten lowest voting age population in OECD countries",
                     width=600, height=600, hovermode="closest",
-                    margin=Dict(:l => 140, :r => 40, :b => 50, :t => 80))
-    layout.fields[:paper_bgcolor] = "rgb(254, 247, 234)"
-    layout.fields[:plot_bgcolor] = "rgb(254, 247, 234)"
-    layout["xaxis"] = Dict(:showgrid => false,
-                           :showline => true,
-                           :linecolor => "rgb(102, 102, 102)",
-                           :titlefont => Dict(:font=> Dict(:color =>"rgb(204, 204, 204)")),
-                           :tickfont => Dict(:font=> Dict(:color =>"rgb(102, 102, 102)")),
-                           :autotick => false,
-                           :dtick => 10,
-                           :ticks => "outside",
-                           :tickcolor => "rgb(102, 102, 102)")
-    layout["legend"] = Dict(:font => Dict(:size => 10),
-                            :yanchor => "middle",
-                            :xanchor => "right")
+                    margin=Dict(:l => 140, :r => 40, :b => 50, :t => 80),
+                    xaxis=attr(showgrid=false, showline=true,
+                               linecolor="rgb(102, 102, 102)",
+                               titlefont_font_color="rgb(204, 204, 204)",
+                               tickfont_font_color="rgb(102, 102, 102)",
+                               autotick=false, dtick=10, ticks="outside",
+                               tickcolor="rgb(102, 102, 102)"),
+                    legend=attr(font_size=10, yanchor="middle",
+                                xanchor="right"),
+                    )
     plot(data, layout)
 end
 
@@ -106,38 +102,38 @@ function linescatter6()
     trace1 = scatter(;x=[52698, 43117], y=[53, 31],
                       mode="markers",
                       name="North America",
-                      text=["United States", "Canada"])
-    trace1["marker"] = Dict(:color => "rgb(164, 194, 244)",
-                            :size => 12,
-                            :line => Dict(:color => "white", :width => 0.5))
+                      text=["United States", "Canada"],
+                      marker=attr(color="rgb(164, 194, 244)", size=12,
+                                  line=attr(color="white", width=0.5))
+                      )
 
     trace2 = scatter(;x=[39317, 37236, 35650, 30066, 29570, 27159, 23557, 21046, 18007],
                       y=[33, 20, 13, 19, 27, 19, 49, 44, 38],
                       mode="markers", name="Europe",
                       marker_size=12, marker_color="rgb(255, 217, 102)",
-                      text=["Germany", "Britain", "France", "Spain", "Italy", "Czech Rep.",
-                            "Greece", "Poland"])
+                      text=["Germany", "Britain", "France", "Spain", "Italy",
+                            "Czech Rep.", "Greece", "Poland", "Portugal"])
 
     trace3 = scatter(;x=[42952, 37037, 33106, 17478, 9813, 5253, 4692, 3899],
                       y=[23, 42, 54, 89, 14, 99, 93, 70],
                       mode="markers",
                       name="Asia/Pacific",
                       marker_size=12, marker_color="rgb(234, 153, 153)",
-                      text=["Australia", "Japan", "South Korea", "Malaysia", "China", "Indonesia", "Philippines", "India"])
+                      text=["Australia", "Japan", "South Korea", "Malaysia",
+                            "China", "Indonesia", "Philippines", "India"])
 
     trace4 = scatter(;x=[19097, 18601, 15595, 13546, 12026, 7434, 5419],
                       y=[43, 47, 56, 80, 86, 93, 80],
                       mode="markers", name="Latin America",
                       marker_size=12, marker_color="rgb(142, 124, 195)",
-                      text=["Chile", "Argentina", "Mexico", "Venezuela", "Venezuela", "El Salvador", "Bolivia"])
+                      text=["Chile", "Argentina", "Mexico", "Venezuela",
+                            "Venezuela", "El Salvador", "Bolivia"])
 
     data = [trace1, trace2, trace3, trace4]
 
     layout = Layout(;title="Quarter 1 Growth",
-                     xaxis_title="GDP per Capita", xaxis_showgrid=false, xaxis_zeroline=false,
-                     yaxis_title="Percent", yaxis_zeroline=false)
-    layout["xaxis"] = Dict(:title => "GDP per Capita", :showgrid => false, :zeroline => false)
-    layout["yaxis"] = Dict(:title => "Percent", :showline => false)
+                     xaxis=attr(title="GDP per Capital", showgrid=false, zeroline=false),
+                     yaxis=attr(title="Percent", zeroline=false))
 
     plot(data, layout)
 end

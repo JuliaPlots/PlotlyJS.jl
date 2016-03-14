@@ -35,6 +35,19 @@ kind(l::Layout) = "layout"
 # Specific types of trace or layout attributes #
 # -------------------------------------------- #
 
+type PlotlyAttribute{T<:Associative{Symbol,Any}}
+    fields::T
+end
+
+function attr(fields=Dict{Symbol,Any}(); kwargs...)
+    # use setindex! methods below to handle `_` substitution
+    s = PlotlyAttribute(fields)
+    map(x->setindex!(s, x[2], x[1]), kwargs)
+    s
+end
+
+Base.merge(a::PlotlyAttribute, d::Dict) = merge(a.fields, d)
+
 abstract AbstractLayoutAttribute
 abstract AbstractShape <: AbstractLayoutAttribute
 
@@ -132,7 +145,7 @@ hline(y, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
 # Implementation of getindex and setindex! #
 # ---------------------------------------- #
 
-typealias HasFields Union{GenericTrace,Layout,Shape}
+typealias HasFields Union{GenericTrace,Layout,Shape,PlotlyAttribute}
 
 # methods that allow you to do `obj["first.second.third"] = val`
 Base.setindex!(gt::HasFields, val, key::ASCIIString) =
