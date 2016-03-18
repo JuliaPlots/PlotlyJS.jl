@@ -3,6 +3,7 @@ module PlotlyJS
 using JSON
 using Blink
 using Colors
+using Base.Dates
 
 # globals for this package
 const _js_path = joinpath(dirname(dirname(@__FILE__)),
@@ -21,6 +22,7 @@ type Plot{TT<:AbstractTrace}
 end
 
 # include the rest of the core parts of the package
+include("filters.jl")
 include("json.jl")
 include("display.jl")
 include("subplots.jl")
@@ -55,6 +57,11 @@ export
     extendtraces, prependtraces,
 
     # helper methods
-    plot, fork, vline, hline, attr
+    plot, fork, vline, hline, attr,
+
+    # filters
+    set_color_cycle!, set_layout_defaults!, reset_color_cycle!,
+    reset_layout_defaults!, use_style!
+
 
 end # module

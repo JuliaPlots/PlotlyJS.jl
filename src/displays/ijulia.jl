@@ -39,6 +39,8 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
         if p.view.displayed
             Dict()
         else
+            # apply current filters
+            for f in values(_pre_json_filters) f(p.plot) end
             p.view.displayed = true
             Dict("text/html" => html_body(p.plot))
         end
