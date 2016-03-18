@@ -46,6 +46,10 @@ end
 function Base.display(p::ElectronPlot)
     w = get_window(p)
     loadjs(p.view)
+
+    # apply current filters
+    for f in values(_pre_json_filters) f(p.plot) end
+    
     @js w begin
         trydiv = document.getElementById($(string(p.plot.divid)))
         if trydiv == nothing

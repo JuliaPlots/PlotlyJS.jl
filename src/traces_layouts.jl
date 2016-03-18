@@ -46,8 +46,6 @@ function attr(fields=Dict{Symbol,Any}(); kwargs...)
     s
 end
 
-Base.merge(a::PlotlyAttribute, d::Dict) = merge(a.fields, d)
-
 abstract AbstractLayoutAttribute
 abstract AbstractShape <: AbstractLayoutAttribute
 
@@ -146,6 +144,9 @@ hline(y, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
 # ---------------------------------------- #
 
 typealias HasFields Union{GenericTrace,Layout,Shape,PlotlyAttribute}
+
+Base.merge(hf::HasFields, d::Dict) = merge(hf.fields, d)
+Base.merge{T<:HasFields}(hf1::T, hf2::T) = merge(hf1.fields, hf2.fields)
 
 # methods that allow you to do `obj["first.second.third"] = val`
 Base.setindex!(gt::HasFields, val, key::ASCIIString) =
