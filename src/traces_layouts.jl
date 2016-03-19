@@ -34,8 +34,9 @@ kind(l::Layout) = "layout"
 # -------------------------------------------- #
 # Specific types of trace or layout attributes #
 # -------------------------------------------- #
+abstract AbstractPlotlyAttribute
 
-type PlotlyAttribute{T<:Associative{Symbol,Any}}
+type PlotlyAttribute{T<:Associative{Symbol,Any}} <: AbstractPlotlyAttribute
     fields::T
 end
 
@@ -46,12 +47,10 @@ function attr(fields=Dict{Symbol,Any}(); kwargs...)
     s
 end
 
-Base.merge(a::PlotlyAttribute, d::Dict) = merge(a.fields, d)
-
-abstract AbstractLayoutAttribute
+abstract AbstractLayoutAttribute <: AbstractPlotlyAttribute
 abstract AbstractShape <: AbstractLayoutAttribute
 
-kind{T<:Union{PlotlyAttribute,AbstractLayoutAttribute}}(::T) = string(T)
+kind{T<:AbstractPlotlyAttribute}(::T) = string(T)
 
 # TODO: maybe loosen some day
 typealias _Scalar Union{Base.Dates.Date,Number,AbstractString}
@@ -147,9 +146,13 @@ hline(y, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
 
 typealias HasFields Union{GenericTrace,Layout,Shape,PlotlyAttribute}
 
+Base.merge(hf::HasFields, d::Dict) = merge(hf.fields, d)
+Base.merge{T<:HasFields}(hf1::T, hf2::T) = merge(hf1.fields, hf2.fields)
+Base.get(hf::HasFields, k::Symbol, default) = get(hf.fields, k, default)
+
 # methods that allow you to do `obj["first.second.third"] = val`
 Base.setindex!(gt::HasFields, val, key::ASCIIString) =
-    setindex!(gt, val, map(symbol, split(key, "."))...)
+    setindex!(gt, val, map(symbol, split(key, ['.', '_']))...)
 
 Base.setindex!(gt::HasFields, val, keys::ASCIIString...) =
     setindex!(gt, val, map(symbol, keys)...)
@@ -160,7 +163,7 @@ Base.setindex!(gt::HasFields, val, keys::ASCIIString...) =
 function Base.setindex!(gt::HasFields, val, key::Symbol)
     # check if single key has underscores, if so split at str and call above
     if contains(string(key), "_")
-        return setindex!(gt, val, replace(string(key), "_", "."))
+        return setindex!(gt, val, string(key))
     end
     gt.fields[key] = val
 end
@@ -196,12 +199,15 @@ end
 # now on to the simpler getindex methods. They will try to get the desired
 # key, but if it doesn't exist an empty dict is returned
 Base.getindex(gt::HasFields, key::ASCIIString) =
-    getindex(gt, map(symbol, split(key, "."))...)
+    getindex(gt, map(symbol, split(key, ['.', '_']))...)
 
 Base.getindex(gt::HasFields, keys::ASCIIString...) =
     getindex(gt, map(symbol, keys)...)
 
 function Base.getindex(gt::HasFields, key::Symbol)
+    if contains(string(key), "_")
+        return getindex(gt, string(key))
+    end
     get(gt.fields, key, Dict())
 end
 

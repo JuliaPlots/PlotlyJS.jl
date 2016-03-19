@@ -128,8 +128,8 @@ redraw!(p::ElectronDisplay) =
 # unexported (by plotly.js) api methods
 extendtraces!(ed::ElectronDisplay, update::Associative=Dict(),
               indices::Vector{Int}=[1], maxpoints=-1;) =
-    @js_ p Plotly.extendTraces(this, $update, $(indices-1), $maxpoints)
+    @js_ ed Plotly.extendTraces(this, $(prep_kwargs(update)), $(indices-1), $maxpoints)
 
 prependtraces!(ed::ElectronDisplay, update::Associative=Dict(),
                indices::Vector{Int}=[1], maxpoints=-1;) =
-    @js_ p Plotly.prependTraces(this, $update, $(indices-1), $maxpoints)
+    @js_ ed Plotly.prependTraces(this, $(prep_kwargs(update)), $(indices-1), $maxpoints)
