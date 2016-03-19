@@ -1,11 +1,17 @@
 
-gt = M.GenericTrace("scatter"; x=1:10, y=sin(1:10))
+gt = M.GenericTrace("scatter"; x=1:10, y=sin(1:10), marker_color="red")
 
 @testset "test constructors" begin
     @test sort(collect(keys(gt.fields))) == [:x, :y]
 end
 
 @testset "test setindex!, getindex methods" begin
+    # test that getindex with a symbol that has underscores retrieves nested
+    # attribute
+    @test gt["marker_color"] == "red"
+    @test gt["marker.color"] == "red"
+    @test gt[:marker_color] == "red"
+
     gt[:visible] = true
     @test length(gt.fields) == 3
     @test haskey(gt.fields, :visible)
