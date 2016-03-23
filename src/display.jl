@@ -4,20 +4,18 @@
 
 function html_body(p::Plot)
     """
-    <div id="$(p.divid)"></div>
+    <div id="$(p.divid)" class="plotly-graph-div"></div>
 
     <script>
+        window.PLOTLYENV=window.PLOTLYENV || {};
+        window.PLOTLYENV.BASE_URL="https://plot.ly";
        $(script_content(p))
      </script>
     """
 end
 
 script_content(p::Plot) = """
-    thediv = document.getElementById('$(p.divid)');
-    var data = $(json(p.data))
-    var layout = $(json(p.layout))
-
-    Plotly.plot(thediv, data,  layout, {showLink: false});
+    Plotly.newPlot('$(p.divid)', $(json(p.data)),  $(json(p.layout)), {showLink: false});
     """
 
 
