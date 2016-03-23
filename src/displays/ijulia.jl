@@ -14,21 +14,40 @@ JupyterPlot(p::Plot) = JupyterPlot(p, JupyterDisplay(p))
 
 fork(jp::JupyterPlot) = JupyterPlot(fork(jp.plot))
 
+const _jupyter_js_loaded = [false]
+js_loaded(::JupyterDisplay) = _jupyter_js_loaded[1]
+js_loaded(::Type{JupyterDisplay}) = _jupyter_js_loaded[1]
+
+function html_body(p::JupyterPlot)
+    """
+    <div id="$(p.divid)" class="plotly-graph-div"></div>
+
+    <script>
+        window.PLOTLYENV=window.PLOTLYENV || {};
+        window.PLOTLYENV.BASE_URL="https://plot.ly";
+        require(['plotly'], function(Plotly) {
+            $(script_content(p))
+        });
+     </script>
+    """
+end
+
 # if we're in IJulia call setupnotebook to load js and css
 if isdefined(Main, :IJulia) && Main.IJulia.inited
     # borrowed from https://github.com/plotly/plotly.py/blob/2594076e29584ede2d09f2aa40a8a195b3f3fc66/plotly/offline/offline.py#L64-L71
-    display("text/html", """
-        <script type='text/javascript'>
-            define('plotly', function(require, exports, module) {
-                $(open(readall, _js_path, "r"))
-            });
-            require(['plotly'], function(Plotly) {
-                window.Plotly = Plotly;
-            });
-        </script>
-    """)
-    display("text/html", "<p>Plotly javascript loaded.</p>")
-    js_loaded(::JupyterDisplay) = true
+    if !js_loaded(JupyterDisplay)
+        display("text/html", """
+            <script type='text/javascript'>
+                define('plotly', function(require, exports, module) {
+                    $(open(readall, _js_path, "r"))
+                });
+                require(['plotly'], function(Plotly) {
+                    window.Plotly = Plotly;
+                });
+            </script>""")
+        _jupyter_js_loaded[1] = true
+        display("text/html", "<p>Plotly javascript loaded.</p>")
+    end
 
     @eval import IJulia
 
@@ -40,14 +59,9 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
             Dict()
         else
             p.view.displayed = true
-            Dict("text/html" => html_body(p.plot))
+            Dict("text/html" => html_body(p))
         end
     end
-
-    # TODO: maybe add Blink.js to this page and we can reuse all the same api
-    # methods?
-else
-    js_loaded(::JupyterDisplay) = false
 end
 
 ## API Methods for JupyterDisplay
