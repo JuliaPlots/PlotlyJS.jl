@@ -44,15 +44,13 @@ function JSON._print(io::IO, state::JSON.State, p::Plot)
 end
 
 # methods to re-construct a plot from JSON
-function symboldict{T<:AbstractString}(d::Associative{T})
-    d2 = Dict{Symbol,Any}()
-    map(k -> setindex!(d2, d[k], symbol(k)), keys(d))
-    d2
-end
+_symbol_dict(x) = x
+_symbol_dict(d::Associative) =
+    Dict{Symbol,Any}([(symbol(k), _symbol_dict(v)) for (k, v) in d])
 
 GenericTrace(d::Associative{Symbol}) = GenericTrace(pop!(d, :type, "scatter"), d)
-GenericTrace{T<:AbstractString}(d::Associative{T}) = GenericTrace(symboldict(d))
-Layout{T<:AbstractString}(d::Associative{T}) = Layout(symboldict(d))
+GenericTrace{T<:AbstractString}(d::Associative{T}) = GenericTrace(_symbol_dict(d))
+Layout{T<:AbstractString}(d::Associative{T}) = Layout(_symbol_dict(d))
 
 function JSON.parse(::Type{Plot}, str::AbstractString)
     d = JSON.parse(str)
