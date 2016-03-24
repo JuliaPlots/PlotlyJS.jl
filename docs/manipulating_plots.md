@@ -162,22 +162,27 @@ To get true vector quality pdf files, we recommend using the Rsvg backend.
 
 ### Rsvg
 
-If you have installed the unregistered package
-[Rsvg.jl](https://github.com/lobingera/Rsvg.jl)  you can use the following
-routines:
+If you have installed [Rsvg.jl](https://github.com/lobingera/Rsvg.jl)  
+you can use the following routines:
 
 ```julia
-savefig3(sp::ElectronPlot, "output_filename.pdf")
-savefig3(sp::ElectronPlot, "output_filename.png")
+PlotlyJS.savefig3(sp::ElectronPlot, "output_filename.pdf")
+PlotlyJS.savefig3(sp::ElectronPlot, "output_filename.png")
 ```
 
-Note that the pdf export in this case will be a true vector image. This allows
-you to have infinitely zoomable quality. This is the recommended way to obtain
-a pdf of your plot, but comes with the extra step of installing Rsvg.jl via:
+Note that the pdf (not png) export in this case will be a true vector image.
+This allows you to have infinitely zoomable quality. This is the recommended
+way to obtain a pdf of your plot, but comes with the extra step of installing
+Rsvg.jl via:
 
 ```julia
-Pkg.clone("https://github.com/lobingera/Rsvg.jl.git")
+Pkg.add("Rsvg")
 ```
+
+!!! note "Note"
+    At the time of writing (2016-03-24) Rsvg.jl has not been setup to
+    correctly install the c library `librsvg` on windows. Help is wanted from
+    interested windows users.
 
 ### cairosvg
 
@@ -188,11 +193,11 @@ python package and that the `cairosvg` command is on your PATH.
 If `cairosvg` can be found, you can use the following routines:
 
 ```julia
-savefig2(sp::ElectronPlot, "output_filename.png")
-savefig2(sp::ElectronPlot, "output_filename.pdf")
-savefig2(sp::ElectronPlot, "output_filename.ps")
+PlotlyJS.savefig2(sp::ElectronPlot, "output_filename.png")
+PlotlyJS.savefig2(sp::ElectronPlot, "output_filename.pdf")
+PlotlyJS.savefig2(sp::ElectronPlot, "output_filename.ps")
 ```
 
 !!! warning "Warning"
-    Once Rsvg.jl has matured and been registered, the `savefig2` function will
-    probably be deleted.
+    Once Rsvg.jl has matured and works on all operating systems, the `savefig2`
+    function will be deleted.

@@ -283,3 +283,50 @@ julia> println(JSON.json(l, 2))
   }
 }
 ```
+
+## `attr`
+
+There is a special function named `attr` that allows you to apply the same
+keyword magic we saw in the trace and layout functions, but to nested
+attributes. Let's revisit the previous example, but use `attr` to build up our
+`xaxis` and `legend`:
+
+```jlcon
+julia> l2 = Layout(;title="Penguins",
+                    xaxis=attr(range=[0, 42.0], title="fish", showgrid=true),
+                    yaxis_title="Weight", yaxis_showgrid=true,
+                    legend=attr(x=0.7, y=1.15))
+layout with fields legend, margin, title, xaxis, and yaxis
+
+
+julia> println(JSON.json(l2, 2))
+{
+  "yaxis": {
+    "title": "Weight",
+    "showgrid": true
+  },
+  "legend": {
+    "y": 1.15,
+    "x": 0.7
+  },
+  "xaxis": {
+    "range": [
+      0.0,
+      42.0
+    ],
+    "title": "fish",
+    "showgrid": true
+  },
+  "title": "Penguins",
+  "margin": {
+    "r": 50,
+    "l": 50,
+    "b": 50,
+    "t": 60
+  }
+}
+```
+
+Notice we got the exact same output as before, but we didn't have to resort to
+building the `Dict` by hand _or_ prefixing multiple arguments with `xaxis_` or
+`legend_`.

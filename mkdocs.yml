@@ -31,7 +31,7 @@ markdown_extensions:
 google_analytics: ['UA-36732392-3', 'auto']
 
 extra:
-  version: '0.1.1'
+  version: '0.1.2'
   author:
     github: 'spencerlyon2'
 extra_css: [css/github.css]

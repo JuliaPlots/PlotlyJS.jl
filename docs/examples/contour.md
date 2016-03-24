@@ -16,14 +16,12 @@ contour1()
 ```
 
 
-<div id="97b86d72-7310-4caf-b897-24e22b129d5f"></div>
+<div id="30f1e3e3-b60e-4ced-a0b2-a84216c3adc1" class="plotly-graph-div"></div>
 
 <script>
-   thediv = document.getElementById('97b86d72-7310-4caf-b897-24e22b129d5f');
-var data = [{"type":"contour","y":[0,1,4,5,7],"z":[[10.0,5.625,2.5,0.625,0.0],[10.625,6.25,3.125,1.25,0.625],[12.5,8.125,5.0,3.125,2.5],[15.625,11.25,8.125,6.25,5.625],[20.0,15.625,12.5,10.625,10.0]],"x":[-9,-6,-5,-3,-1]}]
-var layout = {"title":"Setting the X and Y Coordinates in a Contour Plot","margin":{"r":50,"l":50,"b":50,"t":60}}
-
-Plotly.plot(thediv, data,  layout, {showLink: false});
+    window.PLOTLYENV=window.PLOTLYENV || {};
+    window.PLOTLYENV.BASE_URL="https://plot.ly";
+   Plotly.newPlot('30f1e3e3-b60e-4ced-a0b2-a84216c3adc1', [{"type":"contour","y":[0,1,4,5,7],"z":[[10.0,5.625,2.5,0.625,0.0],[10.625,6.25,3.125,1.25,0.625],[12.5,8.125,5.0,3.125,2.5],[15.625,11.25,8.125,6.25,5.625],[20.0,15.625,12.5,10.625,10.0]],"x":[-9,-6,-5,-3,-1]}],  {"title":"Setting the X and Y Coordinates in a Contour Plot","margin":{"r":50,"l":50,"b":50,"t":60}}, {showLink: false});
 
  </script>
 

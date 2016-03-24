@@ -159,6 +159,7 @@ function batman()
 end
 
 function dumbell()
+    # reference: https://plot.ly/r/dumbbell-plots/
     @eval using DataFrames
 
     # read Data into dataframe
