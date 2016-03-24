@@ -20,13 +20,13 @@ js_loaded(::Type{JupyterDisplay}) = _jupyter_js_loaded[1]
 
 function html_body(p::JupyterPlot)
     """
-    <div id="$(p.divid)" class="plotly-graph-div"></div>
+    <div id="$(p.view.divid)" class="plotly-graph-div"></div>
 
     <script>
         window.PLOTLYENV=window.PLOTLYENV || {};
         window.PLOTLYENV.BASE_URL="https://plot.ly";
         require(['plotly'], function(Plotly) {
-            $(script_content(p))
+            $(script_content(p.plot))
         });
      </script>
     """
