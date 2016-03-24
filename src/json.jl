@@ -25,6 +25,9 @@ JSON._print(io::IO, state::JSON.State, a::Union{PlotlyAttribute,Layout}) =
 JSON._print(io::IO, state::JSON.State, a::Colors.Colorant) =
     JSON._print(io, state, string("#", hex(a)))
 
+JSON._print(io::IO, state::JSON.State, d::Base.Dates.Date) =
+    JSON._print(io, state, "$(year(d))-$(month(d))-$(day(d))")
+
 function JSON._print(io::IO, state::JSON.State, p::Plot)
     JSON.start_object(io, state, true)
 
