@@ -1,17 +1,11 @@
 
-gt = M.GenericTrace("scatter"; x=1:10, y=sin(1:10), marker_color="red")
+gt = M.GenericTrace("scatter"; x=1:10, y=sin(1:10))
 
 @testset "test constructors" begin
     @test sort(collect(keys(gt.fields))) == [:x, :y]
 end
 
 @testset "test setindex!, getindex methods" begin
-    # test that getindex with a symbol that has underscores retrieves nested
-    # attribute
-    @test gt["marker_color"] == "red"
-    @test gt["marker.color"] == "red"
-    @test gt[:marker_color] == "red"
-
     gt[:visible] = true
     @test length(gt.fields) == 3
     @test haskey(gt.fields, :visible)
@@ -39,7 +33,7 @@ end
     @test haskey(gt.fields, :line)
     @test isa(gt.fields[:line], Dict)
     @test gt.fields[:line][:color] == "blue"
-    @test gt["line.color"] == "blue"
+    @test gt["line_color"] == "blue"
 
     # now try convenience string dot notation
     gt["line.color"] = "green"
@@ -47,7 +41,7 @@ end
     @test haskey(gt.fields, :line)
     @test isa(gt.fields[:line], Dict)
     @test gt.fields[:line][:color] == "green"
-    @test gt["line.color"] == "green"
+    @test gt[:line_color] == "green"
 
     # now try symbol with underscore
     gt[:(line_color)] = "orange"
