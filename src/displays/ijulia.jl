@@ -94,11 +94,11 @@ end
 function call_plotlyjs(jd::JupyterDisplay, func::AbstractString, args...)
     arg_str = length(args) > 0 ? string(",", join(map(json, args), ", ")) :
                                  ""
+    script = "Plotly.$func(document.getElementById('$(jd.divid)') $arg_str)"
     if jd.displayed  # only do this if the plot has been displayed
-        display("text/html", """<script>
-            var thediv = document.getElementById('$(jd.divid)');
-            Plotly.$func(thediv $arg_str)
-        </script>""")
+        Base.HTML("<script>$script</script>")
+    else
+        Base.HTML("")
     end
 end
 

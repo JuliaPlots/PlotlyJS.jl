@@ -172,8 +172,10 @@ const _mimeformats =  Dict("application/eps"         => "eps",
                            # "image/svg+xml"           => "svg"
 )
 
+# TODO: replace ElectronPlot with SyncPlot once I figure out how to get
+#       img_data from within IJulia
 for (mime, fmt) in _mimeformats
-    @eval function Base.writemime(io::IO, ::MIME{symbol($mime)}, p::SyncPlot)
+    @eval function Base.writemime(io::IO, ::MIME{symbol($mime)}, p::ElectronPlot)
         @eval import ImageMagick
 
         # construct a magic wand and read the image data from png
