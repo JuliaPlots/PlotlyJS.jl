@@ -264,8 +264,8 @@ extendtraces!(p, Dict("marker.size"=>Vector[[1, 3], [5, 5, 6]]), [3, 5], 10)
 function extendtraces!(p::Plot, update::Associative, indices::Vector{Int}=[1],
                        maxpoints=-1)
     # TODO: maxpoints not handled here
-    for ix in indices
-        tr = p.data[ix]
+    for (ix, p_ix) in enumerate(indices)
+        tr = p.data[p_ix]
         for k in keys(update)
             v = update[k][ix]
             tr[k] = push!(tr[k], v...)
@@ -281,8 +281,8 @@ Those docstrings for more information
 function prependtraces!(p::Plot, update::Associative, indices::Vector{Int}=[1],
                         maxpoints=-1)
     # TODO: maxpoints not handled here
-    for ix in indices
-        tr = p.data[ix]
+    for (ix, p_ix) in enumerate(indices)
+        tr = p.data[p_ix]
         for k in keys(update)
             v = update[k][ix]
             tr[k] = vcat(v, tr[k])
