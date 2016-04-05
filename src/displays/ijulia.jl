@@ -38,10 +38,11 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
     # borrowed from https://github.com/plotly/plotly.py/blob/2594076e29584ede2d09f2aa40a8a195b3f3fc66/plotly/offline/offline.py#L64-L71
     # and https://github.com/JuliaLang/Interact.jl/blob/cc5f4cfd34687000bc6bc70f0513eaded1a7c950/src/IJulia/setup.jl#L15
     if !js_loaded(JupyterDisplay)
+        const _ijulia_js = readall(joinpath(dirname(@__FILE__), "ijulia.js"))
         display("text/html", """
-         <script charset="utf-8">
-            $(readall(joinpath(dirname(@__FILE__), "ijulia.js")))
-         </script>
+        <script charset="utf-8" type='text/javascript'>
+            $(_ijulia_js)
+        </script>
          <script charset="utf-8" type='text/javascript'>
              define('plotly', function(require, exports, module) {
                  $(open(readall, _js_path, "r"))
@@ -104,11 +105,12 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
 end
 
 function _call_js_return(jd::JupyterDisplay, code)
-    # make sure plot has been displayed
-    display(jp)
     send_comm(get_comm(jd), Dict("code" => code))  # will trigger `on_msg`
     wait(jd.cond)  # wait for `notify` within `comm.on_msg` to be called
 end
+
+_call_js(jd::JupyterDisplay, code) =
+    send_comm(_ijulia_eval_comm, Dict("code" => code))
 
 ## API Methods for JupyterDisplay
 _the_div_js(jd::JupyterDisplay) = "document.getElementById('$(jd.divid)')"
@@ -129,13 +131,15 @@ end
 
 function svg_data(jp::JupyterPlot, format="png")
     code =  "Plotly.Snapshot.toSVG($(_the_div_js(jp)), '$(format)')"
-    _call_js_return(jp.view, code)
+    # _call_js_return(jp.view, code)
+    @async send_comm(get_comm(jd), Dict("code" => code))  # will trigger `on_msg`
+    wait(jd.cond)  # wait for `notify` within `comm.on_msg` to be called
 end
 
 function _call_plotlyjs(jd::JupyterDisplay, func::AbstractString, args...)
     arg_str = length(args) > 0 ? string(",", join(map(json, args), ", ")) : ""
     code = "Plotly.$func($(_the_div_js(jd)) $arg_str)"
-    jd.displayed && send_comm(_ijulia_eval_comm, Dict("code" => code))
+    jd.displayed && _call_js(jd, code)
     nothing
 end
 

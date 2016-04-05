@@ -12,7 +12,9 @@
     function resolve_promises(comm, val) {
         val === undefined && (val = null);
         if (val && val.constructor == Promise) {
-            val.then(val => resolve_promises(comm, val))
+            val.then(function(val) {
+                resolve_promises(comm, val);
+            })
         } else {
             comm.send({action: "plotlyjs_ret_val", ret: val});
         }
