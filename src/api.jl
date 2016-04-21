@@ -52,13 +52,14 @@ NOTE that the argument `i` here is _not_ the same as the argument `ind` below.
 apply the update to.
 
 =#
-function _apply_restyle_setindex!(hf::HasFields, k::Symbol,
+function _apply_restyle_setindex!(hf::Union{Associative,HasFields}, k::Symbol,
                                   v::Union{AbstractArray,Tuple}, i::Int)
     setindex!(hf, v[i], k)
 end
 
-_apply_restyle_setindex!(hf::HasFields, k::Symbol, v, i::Int) =
+_apply_restyle_setindex!(hf::Union{Associative,HasFields}, k::Symbol, v, i::Int) =
     setindex!(hf, v, k)
+
 
 #=
 Wrap the vector so it repeats to be at least length N
@@ -86,11 +87,9 @@ _prep_restyle_vec_setindex(v::Tuple, N::Int) =
 _prep_restyle_vec_setindex(v, N::Int) = v
 
 function _update_fields(hf::GenericTrace, i::Int, update::Dict=Dict(); kwargs...)
-    for d in (update, kwargs)
-        for (k, v) in d
-            _apply_restyle_setindex!(hf, k, v, i)
-        end
-    end
+    # apply updates in the dict w/out `_` processing
+    map(p -> _apply_restyle_setindex!(hf.fields, p[1], p[2], i), update)
+    map(p -> _apply_restyle_setindex!(hf, p[1], p[2], i), kwargs)
 end
 
 """
@@ -98,8 +97,10 @@ end
 
 Update `l` using update dict and/or kwargs
 """
-relayout!(l::Layout, update::Associative=Dict(); kwargs...) =
-    map(x -> setindex!(l, x[2], x[1]), merge(update, Dict(kwargs))  )
+function relayout!(l::Layout, update::Associative=Dict(); kwargs...)
+    merge!(l.fields, update)  # apply updates in the dict w/out `_` processing
+    map(x -> setindex!(l, x[2], x[1]), kwargs)
+end
 
 """
 `relayout!(p::Plot, update::Associative=Dict(); kwargs...)`
@@ -134,13 +135,16 @@ Update specific traces at `p.data[inds]` using update dict and/or kwargs
 function restyle!(p::Plot, inds::AbstractVector{Int},
                   update::Associative=Dict(); kwargs...)
     N = length(inds)
-    d = merge(update, Dict(kwargs))
+    kw = Dict(kwargs)
 
-    for (k, v) in d
-        d[k] = _prep_restyle_vec_setindex(v, N)
+    # prepare update and kw dicts for vectorized application
+    for d in (kw, update)
+        for (k, v) in d
+            d[k] = _prep_restyle_vec_setindex(v, N)
+        end
     end
 
-    map((ind, i) -> restyle!(p.data[ind], i, d), inds, 1:N)
+    map((ind, i) -> restyle!(p.data[ind], i, update; kw...), inds, 1:N)
 end
 
 """

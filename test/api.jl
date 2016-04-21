@@ -29,10 +29,11 @@ end
         PlotlyJS._update_fields(o, 1; foo="Foo")
         @test o["foo"] == "Foo"
 
-        # dict + kwarg version
-        PlotlyJS._update_fields(o, 1, Dict{Symbol,Any}(:foo=>"Fuzzy");
+        # dict + kwarg version. Make sure dict gets through w/out replacing _
+        PlotlyJS._update_fields(o, 1, Dict{Symbol,Any}(:fuzzy_wuzzy=>"Bear");
                                 fuzzy_wuzzy="?")
-        @test o["foo"] == "Fuzzy"
+        @test o.fields[:fuzzy_wuzzy] == "Bear"
+        @test isa(o.fields[:fuzzy], Dict)
         @test o["fuzzy.wuzzy"] == "?"
     end
 
@@ -47,6 +48,17 @@ end
         relayout!(l, Dict{Symbol,Any}(:title=>"Fuzzy"); xaxis_title="wuzzy")
         @test l["title"] == "Fuzzy"
         @test l["xaxis.title"] == "wuzzy"
+
+        # make sure we can set paper_bgcolor via dict, but not kwarg
+        relayout!(l, Dict{Symbol,Any}(:paper_bgcolor=>"Snow White"))
+        @test !haskey(l.fields, :paper)
+        @test l.fields[:paper_bgcolor] == "Snow White"
+
+        relayout!(l; paper_bgcolor="Cindarella")
+        @test l.fields[:paper_bgcolor] == "Snow White"
+        @test isa(l.fields[:paper], Dict)
+        @test l.fields[:paper][:bgcolor] == "Cindarella"
+        @test l[:paper_bgcolor] == "Cindarella"
     end
 
     @testset "test restyle!" begin
