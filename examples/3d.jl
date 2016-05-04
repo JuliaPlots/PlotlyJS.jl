@@ -132,9 +132,9 @@ function multiple_surface()
                 [8.93, 8.97, 8.97, 9.18, 9.2, 9.18]]
     z2 = map(x->x+1, z1)
     z3 = map(x->x-1, z1)
-    trace1 = surface(z=z1)
-    trace2 = surface(z=z2, showscale=false, opacity=0.9)
-    trace3 = surface(z=z3, showscale=false, opacity=0.9)
+    trace1 = surface(z=z1, colorscale="Viridis")
+    trace2 = surface(z=z2, showscale=false, opacity=0.9, colorscale="Viridis")
+    trace3 = surface(z=z3, showscale=false, opacity=0.9, colorscale="Viridis")
     plot([trace1, trace2, trace3])
 end
 

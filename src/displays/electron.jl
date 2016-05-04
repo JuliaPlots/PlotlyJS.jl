@@ -27,7 +27,7 @@ function get_window(ed::ElectronDisplay; kwargs...)
     if !isnull(ed.w) && active(get(ed.w))
         w = get(ed.w)
     else
-        w = Window(Blink.AtomShell.shell(), Dict(kwargs))
+        w = Window(Blink.AtomShell.shell(), Dict{Any,Any}(kwargs))
         ed.w = Nullable{Window}(w)
         ed.js_loaded = false  # can't have js if we made a new window
     end
