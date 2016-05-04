@@ -5,7 +5,7 @@ using Blink
 using Colors
 
 # export some names from JSON
-export json, JSON.parsefile
+export json
 
 # globals for this package
 const _js_path = joinpath(dirname(dirname(@__FILE__)),
