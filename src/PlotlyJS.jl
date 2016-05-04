@@ -4,6 +4,9 @@ using JSON
 using Blink
 using Colors
 
+# export some names from JSON
+export json, JSON.parsefile
+
 # globals for this package
 const _js_path = joinpath(dirname(dirname(@__FILE__)),
                           "deps", "plotly-latest.min.js")
