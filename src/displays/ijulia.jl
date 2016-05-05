@@ -72,7 +72,7 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
             comm = Comm(:plotlyjs_return)
 
             function handle_comm_msg(msg)
-                open(joinpath(ENV["HOME"], "from_plotly_comm.txt", "w") do f
+                open(joinpath(ENV["HOME"], "from_plotly_comm.txt"), "w") do f
                     print(f, "I am in on_msg from plotly")
                 end
                 if haskey(msg.content, "data")
