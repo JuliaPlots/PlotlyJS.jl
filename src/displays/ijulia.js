@@ -13,10 +13,10 @@
         val === undefined && (val = null);
         if (val && val.constructor == Promise) {
             val.then(function(val) {
-                resolve_promises(comm, val);
+                return resolve_promises(comm, val);
             })
         } else {
-            comm.send({action: "plotlyjs_ret_val", ret: val});
+            return val;
         }
     }
 
@@ -28,6 +28,8 @@
             comm.on_msg(function (msg) {
                 // Call the code in the message
                 eval(msg.content.data.code);
+
+                // Clean up
                 delete msg.content.data.code;
             });
 	    });
@@ -37,12 +39,16 @@
                 // Call the code in the message
                 val = eval(msg.content.data.code);
 
-                // send the result back to julia
-                resolve_promises(comm, val);
+                // resolve any promises so we get a raw value
+                val = resolve_promises(comm, val);
+                console.log("About to send", val);
+
+                // Send the value back to Julia
+                comm.send({action: "plotlyjs_ret_val", ret: val});
 
                 // Clean up
+                delete msg.content.data.code;  // clean up
                 delete val;
-                delete msg.content.data.code;
             });
 	    });
 	}
