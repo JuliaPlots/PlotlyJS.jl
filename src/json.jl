@@ -43,6 +43,9 @@ function JSON._print(io::IO, state::JSON.State, p::Plot)
     JSON.end_object(io, state, true)
 end
 
+# Let string interpolation stringify to JSON format
+Base.print(io::IO, a::Union{Shape,GenericTrace,PlotlyAttribute,Layout,Plot}) = print(io, JSON.json(a))
+
 # methods to re-construct a plot from JSON
 _symbol_dict(x) = x
 _symbol_dict(d::Associative) =
