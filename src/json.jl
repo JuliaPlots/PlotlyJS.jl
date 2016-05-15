@@ -45,6 +45,7 @@ end
 
 # Let string interpolation stringify to JSON format
 Base.print(io::IO, a::Union{Shape,GenericTrace,PlotlyAttribute,Layout,Plot}) = print(io, JSON.json(a))
+Base.print{T<:GenericTrace}(io::IO, a::Vector{T}) = print(io, JSON.json(a))
 
 # methods to re-construct a plot from JSON
 _symbol_dict(x) = x
