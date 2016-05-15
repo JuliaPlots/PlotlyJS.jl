@@ -64,7 +64,7 @@ function Base.display(p::ElectronPlot)
 end
 
 ## API Methods for ElectronDisplay
-function _img_data(p::ElectronPlot, format::ASCIIString)
+function _img_data(p::ElectronPlot, format::String)
     _formats = ["png", "jpeg", "webp", "svg"]
     if !(format in _formats)
         error("Unsupported format $format, must be one of $_formats")

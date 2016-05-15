@@ -119,7 +119,7 @@ _call_js(jd::JupyterDisplay, code) =
 _the_div_js(jd::JupyterDisplay) = "document.getElementById('$(jd.divid)')"
 _the_div_js(jp::JupyterPlot) = _the_div_js(jp.view)
 
-function _img_data(jp::JupyterPlot, format::ASCIIString)
+function _img_data(jp::JupyterPlot, format::String)
     _formats = ["png", "jpeg", "webp", "svg"]
     if !(format in _formats)
         error("Unsupported format $format, must be one of $_formats")

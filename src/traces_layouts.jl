@@ -2,7 +2,7 @@ abstract AbstractTrace
 abstract AbstractLayout
 
 type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
-    kind::ASCIIString
+    kind::String
     fields::T
 end
 
@@ -60,7 +60,7 @@ typealias _Scalar Union{Base.Dates.Date,Number,AbstractString}
 # ------ #
 
 type Shape <: AbstractLayoutAttribute
-    kind::ASCIIString
+    kind::String
     fields::Associative{Symbol}
 end
 
@@ -151,10 +151,10 @@ Base.merge{T<:HasFields}(hf1::T, hf2::T) = merge(hf1.fields, hf2.fields)
 Base.get(hf::HasFields, k::Symbol, default) = get(hf.fields, k, default)
 
 # methods that allow you to do `obj["first.second.third"] = val`
-Base.setindex!(gt::HasFields, val, key::ASCIIString) =
+Base.setindex!(gt::HasFields, val, key::String) =
     setindex!(gt, val, map(symbol, split(key, ['.', '_']))...)
 
-Base.setindex!(gt::HasFields, val, keys::ASCIIString...) =
+Base.setindex!(gt::HasFields, val, keys::String...) =
     setindex!(gt, val, map(symbol, keys)...)
 
 # Now for deep setindex. The deepest the json schema ever goes is 4 levels deep
@@ -198,10 +198,10 @@ end
 
 # now on to the simpler getindex methods. They will try to get the desired
 # key, but if it doesn't exist an empty dict is returned
-Base.getindex(gt::HasFields, key::ASCIIString) =
+Base.getindex(gt::HasFields, key::String) =
     getindex(gt, map(symbol, split(key, ['.', '_']))...)
 
-Base.getindex(gt::HasFields, keys::ASCIIString...) =
+Base.getindex(gt::HasFields, keys::String...) =
     getindex(gt, map(symbol, keys)...)
 
 function Base.getindex(gt::HasFields, key::Symbol)

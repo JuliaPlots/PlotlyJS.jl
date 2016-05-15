@@ -1,5 +1,6 @@
 module PlotlyJS
 
+using Compat; import Compat.String
 using JSON
 using Blink
 using Colors
