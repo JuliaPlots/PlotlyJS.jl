@@ -2,7 +2,7 @@ module PlotlyJS
 
 using Compat; import Compat.String
 using JSON
-using Blink
+using Blink, Pages
 using Colors
 
 # export some names from JSON

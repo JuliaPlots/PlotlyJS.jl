@@ -107,9 +107,23 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
 
 end
 
+Callback("return") do args
+    args
+end
+
 function _call_js_return(jd::JupyterDisplay, code)
-    send_comm(get_comm(jd), Dict("code" => code))  # will trigger `on_msg`
-    wait(jd.cond)  # wait for `notify` within `comm.on_msg` to be called
+    # send_comm(get_comm(jd), Dict("code" => code))  # will trigger `on_msg`
+    # wait(jd.cond)  # wait for `notify` within `comm.on_msg` to be called
+    c = Condition()
+    conditions["return"] = c
+    args = Pages.broadcast("script","""
+    var args = eval($(code));
+    Pages.callback("return",args);
+    Pages.notify("return");
+    """)
+    wait(c)
+    delete!(conditions,"return")
+    args
 end
 
 _call_js(jd::JupyterDisplay, code) =
@@ -139,6 +153,29 @@ end
 function svg_data(jp::JupyterPlot, format="png")
     code =  "Plotly.Snapshot.toSVG($(_the_div_js(jp)), '$(format)')"
     _call_js_return(jp.view, code)
+end
+
+Callback("savefig") do args
+    data = args[1]
+    fname = args[2]
+    ext = split(fname, ".")[end]
+
+    if ext == "svg"
+        open(Pkg.dir("PlotlyJS",fname),"w") do f
+            write(f, data)
+        end
+    end
+end
+
+function save(jp::JupyterPlot,fname)
+    ext = split(fname, ".")[end]
+
+    if ext == "svg"
+        Pages.broadcast("script","""
+        var svg = Plotly.Snapshot.toSVG($(_the_div_js(jp)), 'svg');
+        Pages.callback("savefig",[svg,"$(fname)"])
+        """)
+    end
 end
 
 function _call_plotlyjs(jd::JupyterDisplay, func::AbstractString, args...)
