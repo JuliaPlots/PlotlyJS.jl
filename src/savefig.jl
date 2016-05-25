@@ -113,7 +113,13 @@ function savefig3(p::SyncPlot, fn::AbstractString; js::Symbol=:local)
         return p
     end
 
-    # for all the rest we need raw svg data
+    # for all the rest we need raw svg data. to get that we'd have to display
+    # the plot
+    opened_here = !isactive(p.view)
+
+    if opened_here
+        display(p)
+    end
     raw_svg = svg_data(p)
 
     # we can export svg directly
@@ -121,6 +127,7 @@ function savefig3(p::SyncPlot, fn::AbstractString; js::Symbol=:local)
         open(fn, "w") do f
             write(f, raw_svg)
         end
+        opened_here && close(p)
         return p
     end
 
@@ -144,6 +151,8 @@ function savefig3(p::SyncPlot, fn::AbstractString; js::Symbol=:local)
     else
         error("Only html, svg, png, pdf output supported")
     end
+
+    opened_here && close(p)
 
     p
 end
