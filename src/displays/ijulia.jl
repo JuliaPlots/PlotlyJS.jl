@@ -65,34 +65,6 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
     const _ijulia_eval_comm = Comm(:plotlyjs_eval)
     const _ijulia_return_comms = Dict{Base.Random.UUID,Comm}()
 
-    function get_comm(jd::JupyterDisplay)
-        if haskey(_ijulia_return_comms, jd.divid)
-            return _ijulia_return_comms[jd.divid]
-        else
-            comm = Comm(:plotlyjs_return)
-
-            function handle_comm_msg(msg)
-                open(joinpath(ENV["HOME"], "from_plotly_comm.txt"), "w") do f
-                    print(f, "I am in on_msg from plotly")
-                end
-                if haskey(msg.content, "data")
-                    action = get(msg.content["data"], "action", "")
-                    if action == "plotlyjs_ret_val"
-                        val = msg.content["data"]["ret"]
-                        # now that we have the value, we can notify waiting
-                        # tasks that the return value is ready
-                        notify(jd.cond, val)
-                    end
-                end
-            end
-
-            comm.on_msg = handle_comm_msg
-
-            _ijulia_return_comms[jd.divid] = comm
-            return comm
-        end
-    end
-
     IJulia.display_dict(p::Plot) =
         Dict("text/plain" => sprint(writemime, "text/plain", p))
 
@@ -107,11 +79,6 @@ if isdefined(Main, :IJulia) && Main.IJulia.inited
 
 end
 
-function _call_js_return(jd::JupyterDisplay, code)
-    send_comm(get_comm(jd), Dict("code" => code))  # will trigger `on_msg`
-    wait(jd.cond)  # wait for `notify` within `comm.on_msg` to be called
-end
-
 _call_js(jd::JupyterDisplay, code) =
     send_comm(_ijulia_eval_comm, Dict("code" => code))
 
@@ -119,27 +86,27 @@ _call_js(jd::JupyterDisplay, code) =
 _the_div_js(jd::JupyterDisplay) = "document.getElementById('$(jd.divid)')"
 _the_div_js(jp::JupyterPlot) = _the_div_js(jp.view)
 
-function _img_data(jp::JupyterPlot, format::String)
-    _formats = ["png", "jpeg", "webp", "svg"]
-    if !(format in _formats)
-        error("Unsupported format $format, must be one of $_formats")
-    end
-
-    if format == "svg"
-        return svg_data(jp)
-    end
-
-    code =  """
-    ev = Plotly.Snapshot.toImage($(_the_div_js(jp)), {format: '$(format)'});
-    new Promise(function(resolve) {ev.once("success", resolve)});
-    """
-    _call_js_return(jp.view, code)
-end
-
-function svg_data(jp::JupyterPlot, format="png")
-    code =  "Plotly.Snapshot.toSVG($(_the_div_js(jp)), '$(format)')"
-    _call_js_return(jp.view, code)
-end
+# function _img_data(jp::JupyterPlot, format::String)
+#     _formats = ["png", "jpeg", "webp", "svg"]
+#     if !(format in _formats)
+#         error("Unsupported format $format, must be one of $_formats")
+#     end
+#
+#     if format == "svg"
+#         return svg_data(jp)
+#     end
+#
+#     code =  """
+#     ev = Plotly.Snapshot.toImage($(_the_div_js(jp)), {format: '$(format)'});
+#     new Promise(function(resolve) {ev.once("success", resolve)});
+#     """
+#     _call_js_return(jp.view, code)
+# end
+#
+# function svg_data(jp::JupyterPlot, format="png")
+#     code =  "Plotly.Snapshot.toSVG($(_the_div_js(jp)), '$(format)')"
+#     _call_js_return(jp.view, code)
+# end
 
 function _call_plotlyjs(jd::JupyterDisplay, func::AbstractString, args...)
     arg_str = length(args) > 0 ? string(",", join(map(json, args), ", ")) : ""
