@@ -9,7 +9,7 @@ function html_body(p::Plot)
     <script>
         window.PLOTLYENV=window.PLOTLYENV || {};
         window.PLOTLYENV.BASE_URL="https://plot.ly";
-       $(script_content(p))
+        $(script_content(p))
      </script>
     """
 end
