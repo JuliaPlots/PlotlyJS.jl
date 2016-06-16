@@ -6,13 +6,13 @@ function JSON._print(io::IO, state::JSON.State, a::Union{Shape,GenericTrace})
     JSON.start_object(io, state, true)
     range = keys(a.fields)
     if length(range) > 0
-        Base.print(io, JSON.prefix(state), "\"", :type, "\"", JSON.colon(state))
+        Base.print(io, JSON.prefix(state), "\"", :type, "\"", JSON.separator(state))
         JSON._print(io, state, a.kind)
 
         for name in range
             Base.print(io, ",")
             JSON.printsp(io, state)
-            Base.print(io, "\"", name, "\"", JSON.colon(state))
+            Base.print(io, "\"", name, "\"", JSON.separator(state))
             JSON._print(io, state, a.fields[name])
         end
     end
@@ -32,13 +32,13 @@ function JSON._print(io::IO, state::JSON.State, p::Plot)
     JSON.start_object(io, state, true)
 
     # print data
-    Base.print(io, JSON.prefix(state), "\"data\"", JSON.colon(state))
+    Base.print(io, JSON.prefix(state), "\"data\"", JSON.separator(state))
     JSON._print(io, state, p.data)
     Base.print(io, ",")
 
     # print layout
     JSON.printsp(io, state)
-    Base.print(io, JSON.prefix(state), "\"layout\"", JSON.colon(state))
+    Base.print(io, JSON.prefix(state), "\"layout\"", JSON.separator(state))
     JSON._print(io, state, p.layout)
     JSON.end_object(io, state, true)
 end
