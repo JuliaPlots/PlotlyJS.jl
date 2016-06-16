@@ -4,7 +4,7 @@
 
 # TODO: add width and height and figure out how to convert from measures to the
 #       pixels that will be expected in the SVG
-function savefig2(p::SyncPlot, fn::AbstractString; dpi::Real=96)
+function savefig_cairosvg(p::SyncPlot, fn::AbstractString; dpi::Real=96)
     bas, ext = split(fn, ".")
     if !(ext in ["pdf", "png", "ps"])
         error("Only `pdf`, `png` and `ps` output supported")
@@ -42,10 +42,10 @@ end
     - `:remote` - reference the javascript from plotly CDN
     - `:embed` - embed the javascript in output (add's 1.7MB to size)
 """
-function savefig(p::SyncPlot, fn::AbstractString; js::Symbol=:local
-                #   sz::Tuple{Int,Int}=(8,6),
-                #   dpi::Int=300
-                  )
+function savefig_imagemagick(p::SyncPlot, fn::AbstractString; js::Symbol=:local
+                             #   sz::Tuple{Int,Int}=(8,6),
+                             #   dpi::Int=300
+                             )
 
     # Extract file type
     suf = split(fn, ".")[end]
@@ -102,7 +102,7 @@ function savefig(p::SyncPlot, fn::AbstractString; js::Symbol=:local
     p
 end
 
-function savefig3(p::SyncPlot, fn::AbstractString; js::Symbol=:local)
+function savefig(p::SyncPlot, fn::AbstractString; js::Symbol=:local)
     suf = split(fn, ".")[end]
 
     # if html we don't need a plot window
@@ -132,8 +132,19 @@ function savefig3(p::SyncPlot, fn::AbstractString; js::Symbol=:local)
     end
 
     # now we need to use librsvg/Cairo to finish
-    @eval import Rsvg
-    @eval import Cairo
+    try
+        @eval import Rsvg
+        @eval import Cairo
+    catch e
+        if isa(e, ArgumentError)
+            msg = string("You need to install the Rsvg package use this",
+                         " routine for file type $suf\n",
+                         "Try insalling with `Pkg.add(\"Rsvg\")`")
+            error(msg)
+        else
+            rethrow(e)
+        end
+    end
 
     if suf == "pdf"
         r = Rsvg.handle_new_from_data(raw_svg)
@@ -148,8 +159,15 @@ function savefig3(p::SyncPlot, fn::AbstractString; js::Symbol=:local)
         ctx = Cairo.CairoContext(cs)
         Rsvg.handle_render_cairo(ctx, r)
         Cairo.write_to_png(cs, fn)
+    elseif suf == "eps"
+        r = Rsvg.handle_new_from_data(raw_svg)
+        cs = Cairo.CairoEPSSurface(fn, size(p.plot)...)
+        ctx = Cairo.CairoContext(cs)
+        Rsvg.handle_render_cairo(ctx, r)
+        Cairo.show_page(ctx)
+        Cairo.finish(cs)
     else
-        error("Only html, svg, png, pdf output supported")
+        error("Only html, svg, png, pdf, eps output supported")
     end
 
     opened_here && close(p)
@@ -198,10 +216,10 @@ end
 
 
 for func in [:png_data, :jpeg_data, :wepb_data, :svg_data,
-             :_img_data, :savefig, :savefig2, :savefig3]
+             :_img_data, :savefig, :savefig_cairosvg, :savefig_imagemagick]
     @eval function $(func)(::Plot, args...; kwargs...)
         msg = string("$($func) not available without a frontend. ",
-                     "Try calling `$($func)(SyncPlot(p))` instead")
+                     "Try calling `$($func)(plot(p))` instead")
         error(msg)
     end
 end
