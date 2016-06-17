@@ -59,6 +59,9 @@ export
     extendtraces, prependtraces,
 
     # helper methods
-    plot, fork, vline, hline, attr
+    plot, fork, vline, hline, attr,
+
+    # frontend methods
+    init_notebook
 
 end # module
