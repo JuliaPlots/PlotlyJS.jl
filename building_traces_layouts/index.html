@@ -139,7 +139,7 @@
     <div class="banner">
       
       <div class="name">
-        <strong>PlotlyJS.jl 0.1.2</strong>
+        <strong>PlotlyJS.jl 0.3.0</strong>
         
           <br>
           spencerlyon2/PlotlyJS.jl
@@ -153,7 +153,7 @@
         <ul class="repo">
           <li class="repo-download">
             
-            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.1.2.zip" target="_blank" title="Download" data-action="download">
+            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.3.0.zip" target="_blank" title="Download" data-action="download">
               <i class="icon icon-download"></i> Download
             </a>
           </li>
@@ -361,7 +361,7 @@ will learn how to build these object in Julia.  </p>
 <h2 id="traces">Traces<a class="headerlink" href="#traces" title="Permanent link">¶</a></h2>
 <p>A <code>Plot</code> instance will have a vector of <code>trace</code>s. These should each be a subtype of <code>AbstractTrace</code>.</p>
 <p>PlotlyJS.jl defines one such subtype:</p>
-<div class="codehilite"><pre><span class="k">type</span><span class="nc"> GenericTrace</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">Associative</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractTrace</span>
+<div class="codehilite"><pre><span></span><span class="k">type</span><span class="nc"> GenericTrace</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">Associative</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractTrace</span>
     <span class="n">kind</span><span class="p">::</span><span class="n">ASCIIString</span>
     <span class="n">fields</span><span class="p">::</span><span class="n">T</span>
 <span class="k">end</span>
@@ -371,7 +371,7 @@ will learn how to build these object in Julia.  </p>
 <p>The <code>kind</code> field specifies the type of trace and the <code>fields</code> is an Associative object that maps trace attributes to their values.</p>
 <p>Let's consider an example. Suppose we would like to build the following JSON
 object:</p>
-<div class="codehilite"><pre><span class="p">{</span>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter&quot;</span><span class="p">,</span>
   <span class="nt">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
   <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
@@ -388,7 +388,7 @@ object:</p>
 
 
 <p>One way to do this in Julia is:</p>
-<div class="codehilite"><pre><span class="n">fields</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}(:</span><span class="k">type</span><span class="nc"> </span><span class="err">=&gt; &quot;</span><span class="nc">scatter</span><span class="s">&quot;,</span>
+<div class="codehilite"><pre><span></span><span class="n">fields</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}(:</span><span class="k">type</span><span class="nc"> </span><span class="err">=&gt; &quot;</span><span class="nc">scatter</span><span class="s">&quot;,</span>
 <span class="s">                          :x =&gt; [1, 2, 3, 4, 5],</span>
 <span class="s">                          :y =&gt; [1, 6, 3, 6, 1],</span>
 <span class="s">                          :mode =&gt; &quot;</span><span class="n">markers</span><span class="o">+</span><span class="n">text</span><span class="s">&quot;,</span>
@@ -402,7 +402,7 @@ object:</p>
 
 
 <p>A more convenient syntax is:</p>
-<div class="codehilite"><pre><span class="n">t1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<div class="codehilite"><pre><span></span><span class="n">t1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
               <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
               <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers+text&quot;</span><span class="p">,</span>
               <span class="n">name</span><span class="o">=</span><span class="s">&quot;Team A&quot;</span><span class="p">,</span>
@@ -426,7 +426,7 @@ necessary when constructing the <code>Dict</code></li>
 <p>We can verify that this is indeed equivalent JSON by printing the JSON obtained
 from <code>JSON.json(t1, 2)</code> which is (note the order of the attributes is different,
 but the content is identical):</p>
-<div class="codehilite"><pre><span class="p">{</span>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter&quot;</span><span class="p">,</span>
   <span class="nt">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="mi">1</span><span class="p">,</span>
@@ -466,7 +466,7 @@ but the content is identical):</p>
 <p>If we then wanted to extract a particular attribute, we can do so using
 <code>getindex(t1, :attrname)</code>, or the syntactic sugar <code>t1[:attrname]</code>. Note that
 both symbols and strings can be used in a call to <code>getindex</code>:</p>
-<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;marker&quot;</span><span class="p">]</span>
+<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;marker&quot;</span><span class="p">]</span>
 <span class="go">Dict{Any,Any} with 1 entry:</span>
 <span class="go">  :size =&gt; 12</span>
 
@@ -477,7 +477,7 @@ both symbols and strings can be used in a call to <code>getindex</code>:</p>
 
 
 <p>To access a nested property use <code>parent.child</code></p>
-<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;textfont.family&quot;</span><span class="p">]</span>
+<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;textfont.family&quot;</span><span class="p">]</span>
 <span class="go">&quot;Raleway, sans-serif&quot;</span>
 </pre></div>
 
@@ -486,7 +486,7 @@ both symbols and strings can be used in a call to <code>getindex</code>:</p>
 <p>We can also set additional attributes. Suppose we wanted to set <code>marker.color</code>
 to be red. We can do this with a call to <code>setindex!(t1, "red", :marker_color)</code>,
 or equivalently <code>t1["marker_color"] = "red"</code>:</p>
-<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;marker_color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;red&quot;</span>
+<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;marker_color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;red&quot;</span>
 <span class="go">&quot;red&quot;</span>
 
 <span class="gp">julia&gt;</span> <span class="n">println</span><span class="p">(</span><span class="n">JSON</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
@@ -531,7 +531,7 @@ or equivalently <code>t1["marker_color"] = "red"</code>:</p>
 <code>marker</code> attribute (alongside <code>size</code>), instead of replacing the <code>marker</code>
 attribute.</p>
 <p>You can also use this syntax to add completely new nested attributes:</p>
-<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;line_width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">t1</span><span class="p">[</span><span class="s">&quot;line_width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="go">5</span>
 
 <span class="gp">julia&gt;</span> <span class="n">println</span><span class="p">(</span><span class="n">JSON</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
@@ -577,7 +577,7 @@ attribute.</p>
 
 <h2 id="layouts">Layouts<a class="headerlink" href="#layouts" title="Permanent link">¶</a></h2>
 <p>The <code>Layout</code> type is defined as</p>
-<div class="codehilite"><pre><span class="k">type</span><span class="nc"> Layout</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">Associative</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractLayout</span>
+<div class="codehilite"><pre><span></span><span class="k">type</span><span class="nc"> Layout</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">Associative</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractLayout</span>
     <span class="n">fields</span><span class="p">::</span><span class="n">T</span>
 <span class="k">end</span>
 </pre></div>
@@ -585,7 +585,7 @@ attribute.</p>
 
 <p>You can construct a layout using the same convenient keyword argument syntax
 that we used for traces:</p>
-<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Penguins&quot;</span><span class="p">,</span>
+<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Penguins&quot;</span><span class="p">,</span>
 
 <span class="gt">                   xaxis_range=[0, 42.0], xaxis_title=&quot;fish&quot;,</span>
 
@@ -629,7 +629,7 @@ that we used for traces:</p>
 keyword magic we saw in the trace and layout functions, but to nested
 attributes. Let's revisit the previous example, but use <code>attr</code> to build up our
 <code>xaxis</code> and <code>legend</code>:</p>
-<div class="codehilite"><pre><span class="gp">julia&gt;</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Penguins&quot;</span><span class="p">,</span>
+<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Penguins&quot;</span><span class="p">,</span>
 
 <span class="gt">                    xaxis=attr(range=[0, 42.0], title=&quot;fish&quot;, showgrid=true),</span>
 

@@ -139,7 +139,7 @@
     <div class="banner">
       
       <div class="name">
-        <strong>PlotlyJS.jl 0.1.2</strong>
+        <strong>PlotlyJS.jl 0.3.0</strong>
         
           <br>
           spencerlyon2/PlotlyJS.jl
@@ -153,7 +153,7 @@
         <ul class="repo">
           <li class="repo-download">
             
-            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.1.2.zip" target="_blank" title="Download" data-action="download">
+            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.3.0.zip" target="_blank" title="Download" data-action="download">
               <i class="icon icon-download"></i> Download
             </a>
           </li>
@@ -351,7 +351,7 @@
           
           <h2 id="basics">Basics<a class="headerlink" href="#basics" title="Permanent link">¶</a></h2>
 <p><a href="https://plot.ly/javascript">plotly.js</a> figures are constructed by calling the function:</p>
-<div class="codehilite"><pre><span class="nx">Plotly</span><span class="p">.</span><span class="nx">newPlot</span><span class="p">(</span><span class="nx">graphdiv</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">layout</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="nx">Plotly</span><span class="p">.</span><span class="nx">newPlot</span><span class="p">(</span><span class="nx">graphdiv</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">layout</span><span class="p">)</span>
 </pre></div>
 
 
@@ -368,7 +368,7 @@ the <code>data</code> and <code>layout</code> arguments.</p>
 <h2 id="julia-types">Julia types<a class="headerlink" href="#julia-types" title="Permanent link">¶</a></h2>
 <p>There are three core types for representing a visualization (not counting the
 two abstract types):</p>
-<div class="codehilite"><pre><span class="k">abstract</span><span class="nc"> AbstractTrace</span>
+<div class="codehilite"><pre><span></span><span class="k">abstract</span><span class="nc"> AbstractTrace</span>
 <span class="k">abstract</span><span class="nc"> AbstractLayout</span>
 
 <span class="k">type</span><span class="nc"> GenericTrace</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">Associative</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractTrace</span>

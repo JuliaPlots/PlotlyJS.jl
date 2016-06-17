@@ -137,7 +137,7 @@
     <div class="banner">
       
       <div class="name">
-        <strong>PlotlyJS.jl 0.1.2</strong>
+        <strong>PlotlyJS.jl 0.3.0</strong>
         
           <br>
           spencerlyon2/PlotlyJS.jl
@@ -151,7 +151,7 @@
         <ul class="repo">
           <li class="repo-download">
             
-            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.1.2.zip" target="_blank" title="Download" data-action="download">
+            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.3.0.zip" target="_blank" title="Download" data-action="download">
               <i class="icon icon-download"></i> Download
             </a>
           </li>
@@ -356,7 +356,7 @@ plotly graphics to files</li>
 </ol>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h2>
 <p>To install PlotlyJS.jl enter the following at the Julia prompt:</p>
-<div class="codehilite"><pre>Pkg.add(&quot;PlotlyJS&quot;)
+<div class="codehilite"><pre><span></span>Pkg.add(&quot;PlotlyJS&quot;)
 </pre></div>
 
 
@@ -365,7 +365,7 @@ previously used the Blink.jl package and would like to use the
 <a href="http://spencerlyon.com/PlotlyJS.jl/syncplots/#electronplot">Electron</a> display
 frontent from the REPL (recommended) you will need to enter evaluate the
 following code at the REPL:</p>
-<div class="codehilite"><pre><span class="k">using</span> <span class="n">Blink</span>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">Blink</span>
 <span class="n">Blink</span><span class="o">.</span><span class="n">AtomShell</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
 </pre></div>
 
@@ -374,6 +374,10 @@ following code at the REPL:</p>
 will need additional packages. Please see the documentation on <a href="http://spencerlyon.com/PlotlyJS.jl/manipulating_plots/#saving-figures">exporting
 figures</a>
 for more information.</p>
+<p>If you would like to have a more exhaustive set of top-level functions for
+constructing plots, see the <a href="http://plots.readthedocs.io/en/latest/">Plots.jl</a>
+package. This package is the <code>plotlyjs</code> Plots.jl backend and is fully supported
+by Plots.</p>
           <aside class="copyright" role="note">
             
               Copyright &copy; 2016 <a href="http://spencerlyon.com/">Spencer Lyon</a> &ndash;

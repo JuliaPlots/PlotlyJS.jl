@@ -139,7 +139,7 @@
     <div class="banner">
       
       <div class="name">
-        <strong>PlotlyJS.jl 0.1.2</strong>
+        <strong>PlotlyJS.jl 0.3.0</strong>
         
           <br>
           spencerlyon2/PlotlyJS.jl
@@ -153,7 +153,7 @@
         <ul class="repo">
           <li class="repo-download">
             
-            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.1.2.zip" target="_blank" title="Download" data-action="download">
+            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.3.0.zip" target="_blank" title="Download" data-action="download">
               <i class="icon icon-download"></i> Download
             </a>
           </li>
@@ -353,7 +353,7 @@
 <p>We'll also discuss how to integrate with various frontends</p>
 <h2 id="plot"><code>Plot</code><a class="headerlink" href="#plot" title="Permanent link">¶</a></h2>
 <p>Recall that the definition of the <code>Plot</code> object is</p>
-<div class="codehilite"><pre><span class="k">type</span><span class="nc"> Plot</span><span class="p">{</span><span class="n">TT</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="k">type</span><span class="nc"> Plot</span><span class="p">{</span><span class="n">TT</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}</span>
     <span class="n">data</span><span class="p">::</span><span class="n">Vector</span><span class="p">{</span><span class="n">TT</span><span class="p">}</span>
     <span class="n">layout</span><span class="p">::</span><span class="n">AbstractLayout</span>
     <span class="n">divid</span><span class="p">::</span><span class="n">Base</span><span class="o">.</span><span class="n">Random</span><span class="o">.</span><span class="n">UUID</span>
@@ -363,7 +363,7 @@
 
 <p>Given one or more <code>AbstractTrace</code>s and optionally a <code>layout</code>, we construct a
 <code>Plot</code> object with any of the following constructors</p>
-<div class="codehilite"><pre><span class="c"># A blank canvas no traces or a layout</span>
+<div class="codehilite"><pre><span></span><span class="c"># A blank canvas no traces or a layout</span>
 <span class="n">Plot</span><span class="p">()</span>
 
 <span class="c"># A vector of traces and a layout</span>
@@ -389,7 +389,7 @@ This means that we can't view the actual plotly figure the data represents.</p>
 <p>To do that we need to link the <code>Plot</code> to one or more display frontends.</p>
 <p>To do this in a simple and reliable way we introduce the concept of a
 <code>SyncPlot</code>, which is defined as:</p>
-<div class="codehilite"><pre><span class="k">abstract</span><span class="nc"> AbstractPlotlyDisplay</span>
+<div class="codehilite"><pre><span></span><span class="k">abstract</span><span class="nc"> AbstractPlotlyDisplay</span>
 
 <span class="k">immutable</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">TD</span><span class="o">&lt;:</span><span class="n">AbstractPlotlyDisplay</span><span class="p">}</span>
     <span class="n">plot</span><span class="p">::</span><span class="n">Plot</span>
@@ -436,7 +436,7 @@ process it and save to pdf, png, jpeg, or eps files</li>
 package.</p>
 <p>A convenient typealias has been defined for <code>SyncPlot</code>s with the
 <code>ElectronDisplay</code> frontend:</p>
-<div class="codehilite"><pre><span class="k">typealias</span><span class="nc"> ElectronPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">ElectronDisplay</span><span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="k">typealias</span><span class="nc"> ElectronPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">ElectronDisplay</span><span class="p">}</span>
 </pre></div>
 
 
@@ -450,7 +450,7 @@ now. This means that we have not implemented features that require Julia to
 receive a return value from javascript. This includes obtaining raw svg data
 for the plot as well as registering Julia functions as callbacks.</p>
 <p>A <code>SyncPlot</code> with a <code>JupyterDisplay</code> also has a typealias:</p>
-<div class="codehilite"><pre><span class="k">typealias</span><span class="nc"> JupyterPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">JupyterDisplay</span><span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="k">typealias</span><span class="nc"> JupyterPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">JupyterDisplay</span><span class="p">}</span>
 </pre></div>
 
 
