@@ -126,8 +126,8 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
 
 ## Saving figures
 
-Right now saving figures to a file is a work in progress. It only works when
-using the `ElectronDisplay` frontend.
+Right now saving figures to a file only works when using the `ElectronDisplay`
+frontend.
 
 The following syntaxes are currently supported without any other packages
 
@@ -145,44 +145,40 @@ savefig(sp::ElectronPlot, "output_filename.svg")
 Other routines are available for saving figures, but they require the
 independent installation of various Julia packages.
 
-### ImageMagick
-
-If you have [ImageMagick.jl](https://github.com/JuliaIO/ImageMagick.jl)
-properly installed in your Julia installation you can also do the following:
-
-```julia
-savefig(sp::ElectronPlot, "output_filename.png")
-savefig(sp::ElectronPlot, "output_filename.pdf")
-savefig(sp::ElectronPlot, "output_filename.jpeg")
-```
-
-Please note that the maximum DPI resolution for any of these formats is 96.
-
-To get true vector quality pdf files, we recommend using the Rsvg backend.
-
 ### Rsvg
 
 If you have installed [Rsvg.jl](https://github.com/lobingera/Rsvg.jl)  
 you can use the following routines:
 
 ```julia
-PlotlyJS.savefig3(sp::ElectronPlot, "output_filename.pdf")
-PlotlyJS.savefig3(sp::ElectronPlot, "output_filename.png")
+PlotlyJS.savefig(sp::ElectronPlot, "output_filename.pdf")
+PlotlyJS.savefig(sp::ElectronPlot, "output_filename.png")
+PlotlyJS.savefig(sp::ElectronPlot, "output_filename.eps")
 ```
 
-Note that the pdf (not png) export in this case will be a true vector image.
-This allows you to have infinitely zoomable quality. This is the recommended
-way to obtain a pdf of your plot, but comes with the extra step of installing
-Rsvg.jl via:
+Note that the pdf and eps (not png) export from this function this case will be
+a true vector image. This allows you to have infinitely zoomable quality. This
+is the recommended way to obtain a pdf of your plot, but comes with the extra
+step of installing Rsvg.jl via:
 
 ```julia
 Pkg.add("Rsvg")
 ```
 
-!!! note "Note"
-    At the time of writing (2016-03-24) Rsvg.jl has not been setup to
-    correctly install the c library `librsvg` on windows. Help is wanted from
-    interested windows users.
+### ImageMagick
+
+If you have [ImageMagick.jl](https://github.com/JuliaIO/ImageMagick.jl)
+properly installed in your Julia installation you can also do the following:
+
+```julia
+savefig_imagemagick(sp::ElectronPlot, "output_filename.png")
+savefig_imagemagick(sp::ElectronPlot, "output_filename.pdf")
+savefig_imagemagick(sp::ElectronPlot, "output_filename.jpeg")
+```
+
+Please note that the maximum DPI resolution for any of these formats is 96.
+
+To get true vector quality pdf files, we recommend using the Rsvg backend.
 
 ### cairosvg
 
@@ -193,11 +189,7 @@ python package and that the `cairosvg` command is on your PATH.
 If `cairosvg` can be found, you can use the following routines:
 
 ```julia
-PlotlyJS.savefig2(sp::ElectronPlot, "output_filename.png")
-PlotlyJS.savefig2(sp::ElectronPlot, "output_filename.pdf")
-PlotlyJS.savefig2(sp::ElectronPlot, "output_filename.ps")
+PlotlyJS.savefig_cairosvg(sp::ElectronPlot, "output_filename.png")
+PlotlyJS.savefig_cairosvg(sp::ElectronPlot, "output_filename.pdf")
+PlotlyJS.savefig_cairosvg(sp::ElectronPlot, "output_filename.ps")
 ```
-
-!!! warning "Warning"
-    Once Rsvg.jl has matured and works on all operating systems, the `savefig2`
-    function will be deleted.

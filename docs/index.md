@@ -40,3 +40,8 @@ If you would like to be able to save plotly graphics to png or pdf formats you
 will need additional packages. Please see the documentation on [exporting
 figures](http://spencerlyon.com/PlotlyJS.jl/manipulating_plots/#saving-figures)
 for more information.
+
+If you would like to have a more exhaustive set of top-level functions for
+constructing plots, see the [Plots.jl](http://plots.readthedocs.io/en/latest/)
+package. This package is the `plotlyjs` Plots.jl backend and is fully supported
+by Plots.
