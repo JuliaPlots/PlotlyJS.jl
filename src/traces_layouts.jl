@@ -2,13 +2,13 @@ abstract AbstractTrace
 abstract AbstractLayout
 
 type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
-    kind::String
     fields::T
 end
 
 function GenericTrace(kind::AbstractString, fields=Dict{Symbol,Any}(); kwargs...)
     # use setindex! methods below to handle `_` substitution
-    gt = GenericTrace(kind, fields)
+    fields[:type] = kind
+    gt = GenericTrace(fields)
     map(x->setindex!(gt, x[2], x[1]), kwargs)
     gt
 end
@@ -28,7 +28,7 @@ end
 Layout{T<:Associative{Symbol,Any}}(fields::T=Dict{Symbol,Any}(); kwargs...) =
     Layout{T}(fields; kwargs...)
 
-kind(gt::GenericTrace) = gt.kind
+kind(gt::GenericTrace) = get(gt, :type, "scatter")
 kind(l::Layout) = "layout"
 
 # -------------------------------------------- #
@@ -60,13 +60,13 @@ typealias _Scalar Union{Base.Dates.Date,Number,AbstractString}
 # ------ #
 
 type Shape <: AbstractLayoutAttribute
-    kind::String
     fields::Associative{Symbol}
 end
 
 function Shape(kind::AbstractString, fields=Dict{Symbol,Any}(); kwargs...)
     # use setindex! methods below to handle `_` substitution
-    s = Shape(kind, fields)
+    fields[:type] = kind
+    s = Shape(fields)
     map(x->setindex!(s, x[2], x[1]), kwargs)
     s
 end

@@ -2,18 +2,18 @@
 gt = M.GenericTrace("scatter"; x=1:10, y=sin(1:10))
 
 @testset "test constructors" begin
-    @test sort(collect(keys(gt.fields))) == [:x, :y]
+    @test sort(collect(keys(gt.fields))) == [:type, :x, :y]
 end
 
 @testset "test setindex!, getindex methods" begin
     gt[:visible] = true
-    @test length(gt.fields) == 3
+    @test length(gt.fields) == 4
     @test haskey(gt.fields, :visible)
     @test gt.fields[:visible] == true
 
     # now try with string. Make sure it updates inplace
     gt["visible"] = false
-    @test length(gt.fields) == 3
+    @test length(gt.fields) == 4
     @test haskey(gt.fields, :visible)
     @test gt.fields[:visible] == false
 
@@ -21,7 +21,7 @@ end
     # 2 levels #
     # -------- #
     gt[:line, :color] = "red"
-    @test length(gt.fields) == 4
+    @test length(gt.fields) == 5
     @test haskey(gt.fields, :line)
     @test isa(gt.fields[:line], Dict)
     @test gt.fields[:line][:color] == "red"
@@ -29,7 +29,7 @@ end
 
     # now try string version
     gt["line", "color"] = "blue"
-    @test length(gt.fields) == 4
+    @test length(gt.fields) == 5
     @test haskey(gt.fields, :line)
     @test isa(gt.fields[:line], Dict)
     @test gt.fields[:line][:color] == "blue"
@@ -37,7 +37,7 @@ end
 
     # now try convenience string dot notation
     gt["line.color"] = "green"
-    @test length(gt.fields) == 4
+    @test length(gt.fields) == 5
     @test haskey(gt.fields, :line)
     @test isa(gt.fields[:line], Dict)
     @test gt.fields[:line][:color] == "green"
@@ -45,7 +45,7 @@ end
 
     # now try symbol with underscore
     gt[:(line_color)] = "orange"
-    @test length(gt.fields) == 4
+    @test length(gt.fields) == 5
     @test haskey(gt.fields, :line)
     @test isa(gt.fields[:line], Dict)
     @test gt.fields[:line][:color] == "orange"
@@ -53,7 +53,7 @@ end
 
     # now try string with underscore
     gt["line_color"] = "magenta"
-    @test length(gt.fields) == 4
+    @test length(gt.fields) == 5
     @test haskey(gt.fields, :line)
     @test isa(gt.fields[:line], Dict)
     @test gt.fields[:line][:color] == "magenta"
@@ -63,7 +63,7 @@ end
     # 3 levels #
     # -------- #
     gt[:marker, :line, :color] = "red"
-    @test length(gt.fields) == 5
+    @test length(gt.fields) == 6
     @test haskey(gt.fields, :marker)
     @test isa(gt.fields[:marker], Dict)
     @test haskey(gt.fields[:marker], :line)
@@ -74,7 +74,7 @@ end
 
     # now try string version
     gt["marker", "line", "color"] = "blue"
-    @test length(gt.fields) == 5
+    @test length(gt.fields) == 6
     @test haskey(gt.fields, :marker)
     @test isa(gt.fields[:marker], Dict)
     @test haskey(gt.fields[:marker], :line)
@@ -85,7 +85,7 @@ end
 
     # now try convenience string dot notation
     gt["marker.line.color"] = "green"
-    @test length(gt.fields) == 5
+    @test length(gt.fields) == 6
     @test haskey(gt.fields, :marker)
     @test isa(gt.fields[:marker], Dict)
     @test haskey(gt.fields[:marker], :line)
@@ -96,7 +96,7 @@ end
 
     # now string with underscore notation
     gt["marker_line_color"] = "orange"
-    @test length(gt.fields) == 5
+    @test length(gt.fields) == 6
     @test haskey(gt.fields, :marker)
     @test isa(gt.fields[:marker], Dict)
     @test haskey(gt.fields[:marker], :line)
@@ -107,7 +107,7 @@ end
 
     # now symbol with underscore notation
     gt[:(marker_line_color)] = "magenta"
-    @test length(gt.fields) == 5
+    @test length(gt.fields) == 6
     @test haskey(gt.fields, :marker)
     @test isa(gt.fields[:marker], Dict)
     @test haskey(gt.fields[:marker], :line)
@@ -120,7 +120,7 @@ end
     # 4 levels #
     # -------- #
     gt[:marker, :colorbar, :tickfont, :family] = "Hasklig-ExtraLight"
-    @test length(gt.fields) == 5  # notice we didn't add another top level key
+    @test length(gt.fields) == 6  # notice we didn't add another top level key
     @test haskey(gt.fields, :marker)
     @test isa(gt.fields[:marker], Dict)
     @test length(gt.fields[:marker]) == 2  # but we did add a key at this level
@@ -134,7 +134,7 @@ end
 
     # now try string version
     gt["marker", "colorbar", "tickfont", "family"] = "Hasklig-Light"
-    @test length(gt.fields) == 5
+    @test length(gt.fields) == 6
     @test haskey(gt.fields, :marker)
     @test isa(gt.fields[:marker], Dict)
     @test length(gt.fields[:marker]) == 2
@@ -148,7 +148,7 @@ end
 
     # now try convenience string dot notation
     gt["marker.colorbar.tickfont.family"] = "Hasklig-Medium"
-    @test length(gt.fields) == 5  # notice we didn't add another top level key
+    @test length(gt.fields) == 6  # notice we didn't add another top level key
     @test haskey(gt.fields, :marker)
     @test isa(gt.fields[:marker], Dict)
     @test length(gt.fields[:marker]) == 2  # but we did add a key at this level
@@ -162,7 +162,7 @@ end
 
     # now string with underscore notation
     gt["marker_colorbar_tickfont_family"] = "Webdings"
-    @test length(gt.fields) == 5  # notice we didn't add another top level key
+    @test length(gt.fields) == 6  # notice we didn't add another top level key
     @test haskey(gt.fields, :marker)
     @test isa(gt.fields[:marker], Dict)
     @test length(gt.fields[:marker]) == 2  # but we did add a key at this level
@@ -176,7 +176,7 @@ end
 
     # now symbol with underscore notation
     gt[:marker_colorbar_tickfont_family] = "Webdings42"
-    @test length(gt.fields) == 5  # notice we didn't add another top level key
+    @test length(gt.fields) == 6  # notice we didn't add another top level key
     @test haskey(gt.fields, :marker)
     @test isa(gt.fields[:marker], Dict)
     @test length(gt.fields[:marker]) == 2  # but we did add a key at this level
@@ -211,7 +211,7 @@ end
     @test vl["x0"] == 0
     @test vl["y0"] == 0
     @test vl["y1"] == 1
-    @test vl.kind == "line"
+    @test vl["type"] == "line"
     @test vl["xref"] == "x"
     @test vl["yref"] == "paper"
 
@@ -219,7 +219,7 @@ end
     @test hl["y0"] == 0
     @test hl["x0"] == 0
     @test hl["x1"] == 1
-    @test hl.kind == "line"
+    @test hl["type"] == "line"
     @test hl["yref"] == "y"
     @test hl["xref"] == "paper"
 
@@ -254,13 +254,13 @@ end
     # constructor logic was taken care of above. Just need to test
     # rect/path/circle specfic things here
     r = rect(1, 2, 3, 4)
-    @test r.kind == "rect"
+    @test r["type"] == "rect"
 
     c = circle(1, 2, 3, 4)
-    @test c.kind == "circle"
+    @test c["type"] == "circle"
 
     _path = "M 1 1 L 1 3 L 4 1 Z"
     p = path(_path)
-    @test p.kind == "path"
+    @test p["type"] == "path"
     @test p["path"] == _path
 end
