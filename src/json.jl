@@ -10,6 +10,9 @@ JSON._print(io::IO, state::JSON.State, d::Base.Dates.Date) =
 JSON._print(io::IO, state::JSON.State, p::Plot) =
     JSON._print(io, state, Dict(:data => p.data, :layout => p.layout))
 
+JSON._print(io::IO, state::JSON.State, a::Colors.Colorant) =
+    JSON._print(io, state, string("#", hex(a)))
+
 # Let string interpolation stringify to JSON format
 Base.print(io::IO, a::Union{Shape,GenericTrace,PlotlyAttribute,Layout,Plot}) = print(io, JSON.json(a))
 Base.print{T<:GenericTrace}(io::IO, a::Vector{T}) = print(io, JSON.json(a))
