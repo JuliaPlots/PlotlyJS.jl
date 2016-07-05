@@ -6,7 +6,7 @@
 
 Julia interface to [plotly.js][_plotlyjs] visualization library.
 
-This package construct plotly graphics using all local resource. To interact or save your graph to the Plotly cloud, use the  `Plotly`[https://github.com/plotly/Plotly.jl] package.
+This package constructs plotly graphics using all local resources. To interact or save graphics to the Plotly cloud, use the  [`Plotly`](https://github.com/plotly/Plotly.jl) package.
 
 Check out the [docs](http://spencerlyon.com/PlotlyJS.jl/)!
 
