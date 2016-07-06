@@ -5,7 +5,7 @@ JSON._print(io::IO, state::JSON.State, a::HasFields) =
     JSON._print(io, state, a.fields)
 
 JSON._print(io::IO, state::JSON.State, d::Base.Dates.Date) =
-    JSON._print(io, state, "$(year(d))-$(month(d))-$(day(d))")
+    JSON._print(io, state, "$(Base.Dates.year(d))-$(Base.Dates.month(d))-$(Base.Dates.day(d))")
 
 JSON._print(io::IO, state::JSON.State, p::Plot) =
     JSON._print(io, state, Dict(:data => p.data, :layout => p.layout))
