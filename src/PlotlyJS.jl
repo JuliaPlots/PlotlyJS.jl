@@ -5,6 +5,10 @@ using JSON
 using Blink
 using Colors
 
+# import LaTeXStrings and export the handy macros
+using LaTeXStrings
+export @L_mstr, @L_str
+
 # export some names from JSON
 export json
 
