@@ -16,11 +16,11 @@ export json
 const _js_path = joinpath(dirname(dirname(@__FILE__)),
                           "deps", "plotly-latest.min.js")
 const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
-const _mathjax_path = joinpath(dirname(dirname(@__FILE__)),
-                               "deps", "mathjax", "MathJax.js")
-const _mathjax_config_path = joinpath(dirname(_mathjax_path), "config",
-                                      "TeX-AMS-MML_SVG.js")
 const _mathjax_cdn_path = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"
+
+const _autoresize = [true]
+autoresize(b::Bool) = (_autoresize[1] = b; b)
+autoresize() = _autoresize[1]
 
 # include these here because they are used below
 include("traces_layouts.jl")
@@ -57,7 +57,7 @@ export
     ElectronPlot, JupyterPlot, AbstractTrace, AbstractLayout,
 
     # other methods
-    savefig, svg_data, png_data, jpeg_data, webp_data,
+    savefig, svg_data, png_data, jpeg_data, webp_data, autoresize,
 
     # plotly.js api methods
     restyle!, relayout!, addtraces!, deletetraces!, movetraces!, redraw!,

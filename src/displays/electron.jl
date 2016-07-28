@@ -47,7 +47,7 @@ end
 function Base.display(p::ElectronPlot)
     w = get_window(p)
     loadjs(p.view)
-    if isdefined(Main, :ELECTRON_FIXED_SIZE_PLOT)&& (Main.ELECTRON_FIXED_SIZE_PLOT)
+    if !_autoresize[1]
         @js w begin
             trydiv = document.getElementById($(string(p.plot.divid)))
             if trydiv == nothing
