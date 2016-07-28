@@ -124,7 +124,7 @@ restyle!(gt::GenericTrace, i::Int=1, update::Associative=Dict(); kwargs...) =
 
 Update `p.data[ind]` using update dict and/or kwargs
 """
-restyle!(p::Plot, ind::Int=1, update::Associative=Dict(); kwargs...) =
+restyle!(p::Plot, ind::Int, update::Associative=Dict(); kwargs...) =
     restyle!(p.data[ind], 1, update; kwargs...)
 
 """

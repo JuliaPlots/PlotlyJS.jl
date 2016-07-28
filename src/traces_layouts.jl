@@ -245,5 +245,5 @@ function _describe(x::HasFields)
     end
 end
 
-Base.writemime(io::IO, ::MIME"text/plain", g::HasFields) =
+@compat Base.show(io::IO, ::MIME"text/plain", g::HasFields) =
     println(io, _describe(g))

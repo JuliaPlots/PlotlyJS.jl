@@ -48,17 +48,17 @@ function stringmime(::MIME"text/html", p::Plot, js::Symbol=:local)
 
 end
 
-Base.writemime(io::IO, ::MIME"text/html", p::Plot, js::Symbol=:local) =
+@compat Base.show(io::IO, ::MIME"text/html", p::Plot, js::Symbol=:local) =
     print(io, stringmime(MIME"text/html"(), p, js))
 
-function Base.writemime(io::IO, ::MIME"text/plain", p::Plot)
+@compat function Base.show(io::IO, ::MIME"text/plain", p::Plot)
     println(io, """
     data: $(json(map(_describe, p.data), 2))
     layout: "$(_describe(p.layout))"
     """)
 end
 
-Base.show(io::IO, p::Plot) = writemime(io, MIME("text/plain"), p)
+Base.show(io::IO, p::Plot) = @compat show(io, MIME("text/plain"), p)
 
 # ----------------------------------------- #
 # SyncPlot -- sync Plot object with display #
@@ -78,7 +78,7 @@ for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
         $(f)(sp.view, args...; kwargs...)
     end
 
-    no_!_method = symbol(string(f)[1:end-1])
+    no_!_method = Symbol(string(f)[1:end-1])
     @eval function $(no_!_method)(sp::SyncPlot, args...; kwargs...)
         sp2 = fork(sp)
         $f(sp2.plot, args...; kwargs...)  # only need to update the julia side
@@ -106,7 +106,7 @@ for f in (:extendtraces!, :prependtraces!)
     end
 end
 
-Base.writemime(io::IO, ::MIME"text/html", sp::SyncPlot, js::Symbol=:local) =
+@compat Base.show(io::IO, ::MIME"text/html", sp::SyncPlot, js::Symbol=:local) =
     print(io, stringmime(MIME"text/html"(), sp.plot, js))
 
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
