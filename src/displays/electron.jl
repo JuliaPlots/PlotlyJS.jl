@@ -70,7 +70,7 @@ function Base.display(p::ElectronPlot)
         var WIDTH_IN_PERCENT_OF_PARENT = 100,
         HEIGHT_IN_PERCENT_OF_PARENT = 100;
         var gd3 = d3.select('body')
-        .append('div')
+        .append('div').attr("id", "$(p.plot.divid)")
         .style({
         width: WIDTH_IN_PERCENT_OF_PARENT + '%',
         'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
@@ -85,6 +85,7 @@ function Base.display(p::ElectronPlot)
         Plotly.Plots.resize(gd);
         };
         })();
+        thediv = document.getElementById('$(string(p.plot.divid))')
         </script>
         """
         Blink.body!(w, magic)
