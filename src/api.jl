@@ -25,7 +25,7 @@ for t in [:histogram, :scatter3d, :surface, :mesh3d, :bar, :histogram2d,
 end
 
 Base.copy{HF<:HasFields}(hf::HF) = HF(deepcopy(hf.fields))
-Base.copy(p::Plot) = Plot([copy(t) for t in p.data], copy(p.layout))
+Base.copy(p::Plot) = Plot(AbstractTrace[copy(t) for t in p.data], copy(p.layout))
 fork(p::Plot) = Plot(deepcopy(p.data), copy(p.layout), Base.Random.uuid4())
 
 # -------------- #
