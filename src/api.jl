@@ -3,7 +3,7 @@
 # -------------------------- #
 
 prep_kwarg(pair::Union{Pair,Tuple}) =
-    (symbol(replace(string(pair[1]), "_", ".")), pair[2])
+    (Symbol(replace(string(pair[1]), "_", ".")), pair[2])
 prep_kwargs(pairs::Union{Associative,Vector}) = Dict(map(prep_kwarg, pairs))
 
 """
