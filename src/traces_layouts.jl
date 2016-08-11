@@ -152,10 +152,10 @@ Base.get(hf::HasFields, k::Symbol, default) = get(hf.fields, k, default)
 
 # methods that allow you to do `obj["first.second.third"] = val`
 Base.setindex!(gt::HasFields, val, key::String) =
-    setindex!(gt, val, map(symbol, split(key, ['.', '_']))...)
+    setindex!(gt, val, map(Symbol, split(key, ['.', '_']))...)
 
 Base.setindex!(gt::HasFields, val, keys::String...) =
-    setindex!(gt, val, map(symbol, keys)...)
+    setindex!(gt, val, map(Symbol, keys)...)
 
 # Now for deep setindex. The deepest the json schema ever goes is 4 levels deep
 # so we will simply write out the setindex calls for 4 levels by hand. If the
@@ -199,10 +199,10 @@ end
 # now on to the simpler getindex methods. They will try to get the desired
 # key, but if it doesn't exist an empty dict is returned
 Base.getindex(gt::HasFields, key::String) =
-    getindex(gt, map(symbol, split(key, ['.', '_']))...)
+    getindex(gt, map(Symbol, split(key, ['.', '_']))...)
 
 Base.getindex(gt::HasFields, keys::String...) =
-    getindex(gt, map(symbol, keys)...)
+    getindex(gt, map(Symbol, keys)...)
 
 function Base.getindex(gt::HasFields, key::Symbol)
     if contains(string(key), "_")

@@ -3,7 +3,7 @@
 # -------------------------- #
 
 prep_kwarg(pair::Union{Pair,Tuple}) =
-    (symbol(replace(string(pair[1]), "_", ".")), pair[2])
+    (Symbol(replace(string(pair[1]), "_", ".")), pair[2])
 prep_kwargs(pairs::Union{Associative,Vector}) = Dict(map(prep_kwarg, pairs))
 
 """
@@ -88,8 +88,13 @@ _prep_restyle_vec_setindex(v, N::Int) = v
 
 function _update_fields(hf::GenericTrace, i::Int, update::Dict=Dict(); kwargs...)
     # apply updates in the dict w/out `_` processing
-    map(p -> _apply_restyle_setindex!(hf.fields, p[1], p[2], i), update)
-    map(p -> _apply_restyle_setindex!(hf, p[1], p[2], i), kwargs)
+    for (k,v) in update
+        _apply_restyle_setindex!(hf.fields, k, v, i)
+    end
+    for (k,v) in kwargs
+        _apply_restyle_setindex!(hf, k, v, i)
+    end
+    hf
 end
 
 """
@@ -99,7 +104,10 @@ Update `l` using update dict and/or kwargs
 """
 function relayout!(l::Layout, update::Associative=Dict(); kwargs...)
     merge!(l.fields, update)  # apply updates in the dict w/out `_` processing
-    map(x -> setindex!(l, x[2], x[1]), kwargs)
+    for (k,v) in kwargs
+        setindex!(l, v, k)
+    end
+    l
 end
 
 """
@@ -135,7 +143,7 @@ Update specific traces at `p.data[inds]` using update dict and/or kwargs
 function restyle!(p::Plot, inds::AbstractVector{Int},
                   update::Associative=Dict(); kwargs...)
     N = length(inds)
-    kw = Dict(kwargs)
+    kw = Dict{Symbol,Any}(kwargs)
 
     # prepare update and kw dicts for vectorized application
     for d in (kw, update)

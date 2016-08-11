@@ -1,3 +1,5 @@
+__precompile__()
+
 module PlotlyJS
 
 using Compat; import Compat.String
