@@ -135,7 +135,7 @@ Update specific traces at `p.data[inds]` using update dict and/or kwargs
 function restyle!(p::Plot, inds::AbstractVector{Int},
                   update::Associative=Dict(); kwargs...)
     N = length(inds)
-    kw = Dict(kwargs)
+    kw = Dict{Symbol,Any}(kwargs)
 
     # prepare update and kw dicts for vectorized application
     for d in (kw, update)
