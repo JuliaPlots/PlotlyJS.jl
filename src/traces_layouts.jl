@@ -5,7 +5,8 @@ type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
     fields::T
 end
 
-function GenericTrace(kind::AbstractString, fields=Dict{Symbol,Any}(); kwargs...)
+function GenericTrace(kind::Union{AbstractString,Symbol},
+                      fields=Dict{Symbol,Any}(); kwargs...)
     # use setindex! methods below to handle `_` substitution
     fields[:type] = kind
     gt = GenericTrace(fields)

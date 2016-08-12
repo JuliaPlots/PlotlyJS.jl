@@ -43,6 +43,7 @@ include("display.jl")
 include("subplots.jl")
 include("api.jl")
 include("savefig.jl")
+include("convenience_api.jl")
 
 # Set some defaults for constructing `Plot`s
 Plot() = Plot(GenericTrace{Dict{Symbol,Any}}[], Layout(), Base.Random.uuid4())
