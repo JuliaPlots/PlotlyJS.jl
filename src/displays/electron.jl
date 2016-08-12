@@ -44,10 +44,10 @@ function loadjs(ed::ElectronDisplay)
     end
 end
 
-function Base.display(p::ElectronPlot)
-    w = get_window(p)
+function Base.display(p::ElectronPlot; show=true, resize::Bool=_autoresize[1])
+    w = get_window(p, show=show)
     loadjs(p.view)
-    if !_autoresize[1]
+    if !resize
         @js w begin
             trydiv = document.getElementById($(string(p.plot.divid)))
             if trydiv == nothing
@@ -94,22 +94,33 @@ function Base.display(p::ElectronPlot)
 end
 
 ## API Methods for ElectronDisplay
-function _img_data(p::ElectronPlot, format::String)
+function _img_data(p::ElectronPlot, format::String; show::Bool=false)
     _formats = ["png", "jpeg", "webp", "svg"]
     if !(format in _formats)
         error("Unsupported format $format, must be one of $_formats")
     end
 
-    display(p)
+    opened_here = !isactive(p.view)
+    opened_here && display(p; show=show, resize=false)
 
-    @js p.view begin
+    out = @js p.view begin
         ev = Plotly.Snapshot.toImage(this, d("format"=>$format))
         @new Promise(resolve -> ev.once("success", resolve))
     end
+    opened_here && close(p)
+    out
 end
 
-svg_data(p::ElectronPlot, format="png") =
-    @js p.view Plotly.Snapshot.toSVG(this, $format)
+function svg_data(p::ElectronPlot, format="png")
+    opened_here = !isactive(p.view)
+    opened_here && display(p; show=false, resize=false)
+
+    out = @js p.view Plotly.Snapshot.toSVG(this, $format)
+
+    opened_here && close(p)
+
+    return out
+end
 
 Base.close(p::ElectronPlot) = close(p.view)
 

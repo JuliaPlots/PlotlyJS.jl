@@ -33,8 +33,6 @@ function html_body(p::JupyterPlot)
     """
 end
 
-_isijulia() = isdefined(Main, :IJulia) && Main.IJulia.inited
-
 function init_notebook(force=false)
     # TODO: figure out a way to ask the notebook if the js is currently loaded
     #       and active.
@@ -47,7 +45,7 @@ function init_notebook(force=false)
         if !js_loaded(JupyterDisplay) || force
             _ijulia_js = readall(joinpath(dirname(@__FILE__), "ijulia.js"))
 
-            # three script tags for loading ijulia setup, mathjax, and plotly
+            # three script tags for loading ijulia setup, and plotly
             display("text/html", """
             <script charset="utf-8" type='text/javascript'>
                 $(_ijulia_js)
@@ -67,37 +65,6 @@ function init_notebook(force=false)
             _jupyter_js_loaded[1] = true
         end
     end
-end
-
-# --------------------------------------------- #
-# Code to run once when the notebook starts up! #
-# --------------------------------------------- #
-
-if _isijulia()
-
-    init_notebook()
-
-    @eval begin
-        import IJulia
-        import IJulia.CommManager: Comm, send_comm
-    end
-
-    # set up the comms we will use to send js messages to be executed
-    const _ijulia_eval_comm = Comm(:plotlyjs_eval)
-    const _ijulia_return_comms = Dict{Base.Random.UUID,Comm}()
-
-    IJulia.display_dict(p::Plot) =
-        Dict("text/plain" => sprint(writemime, "text/plain", p))
-
-    function IJulia.display_dict(p::JupyterPlot)
-        if p.view.displayed
-            Dict()
-        else
-            p.view.displayed = true
-            Dict("text/html" => html_body(p))
-        end
-    end
-
 end
 
 # ---------------- #
