@@ -24,6 +24,8 @@ const _autoresize = [true]
 autoresize(b::Bool) = (_autoresize[1] = b; b)
 autoresize() = _autoresize[1]
 
+_isijulia() = isdefined(Main, :IJulia) && Main.IJulia.inited
+
 # include these here because they are used below
 include("traces_layouts.jl")
 abstract AbstractPlotlyDisplay
@@ -80,5 +82,46 @@ export
 
     # frontend methods
     init_notebook
+
+function __init__()
+    # --------------------------------------------- #
+    # Code to run once when the notebook starts up! #
+    # --------------------------------------------- #
+
+    if _isijulia()
+
+        init_notebook()
+
+        @eval begin
+            import IJulia
+            import IJulia.CommManager: Comm, send_comm
+        end
+
+        # set up the comms we will use to send js messages to be executed
+        global const _ijulia_eval_comm = Comm(:plotlyjs_eval)
+        global const _ijulia_return_comms = ObjectIdDict()
+
+        @eval begin
+            function IJulia.display_dict(p::JupyterPlot)
+                if p.view.displayed
+                    Dict()
+                else
+                    p.view.displayed = true
+                    Dict("text/html" => html_body(p))
+                end
+            end
+
+            SyncPlot(p::Plot) = SyncPlot(p, JupyterDisplay(p))
+
+            IJulia.display_dict(p::Plot) =
+                Dict("text/plain" => sprint(writemime, "text/plain", p))
+
+        end
+    else
+        @eval SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay())
+    end
+
+end
+
 
 end # module

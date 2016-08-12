@@ -18,7 +18,7 @@ isactive(ed::ElectronDisplay) = isnull(ed.w) ? false : Blink.active(get(ed.w))
 
 Base.close(ed::ElectronDisplay) = isactive(ed) && close(get(ed.w))
 
-function get_window(p::ElectronPlot, kwargs...)
+function get_window(p::ElectronPlot; kwargs...)
     w, h = size(p.plot)
     get_window(p.view; width=w, height=h, kwargs...)
 end

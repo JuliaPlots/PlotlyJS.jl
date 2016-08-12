@@ -133,11 +133,3 @@ end
 # -------- #
 # Defaults #
 # -------- #
-
-if isdefined(Main, :IJulia) && Main.IJulia.inited
-    # default to JupyterDisplay
-    SyncPlot(p::Plot) = SyncPlot(p, JupyterDisplay(p))
-else
-    # default to ElectronDisplay
-    SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay())
-end
