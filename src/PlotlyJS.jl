@@ -50,6 +50,12 @@ Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout()) =
 
 Plot(data::AbstractTrace, layout=Layout()) = Plot([data], layout)
 
+function docs()
+    schema_path = joinpath(dirname(dirname(@__FILE__)), "deps", "schema.html")
+    w = Blink.Window()
+    Blink.content!(w, "html", open(readall, schema_path), fade=false)
+end
+
 # NOTE: we export trace constructing types from inside api.jl
 # NOTE: we export names of shapes from traces_layouts.jl
 export
