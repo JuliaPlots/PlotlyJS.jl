@@ -53,7 +53,7 @@ abstract AbstractShape <: AbstractLayoutAttribute
 kind{T<:AbstractPlotlyAttribute}(::T) = string(T)
 
 # TODO: maybe loosen some day
-typealias _Scalar Union{Base.Dates.Date,Number,AbstractString}
+typealias _Scalar Union{Base.Dates.Date,Number,AbstractString,Symbol}
 
 # ------ #
 # Shapes #
@@ -72,9 +72,7 @@ function Shape(kind::AbstractString, fields=Dict{Symbol,Any}(); kwargs...)
 end
 
 # helper method needed below
-_rep(x) = Base.cycle(x)
-_rep(x::_Scalar) = Base.cycle([x])
-_rep(x::Union{AbstractArray,Tuple}) = x
+_rep(x, n) = take(cycle(x), n)
 
 # line, circle, and rect share same x0, x1, y0, y1 args. Define methods for
 # them here
@@ -89,14 +87,14 @@ for t in [:line, :circle, :rect]
         $(t)(fields; x0=x0, x1=x1, y0=y0, y1=y1, kwargs...)
     end
 
-
     @eval function $(t)(x0::Union{AbstractVector,_Scalar},
                         x1::Union{AbstractVector,_Scalar},
                         y0::Union{AbstractVector,_Scalar},
                         y1::Union{AbstractVector,_Scalar},
                         fields::Associative=Dict{Symbol,Any}(); kwargs...)
+        n = reduce(max, map(length, (x0, x1, y0, y1)))
         f(_x0, _x1, _y0, _y1) = $(t)(_x0, _x1, _y0, _y1, copy(fields); kwargs...)
-        map(f, _rep(x0), _rep(x1), _rep(y0), _rep(y1))
+        map(f, _rep(x0, n), _rep(x1, n), _rep(y0, n), _rep(y1, n))
     end
 end
 
