@@ -1,6 +1,6 @@
 # PlotlyJS
 
-Welcome to the documentation for PloyltJS.jl, a julia interface to the
+Welcome to the documentation for PlotlyJS.jl, a julia interface to the
 [plotly.js][_plotlyjs] visualization library.
 
 This package does not interact with the [Plotly web API](TODO: LINK), but
