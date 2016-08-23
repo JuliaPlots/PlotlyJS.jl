@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     
       
-        <title>Putting it together - PlotlyJS.jl</title>
+        <title>Contributing - PlotlyJS.jl</title>
       
       
       
@@ -101,7 +101,7 @@
             
           </span>
         
-        Putting it together
+        Contributing
       </div>
     </div>
     
@@ -203,28 +203,9 @@
       
         
   <li>
-    <a class="current" title="Putting it together" href="./">
+    <a class="" title="Putting it together" href="../syncplots/">
       Putting it together
     </a>
-    
-      
-      
-        <ul>
-          
-            <li class="anchor">
-              <a title="Plot" href="#plot">
-                Plot
-              </a>
-            </li>
-          
-            <li class="anchor">
-              <a title="SyncPlots" href="#syncplots">
-                SyncPlots
-              </a>
-            </li>
-          
-        </ul>
-      
     
   </li>
 
@@ -240,9 +221,22 @@
       
         
   <li>
-    <a class="" title="Contributing" href="../contributing/">
+    <a class="current" title="Contributing" href="./">
       Contributing
     </a>
+    
+      
+      
+        <ul>
+          
+            <li class="anchor">
+              <a title="Contributing" href="#contributing">
+                Contributing
+              </a>
+            </li>
+          
+        </ul>
+      
     
   </li>
 
@@ -356,118 +350,63 @@
       <article class="article">
         <div class="wrapper">
           
-            <h1>Putting it together</h1>
+            <h1>Contributing</h1>
           
-          <p>We will now look at how to combine traces and a layout to create a plot.</p>
-<p>We'll also discuss how to integrate with various frontends</p>
-<h2 id="plot"><code>Plot</code><a class="headerlink" href="#plot" title="Permanent link">¶</a></h2>
-<p>Recall that the definition of the <code>Plot</code> object is</p>
-<div class="codehilite"><pre><span></span><span class="k">type</span><span class="nc"> Plot</span><span class="p">{</span><span class="n">TT</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}</span>
-    <span class="n">data</span><span class="p">::</span><span class="n">Vector</span><span class="p">{</span><span class="n">TT</span><span class="p">}</span>
-    <span class="n">layout</span><span class="p">::</span><span class="n">AbstractLayout</span>
-    <span class="n">divid</span><span class="p">::</span><span class="n">Base</span><span class="o">.</span><span class="n">Random</span><span class="o">.</span><span class="n">UUID</span>
-<span class="k">end</span>
-</pre></div>
-
-
-<p>Given one or more <code>AbstractTrace</code>s and optionally a <code>layout</code>, we construct a
-<code>Plot</code> object with any of the following constructors</p>
-<div class="codehilite"><pre><span></span><span class="c"># A blank canvas no traces or a layout</span>
-<span class="n">Plot</span><span class="p">()</span>
-
-<span class="c"># A vector of traces and a layout</span>
-<span class="n">Plot</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}(</span><span class="n">data</span><span class="p">::</span><span class="n">Vector</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">layout</span><span class="p">::</span><span class="n">AbstractLayout</span><span class="p">)</span>
-
-<span class="c"># A vector of traces -- default layout supplied</span>
-<span class="n">Plot</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}(</span><span class="n">data</span><span class="p">::</span><span class="n">Vector</span><span class="p">{</span><span class="n">T</span><span class="p">})</span>
-
-<span class="c"># a single trace: will be put into a vector -- default layout supplied</span>
-<span class="n">Plot</span><span class="p">(</span><span class="n">data</span><span class="p">::</span><span class="n">AbstractTrace</span><span class="p">)</span>
-
-<span class="c"># a single trace and a layout (trace put into a vector)</span>
-<span class="n">Plot</span><span class="p">(</span><span class="n">data</span><span class="p">::</span><span class="n">AbstractTrace</span><span class="p">,</span> <span class="n">layout</span><span class="p">::</span><span class="n">AbstractLayout</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Notice that none of the recommended constructors have you pass the <code>divid</code>
-field manually. This is an internal field used to allow the display and
-unique identification of multiple plots in a single web page.</p>
-<h2 id="syncplots"><code>SyncPlot</code>s<a class="headerlink" href="#syncplots" title="Permanent link">¶</a></h2>
-<p>A <code>Plot</code> is a pure Julia object and doesn't interact with plotly.js by itself.
-This means that we can't view the actual plotly figure the data represents.</p>
-<p>To do that we need to link the <code>Plot</code> to one or more display frontends.</p>
-<p>To do this in a simple and reliable way we introduce the concept of a
-<code>SyncPlot</code>, which is defined as:</p>
-<div class="codehilite"><pre><span></span><span class="k">abstract</span><span class="nc"> AbstractPlotlyDisplay</span>
-
-<span class="k">immutable</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">TD</span><span class="o">&lt;:</span><span class="n">AbstractPlotlyDisplay</span><span class="p">}</span>
-    <span class="n">plot</span><span class="p">::</span><span class="n">Plot</span>
-    <span class="n">view</span><span class="p">::</span><span class="n">TD</span>
-<span class="k">end</span>
-</pre></div>
-
-
-<p>As its name suggests, a <code>SyncPlot</code> will sync a plot with a frontend. To see the
-figure behind a <code>SyncPlot</code> named <code>p</code> you can simply call <code>display(p)</code>.
-The <code>display</code> of a <code>SyncPlot</code> follows the standard Julia mechanisms and
-<code>display</code> called automatically if you ask Julia to echo back a <code>SyncPlot</code> at
-the REPL or in a Jupyter notebook.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code>Plot</code> function will create a new <code>Plot</code> object and the <code>plot</code> function
-will create a new <code>SyncPlot</code>. Which frontend is selected will depend on
-context: if the Jupyter notebook is active the <code>JupyterDisplay</code> is chosen,
-otherwise the <code>ElectronDisplay</code> will be used.</p>
-</div>
-<p>As of the time of writing there are two supported frontends...</p>
-<h3 id="electronplot"><code>ElectronPlot</code><a class="headerlink" href="#electronplot" title="Permanent link">¶</a></h3>
-<p>The first subtype of <code>AbstractPlotlyDisplay</code> is <code>ElectronDisplay</code>. This display
-will utilize <a href="https://github.com/JunoLab/Blink.jl">Blink.jl</a> to create a
-dedicated display GUI for PlotlyJS using GitHub's
-<a href="http://electron.atom.io">Electron</a>.</p>
-<p>By hooking into Electron, we have full 2-way communication between Julia and
-javascript. We are able to evaluate arbitrary javascript expressions as if we
-were entering them at the browser's devtools javascript console. The output of
-evaluated expressions can be returned to Julia and re-constructed into Julia
-datatypes.</p>
-<p>This enables many features:</p>
+          <h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">¶</a></h2>
+<p>Contributions are welcome! For a quick list at the things on our radar, check
+out the <a href="https://github.com/spencerlyon2/PlotlyJS.jl/issues">issue list</a>.</p>
+<p>If submitting pull requests on GitHub is intimidating, we're happy to help you
+work through getting your code polished up and included in the right places.</p>
+<p>Other projects that are helpful are:</p>
 <ul>
-<li>Updating attributes on a trace or the layout</li>
-<li>Extending a trace by adding new attributes or appending to existing
-attributes</li>
-<li>Asking plotly.js to return the raw svg data for the plot, so we can further
-process it and save to pdf, png, jpeg, or eps files</li>
-<li>A steaming workflow where we can efficiently update portions of the plot</li>
-<li>(<em>Not implemented yet</em>) using Julia functions as callbacks to
-<a href="https://plot.ly/javascript/#chart-events">plotly.js events</a></li>
+<li>Adding docstrings to function names</li>
+<li>Adding more examples to the documentation (see below)</li>
+<li>Submitting feature requests or bug reports</li>
 </ul>
-<p>This is the most feature complete frontend and is a key feature of this
-package.</p>
-<p>A convenient typealias has been defined for <code>SyncPlot</code>s with the
-<code>ElectronDisplay</code> frontend:</p>
-<div class="codehilite"><pre><span></span><span class="k">typealias</span><span class="nc"> ElectronPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">ElectronDisplay</span><span class="p">}</span>
+<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">¶</a></h3>
+<p>The documentation for PlotlyJS.jl is contained in the <code>docs</code> directory of this
+repository. It currently uses a combination of the python-based <code>mkdocs</code> and a
+custom Julia script for generating examples.</p>
+<p>For more details on how to use <code>mkdocs</code>, please see
+<a href="http://www.mkdocs.org">their documentation</a>. For convenience, I will list the
+most common commands here. All of these should be run from the root directory of
+this repository:</p>
+<ul>
+<li><code>mkdocs build -c</code>: Build the documentation and put it in the <code>site</code> folder</li>
+<li><code>mkdocs serve</code>: Build the documentation and start a local web-server that can
+  be used to view the docs. Note that this is required to view any plotly.js
+  examples</li>
+</ul>
+<h4 id="adding-examples">Adding Examples<a class="headerlink" href="#adding-examples" title="Permanent link">¶</a></h4>
+<p>tl;dr: adding examples to the docs is as easy as 1, 2, 3...</p>
+<ol>
+<li>Add a new function that returns a SyncPlot to a Julia (<code>.jl</code>) file in the
+   <code>examples</code> directory</li>
+<li>Run the Julia script <code>docs/build_example_docs.jl</code> to re-generate the markdown
+   source for the examples section of the docs</li>
+<li>Rebuild the site using one of the <code>mkdocs</code> commands from above</li>
+</ol>
+<p>One of the most helpful things users can do to contribute to the documentation
+is to add more examples. These are automatically generated from the Julia
+(<code>.jl</code>) files in the <code>examples</code> directory. To add a new example, you simply need
+to open one of the files in that directory and add a new 0 argument function
+that constructs and returns a <code>SyncPlot</code> object (this is the output of the
+<code>plot</code> function).</p>
+<p>For example, if we wanted to add an example of a scatter plot of the sin function we could add the following function definition inside the <code>examples/line_scatter.jl</code> file:</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> sin_scatter</span><span class="p">()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">marker_symbol</span><span class="o">=</span><span class="s">&quot;line-nw&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers+symbols&quot;</span><span class="p">))</span>
+<span class="k">end</span>
 </pre></div>
 
 
-<h3 id="jupyerplot"><code>JupyerPlot</code><a class="headerlink" href="#jupyerplot" title="Permanent link">¶</a></h3>
-<p>We also have <code>JupyterDisplay &lt;: AbstractPlotlyDisplay</code>, which can be used to
-display PlotlyJS figures in Jupyter notebooks. Because the notebook is inside
-a running web browser we can make arbitrary calls to plotly.js, enabling many
-of the features above.</p>
-<p>However, communication within the notebook is only Julia -&gt; javascript right
-now. This means that we have not implemented features that require Julia to
-receive a return value from javascript. This includes obtaining raw svg data
-for the plot as well as registering Julia functions as callbacks.</p>
-<p>A <code>SyncPlot</code> with a <code>JupyterDisplay</code> also has a typealias:</p>
-<div class="codehilite"><pre><span></span><span class="k">typealias</span><span class="nc"> JupyterPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">JupyterDisplay</span><span class="p">}</span>
-</pre></div>
-
-
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>2 way communication between javascript and Julia is possible in the
-notebook, it just has not been implemented</p>
-</div>
+<p>The next step is to have Julia re-build the markdown (<code>.md</code>) files in
+<code>docs/examples</code> to use all your new functions in the Julia files from the
+<code>examples</code> folder. To do this run the script <code>docs/build_example_docs.jl</code>. If I
+were in the root directory of the repository, I could do this by running <code>julia docs/build_example_docs.jl</code>.</p>
+<p>The final step is to build the docs again using one of the <code>mkdocs</code> commands
+from above.</p>
           <aside class="copyright" role="note">
             
               Copyright &copy; 2016 <a href="http://spencerlyon.com/">Spencer Lyon</a> &ndash;
@@ -486,7 +425,7 @@ notebook, it just has not been implemented</p>
   <nav class="pagination" aria-label="Footer">
     <div class="previous">
       
-        <a href="../building_traces_layouts/" title="Building Blocks">
+        <a href="../manipulating_plots/" title="Working with plots">
           <span class="direction">
             Previous
           </span>
@@ -496,7 +435,7 @@ notebook, it just has not been implemented</p>
             </div>
             <div class="stretch">
               <div class="title">
-                Building Blocks
+                Working with plots
               </div>
             </div>
           </div>
@@ -505,14 +444,14 @@ notebook, it just has not been implemented</p>
     </div>
     <div class="next">
       
-        <a href="../manipulating_plots/" title="Working with plots">
+        <a href="../examples/3d/" title="3d">
           <span class="direction">
             Next
           </span>
           <div class="page">
             <div class="stretch">
               <div class="title">
-                Working with plots
+                3d
               </div>
             </div>
             <div class="button button-next" role="button" aria-label="Next">
