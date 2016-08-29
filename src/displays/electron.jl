@@ -3,14 +3,16 @@
 # ----------- #
 
 type ElectronDisplay <: AbstractPlotlyDisplay
+    divid::Base.Random.UUID
     w::Nullable{Window}
     js_loaded::Bool
 end
 
 typealias ElectronPlot SyncPlot{ElectronDisplay}
 
-ElectronDisplay() = ElectronDisplay(Nullable{Window}(), false)
-ElectronPlot(p::Plot) = ElectronPlot(p, ElectronDisplay())
+ElectronDisplay(divid::Base.Random.UUID) = ElectronDisplay(divid, Nullable{Window}(), false)
+ElectronDisplay(p::Plot) = ElectronDisplay(p.divid)
+ElectronPlot(p::Plot) = ElectronPlot(p, ElectronDisplay(p.divid))
 
 fork(jp::ElectronPlot) = ElectronPlot(fork(jp.plot), ElectronDisplay())
 
@@ -51,41 +53,44 @@ function Base.display(p::ElectronPlot; show=true, resize::Bool=_autoresize[1])
         @js w begin
             trydiv = document.getElementById($(string(p.plot.divid)))
             if trydiv == nothing
-                thediv = document.createElement("div")
-                thediv.id = $(string(p.plot.divid))
-                document.body.appendChild(thediv)
+                @var gd = document.createElement("div")
+                gd.id = $(string(p.plot.divid))
+                document.body.appendChild(gd)
             else
-                thediv = trydiv
+                @var gd = trydiv
             end
-            @var _ = Plotly.newPlot(thediv, $(p.plot.data),
+            @var _ = Plotly.newPlot(gd, $(p.plot.data),
             $(p.plot.layout),
             d("showLink"=> false))
             _.then(()->Promise.resolve())
         end
     else
+        # remove the width and height fields on the layout or
+        # the autoresize won't work
+        pop!(p.plot.layout.fields, :width, nothing)
+        pop!(p.plot.layout.fields, :height, nothing)
         magic = """
         <script>
         (function() {
-        var d3 = Plotly.d3
-        var WIDTH_IN_PERCENT_OF_PARENT = 100,
-        HEIGHT_IN_PERCENT_OF_PARENT = 100;
-        var gd3 = d3.select('body')
-        .append('div').attr("id", "$(p.plot.divid)")
-        .style({
-        width: WIDTH_IN_PERCENT_OF_PARENT + '%',
-        'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
-        height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
-        'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
-        });
-        var gd = gd3.node();
-        var data = $(json(p.plot.data))
-        var layouts = $(json(p.plot.layout))
-        Plotly.newPlot(gd, data, layouts);
-        window.onresize = function() {
-        Plotly.Plots.resize(gd);
-        };
+            var d3 = Plotly.d3
+            var WIDTH_IN_PERCENT_OF_PARENT = 100
+            var HEIGHT_IN_PERCENT_OF_PARENT = 100;
+            var gd3 = d3.select('body')
+            .append('div').attr("id", "$(p.plot.divid)")
+            .style({
+                width: WIDTH_IN_PERCENT_OF_PARENT + '%',
+                'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+                height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
+                'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+            });
+            var gd = gd3.node();
+            var data = $(json(p.plot.data));
+            var layouts = $(json(p.plot.layout));
+            Plotly.newPlot(gd, data, layouts);
+            window.onresize = function() {
+            Plotly.Plots.resize(gd);
+            };
         })();
-        thediv = document.getElementById('$(string(p.plot.divid))')
         </script>
         """
         Blink.body!(w, magic)
@@ -128,8 +133,11 @@ function Blink.js(p::ElectronDisplay, code::JSString; callback=true)
     if !isactive(p)
         return
     end
+
     Blink.js(get_window(p),
-             :(Blink.evalwith(thediv, $(Blink.jsstring(code)))), callback=callback)
+             :(Blink.evalwith(document.getElementById($(string(p.divid))),
+                              $(Blink.jsstring(code)))),
+             callback=callback)
 end
 
 Blink.js(p::ElectronPlot, code::JSString; callback=true) =

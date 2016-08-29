@@ -2,7 +2,7 @@ __precompile__()
 
 module PlotlyJS
 
-using Compat; import Compat.String
+using Compat; import Compat: String, readstring
 using JSON
 using Blink
 using Colors
@@ -118,7 +118,7 @@ function __init__()
 
         end
     else
-        @eval SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay())
+        @eval SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay(p))
     end
 
 end
