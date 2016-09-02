@@ -121,6 +121,7 @@ Base.copy(sp::SyncPlot) = fork(sp)  # defined by each SyncPlot{TD}
 # Display frontends #
 # ----------------- #
 
+include("displays/juno.jl")
 include("displays/electron.jl")
 include("displays/ijulia.jl")
 
