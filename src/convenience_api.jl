@@ -52,14 +52,6 @@ function plot{T<:Number}(y::AbstractArray{T}, l::Layout=Layout(); kwargs...)
     plot(1:size(y, 1), y, l; kwargs...)
 end
 
-"""
-$(SIGNATURES)
-Build a one `kind` trace plot using the layout `l` and all keyword arguments
-being passed to construct the trace.
-"""
-function plot(kind::Union{String,Symbol}, l::Layout=Layout(); kwargs...)
-    plot(GenericTrace(kind; kwargs...), l)
-end
 
 """
 $(SIGNATURES)
