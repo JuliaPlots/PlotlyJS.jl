@@ -92,7 +92,10 @@ export
     plot, fork, vline, hline, attr,
 
     # frontend methods
-    init_notebook
+    init_notebook,
+
+    # styles
+    use_style!, style
 
 function __init__()
     # --------------------------------------------- #
