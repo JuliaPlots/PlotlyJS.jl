@@ -2,10 +2,11 @@ __precompile__()
 
 module PlotlyJS
 
-using Compat; import Compat: String, readstring
+using Compat; import Compat: String, readstring, view
 using JSON
 using Blink
 using Colors
+using DocStringExtensions
 
 # import LaTeXStrings and export the handy macros
 using LaTeXStrings
@@ -43,6 +44,7 @@ include("display.jl")
 include("subplots.jl")
 include("api.jl")
 include("savefig.jl")
+include("convenience_api.jl")
 
 # Set some defaults for constructing `Plot`s
 Plot() = Plot(GenericTrace{Dict{Symbol,Any}}[], Layout(), Base.Random.uuid4())
@@ -55,7 +57,7 @@ Plot(data::AbstractTrace, layout=Layout()) = Plot([data], layout)
 function docs()
     schema_path = joinpath(dirname(dirname(@__FILE__)), "deps", "schema.html")
     w = Blink.Window()
-    Blink.content!(w, "html", open(readall, schema_path), fade=false)
+    Blink.content!(w, "html", open(readstring, schema_path), fade=false)
 end
 
 # NOTE: we export trace constructing types from inside api.jl
