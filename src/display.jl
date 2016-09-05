@@ -14,9 +14,13 @@ function html_body(p::Plot)
     """
 end
 
-script_content(p::Plot) = """
-    Plotly.newPlot('$(p.divid)', $(json(p.data)),  $(json(p.layout)), {showLink: false});
+function script_content(p::Plot)
+    lowered = JSON.lower(p)
     """
+    Plotly.newPlot('$(p.divid)', $(json(lowered[:data])),
+                   $(json(lowered[:layout])), {showLink: false});
+    """
+end
 
 
 function stringmime(::MIME"text/html", p::Plot, js::Symbol=:local)

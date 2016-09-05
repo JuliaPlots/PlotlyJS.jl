@@ -5,6 +5,31 @@ gt = M.GenericTrace("scatter"; x=1:10, y=sin(1:10))
     @test sort(collect(keys(gt.fields))) == [:type, :x, :y]
 end
 
+@testset "_UNDERSCORE_ATTRS" begin
+    l = M.Layout()
+
+    # test setindex!
+    l[:paper_bgcolor] = "grey"
+    @test haskey(l.fields, :paper_bgcolor)
+    @test l.fields[:paper_bgcolor] == "grey"
+
+    # test getindex
+    @test l[:paper_bgcolor] == "grey"
+    @test l["paper_bgcolor"] == "grey"
+
+    # now do it again with the string form of setindex!
+    l = M.Layout()
+
+    # test setindex!
+    l["paper_bgcolor"] = "grey"
+    @test haskey(l.fields, :paper_bgcolor)
+    @test l.fields[:paper_bgcolor] == "grey"
+
+    # test getindex
+    @test l[:paper_bgcolor] == "grey"
+    @test l["paper_bgcolor"] == "grey"
+end
+
 @testset "test setindex!, getindex methods" begin
     gt[:visible] = true
     @test length(gt.fields) == 4

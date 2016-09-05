@@ -49,6 +49,7 @@ end
 function Base.display(p::ElectronPlot; show=true, resize::Bool=_autoresize[1])
     w = get_window(p, show=show)
     loadjs(p.view)
+    lowered = JSON.lower(p.plot)
     if !resize
         @js w begin
             trydiv = document.getElementById($(string(p.plot.divid)))
@@ -59,8 +60,8 @@ function Base.display(p::ElectronPlot; show=true, resize::Bool=_autoresize[1])
             else
                 @var gd = trydiv
             end
-            @var _ = Plotly.newPlot(gd, $(p.plot.data),
-            $(p.plot.layout),
+            @var _ = Plotly.newPlot(gd, $(json(lowered[:data])),
+            $(json(lowered[:layout])),
             d("showLink"=> false))
             _.then(()->Promise.resolve())
         end

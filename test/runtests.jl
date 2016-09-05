@@ -7,11 +7,10 @@ else
     const Test = BaseTestNext
 end
 
-include(joinpath(dirname(dirname(abspath(@__FILE__))), "src", "PlotlyJS.jl"))
-using .PlotlyJS
+using PlotlyJS
 typealias M PlotlyJS
 
-tests = length(ARGS) > 0 ? ARGS : ["traces", "api"]
+tests = length(ARGS) > 0 ? ARGS : ["traces", "api", "styles"]
 
 for fn in tests
     include(string(fn, ".jl"))

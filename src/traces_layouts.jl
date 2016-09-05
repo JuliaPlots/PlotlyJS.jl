@@ -44,7 +44,9 @@ end
 function attr(fields=Dict{Symbol,Any}(); kwargs...)
     # use setindex! methods below to handle `_` substitution
     s = PlotlyAttribute(fields)
-    map(x->setindex!(s, x[2], x[1]), kwargs)
+    for (k, v) in kwargs
+        s[k] = v
+    end
     s
 end
 
@@ -144,14 +146,71 @@ hline(y, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
 # ---------------------------------------- #
 
 typealias HasFields Union{GenericTrace,Layout,Shape,PlotlyAttribute}
+typealias _LikeAssociative Union{PlotlyAttribute,Associative}
 
-Base.merge(hf::HasFields, d::Dict) = merge(hf.fields, d)
-Base.merge{T<:HasFields}(hf1::T, hf2::T) = merge(hf1.fields, hf2.fields)
+#= NOTE: Generate this list with the following code
+using JSON, PlotlyJS
+d = JSON.parsefile(Pkg.dir("PlotlyJS", "deps", "plotschema.json"))
+d = PlotlyJS._symbol_dict(d)
+
+nms = Set{Symbol}()
+function add_to_names!(d::Associative)
+    map(add_to_names!, keys(d))
+    map(add_to_names!, values(d))
+    nothing
+end
+add_to_names!(s::Symbol) = push!(nms, s)
+add_to_names!(x) = nothing
+
+add_to_names!(d[:schema][:layout][:layoutAttributes])
+for (_, v) in d[:schema][:traces]
+    add_to_names!(v)
+end
+
+_UNDERSCORE_ATTRS = collect(
+    filter(
+        x-> contains(string(x), "_") && !startswith(string(x), "_"),
+        nms
+    )
+)
+
+=#
+const _UNDERSCORE_ATTRS = [:error_x, :copy_ystyle, :error_z, :plot_bgcolor,
+                           :paper_bgcolor, :copy_zstyle, :error_y]
+
+function Base.merge(hf::HasFields, d::Dict)
+    out = deepcopy(hf)
+    for (k, v) in d
+        out[k] = d
+    end
+    out
+end
+
+function Base.merge!(hf1::HasFields, hf2::HasFields)
+    for (k, v) in hf2.fields
+        hf1[k] = v
+    end
+    hf1
+end
+
+Base.merge{T<:HasFields}(hf1::T, hf2::T) =
+    merge!(deepcopy(hf1), hf2)
+
+Base.isempty(hf::HasFields) = isempty(hf.fields)
 Base.get(hf::HasFields, k::Symbol, default) = get(hf.fields, k, default)
 
+Base.start(hf::HasFields) = start(hf.fields)
+Base.next(hf::HasFields, x) = next(hf.fields, x)
+Base.done(hf::HasFields, x) = done(hf.fields, x)
+
 # methods that allow you to do `obj["first.second.third"] = val`
-Base.setindex!(gt::HasFields, val, key::String) =
-    setindex!(gt, val, map(Symbol, split(key, ['.', '_']))...)
+function Base.setindex!(gt::HasFields, val, key::String)
+    if in(Symbol(key), _UNDERSCORE_ATTRS)
+        return gt.fields[Symbol(key)] = val
+    else
+        return setindex!(gt, val, map(Symbol, split(key, ['.', '_']))...)
+    end
+end
 
 Base.setindex!(gt::HasFields, val, keys::String...) =
     setindex!(gt, val, map(Symbol, keys)...)
@@ -161,8 +220,12 @@ Base.setindex!(gt::HasFields, val, keys::String...) =
 # schema gets deeper in the future we can @generate them with @nexpr
 function Base.setindex!(gt::HasFields, val, key::Symbol)
     # check if single key has underscores, if so split at str and call above
+    # unless it is one of the special attribute names with an underscore
     if contains(string(key), "_")
-        return setindex!(gt, val, string(key))
+
+        if !in(key, _UNDERSCORE_ATTRS)
+            return setindex!(gt, val, string(key))
+        end
     end
     gt.fields[key] = val
 end
@@ -195,17 +258,54 @@ function Base.setindex!(gt::HasFields, val, k1::Symbol, k2::Symbol,
     val
 end
 
+#= NOTE: I need to special case instances when `val` is Associatve like so that
+         I can partially update something that already exists.
+
+Example:
+
+hf = Layout(font_size=10)
+val = Layout(font_family="Helvetica")
+
+=#
+function Base.setindex!(gt::HasFields, val::_LikeAssociative, key::Symbol)
+    for (k, v) in val
+        setindex!(gt, v, key, k)
+    end
+end
+
+function Base.setindex!(gt::HasFields, val::_LikeAssociative, k1::Symbol,
+                        k2::Symbol)
+    for (k, v) in val
+        setindex!(gt, v, k1, k2, k)
+    end
+end
+
+function Base.setindex!(gt::HasFields, val::_LikeAssociative, k1::Symbol,
+                        k2::Symbol, k3::Symbol)
+    for (k, v) in val
+        setindex!(gt, v, k1, k2, k3, k)
+    end
+end
+
+
 # now on to the simpler getindex methods. They will try to get the desired
 # key, but if it doesn't exist an empty dict is returned
-Base.getindex(gt::HasFields, key::String) =
-    getindex(gt, map(Symbol, split(key, ['.', '_']))...)
+function Base.getindex(gt::HasFields, key::String)
+    if in(Symbol(key), _UNDERSCORE_ATTRS)
+        gt.fields[Symbol(key)]
+    else
+        getindex(gt, map(Symbol, split(key, ['.', '_']))...)
+    end
+end
 
 Base.getindex(gt::HasFields, keys::String...) =
     getindex(gt, map(Symbol, keys)...)
 
 function Base.getindex(gt::HasFields, key::Symbol)
     if contains(string(key), "_")
-        return getindex(gt, string(key))
+        if !in(key, _UNDERSCORE_ATTRS)
+            return getindex(gt, string(key))
+        end
     end
     get(gt.fields, key, Dict())
 end

@@ -29,6 +29,7 @@ _isijulia() = isdefined(Main, :IJulia) && Main.IJulia.inited
 
 # include these here because they are used below
 include("traces_layouts.jl")
+include("styles.jl")
 abstract AbstractPlotlyDisplay
 
 # core plot object
@@ -36,23 +37,31 @@ type Plot{TT<:AbstractTrace}
     data::Vector{TT}
     layout::AbstractLayout
     divid::Base.Random.UUID
+    style::PlotStyle
 end
 
 # include the rest of the core parts of the package
-include("json.jl")
 include("display.jl")
+include("json.jl")
 include("subplots.jl")
 include("api.jl")
 include("savefig.jl")
 include("convenience_api.jl")
 
 # Set some defaults for constructing `Plot`s
-Plot() = Plot(GenericTrace{Dict{Symbol,Any}}[], Layout(), Base.Random.uuid4())
+function Plot(;style::PlotStyle=DEFAULT_STYLE[1])
+    Plot(GenericTrace{Dict{Symbol,Any}}[], Layout(), Base.Random.uuid4(), style)
+end
 
-Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout()) =
-    Plot(data, layout, Base.Random.uuid4())
+function Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout();
+                                style::PlotStyle=DEFAULT_STYLE[1])
+    Plot(data, layout, Base.Random.uuid4(), style)
+end
 
-Plot(data::AbstractTrace, layout=Layout()) = Plot([data], layout)
+function Plot(data::AbstractTrace, layout=Layout();
+              style::PlotStyle=DEFAULT_STYLE[1])
+    Plot([data], layout; style=style)
+end
 
 function docs()
     schema_path = joinpath(dirname(dirname(@__FILE__)), "deps", "schema.html")
