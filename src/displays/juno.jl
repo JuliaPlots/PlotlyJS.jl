@@ -1,8 +1,7 @@
-using Juno, Juno.Media, Juno.Hiccup
+using Juno
+import Juno: Tree, Row, icon, fade
 
-function mediatypes()
-  media(SyncPlot, Media.Plot)
-end
+media(SyncPlot, Media.Plot)
 
 function Juno.render(::Juno.PlotPane, plot::SyncPlot)
   display_blink(plot)
@@ -13,6 +12,5 @@ end
 end
 
 @render Juno.Editor p::Plot begin
-  Juno.Tree(span([Juno.Atom.fade("Plotly "), Juno.Atom.icon("graph")]),
-            [p.data, p.layout])
+  Tree(icon("graph"), [p.data, p.layout])
 end
