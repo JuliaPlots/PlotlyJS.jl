@@ -3,6 +3,19 @@
 # -------------------------------- #
 JSON.lower(a::HasFields) = a.fields
 
+function _apply_style_axis!(p::Plot, ax)
+    if haskey(p.style.layout_attrs.fields, Symbol(ax, "axis"))
+        ax_names = filter(_-> startswith(string(_), "$(ax)axis"),
+                          keys(p.layout.fields))
+
+        for ax_name in ax_names
+            cur = p.layout.fields[ax_name]
+            cur = merge(p.style.layout_attrs[Symbol(ax, "axis")], cur)
+        end
+    end
+
+end
+
 function JSON.lower(p::Plot)
     if p.style.name == :default
         return Dict(:data => p.data, :layout => p.layout)
@@ -21,7 +34,15 @@ function JSON.lower(p::Plot)
 
     # apply layout attrs
     if !isempty(p.style.layout_attrs)
-        p.layout = merge(p.style.layout_attrs, p.layout)
+        _apply_style_axis!(p, "x")
+        _apply_style_axis!(p, "y")
+
+        # extract this so we can pop! off xaxis and yaxis so they aren't
+        # applied again
+        la = deepcopy(p.style.layout_attrs)
+        pop!(la.fields, :xaxis, nothing)
+        pop!(la.fields, :yaxis, nothing)
+        p.layout = merge(la, p.layout)
     end
 
     # apply global trace attrs

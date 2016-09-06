@@ -95,7 +95,7 @@ export
     init_notebook,
 
     # styles
-    use_style!, style
+    use_style!, style, PlotStyle
 
 function __init__()
     # --------------------------------------------- #

@@ -56,7 +56,8 @@ function ggplot_style()
 
     colors = ["#E24A33", "#348ABD", "#988ED5", "#777777", "#FBC15E",
               "#8EBA42", "#FFB5B8"]
-    PlotStyle(name=:ggplot, layout_attrs=layout, color_cycle=colors)
+    PlotStyle(name=:ggplot, layout_attrs=layout, color_cycle=colors,
+              global_trace_attrs=gta)
 end
 
 function fivethirtyeight_style()
@@ -104,7 +105,8 @@ function seaborn_style()
                                 bgcolor="white", bordercolor="white"),
                     titlefont_size=14)
     colors = ["#4C72B0", "#55A868", "#C44E52", "#8172B2", "#CCB974", "#64B5CD"]
-    PlotStyle(name=:fivethirtyeight, color_cycle=colors, trace_attrs=ta)
+    PlotStyle(name=:fivethirtyeight, color_cycle=colors, trace_attrs=ta,
+              layout_attrs=layout)
 end
 
 reset_style!() = DEFAULT_STYLE[1] = PlotStyle(name=:default)

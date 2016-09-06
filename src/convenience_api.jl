@@ -70,7 +70,7 @@ function plot(f::Function, x0::Number, x1::Number, l::Layout=Layout();
               kwargs...)
     x = linspace(x0, x1, 50)
     y = [f(_) for _ in x]
-    plot(GenericTrace(x, y; kwargs...), l, style=style)
+    plot(GenericTrace(x, y; name=Symbol(f), kwargs...), l, style=style)
 end
 
 """
@@ -84,7 +84,8 @@ function plot(fs::AbstractVector{Function}, x0::Number, x1::Number,
               style::PlotStyle=DEFAULT_STYLE[1],
               kwargs...)
     x = linspace(x0, x1, 50)
-    traces = GenericTrace[GenericTrace(x, map(f, x); kwargs...) for f in fs]
+    traces = GenericTrace[GenericTrace(x, map(f, x); name=Symbol(f), kwargs...)
+                          for f in fs]
     plot(traces, l; style=style)
 end
 
