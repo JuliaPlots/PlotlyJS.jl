@@ -86,7 +86,6 @@ export
     init_notebook
 
 function __init__()
-    mediatypes()
     # --------------------------------------------- #
     # Code to run once when the notebook starts up! #
     # --------------------------------------------- #
