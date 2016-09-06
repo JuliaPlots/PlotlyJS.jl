@@ -53,7 +53,7 @@ end
 abstract AbstractLayoutAttribute <: AbstractPlotlyAttribute
 abstract AbstractShape <: AbstractLayoutAttribute
 
-kind{T<:AbstractPlotlyAttribute}(::T) = string(T)
+kind(::AbstractPlotlyAttribute) = "PlotlyAttribute"
 
 # TODO: maybe loosen some day
 typealias _Scalar Union{Base.Dates.Date,Number,AbstractString,Symbol}

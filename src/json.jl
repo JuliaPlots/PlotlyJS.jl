@@ -16,11 +16,17 @@ function _apply_style_axis!(p::Plot, ax)
 
 end
 
-function JSON.lower(p::Plot)
-    if p.style.name == :default
-        return Dict(:data => p.data, :layout => p.layout)
-    end
+_maybe_set_attr!(hf::HasFields, k::Symbol, v::Any) =
+    get(hf, k, nothing) == nothing && setindex!(hf, v, k)
 
+# special case for associative to get nested application
+function _maybe_set_attr!(hf::HasFields, k1::Symbol, v::Associative)
+    for (k2, v2) in v
+        _maybe_set_attr!(hf, Symbol(k1, "_", k2), v2)
+    end
+end
+
+function JSON.lower(p::Plot)
     # apply color cycle
     if !isempty(p.style.color_cycle)
         n = length(p.style.color_cycle)
@@ -49,8 +55,7 @@ function JSON.lower(p::Plot)
     if !isempty(p.style.global_trace)
         for (k, v) in p.style.global_trace.fields
             for t in p.data
-                get(t, k, nothing) != nothing && continue
-                t[k] = v
+                _maybe_set_attr!(t, k, v)
             end
         end
     end
@@ -60,8 +65,7 @@ function JSON.lower(p::Plot)
         for t in p.data
             t_type = Symbol(get(t, :type, :scatter))
             for (k, v) in get(p.style.trace, t_type, Dict())
-                get(t, k, nothing) != nothing && continue
-                t[k] = v
+                _maybe_set_attr!(t, k, v)
             end
         end
     end

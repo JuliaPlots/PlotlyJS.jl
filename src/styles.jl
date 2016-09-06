@@ -1,19 +1,16 @@
 immutable Style
-    name::Symbol
     color_cycle::Vector
     layout::Layout
     global_trace::PlotlyAttribute
     trace::Dict{Symbol,PlotlyAttribute}
 end
 
-function Style(;name::Symbol=gensym(), color_cycle=[], layout=Layout(),
-                   global_trace=attr(),
-                   trace=Dict{Symbol,PlotlyAttribute}())
-    Style(name, color_cycle, layout, global_trace, trace)
+function Style(;color_cycle=[], layout=Layout(), global_trace=attr(),
+                trace=Dict{Symbol,PlotlyAttribute}())
+    Style(color_cycle, layout, global_trace, trace)
 end
 
 function Style(ps1::Style, ps2::Style)
-    nm = Symbol(ps1.name, "+", ps2.name)
     cs = isempty(ps2.color_cycle) ? ps1.color_cycle: ps2.color_cycle
 
     la = deepcopy(ps1.layout)
@@ -30,34 +27,62 @@ function Style(ps1::Style, ps2::Style)
         ta[k] = ta_k
     end
 
-    Style(name=nm,
-              color_cycle=cs,
-              layout=la,
-              global_trace=gta,
-              trace=ta)
+    Style(color_cycle=cs, layout=la, global_trace=gta, trace=ta)
 end
 
-const DEFAULT_STYLE = [Style(name=:default)]
+Style(pss::Style...) = foldl(Style, pss[1], pss[2:end])
+
+function Style(base::Style; color_cycle=[], layout=Layout(),
+               global_trace=attr(), trace=Dict{Symbol,PlotlyAttribute}())
+    new_style = Style(color_cycle, layout, global_trace, trace)
+    Style(base, new_style)
+end
+
+@compat function Base.show(io::IO, ::MIME"text/plain", s::Style)
+    println(io, "Style with:")
+
+    if !isempty(s.color_cycle)
+        println(io, "  - color_cycle: ", s.color_cycle)
+    end
+
+    if !isempty(s.layout)
+        print(io, "  - "); show(io, MIME"text/plain"(), s.layout)
+    end
+
+    if !isempty(s.global_trace)
+        print(io, "  - global_trace: ")
+        show(io, MIME"text/plain"(), s.global_trace)
+    end
+
+    if !isempty(s.trace)
+        println(io, "  - trace: ")
+        for (k, v) in s.trace
+            print(io, "    - ", k, ": "); show(io, MIME"text/plain"(), v)
+        end
+    end
+end
+
+const DEFAULT_STYLE = [Style()]
+const STYLES = [:default, :ggplot, :fivethirtyeight, :seaborn]
 
 function ggplot_style()
     axis = attr(showgrid=true, gridcolor="white", linewidth=1.0,
-                      linecolor="white", titlefont_color="#555555",
-                      titlefont_size=14, ticks="outside",
-                      tickcolor="#555555"
-                      )
-    layout = Layout(Dict{Symbol,Any}(:plot_bgcolor => "#E5E5E5",
-                                     :paper_bgcolor => "white");
-                                     font_size=10,
-                                     xaxis=axis,
-                                     yaxis=axis,
-                                     titlefont_size=14)
+                linecolor="white", titlefont_color="#555555",
+                titlefont_size=14, ticks="outside",
+                tickcolor="#555555"
+                )
+    layout = Layout(plot_bgcolor="#E5E5E5",
+                    paper_bgcolor="white",
+                    font_size=10,
+                    xaxis=axis,
+                    yaxis=axis,
+                    titlefont_size=14)
 
     gta = attr(marker_line_width=0.5, marker_line_color="#348ABD")
 
     colors = ["#E24A33", "#348ABD", "#988ED5", "#777777", "#FBC15E",
               "#8EBA42", "#FFB5B8"]
-    Style(name=:ggplot, layout=layout, color_cycle=colors,
-              global_trace=gta)
+    Style(layout=layout, color_cycle=colors, global_trace=gta)
 end
 
 function fivethirtyeight_style()
@@ -78,8 +103,7 @@ function fivethirtyeight_style()
                     titlefont_size=14)
     colors = ["#008fd5", "#fc4f30", "#e5ae38", "#6d904f",
               "#8b8b8b", "#810f7c"]
-    Style(name=:fivethirtyeight, layout=layout, color_cycle=colors,
-              trace=ta)
+    Style(layout=layout, color_cycle=colors, trace=ta)
 end
 
 function seaborn_style()
@@ -105,19 +129,17 @@ function seaborn_style()
                                 bgcolor="white", bordercolor="white"),
                     titlefont_size=14)
     colors = ["#4C72B0", "#55A868", "#C44E52", "#8172B2", "#CCB974", "#64B5CD"]
-    Style(name=:fivethirtyeight, color_cycle=colors, trace=ta,
-              layout=layout)
+    Style(color_cycle=colors, trace=ta, layout=layout)
 end
 
-reset_style!() = DEFAULT_STYLE[1] = Style(name=:default)
-
-use_style!(sty::Symbol) =
-    DEFAULT_STYLE[1] = style(sty)
+reset_style!() = DEFAULT_STYLE[1] = Style()
+use_style!(sty::Symbol) = DEFAULT_STYLE[1] = style(sty)
+use_style!(s::Style) = DEFAULT_STYLE[1] = s
 
 function style(sty::Symbol)
     sty == :ggplot ? ggplot_style() :
     sty == :fivethirtyeight ? fivethirtyeight_style() :
     sty == :seaborn ? seaborn_style() :
-    sty == :default ? Style(name=:default) :
+    sty == :default ? Style() :
     error("Uknown style $sty")
 end
