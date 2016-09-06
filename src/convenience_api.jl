@@ -19,14 +19,14 @@ columns (say `N`). Then `N` traces are constructed, where the `i`th column of
 """
 function plot{T<:Number,T2<:Number}(x::AbstractArray{T}, y::AbstractArray{T2},
                                     l::Layout=Layout();
-                                    style::PlotStyle=DEFAULT_STYLE[1],
+                                    style::Style=DEFAULT_STYLE[1],
                                     kind="scatter", kwargs...)
     plot(GenericTrace(x, y; kind=kind, kwargs...), l, style=style)
 end
 
 function plot{T<:Number,T2<:Number}(x::AbstractVector{T}, y::AbstractMatrix{T2},
                                     l::Layout=Layout();
-                                    style::PlotStyle=DEFAULT_STYLE[1],
+                                    style::Style=DEFAULT_STYLE[1],
                                     kwargs...)
     traces = GenericTrace[GenericTrace(x, view(y, :, i); kwargs...)
                           for i in 1:size(y,2)]
@@ -35,7 +35,7 @@ end
 
 function plot{T<:Number,T2<:Number}(x::AbstractMatrix{T}, y::AbstractMatrix{T2},
                                     l::Layout=Layout();
-                                    style::PlotStyle=DEFAULT_STYLE[1],
+                                    style::Style=DEFAULT_STYLE[1],
                                     kwargs...)
     if size(x, 2) == 1
         # use method above
@@ -66,7 +66,7 @@ Construct a plot of `f` from `x0` to `x1`, using the layout `l`. All
 keyword arguments are applied to the constructed trace.
 """
 function plot(f::Function, x0::Number, x1::Number, l::Layout=Layout();
-              style::PlotStyle=DEFAULT_STYLE[1],
+              style::Style=DEFAULT_STYLE[1],
               kwargs...)
     x = linspace(x0, x1, 50)
     y = [f(_) for _ in x]
@@ -81,7 +81,7 @@ constructed traces.
 """
 function plot(fs::AbstractVector{Function}, x0::Number, x1::Number,
               l::Layout=Layout();
-              style::PlotStyle=DEFAULT_STYLE[1],
+              style::Style=DEFAULT_STYLE[1],
               kwargs...)
     x = linspace(x0, x1, 50)
     traces = GenericTrace[GenericTrace(x, map(f, x); name=Symbol(f), kwargs...)
@@ -103,7 +103,7 @@ plot((y, x), (x, y, :kind=>"bar"), trace3, width=400, xaxis_range=(-1, 11))
 ```
 """
 function plot(args::Tuple{AbstractVector,AbstractVector,Vararg{Pair}}...;
-              style::PlotStyle=DEFAULT_STYLE[1],
+              style::Style=DEFAULT_STYLE[1],
               kwargs...)
     traces = [GenericTrace(a[1], a[2]; a[3:end]...) for a in args]
     plot(traces, Layout(;kwargs...), style=style)

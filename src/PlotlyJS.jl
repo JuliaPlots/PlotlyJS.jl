@@ -37,7 +37,7 @@ type Plot{TT<:AbstractTrace}
     data::Vector{TT}
     layout::AbstractLayout
     divid::Base.Random.UUID
-    style::PlotStyle
+    style::Style
 end
 
 # include the rest of the core parts of the package
@@ -49,17 +49,17 @@ include("savefig.jl")
 include("convenience_api.jl")
 
 # Set some defaults for constructing `Plot`s
-function Plot(;style::PlotStyle=DEFAULT_STYLE[1])
+function Plot(;style::Style=DEFAULT_STYLE[1])
     Plot(GenericTrace{Dict{Symbol,Any}}[], Layout(), Base.Random.uuid4(), style)
 end
 
 function Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout();
-                                style::PlotStyle=DEFAULT_STYLE[1])
+                                style::Style=DEFAULT_STYLE[1])
     Plot(data, layout, Base.Random.uuid4(), style)
 end
 
 function Plot(data::AbstractTrace, layout=Layout();
-              style::PlotStyle=DEFAULT_STYLE[1])
+              style::Style=DEFAULT_STYLE[1])
     Plot([data], layout; style=style)
 end
 
@@ -95,7 +95,7 @@ export
     init_notebook,
 
     # styles
-    use_style!, style, PlotStyle
+    use_style!, style, Style
 
 function __init__()
     # --------------------------------------------- #
