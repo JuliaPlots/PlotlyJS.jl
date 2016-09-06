@@ -4,13 +4,13 @@
 JSON.lower(a::HasFields) = a.fields
 
 function _apply_style_axis!(p::Plot, ax)
-    if haskey(p.style.layout_attrs.fields, Symbol(ax, "axis"))
+    if haskey(p.style.layout.fields, Symbol(ax, "axis"))
         ax_names = filter(_-> startswith(string(_), "$(ax)axis"),
                           keys(p.layout.fields))
 
         for ax_name in ax_names
             cur = p.layout.fields[ax_name]
-            cur = merge(p.style.layout_attrs[Symbol(ax, "axis")], cur)
+            cur = merge(p.style.layout[Symbol(ax, "axis")], cur)
         end
     end
 
@@ -33,21 +33,21 @@ function JSON.lower(p::Plot)
     end
 
     # apply layout attrs
-    if !isempty(p.style.layout_attrs)
+    if !isempty(p.style.layout)
         _apply_style_axis!(p, "x")
         _apply_style_axis!(p, "y")
 
         # extract this so we can pop! off xaxis and yaxis so they aren't
         # applied again
-        la = deepcopy(p.style.layout_attrs)
+        la = deepcopy(p.style.layout)
         pop!(la.fields, :xaxis, nothing)
         pop!(la.fields, :yaxis, nothing)
         p.layout = merge(la, p.layout)
     end
 
     # apply global trace attrs
-    if !isempty(p.style.global_trace_attrs)
-        for (k, v) in p.style.global_trace_attrs.fields
+    if !isempty(p.style.global_trace)
+        for (k, v) in p.style.global_trace.fields
             for t in p.data
                 get(t, k, nothing) != nothing && continue
                 t[k] = v
@@ -56,10 +56,10 @@ function JSON.lower(p::Plot)
     end
 
     # apply trace specific attrs
-    if !isempty(p.style.trace_attrs)
+    if !isempty(p.style.trace)
         for t in p.data
             t_type = Symbol(get(t, :type, :scatter))
-            for (k, v) in get(p.style.trace_attrs, t_type, Dict())
+            for (k, v) in get(p.style.trace, t_type, Dict())
                 get(t, k, nothing) != nothing && continue
                 t[k] = v
             end
