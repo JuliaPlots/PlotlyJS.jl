@@ -2,6 +2,6 @@ julia 0.4
 JSON 0.7
 Blink 0.3.3
 Colors
-Compat 0.7.16
+Compat 0.8.4
 LaTeXStrings
 DocStringExtensions

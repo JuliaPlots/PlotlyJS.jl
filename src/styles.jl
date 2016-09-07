@@ -1,3 +1,13 @@
+#=
+Note that the following styles used values from the matplotlib style library
+(https://github.com/matplotlib/matplotlib/tree/master/lib/matplotlib/mpl-data/stylelib):
+
+- ggplot
+- fivethirtyeight
+- seaborn
+
+=#
+
 immutable Style
     color_cycle::Vector
     layout::Layout
