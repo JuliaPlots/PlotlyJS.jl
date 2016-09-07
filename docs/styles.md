@@ -139,11 +139,6 @@ ways to use a `Style`:
 - Global mode: call the `use_style!(::Style)` function to set a global style
 for all _subsequent_ plots (styles are not applied retroactively to plots that
 were created before this function is called).
-
-!!! note
-    there is also a method `use_style!(::Symbol)` that sets the style to a
-    predefined style. See `PlotlyJS.STYLES` for a list of built in styles
-
 - Plot by plot mode: All methods of the `plot` and `Plot` functions accept a
 keyword argument `style::Style` that sets the style for that plot only.
 
@@ -154,6 +149,17 @@ keyword argument `style::Style` that sets the style for that plot only.
     after subplots are created (e.g. `p = [p1 p2]; p.style=ggplot`, where
     `ggplot` is defined as aobve)
 
+## Built in `Style`s
+
+There are a few built in styles that come with PlotlyJS.jl. More will be added
+over time. To see which styles are currently built in look at the unexported
+`PlotlyJS.STYLES` variable.
+
+To obtain a built in style use the method `Style(s::Symbol)`, where `s` is one
+of the symbols in `PlotlyJS.STYLES`.
+
+To use a built in style globally use the method `use_style!(s::Symbol)`, where
+again `s` is a symbol from `PlotlyJS.STYLES`.
 
 ## Appendix: How `Style`s work
 
