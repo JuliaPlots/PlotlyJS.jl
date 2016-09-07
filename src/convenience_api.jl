@@ -88,23 +88,3 @@ function plot(fs::AbstractVector{Function}, x0::Number, x1::Number,
                           for f in fs]
     plot(traces, l; style=style)
 end
-
-"""
-$(SIGNATURES)
-Construct a plot with an arbitrary number of traces. Each trace has the form
-`(x, y :kwarg1=>val1, :kwarg2=>val2, ...)` where you can specify an arbitrary
-number of trace arguments in the tuple. All keyword arguments are used to build
-arguments are used to build the Layout object. See below for an example
-
-```julia
-x = 1:5; y = rand(5)
-trace3 = (x, y, :marker_color=>:red, :line_width=>6, :marker_symbol=>"square")
-plot((y, x), (x, y, :kind=>"bar"), trace3, width=400, xaxis_range=(-1, 11))
-```
-"""
-function plot(args::Tuple{AbstractVector,AbstractVector,Vararg{Pair}}...;
-              style::Style=DEFAULT_STYLE[1],
-              kwargs...)
-    traces = [GenericTrace(a[1], a[2]; a[3:end]...) for a in args]
-    plot(traces, Layout(;kwargs...), style=style)
-end
