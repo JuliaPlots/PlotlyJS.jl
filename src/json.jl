@@ -81,8 +81,8 @@ Base.print{T<:GenericTrace}(io::IO, a::Vector{T}) = print(io, JSON.json(a))
 
 # methods to re-construct a plot from JSON
 _symbol_dict(x) = x
-@compat _symbol_dict(d::Associative) =
-    Dict{Symbol,Any}(Symbol(k) => _symbol_dict(v) for (k, v) in d)
+_symbol_dict(d::Associative) =
+    Dict{Symbol,Any}([(Symbol(k), _symbol_dict(v)) for (k, v) in d])
 
 GenericTrace(d::Associative{Symbol}) = GenericTrace(pop!(d, :type, "scatter"), d)
 GenericTrace{T<:AbstractString}(d::Associative{T}) = GenericTrace(_symbol_dict(d))
