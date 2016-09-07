@@ -242,6 +242,12 @@
             </li>
           
             <li class="anchor">
+              <a title="Built in Styles" href="#built-in-styles">
+                Built in Styles
+              </a>
+            </li>
+          
+            <li class="anchor">
               <a title="Appendix: How Styles work" href="#appendix-how-styles-work">
                 Appendix: How Styles work
               </a>
@@ -495,13 +501,6 @@ ways to use a <code>Style</code>:</p>
 <li>Global mode: call the <code>use_style!(::Style)</code> function to set a global style
 for all <em>subsequent</em> plots (styles are not applied retroactively to plots that
 were created before this function is called).</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>there is also a method <code>use_style!(::Symbol)</code> that sets the style to a
-predefined style. See <code>PlotlyJS.STYLES</code> for a list of built in styles</p>
-</div>
-<ul>
 <li>Plot by plot mode: All methods of the <code>plot</code> and <code>Plot</code> functions accept a
 keyword argument <code>style::Style</code> that sets the style for that plot only.</li>
 </ul>
@@ -513,6 +512,14 @@ global mode or construct the plot and set the <code>style</code> field on the pa
 after subplots are created (e.g. <code>p = [p1 p2]; p.style=ggplot</code>, where
 <code>ggplot</code> is defined as aobve)</p>
 </div>
+<h2 id="built-in-styles">Built in <code>Style</code>s<a class="headerlink" href="#built-in-styles" title="Permanent link">¶</a></h2>
+<p>There are a few built in styles that come with PlotlyJS.jl. More will be added
+over time. To see which styles are currently built in look at the unexported
+<code>PlotlyJS.STYLES</code> variable.</p>
+<p>To obtain a built in style use the method <code>Style(s::Symbol)</code>, where <code>s</code> is one
+of the symbols in <code>PlotlyJS.STYLES</code>.</p>
+<p>To use a built in style globally use the method <code>use_style!(s::Symbol)</code>, where
+again <code>s</code> is a symbol from <code>PlotlyJS.STYLES</code>.</p>
 <h2 id="appendix-how-styles-work">Appendix: How <code>Style</code>s work<a class="headerlink" href="#appendix-how-styles-work" title="Permanent link">¶</a></h2>
 <p>The best way to think about styles is that they will apply default values for
 attributes, only if the attribute is not already defined. For example, suppose
