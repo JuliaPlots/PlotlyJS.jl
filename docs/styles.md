@@ -202,7 +202,8 @@ julia> print(json(p1, 2))
       "type": "scatter",
       "mode": "lines",
       "marker": {
-        "symbol": "square"
+        "symbol": "square",
+        "color": "red"
       }
     }
   ]

@@ -26,3 +26,19 @@ ps2 = M.Style(layout=M.Layout(font_family="Helvetica"))
     end
 
 end
+
+@testset "setting plot attributes" begin
+
+    goofy = Style(global_trace=attr(marker_color="red"),
+                  trace=Dict(:scatter => attr(mode="markers")))
+
+    p1 = Plot(scatter(y=1:3, mode="lines", marker_symbol="square"), style=goofy)
+    p2 = Plot(scatter(y=1:3, marker_color="green"), style=goofy)
+
+    # now call JSON.lower to enforce style
+    PlotlyJS.JSON.lower(p1)
+    PlotlyJS.JSON.lower(p2)
+
+    @test p1.data[1]["marker_color"] == "red"
+    @test p2.data[1]["marker_color"] == "green"
+end

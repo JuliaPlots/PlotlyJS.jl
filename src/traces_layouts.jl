@@ -197,7 +197,11 @@ Base.merge{T<:HasFields}(hf1::T, hf2::T) =
     merge!(deepcopy(hf1), hf2)
 
 Base.isempty(hf::HasFields) = isempty(hf.fields)
-Base.get(hf::HasFields, k::Symbol, default) = get(hf.fields, k, default)
+
+function Base.get(hf::HasFields, k::Symbol, default)
+    out = getindex(hf, k)
+    isempty(out) ? default : out
+end
 
 Base.start(hf::HasFields) = start(hf.fields)
 Base.next(hf::HasFields, x) = next(hf.fields, x)
