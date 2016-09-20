@@ -67,25 +67,8 @@ function errorbars1()
 end
 
 function errorbars2()
-    function _random_date(_start, _end, _mul)
-
-        function _getTime(date)
-            return date-DateTime(Date(1970, 01, 01))
-            #returns -18000000 less than getTime() in JS
-        end
-
-        return Date(convert(Base.Dates.Millisecond, Int(_getTime(_start)) + _mul * (Int(_getTime(_end) - _getTime(_start)))))
-        #calling Date on this value (which is in Milliseconds) just returns 0001-01-01 for all inputs. Not sure if this is a bug in my code, or if Julia just doesn't have a method on Date() to convert from milliseconds to a DateTime
-    end
-
-    function _date_list(y1, m1, d1, y2, m2, d2, count)
-        a = []
-        i = 1
-        while i < count+1
-            append!(a, [_random_date(DateTime(y1, m1, d1), DateTime(y2, m2, d2), i)])
-            i += 1
-        end
-        return a
+    function random_dates(d1::DateTime, d2::DateTime, n::Int)
+        map(Date, sort!(rand(d1:Dates.Hour(12):d2, n)))
     end
 
     function _random_number(num, mul)
@@ -100,24 +83,26 @@ function errorbars2()
         return value
     end
 
-    trace1 = scatter(;x=_date_list(2001, 02, 01, 2001, 03, 01, 50),
-                     y=_random_number(50, 20),
+    dates = random_dates(DateTime(2001, 1, 1), DateTime(2005, 12, 31), 50)
+
+    trace1 = scatter(;x=dates,
+                     y=20.0 .* rand(50),
                      line_width=0,
                      marker_color="444",
                      mode="lines",
                      name="Lower Bound")
 
-    trace2 = scatter(;x=_date_list(2001, 02, 01, 2001, 03, 01, 50),
-                     y=_random_number(50, 21),
+    trace2 = scatter(;x=dates,
+                     y=21.0 .* rand(50),
                      fill="tonexty",
                      fillcolor="rgba(68, 68, 68, 0.3)",
                      line_color="rgb(31, 119, 180)",
                      mode="lines",
                      name="Measurement")
 
-    trace3 = scatter(;x=_date_list(2001, 02, 01, 2001, 03, 01, 50),
-                     y=random_number(50, 22),
-                     fill: "tonexty",
+    trace3 = scatter(;x=dates,
+                     y=22.0 .* rand(50),
+                     fill="tonexty",
                      fillcolor="rgba(68, 68, 68, 0.3)",
                      line_width=0,
                      marker_color="444",
@@ -125,7 +110,7 @@ function errorbars2()
                      name="Upper Bound")
 
     data = [trace1, trace2, trace3]
-    t = "Continuous, variable value error bars<br> Notiec the hover text!"
+    t = "Continuous, variable value error bars<br> Notice the hover text!"
     layout = Layout(;title=t, yaxis_title="Wind speed (m/s)")
     plot(data, layout)
 end
