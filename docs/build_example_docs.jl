@@ -9,7 +9,6 @@ Notes:
   * Assumes that the plot to be placed in html file is named `p`
   *
 =#
-using CodeTools
 using PlotlyJS
 
 # Read all file names in
@@ -32,10 +31,11 @@ function single_file(filename::AbstractString)
     outfile = open(joinpath(this_dir, "examples", filename[1:end-3]*".md"), "w")
 
     # Read lines from a files
-    fulltext = open(readall, joinpath(this_dir, "..", "examples", filename), "r")
+    fulltext = open(readstring, joinpath(this_dir, "..", "examples", filename), "r")
     all_lines = split(fulltext, "\n")
     l = 1
-    regex = r"function ([^_].+?)\("
+    regex = r"^function ([^_].+?)\("
+    regex_end = r"^end$"
 
     while true
         # Find next function name (break if none)
@@ -43,17 +43,20 @@ function single_file(filename::AbstractString)
         if l == 0
             break
         end
+        # find corresponding end for this function
+        end_l = findnext(x -> match(regex_end, x) != nothing, all_lines, l+1)
 
         # Pull out function text
-        func_block = CodeTools.getblock(fulltext, l)[1]
+        func_block = join(all_lines[l:end_l], "\n")
         fun_name = match(regex, all_lines[l])[1]
 
         println("adding $fun_name")
 
         # Get html block
-        html_block = PlotlyJS.html_body(eval(Expr(:call, symbol(fun_name))).plot)
+        html_block = PlotlyJS.html_body(eval(Expr(:call, Symbol(fun_name))).plot)
 
         println(outfile, "```julia\n$func_block\n$(fun_name)()\n```\n\n\n$html_block\n\n")
+        l = end_l
     end
     close(outfile)
 
