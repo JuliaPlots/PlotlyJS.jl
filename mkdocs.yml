@@ -20,6 +20,7 @@ pages:
     - examples/contour.md
     - examples/histograms.md
     - examples/line_scatter.md
+    - examples/time_series.md
     - examples/maps.md
     - examples/subplots.md
     - examples/shapes.md
