@@ -4,13 +4,13 @@
 
 type ElectronDisplay <: AbstractPlotlyDisplay
     divid::Base.Random.UUID
-    w::Nullable{Window}
+    w::Nullable{Any}
     js_loaded::Bool
 end
 
 typealias ElectronPlot SyncPlot{ElectronDisplay}
 
-ElectronDisplay(divid::Base.Random.UUID) = ElectronDisplay(divid, Nullable{Window}(), false)
+ElectronDisplay(divid::Base.Random.UUID) = ElectronDisplay(divid, Nullable(), false)
 ElectronDisplay(p::Plot) = ElectronDisplay(p.divid)
 ElectronPlot(p::Plot) = ElectronPlot(p, ElectronDisplay(p.divid))
 
@@ -29,12 +29,14 @@ function get_window(ed::ElectronDisplay; kwargs...)
     if !isnull(ed.w) && active(get(ed.w))
         w = get(ed.w)
     else
-        w = Window(Blink.AtomShell.shell(), Dict{Any,Any}(kwargs))
-        ed.w = Nullable{Window}(w)
+        w = get_window(Dict(kwargs))
+        ed.w = w
         ed.js_loaded = false  # can't have js if we made a new window
     end
     w
 end
+
+get_window(opts::Dict) = Juno.isactive() ? Juno.Atom.blinkplot() : Window(opts)
 
 js_loaded(ed::ElectronDisplay) = ed.js_loaded
 
@@ -46,7 +48,10 @@ function loadjs(ed::ElectronDisplay)
     end
 end
 
-function Base.display(p::ElectronPlot; show=true, resize::Bool=_autoresize[1])
+Base.display(p::ElectronPlot; show = true, resize::Bool=_autoresize[1]) =
+  display_blink(p; show = show, resize = resize)
+
+function display_blink(p::ElectronPlot; show=true, resize::Bool=_autoresize[1])
     w = get_window(p, show=show)
     loadjs(p.view)
     lowered = JSON.lower(p.plot)

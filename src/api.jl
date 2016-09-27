@@ -21,6 +21,7 @@ for t in [:histogram, :scatter3d, :surface, :mesh3d, :bar, :histogram2d,
           :contour, :scattergl, :box, :area, :choropleth, :scattergeo]
     str_t = string(t)
     @eval $t(;kwargs...) = GenericTrace($str_t; kwargs...)
+    @eval $t(d::Associative; kwargs...) = GenericTrace($str_t, d; kwargs...)
     eval(Expr(:export, t))
 end
 
