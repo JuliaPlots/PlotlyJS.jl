@@ -50,8 +50,7 @@ function box4()
                  name = "carrots",
                  marker_color = "#FF851B")
     data = [trace1, trace2, trace3]
-    layout = Layout(;yaxis_title = "normalized moisture",
-                    yaxis_zeroline = false,
+    layout = Layout(;yaxis = attr(title = "normalized moisture", zeroline = false),
                     boxmode = "group")
     plot(data,layout)
 end
@@ -70,10 +69,7 @@ function box5()
                  boxpoints = false)
     trace3 = box(;y = [0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5, 7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5, 12, 16, 20.90, 22.3, 23.25],
                  name = "Suspected Outlier",
-                 marker_color = "rgb(8,8,156)",
-                 marker_outliercolor = "rgba(219, 64,82,0.6)",
-                 marker_line_outliercolor = "rgba(219,64,82,1.0)",
-                 marker_line_outlierwidth = 2,
+                 marker = attr(color = "rgb(8,8,156)", outliercolor = "rgba(219, 64,82,0.6)", line = attr(outliercolor = "rgba(219,64,82,1.0)", outlierwidth = 2)),
                  boxpoints = "suspectedoutliers")
     trace4 = box(;y = [0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5, 7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5, 12, 16, 20.90, 22.3, 23.25],
                  name = "Wiskers and Outliers",
@@ -123,8 +119,7 @@ function box7()
                  orientation = "h")
     data = [trace1, trace2, trace3]
     layout = Layout(;title = "Grouped Horizontal Box Plot",
-                    xaxis_title = "normalized moisture",
-                    xaxis_zeroline = false,
+                    xaxis = attr(title = "normalized moisture", zeroline = false),
                     boxmode = "group")
     plot(data,layout)
 end
@@ -185,18 +180,8 @@ function box9()
     end
 
     layout = Layout(;title = "Points Scored by the Top 9 Scoring NBA Players in 2012",
-                    yaxis_autorange = true,
-                    yaxis_showgrid = true,
-                    yaxis_zeroline = true,
-                    yaxis_dtick = 5,
-                    yaxis_gridcolor = "rgb(255,255,255)",
-                    yaxis_gridwidth = 1,
-                    yaxis_zerolinecolor = "rgb(255,255,255)",
-                    yaxis_zerolinewidth = 2,
-                    margin_l = 40,
-                    margin_r = 30,
-                    margin_b = 80,
-                    margin_t = 100,
+                    yaxis = attr(autorange = true, showgrid = true, zeroline = true, dtick = 5, gridcolor = "rgb(255,255,255)", gridwidth = 1, zerolinecolor = "rgb(255,255,255)", zerolinewidth = 2),
+                    margin = attr(l = 40, r = 30, b = 80, t = 100),
                     paper_bgcolor = "rgb(243,243,243)",
                     plot_bgcolor = "rgb(243,243,243)",
                     showlegend = false)
@@ -204,18 +189,18 @@ function box9()
 end
 
 function box10()
-    boxNumber = 30
-    boxColor = []
-    allColors = linspace(0,360,boxNumber)
+    box_number = 30
+    box_color = []
+    all_colors = linspace(0,360,box_number)
     data = GenericTrace[]
-    yValues = Array[]
+    y_values = Array[]
 
     #Colors 
     
     result = ""
-    for i in 1:boxNumber
-        result = "hsl(" * string(allColors[i]) * ",50%,50%)"
-        push!(boxColor,result)
+    for i in 1:box_number
+        result = "hsl(" * string(all_colors[i]) * ",50%,50%)"
+        push!(box_color,result)
     end
 
     function _getRandomArbitrary(min,max)
@@ -224,21 +209,21 @@ function box10()
 
     #Create Y Values
 
-    for i in 1:boxNumber
-        ySingleArray = []
+    for i in 1:box_number
+        y_single_array = []
         for j in 1:10
             randomNum = _getRandomArbitrary(0,1)
-            yIndValue = 3.5*sin(pi * i/boxNumber) + i/boxNumber + (1.5+0.5*cos(pi*i/boxNumber))*randomNum
-            push!(ySingleArray, yIndValue)
+            yIndValue = 3.5*sin(pi * i/box_number) + i/box_number + (1.5+0.5*cos(pi*i/box_number))*randomNum
+            push!(y_single_array, yIndValue)
         end
-        push!(yValues,ySingleArray)
+        push!(y_values,y_single_array)
     end
 
     #Create Traces
 
-    for i in 1:boxNumber
-        trace = box(;y = yValues[i],
-                    marker_color = boxColor[i])
+    for i in 1:box_number
+        trace = box(;y = y_values[i],
+                    marker_color = box_color[i])
         push!(data,trace)
     end
 

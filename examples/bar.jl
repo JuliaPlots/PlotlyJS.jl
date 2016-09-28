@@ -1,6 +1,5 @@
 using PlotlyJS
 
-
 function bar1()
     data = bar(;x=["giraffes", "orangutans", "monkeys"],
                y = [20, 14, 23])
@@ -35,38 +34,32 @@ function bar4()
     data = bar(;x = ["Product A", "Product B", "Product C"],
                 y = [20, 14, 23],
                 text = ["27% market share","24% market share", "19% market share"],
-                marker_color = "rgb(158,202,225)",
-                marker_opacity = 0.6,
-                line_color = "rgb(8,48,107)",
-                line_width = 1.5)
+				marker = attr(color = "rgb(158,202,225)", opacity = 0.6),
+				line = attr(color = "rgb(8,48,107)", width = 1.5))
     layout = Layout(;title = "January 2013 Sales Report")
     plot(data,layout)
 end
 
 function bar5()
-    xValue = ["Product A", "Product B", "Product C"]
-    yValue = [20, 14, 23]
+    x_value = ["Product A", "Product B", "Product C"]
+    y_value = [20, 14, 23]
 
-    data = bar(;x = xValue,
-                y = yValue,
+    data = bar(;x = x_value,
+                y = y_value,
                 text = ["27% market share","24% market share", "19% market share"],
-                marker_color = "rgb(158,202,225)",
-                marker_opacity = 0.6,
-                marker_line_color = "rgb(8,48,107)",
-                marker_line_width = 1.5)
-    
+				marker = attr(color = "rgb(158,202,225)", opacity = 0.6, line = attr(color = "rgb(8,48,107)", width = 1.5))) 
     annotationContent = []
     
     layout = Layout(;title = "January 2013 Sales Report",
                     annotations = annotationContent)
 
-    for i in 1:length(xValue)
-        result = Dict{Symbol, Any}(:x => xValue[i],
-                                   :y => yValue[i],
-                                   :text => yValue[i],
-                                   :xanchor => "center",
-                                   :yanchor => "bottom",
-                                   :showarrow => false)
+    for i in 1:length(x_value)
+        result = attr(x = x_value[i],
+                      y = y_value[i],
+                      text = y_value[i],
+                      xanchor = "center",
+                      yanchor = "bottom",
+                      showarrow = false)
         push!(annotationContent,result)
     end
     plot(data,layout)
@@ -81,8 +74,7 @@ function bar6()
     trace2 = bar(;x = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                  y = [19, 14, 22, 14, 16, 19, 15, 14, 10, 12, 12, 16],
                  name = "Secondary Product",
-                 marker_color = "rgb(204,204,204)",
-                 marker_opacity = 0.5)
+				 marker = attr(color = "rgb(204,204,204)", opacity = 0.5))
     data = [trace1, trace2]
     layout = Layout(;title = "2013 Sales Report",
                     xaxis_tickangle = -45,
@@ -107,8 +99,7 @@ function bar8()
                     font_family = "Raleway, sans-serif",
                     showlegend = false,
                     xaxis_tickangle = -45,
-                    yaxis_zeroline = false,
-                    yaxis_gridwidth = 2,
+                    yaxis = attr(zeroline = false, gridwidth = 2),
                     bargap = 0.05)
     plot(data,layout)
 end
@@ -124,17 +115,9 @@ function bar9()
                  marker_color = "rgb(26, 118, 255)")
     data = [trace1, trace2]
     layout = Layout(;title = "US Export of Plastic Scrap",
-                    xaxis_tickfont_size = 14,
-                    xaxis_tickfont_color = "rgb(107, 107, 107)",
-                    yaxis_title = "USD (millions)",
-                    yaxis_titlefont_size = 16,
-                    yaxis_titlefont_color = "rgb(107, 107, 107)",
-                    yaxis_tickfont_size = 14,
-                    yaxis_tickfont_color = "rgb(107,107,107)",
-                    legend_x = 0,
-                    legend_y = 1.0,
-                    legend_bgcolor = "rgba(255, 255, 255, 0)",
-                    legend_bordercolor = "rgba(255, 255, 255, 0)",
+					xaxis = attr(tickfont_size= 14, tickfont_color = "rgb(107, 107, 107)"),
+					yaxis = attr(title = "USD (millions)", titlefont = attr(size = 16, color = "rgb(107, 107, 107)"), tickfont = attr(size = 14, color = "rgb(107,107,107)")),
+                    legend = attr(x = 0, y = 1.0, bgcolor = "rgba(255, 255, 255, 0)", bordercolor = "rgba(255, 255, 255, 0)"),
                     barmode = "group",
                     bargap = 0.15,
                     bargroupgap = 0.1)
@@ -142,39 +125,34 @@ function bar9()
 end
 
 function bar10()
-    xData = ["Product Revenue", "Services Revenue", "Total Revenue", "Fixed Costs", "Variable Costs", "Total Costs", "Total"]
-    yData = [400, 660, 660, 590, 400, 400, 340]
+    x_data = ["Product Revenue", "Services Revenue", "Total Revenue", "Fixed Costs", "Variable Costs", "Total Costs", "Total"]
+    y_data = [400, 660, 660, 590, 400, 400, 340]
     textList = ["\$430K", "\$260K", "\$690K", "\$-120K", "\$-200K", "\$-320K", "\$370K"]
     
     #Base 
 
-    trace1 = bar(;x = xData,
+    trace1 = bar(;x = x_data,
                  y = [0, 430, 0, 570, 370, 370, 0],
                  marker_color = "rgba(1,1,1,0.0)")
 
     #Revenue 
 
-    trace2 = bar(;x = xData,
+    trace2 = bar(;x = x_data,
                  y = [430, 260, 690, 0, 0, 0, 0],
                  marker_color = "rgba(55,128,191,0.7)",
-                 line_color = "rgba(55,128,191,1.0)",
-                 line_width = 2)
+				 line = attr(color = "rgba(55,128,191,1.0)", width = 2))
 
     #Cost 
 
-    trace3 = bar(;x = xData,
+    trace3 = bar(;x = x_data,
                  y = [0, 0, 0, 120, 200, 320, 0],
-                 marker_color = "rgba(219, 64, 82, 0.7)",
-                 marker_line_color = "rgba(219, 64, 82, 1.0)",
-                 marker_line_width = 2)
+				 marker = attr(color = "rgba(219, 64, 82, 0.7)", line = attr(color = "rgba(219, 64, 82, 1.0)", width = 2)))
 
     #Profit 
 
-    trace4 = bar(;x = xData,
+    trace4 = bar(;x = x_data,
                  y = [0, 0, 0, 0, 0, 0, 370],
-                 marker_color = "rgba(50,171,96,0.7)",
-                 marker_line_color = "rgba(50,171,96,1.0)",
-                 marker_line_width = 2)
+				 marker = attr(color = "rgba(50,171,96,0.7)", line = attr(color = "rgba(50,171,96,1.0)", width = 2)))
     
     data = [trace1, trace2, trace3, trace4]
 
@@ -191,13 +169,13 @@ function bar10()
                     annotations = annotationContent)
 
     for i in 1:7
-        result = Dict{Symbol,Any}(:x => xData[i],
-                                  :y => yData[i],
-                                  :text => textList[i],
-                                  :font_family => "Arial",
-                                  :font_size => 14,
-                                  :font_color => "rgba(245,246,249,1)",
-                                  :showarrow => false)
+        result = attr(x = x_data[i],
+                      y = y_data[i],
+					  text = textList[i],
+					  font_family = "Arial",                         
+					  font_size = 14,
+                      font_color = "rgba(245,246,249,1)",
+                      showarrow = false)
         push!(annotationContent,result)
     end
     
