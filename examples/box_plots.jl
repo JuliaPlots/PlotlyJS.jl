@@ -15,18 +15,18 @@ end
  
 function box2()
     data = box(;y = [0 ,1 ,1 ,2 ,3 ,5 ,8 ,13 ,21],
-                 boxpoints = "all",
-                 jitter = 0.3,
-                 pointpos = -1.8)
+                boxpoints = "all",
+                jitter = 0.3,
+                pointpos = -1.8)
     plot(data)
 end
 
  
 function box3()
     trace1 = box(;x = [1 ,2 ,3 ,4 ,4 ,4 ,8 ,9 ,10],
-                 name = "Set 1")
+                  name = "Set 1")
     trace2 = box(;x = [2 ,3 ,3 ,3 ,3 ,5 ,6 ,6 ,7],
-                 name = "Set 2")
+                  name = "Set 2")
     data = [trace1, trace2]
     layout = Layout(;title = "Horizontal Box Plot")
 
@@ -38,17 +38,17 @@ function box4()
     x0 = ["day 1", "day 1", "day 1", "day 1", "day 1", "day 1",
         "day 2", "day 2", "day 2", "day 2", "day 2", "day 2"]
     trace1 = box(;y = [0.2 ,0.2 ,0.6 ,1.0 ,0.5 ,0.4 ,0.2 ,0.7 ,0.9 ,0.1 ,0.5 ,0.3],
-                 x = x0,
-                 name = "kale",
-                 marker_color = "#3D9970")
+                  x = x0,
+                  name = "kale",
+                  marker_color = "#3D9970")
     trace2 = box(;y = [0.6, 0.7, 0.3, 0.6, 0.0, 0.5, 0.7, 0.9, 0.5, 0.8, 0.7, 0.2],
-                 x = x0,
-                 name = "radishes",
-                 marker_color = "#FF4136")
+                  x = x0,
+                  name = "radishes",
+                  marker_color = "#FF4136")
     trace3 = box(;y = [0.1, 0.3, 0.1, 0.9, 0.6, 0.6, 0.9, 1.0, 0.3, 0.6, 0.8, 0.5],
-                 x = x0,
-                 name = "carrots",
-                 marker_color = "#FF851B")
+                  x = x0,
+                  name = "carrots",
+                  marker_color = "#FF851B")
     data = [trace1, trace2, trace3]
     layout = Layout(;yaxis = attr(title = "normalized moisture", zeroline = false),
                     boxmode = "group")
@@ -58,23 +58,23 @@ end
  
 function box5()
     trace1 = box(;y = [0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5, 7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5, 12, 16, 20.90, 22.3, 23.25],
-                 name = "All Points",
-                 jitter = 0.3,
-                 pointpos = -1.8,
-                 marker_color = "rgb(7,40,89)",
-                 boxpoints = "all")
+                  name = "All Points",
+                  jitter = 0.3,
+                  pointpos = -1.8,
+                  marker_color = "rgb(7,40,89)",
+                  boxpoints = "all")
     trace2 = box(;y = [0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5, 7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5, 12, 16, 20.90, 22.3, 23.25],
-                 name = "Only Wiskers",
-                 marker_color = "rgb(9,56,125)",
-                 boxpoints = false)
+                  name = "Only Wiskers",
+                  marker_color = "rgb(9,56,125)",
+                  boxpoints = false)
     trace3 = box(;y = [0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5, 7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5, 12, 16, 20.90, 22.3, 23.25],
-                 name = "Suspected Outlier",
-                 marker = attr(color = "rgb(8,8,156)", outliercolor = "rgba(219, 64,82,0.6)", line = attr(outliercolor = "rgba(219,64,82,1.0)", outlierwidth = 2)),
-                 boxpoints = "suspectedoutliers")
+                  name = "Suspected Outlier",
+                  marker = attr(color = "rgb(8,8,156)", outliercolor = "rgba(219, 64,82,0.6)", line = attr(outliercolor = "rgba(219,64,82,1.0)", outlierwidth = 2)),
+                  boxpoints = "suspectedoutliers")
     trace4 = box(;y = [0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5, 7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5, 12, 16, 20.90, 22.3, 23.25],
-                 name = "Wiskers and Outliers",
-                 marker_color = "rgb(107,174,214)",
-                 boxpoints = "Outliers")
+                  name = "Wiskers and Outliers",
+                  marker_color = "rgb(107,174,214)",
+                  boxpoints = "Outliers")
     data = [trace1, trace2, trace3, trace4]
     layout = Layout(;title = "Box Plot Styling Outliers")
     plot(data,layout)
@@ -83,13 +83,13 @@ end
  
 function box6()
     trace1 = box(;y = [2.37, 2.16, 4.82, 1.73, 1.04, 0.23, 1.32, 2.91, 0.11, 4.51, 0.51, 3.75, 1.35, 2.98, 4.50, 0.18, 4.66, 1.30, 2.06, 1.19],
-                 name = "Only Mean",
-                 marker_color = "rgb(8,81,156)",
-                 boxmean = true)
+                  name = "Only Mean",
+                  marker_color = "rgb(8,81,156)",
+                  boxmean = true)
     trace2 = box(;y = [2.37, 2.16, 4.82, 1.73, 1.04, 0.23, 1.32, 2.91, 0.11, 4.51, 0.51, 3.75, 1.35, 2.98, 4.50, 0.18, 4.66, 1.30, 2.06, 1.19],
-                 name = "Mean and Standard Deviation",
-                 marker_color = "rgb(10,140,208)",
-                 boxmean = "sd")
+                  name = "Mean and Standard Deviation",
+                  marker_color = "rgb(10,140,208)",
+                  boxmean = "sd")
     data = [trace1, trace2]
     layout = Layout(;title = "Box Plot Styling Mean and Standard Deviation")
     plot(data,layout)
@@ -100,38 +100,38 @@ function box7()
     y0 = ["day 1", "day 1", "day 1", "day 1", "day 1", "day 1",
         "day 2", "day 2", "day 2", "day 2", "day 2", "day 2"]
     trace1 = box(;x = [0.2, 0.2, 0.6, 1.0, 0.5, 0.4, 0.2, 0.7, 0.9, 0.1, 0.5, 0.3],
-                 y = y0,
-                 name = "kale",
-                 marker_color = "#3D9970",
-                 boxmean = false,
-                 orientation = "h")
+                  y = y0,
+                  name = "kale",
+                  marker_color = "#3D9970",
+                  boxmean = false,
+                  orientation = "h")
     trace2 = box(;x = [0.6, 0.7, 0.3, 0.6, 0.0, 0.5, 0.7, 0.9, 0.5, 0.8, 0.7, 0.2],
-                 y = y0,
-                 name = "radishes",
-                 marker_color = "#FF4136",
-                 boxmean = false,
-                 orientation = "h")
+                  y = y0,
+                  name = "radishes",
+                  marker_color = "#FF4136",
+                  boxmean = false,
+                  orientation = "h")
     trace3 = box(;x = [0.1, 0.3, 0.1, 0.9, 0.6, 0.6, 0.9, 1.0, 0.3, 0.6, 0.8, 0.5],
-                 y = y0,
-                 name = "carrots",
-                 marker_color = "#FF851B",
-                 boxmean = false,
-                 orientation = "h")
+                  y = y0,
+                  name = "carrots",
+                  marker_color = "#FF851B",
+                  boxmean = false,
+                  orientation = "h")
     data = [trace1, trace2, trace3]
     layout = Layout(;title = "Grouped Horizontal Box Plot",
-                    xaxis = attr(title = "normalized moisture", zeroline = false),
-                    boxmode = "group")
+                     xaxis = attr(title = "normalized moisture", zeroline = false),
+                     boxmode = "group")
     plot(data,layout)
 end
 
  
 function box8()
     trace1 = box(;y = [1, 2, 3, 4, 4, 4, 8, 9, 10],
-                 name = "Sample A",
-                 marker_color = "rgb(214,12,140)")
+                  name = "Sample A",
+                  marker_color = "rgb(214,12,140)")
     trace2 = box(;y = [2, 3, 3, 3, 3, 5, 6, 6, 7],
-                 name = "Sample B",
-                 marker_color = "rgb(0,128,128)")
+                  name = "Sample B",
+                  marker_color = "rgb(0,128,128)")
     data = [trace1, trace2]
     layout = Layout(;title = "Colored Box Plot")
     plot(data,layout)
@@ -169,22 +169,22 @@ function box9()
 
     for i in 1:length(xData)
         trace = box(;y = yData[i],
-                    name = xData[i],
-                    boxpoints = "all",
-                    jitter = 0.5,
-                    whiskerwidth = 0.2,
-                    fillcolor = "cls",
-                    marker_size = 2,
-                    line_width = 1)
+                     name = xData[i],
+                     boxpoints = "all",
+                     jitter = 0.5,
+                     whiskerwidth = 0.2,
+                     fillcolor = "cls",
+                     marker_size = 2,
+                     line_width = 1)
         push!(data,trace)
     end
 
     layout = Layout(;title = "Points Scored by the Top 9 Scoring NBA Players in 2012",
-                    yaxis = attr(autorange = true, showgrid = true, zeroline = true, dtick = 5, gridcolor = "rgb(255,255,255)", gridwidth = 1, zerolinecolor = "rgb(255,255,255)", zerolinewidth = 2),
-                    margin = attr(l = 40, r = 30, b = 80, t = 100),
-                    paper_bgcolor = "rgb(243,243,243)",
-                    plot_bgcolor = "rgb(243,243,243)",
-                    showlegend = false)
+                     yaxis = attr(autorange = true, showgrid = true, zeroline = true, dtick = 5, gridcolor = "rgb(255,255,255)", gridwidth = 1, zerolinecolor = "rgb(255,255,255)", zerolinewidth = 2),
+                     margin = attr(l = 40, r = 30, b = 80, t = 100),
+                     paper_bgcolor = "rgb(243,243,243)",
+                     plot_bgcolor = "rgb(243,243,243)",
+                     showlegend = false)
     plot(data,layout)
 end
 
@@ -223,20 +223,16 @@ function box10()
 
     for i in 1:box_number
         trace = box(;y = y_values[i],
-                    marker_color = box_color[i])
+                     marker_color = box_color[i])
         push!(data,trace)
     end
 
     #Format the layout
     
-    layout = Layout(;xaxis_showgrid = false,
-                    xaxis_zeroline = false,
-                    xaxis_tickangle = 60,
-                    xaxis_showticklabels = true,
-                    yaxis_zeroline = false,
-                    yaxis_gridcolor = "white",
-                    paper_bgcolor = "rgb(233,233,233)",
-                    plot_bgcolor = "rgb(233,233,233)",
-                    showlegend = true)
+    layout = Layout(;xaxis = attr(;showgrid = false, zeroline = false, tickangle = 60, showticklabels = true),
+                     yaxis = attr(;zeroline = false, gridcolor = "white"),
+                     paper_bgcolor = "rgb(233,233,233)",
+                     plot_bgcolor = "rgb(233,233,233)",
+                     showlegend = true)
     plot(data,layout)
 end
