@@ -13,7 +13,12 @@ using PlotlyJS
 
 # Read all file names in
 this_dir = dirname(@__FILE__)
-all_file_names = readdir(joinpath(this_dir, "..", "examples"))
+if length(ARGS) == 0
+    all_file_names = readdir(joinpath(this_dir, "..", "examples"))
+else
+    all_file_names = [endswith(i, ".jl") ? i : "$(i).jl" for i in ARGS]
+end
+
 nfiles = length(all_file_names)
 
 # Check whether files are julia files and select julia files
