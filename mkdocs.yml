@@ -17,6 +17,8 @@ pages:
 - Examples:
     - examples/3d.md
     - examples/area.md
+    - examples/box_plots.md
+    - examples/bar.md
     - examples/contour.md
     - examples/histograms.md
     - examples/line_scatter.md
