@@ -224,8 +224,6 @@ function _default_style()
     Juno.isactive() ? style(:gadfly_dark) : Style()
 end
 
-const DEFAULT_STYLE = [_default_style()]
-
 reset_style!() = DEFAULT_STYLE[1] = _default_style()
 use_style!(sty::Symbol) = DEFAULT_STYLE[1] = style(sty)
 use_style!(s::Style) = DEFAULT_STYLE[1] = s
