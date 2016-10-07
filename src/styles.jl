@@ -78,7 +78,8 @@ function ==(s1::Style, s2::Style)
 end
 
 const DEFAULT_STYLE = [Style()]
-const STYLES = [:default, :ggplot, :fivethirtyeight, :seaborn, :gadfly_dark]
+const STYLES = [:default, :ggplot, :fivethirtyeight, :seaborn, :gadfly_dark,
+                :tomorrow_night_eighties]
 
 function ggplot_style()
     axis = attr(showgrid=true, gridcolor="white", linewidth=1.0,
@@ -147,7 +148,7 @@ function seaborn_style()
     Style(color_cycle=colors, trace=ta, layout=layout)
 end
 
-# This theme was tkaen from here:
+# This theme was taken from here:
 # https://github.com/dcjones/Gadfly.jl/blob/cb28d6aca6b031d01e44146799e520b8bb0d349b/src/theme.jl#L342-L409
 function gadfly_dark_style()
     label_color = colorant"#a1a1a1"
@@ -159,9 +160,7 @@ function gadfly_dark_style()
 
     axis = attr(showgrid=true, gridcolor=grid_color, gridwidth=0.35,
                 linecolor=grid_color, titlefont_color=label_color,
-                linewidth=1.2,
-                titlefont_size=14, ticks="outside",
-                tickcolor=label_color
+                linewidth=1.2, titlefont_size=14, tickcolor=label_color
                 )
 
     layout = Layout(plot_bgcolor=bgcolor,
@@ -177,7 +176,40 @@ function gadfly_dark_style()
     Style(color_cycle=color_cycle, layout=layout)
 end
 
-reset_style!() = DEFAULT_STYLE[1] = Style()
+function tomorrow_night_eighties_style()
+
+    bgcolor = colorant"#2d2d2d"  # Background
+    grid_color = colorant"#515151"  # Selection
+    label_color = colorant"#cccccc"  # Comment
+    color_cycle = [
+                    "#cc99cc",
+                    "#66cccc",
+                    "#f2777a",
+                    "#ffcc66",
+                    "#99cc99",
+                    "#f99157",
+                    "#6699cc",
+                   ]
+
+    axis = attr(showgrid=true, gridcolor=grid_color, gridwidth=0.35,
+                linecolor=grid_color, titlefont_color=label_color,
+                linewidth=1.2, titlefont_size=14, tickcolor=label_color
+                )
+
+    layout = Layout(plot_bgcolor=bgcolor,
+                    paper_bgcolor=bgcolor,
+                    font_size=10,
+                    xaxis=axis,
+                    yaxis=axis,
+                    font_color=label_color,
+                    titlefont_size=14,
+                    margin=attr(l=65, r=65, t=65, b=65))
+
+
+    Style(color_cycle=color_cycle, layout=layout)
+end
+
+reset_style!() = DEFAULT_STYLE[1] = Style()#
 use_style!(sty::Symbol) = DEFAULT_STYLE[1] = style(sty)
 use_style!(s::Style) = DEFAULT_STYLE[1] = s
 
@@ -186,6 +218,7 @@ function style(sty::Symbol)
     sty == :fivethirtyeight ? fivethirtyeight_style() :
     sty == :seaborn ? seaborn_style() :
     sty == :gadfly_dark ? gadfly_dark_style() :
+    sty == :tomorrow_night_eighties ? tomorrow_night_eighties_style() :
     sty == :default ? Style() :
     error("Uknown style $sty")
 end
