@@ -72,14 +72,9 @@ end
     end
 end
 
-
 function ==(s1::Style, s2::Style)
     all(nm -> getfield(s1, nm) == getfield(s2, nm), fieldnames(s1))
 end
-
-const DEFAULT_STYLE = [Style()]
-const STYLES = [:default, :ggplot, :fivethirtyeight, :seaborn, :gadfly_dark,
-                :tomorrow_night_eighties]
 
 function ggplot_style()
     axis = attr(showgrid=true, gridcolor="white", linewidth=1.0,
@@ -209,16 +204,27 @@ function tomorrow_night_eighties_style()
     Style(color_cycle=color_cycle, layout=layout)
 end
 
-reset_style!() = DEFAULT_STYLE[1] = Style()#
-use_style!(sty::Symbol) = DEFAULT_STYLE[1] = style(sty)
-use_style!(s::Style) = DEFAULT_STYLE[1] = s
-
 function style(sty::Symbol)
     sty == :ggplot ? ggplot_style() :
     sty == :fivethirtyeight ? fivethirtyeight_style() :
     sty == :seaborn ? seaborn_style() :
     sty == :gadfly_dark ? gadfly_dark_style() :
     sty == :tomorrow_night_eighties ? tomorrow_night_eighties_style() :
-    sty == :default ? Style() :
+    sty == :default ? _default_style() :
     error("Uknown style $sty")
 end
+
+const STYLES = [:default, :ggplot, :fivethirtyeight, :seaborn, :gadfly_dark,
+                :tomorrow_night_eighties]
+
+function _default_style()
+    env = Symbol(get(ENV, "PLOTLYJS_STYLE", ""))
+
+    env in STYLES ? style(env) : Style()
+end
+
+const DEFAULT_STYLE = [_default_style()]
+
+reset_style!() = DEFAULT_STYLE[1] = _default_style()
+use_style!(sty::Symbol) = DEFAULT_STYLE[1] = style(sty)
+use_style!(s::Style) = DEFAULT_STYLE[1] = s
