@@ -165,7 +165,7 @@ function gadfly_dark_style()
                     yaxis=axis,
                     font_color=label_color,
                     titlefont_size=14,
-                    margin=attr(l=65, r=65, t=65, b=65))
+                    margin=attr(l=40, r=10, t=10, b=30))
 
 
     Style(color_cycle=color_cycle, layout=layout)
