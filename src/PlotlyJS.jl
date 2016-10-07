@@ -8,6 +8,8 @@ using Blink
 using Colors
 using DocStringExtensions
 
+import Base: ==
+
 # import LaTeXStrings and export the handy macros
 using LaTeXStrings
 export @L_mstr, @L_str

@@ -207,6 +207,8 @@ Base.start(hf::HasFields) = start(hf.fields)
 Base.next(hf::HasFields, x) = next(hf.fields, x)
 Base.done(hf::HasFields, x) = done(hf.fields, x)
 
+=={T<:HasFields}(hf1::T, hf2::T) = hf1.fields == hf2.fields
+
 # methods that allow you to do `obj["first.second.third"] = val`
 function Base.setindex!(gt::HasFields, val, key::String)
     if in(Symbol(key), _UNDERSCORE_ATTRS)
