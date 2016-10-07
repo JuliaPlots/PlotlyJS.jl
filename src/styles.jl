@@ -220,7 +220,8 @@ const STYLES = [:default, :ggplot, :fivethirtyeight, :seaborn, :gadfly_dark,
 function _default_style()
     env = Symbol(get(ENV, "PLOTLYJS_STYLE", ""))
 
-    env in STYLES ? style(env) : Style()
+    env in STYLES ? style(env) :
+    Juno.isactive() ? style(:gadfly_dark) : Style()
 end
 
 const DEFAULT_STYLE = [_default_style()]
