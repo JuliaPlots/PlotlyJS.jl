@@ -165,7 +165,7 @@ function gadfly_dark_style()
                     yaxis=axis,
                     font_color=label_color,
                     titlefont_size=14,
-                    margin=attr(l=65, r=65, t=65, b=65))
+                    margin=attr(l=40, r=10, t=10, b=30))
 
 
     Style(color_cycle=color_cycle, layout=layout)
@@ -220,10 +220,9 @@ const STYLES = [:default, :ggplot, :fivethirtyeight, :seaborn, :gadfly_dark,
 function _default_style()
     env = Symbol(get(ENV, "PLOTLYJS_STYLE", ""))
 
-    env in STYLES ? style(env) : Style()
+    env in STYLES ? style(env) :
+    Juno.isactive() ? style(:gadfly_dark) : Style()
 end
-
-const DEFAULT_STYLE = [_default_style()]
 
 reset_style!() = DEFAULT_STYLE[1] = _default_style()
 use_style!(sty::Symbol) = DEFAULT_STYLE[1] = style(sty)

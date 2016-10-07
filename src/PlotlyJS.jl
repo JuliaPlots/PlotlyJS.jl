@@ -137,6 +137,8 @@ function __init__()
         @eval SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay(p))
     end
 
+    global const DEFAULT_STYLE = [_default_style()]
+
 end
 
 
