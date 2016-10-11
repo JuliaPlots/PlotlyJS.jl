@@ -93,6 +93,9 @@ export
     # helper methods
     plot, fork, vline, hline, attr,
 
+    # new trace types
+    stem,
+
     # frontend methods
     init_notebook,
 
