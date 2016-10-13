@@ -88,3 +88,30 @@ function plot(fs::AbstractVector{Function}, x0::Number, x1::Number,
                           for f in fs]
     plot(traces, l; style=style)
 end
+
+"""
+$(SIGNATURES)
+Creates a "stem" or "lollipop" trace. It is implemented using plotly.js's
+`scatter` type, using the error bars to draw the stem.
+
+## Keyword Arguments:
+* All properties accepted by `scatter` except `error_y`, which is used to draw
+    the stems
+* stem_color - sets the color of the stems
+* stem_thickness - sets the thickness of the stems
+"""
+function stem(;y=nothing, stem_color="grey", stem_thickness=1, kwargs...)
+    line_up = -min(y, 0)
+    line_down = max(y, 0)
+    trace = scatter(; y=y, text=y, marker_size=10, mode="markers", hoverinfo="text", kwargs...)
+    trace.fields[:error_y] = Dict(
+        :type => "data",
+        :symmetric => false,
+        :array => line_up,
+        :arrayminus => line_down,
+        :visible => true,
+        :color => stem_color,
+        :width => 0,
+        :thickness => stem_thickness)
+    trace
+end
