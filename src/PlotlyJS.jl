@@ -123,7 +123,8 @@ function __init__()
                     Dict()
                 else
                     p.view.displayed = true
-                    Dict("text/html" => html_body(p))
+                    Dict("text/html" => html_body(p),
+                         "application/vnd.plotly.v1+json" => json(p))
                 end
             end
 
