@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="no-js ie6"><![endif]-->
+<!--[if IE 7 ]><html class="no-js ie7"><![endif]-->
+<!--[if IE 8 ]><html class="no-js ie8"><![endif]-->
+<!--[if IE 9 ]><html class="no-js ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    
+      
+        <title>Finance - PlotlyJS.jl</title>
+      
+      
+      
+      
+        <meta name="author" content="Spencer Lyon">
+      
+    
+    <meta property="og:url" content="None">
+    <meta property="og:title" content="PlotlyJS.jl">
+    <meta property="og:image" content="None/../../">
+    <meta name="apple-mobile-web-app-title" content="PlotlyJS.jl">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon-e565ddfa3b.ico">
+    <link rel="icon" type="image/x-icon" href="../../assets/images/favicon-e565ddfa3b.ico">
+    <style>
+      @font-face {
+      	font-family: 'Icon';
+      	src: url('../../assets/fonts/icon.eot?52m981');
+      	src: url('../../assets/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+      		   url('../../assets/fonts/icon.woff?52m981')
+               format('woff'),
+      		   url('../../assets/fonts/icon.ttf?52m981')
+               format('truetype'),
+      		   url('../../assets/fonts/icon.svg?52m981#icon')
+               format('svg');
+      	font-weight: normal;
+      	font-style: normal;
+      }
+    </style>
+    <link rel="stylesheet" href="../../assets/stylesheets/application-21e06ffc21.css">
+    
+    
+      
+      
+      
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu+Mono">
+      <style>
+        body, input {
+          font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+        }
+        pre, code {
+          font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+        }
+      </style>
+    
+    
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    
+      <link rel="stylesheet" href="../../css/github.css">
+    
+    <script src="../../assets/javascripts/modernizr-4a5cc7e01e.js"></script>
+    
+  </head>
+  
+  
+  
+  <body class=" ">
+    
+      
+      
+    
+    <div class="backdrop">
+      <div class="backdrop-paper"></div>
+    </div>
+    <input class="toggle" type="checkbox" id="toggle-drawer">
+    <input class="toggle" type="checkbox" id="toggle-search">
+    <label class="toggle-button overlay" for="toggle-drawer"></label>
+    <header class="header">
+      <nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        
+          <span class="path">
+            
+              
+                Examples <i class="icon icon-link"></i>
+              
+            
+          </span>
+        
+        Finance
+      </div>
+    </div>
+    
+    
+      
+      <div class="button button-github" role="button" aria-label="GitHub">
+        <a href="https://github.com/spencerlyon2" title="@spencerlyon2 on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+      </div>
+    
+    <div class="button button-search" role="button" aria-label="Search">
+      <label class="toggle-button icon icon-search" title="Search" for="toggle-search"></label>
+    </div>
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+    </header>
+    <main class="main">
+      
+      <div class="drawer">
+        <nav aria-label="Navigation">
+  
+  <a href="https://github.com/spencerlyon2/PlotlyJS.jl" class="project">
+    <div class="banner">
+      
+      <div class="name">
+        <strong>PlotlyJS.jl 0.5.0</strong>
+        
+          <br>
+          spencerlyon2/PlotlyJS.jl
+        
+      </div>
+    </div>
+  </a>
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            
+            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/archive/0.5.0.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/spencerlyon2/PlotlyJS.jl/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+      <div class="toc">
+        <ul>
+          
+            
+  <li>
+    <a class="" title="Home" href="../..">
+      Home
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <span class="section">User Guide</span>
+    <ul>
+      
+        
+  <li>
+    <a class="" title="Preliminaries" href="../../basics/">
+      Preliminaries
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Building Blocks" href="../../building_traces_layouts/">
+      Building Blocks
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Putting it together" href="../../syncplots/">
+      Putting it together
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Working with plots" href="../../manipulating_plots/">
+      Working with plots
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Styles" href="../../styles/">
+      Styles
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Contributing" href="../../contributing/">
+      Contributing
+    </a>
+    
+  </li>
+
+      
+    </ul>
+  </li>
+
+          
+            
+  <li>
+    <span class="section">Examples</span>
+    <ul>
+      
+        
+  <li>
+    <a class="" title="3d" href="../3d/">
+      3d
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Area" href="../area/">
+      Area
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Box plots" href="../box_plots/">
+      Box plots
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Bar" href="../bar/">
+      Bar
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Contour" href="../contour/">
+      Contour
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="current" title="Finance" href="./">
+      Finance
+    </a>
+    
+      
+      
+        <ul>
+          
+        </ul>
+      
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Histograms" href="../histograms/">
+      Histograms
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Line scatter" href="../line_scatter/">
+      Line scatter
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Time series" href="../time_series/">
+      Time series
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Maps" href="../maps/">
+      Maps
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Ternary" href="../ternary/">
+      Ternary
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Subplots" href="../subplots/">
+      Subplots
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Shapes" href="../shapes/">
+      Shapes
+    </a>
+    
+  </li>
+
+      
+    </ul>
+  </li>
+
+          
+        </ul>
+        
+          <hr>
+          <span class="section">The author</span>
+          <ul>
+            
+            
+              
+              <li>
+                <a href="https://github.com/spencerlyon2" target="_blank" title="@spencerlyon2 on GitHub">
+                  @spencerlyon2 on GitHub
+                </a>
+              </li>
+            
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+      </div>
+      <article class="article">
+        <div class="wrapper">
+          
+            <h1>Finance</h1>
+          
+          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> ohlc1</span><span class="p">()</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">ohlc</span><span class="p">(</span><span class="n">open</span><span class="o">=</span><span class="p">[</span><span class="mf">33.0</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">,</span> <span class="mf">34.1</span><span class="p">],</span>
+             <span class="n">high</span><span class="o">=</span><span class="p">[</span><span class="mf">33.1</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.6</span><span class="p">,</span> <span class="mf">33.2</span><span class="p">,</span> <span class="mf">34.8</span><span class="p">],</span>
+             <span class="n">low</span><span class="o">=</span><span class="p">[</span><span class="mf">32.7</span><span class="p">,</span> <span class="mf">32.7</span><span class="p">,</span> <span class="mf">32.8</span><span class="p">,</span> <span class="mf">32.6</span><span class="p">,</span> <span class="mf">32.8</span><span class="p">],</span>
+             <span class="n">close</span><span class="o">=</span><span class="p">[</span><span class="mf">33.0</span><span class="p">,</span> <span class="mf">32.9</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.1</span><span class="p">,</span> <span class="mf">33.1</span><span class="p">])</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">ohlc1</span><span class="p">()</span>
+</pre></div>
+
+
+<div id="63995747-13a6-46e6-aea6-ec5dfb0a3240" class="plotly-graph-div"></div>
+
+<script>
+    window.PLOTLYENV=window.PLOTLYENV || {};
+    window.PLOTLYENV.BASE_URL="https://plot.ly";
+    Plotly.newPlot('63995747-13a6-46e6-aea6-ec5dfb0a3240', [{"high":[33.1,33.3,33.6,33.2,34.8],"open":[33.0,33.3,33.5,33.0,34.1],"type":"ohlc","low":[32.7,32.7,32.8,32.6,32.8],"close":[33.0,32.9,33.3,33.1,33.1]}],
+               {"margin":{"r":30,"l":40,"b":80,"t":100}}, {showLink: false});
+
+ </script>
+
+<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> ohlc2</span><span class="p">()</span>
+    <span class="p">@</span><span class="n">eval</span> <span class="k">using</span> <span class="n">Quandl</span>
+
+    <span class="k">function</span><span class="nf"> get_ohlc</span><span class="p">(</span><span class="n">ticker</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">quandlget</span><span class="p">(</span><span class="s">&quot;WIKI/</span><span class="si">$(ticker)</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;DataFrame&quot;</span><span class="p">)</span>
+        <span class="n">ohlc</span><span class="p">(</span><span class="n">open</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Open</span><span class="p">],</span> <span class="n">high</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">High</span><span class="p">],</span> <span class="n">low</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Low</span><span class="p">],</span> <span class="n">close</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Close</span><span class="p">];</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">get_ohlc</span><span class="p">(</span><span class="s">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Apple&quot;</span><span class="p">))</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">get_ohlc</span><span class="p">(</span><span class="s">&quot;GOOG&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Google&quot;</span><span class="p">))</span>
+
+
+    <span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">]</span>
+<span class="k">end</span>
+<span class="n">ohlc2</span><span class="p">()</span>
+</pre></div>
+
+
+<div id="d46b7504-150d-40b3-bda0-f0d8cf533833" class="plotly-graph-div"></div>
+
+<script>
+    window.PLOTLYENV=window.PLOTLYENV || {};
+    window.PLOTLYENV.BASE_URL="https://plot.ly";
+    Plotly.newPlot('d46b7504-150d-40b3-bda0-f0d8cf533833', [{"yaxis":"y1","high":[99.99,99.3457,99.12,98.475,98.41,97.75,96.65,96.57,96.35,96.89,96.29,94.655,93.05,93.66,94.55,95.77,96.465,95.4,95.66,96.5,96.89,97.65,97.7,97.67,98.99,99.3,100.13,100.0,100.46,101.0,99.3,98.84,97.97,104.35,104.45,104.55,106.15,106.07,105.84,106.0,107.65,108.37,108.94,108.9,108.93,108.44,109.54,110.23,109.37,109.6,109.69,109.1,109.32,108.75,107.88,107.95,107.44,106.5,106.5699,106.8,108.0,108.3,108.76,107.27,105.72,105.72,108.79,113.03,115.73,116.13,116.18,114.12,113.989,114.94,114.79,113.39,113.18,114.64,113.8,113.37,113.05,114.31,113.66,114.34,114.56,116.75,118.69,117.98,117.44,118.17,117.84,118.21,117.76,117.38,116.91,117.74,118.36,115.7,115.86,115.21],"open":[98.5,98.53,98.69,97.32,97.82,96.45,96.62,96.0,94.94,96.25,95.94,92.91,93.0,92.9,93.97,94.44,95.49,95.39,94.6,95.7,96.49,96.75,97.17,97.41,97.39,98.92,98.7,99.56,100.0,99.83,99.26,98.25,96.82,104.265,102.83,104.19,104.41,106.05,104.81,105.58,106.27,107.52,108.23,108.71,108.52,107.78,108.14,109.63,109.1,109.23,108.77,108.86,108.59,108.565,107.39,107.41,106.62,105.8,105.66,106.14,107.7,107.9,107.83,107.25,104.64,102.65,107.51,108.73,113.86,115.12,115.19,113.05,113.85,114.35,114.42,111.64,113.0,113.69,113.16,112.46,112.71,113.06,113.4,113.7,114.31,115.02,117.7,117.35,116.79,117.88,117.33,118.18,117.25,116.86,116.81,117.1,117.95,114.31,115.39,113.87],"name":"Apple","type":"ohlc","xaxis":"x1","low":[98.46,98.48,97.1,96.75,97.03,96.07,95.3,95.03,94.676,95.35,95.25,92.65,91.5,92.14,93.63,94.3,95.33,94.46,94.37,95.62,96.05,96.73,97.12,96.84,97.32,98.5,98.6,99.34,99.735,99.13,98.31,96.92,96.42,102.75,102.82,103.68,104.41,104.0,104.77,105.28,106.18,107.16,108.01,107.76,107.85,107.78,108.08,109.21,108.34,109.02,108.36,107.85,108.53,107.68,106.68,106.31,106.29,105.5,105.64,105.62,106.82,107.51,107.07,105.24,103.13,102.53,107.24,108.6,113.49,114.04,113.25,112.51,112.441,114.0,111.55,111.55,112.34,113.43,111.8,111.8,112.28,112.63,112.69,113.13,113.51,114.72,116.2,116.75,115.72,117.13,116.78,117.45,113.8,116.33,116.28,117.0,117.31,113.31,114.1,113.45],"close":[99.65,98.83,97.34,97.46,97.14,97.55,95.33,95.1,95.91,95.55,96.1,93.4,92.04,93.59,94.4,95.6,95.89,94.99,95.53,95.94,96.68,96.98,97.42,96.87,98.79,98.78,99.83,99.87,99.96,99.43,98.66,97.34,96.67,102.95,104.34,104.21,106.05,104.48,105.79,105.87,107.48,108.37,108.81,108.0,107.93,108.18,109.48,109.38,109.22,109.08,109.36,108.51,108.85,108.03,107.57,106.94,106.82,106.0,106.1,106.73,107.73,107.68,108.3808,105.52,103.13,105.44,108.1292,111.8308,115.57,114.92,113.58,113.57,113.55,114.62,112.71,112.88,113.09,113.95,112.17,112.97,112.52,113.0,113.05,113.89,114.06,116.06,116.35,117.34,116.98,117.66,117.55,117.47,117.12,117.06,116.6,117.6292,118.25,115.59,114.51,113.69]},{"yaxis":"y2","high":[729.54,725.89,725.44,722.47,722.98,716.65,708.82,702.48,702.77,700.86,701.95,689.4,672.3,680.33,687.4292,692.32,700.65,696.94,701.68,698.2,705.71,716.51,722.94,724.0,722.21,725.74,736.13,736.99,742.13,741.69,743.24,742.61,741.69,744.46,748.65,778.55,780.43,775.84,773.21,774.07,783.04,782.63,788.94,786.8123,789.75,783.395,787.49,780.98,780.81,782.86,777.1,774.54,776.44,774.5,771.89,776.0799,774.99,774.466,769.09,771.02,773.9199,782.0,782.73,780.35,773.245,770.29,766.2195,767.68,773.8,769.75,774.0,773.33,777.16,789.85,788.93,782.74,785.9899,781.81,785.8,780.94,776.065,778.71,782.07,780.48,779.66,789.38,792.28,788.13,781.22,783.95,785.85,801.61,804.63,803.97,799.5,815.18,816.68,806.98,803.49,815.49],"open":[722.87,719.47,716.51,716.48,719.0,714.91,708.65,698.77,698.4,699.06,697.45,675.17,671.0,678.97,683.0,685.47,692.2,696.06,689.98,698.08,699.5,708.05,719.12,723.62,721.58,725.73,722.71,729.89,737.33,740.36,741.86,740.67,739.04,738.28,747.04,772.71,761.09,768.69,767.18,772.22,773.78,782.0,781.1,783.75,785.0,781.5,783.75,780.3,777.32,780.01,775.0,773.27,775.48,770.58,767.0,769.0,768.74,769.33,767.01,769.25,773.01,773.45,780.0,778.59,770.1,755.13,764.48,759.61,762.89,769.75,772.42,769.0,772.66,780.0,786.59,782.74,775.5,777.85,781.44,776.33,774.25,776.03,779.31,779.0,779.66,777.71,786.66,783.76,781.22,781.65,779.8,787.85,798.86,803.3,795.0,804.9,816.68,806.34,801.0,808.35],"name":"Google","type":"ohlc","xaxis":"x2","low":[722.3361,716.43,716.51,713.12,717.31,703.26,688.4515,693.41,692.01,693.0819,687.0,673.45,663.284,673.0,681.41,683.65,692.1301,688.88,689.09,688.215,696.435,707.24,715.91,716.85,718.03,719.055,721.19,729.0,737.1,735.831,736.56,737.5,734.27,737.0,739.3,766.77,761.09,767.85,766.82,768.795,772.34,778.091,780.57,782.778,782.97,780.4,780.11,773.444,773.53,777.0,773.13,770.0502,771.785,767.07,763.1846,765.85,766.615,766.84,765.38,764.3,768.41,771.0,776.2,773.58,759.66,754.0001,755.8,759.11,759.96,764.66,764.4406,768.53,768.301,778.44,784.15,773.07,774.308,774.97,774.232,774.09,769.5,772.89,775.65,775.54,770.75,775.87,780.58,782.06,773.0,776.0,777.5,785.565,797.635,796.03,794.0,804.82,805.14,796.32,791.5,793.59],"close":[728.58,719.41,718.36,718.27,718.92,710.36,691.72,693.71,695.94,697.46,701.87,675.22,668.26,680.04,684.11,691.875,699.21,694.49,697.77,695.36,705.63,715.09,720.64,716.98,720.95,719.85,733.78,736.96,741.19,738.63,742.74,739.77,738.42,741.77,745.91,768.79,772.88,771.07,773.18,771.61,782.22,781.76,784.26,784.68,784.85,783.22,782.44,777.14,779.91,777.5,775.42,772.15,772.08,769.64,769.41,769.54,772.15,769.09,767.05,768.78,771.46,780.08,780.35,775.32,759.66,769.02,759.69,762.49,771.76,768.26,765.7,771.41,776.22,787.21,786.9,774.21,783.01,781.56,775.01,777.29,772.56,776.43,776.47,776.86,775.08,785.94,783.07,786.14,778.19,778.53,779.96,795.26,801.56,796.97,799.37,813.11,807.67,799.07,795.35,795.37]}],
+               {"yaxis2":{"domain":[0.0,1.0],"anchor":"x2"},"yaxis1":{"domain":[0.0,1.0],"anchor":"x1"},"xaxis1":{"domain":[0.0,0.45],"anchor":"y1"},"margin":{"r":30,"l":40,"b":80,"t":100},"xaxis2":{"domain":[0.55,1.0],"anchor":"y2"}}, {showLink: false});
+
+ </script>
+
+<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> candlestick1</span><span class="p">()</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">candlestick</span><span class="p">(</span><span class="n">open</span><span class="o">=</span><span class="p">[</span><span class="mf">33.0</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">,</span> <span class="mf">34.1</span><span class="p">],</span>
+                    <span class="n">high</span><span class="o">=</span><span class="p">[</span><span class="mf">33.1</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.6</span><span class="p">,</span> <span class="mf">33.2</span><span class="p">,</span> <span class="mf">34.8</span><span class="p">],</span>
+                    <span class="n">low</span><span class="o">=</span><span class="p">[</span><span class="mf">32.7</span><span class="p">,</span> <span class="mf">32.7</span><span class="p">,</span> <span class="mf">32.8</span><span class="p">,</span> <span class="mf">32.6</span><span class="p">,</span> <span class="mf">32.8</span><span class="p">],</span>
+                    <span class="n">close</span><span class="o">=</span><span class="p">[</span><span class="mf">33.0</span><span class="p">,</span> <span class="mf">32.9</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.1</span><span class="p">,</span> <span class="mf">33.1</span><span class="p">])</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">candlestick1</span><span class="p">()</span>
+</pre></div>
+
+
+<div id="85ef0ba1-5031-4e51-9308-2f114cf4420a" class="plotly-graph-div"></div>
+
+<script>
+    window.PLOTLYENV=window.PLOTLYENV || {};
+    window.PLOTLYENV.BASE_URL="https://plot.ly";
+    Plotly.newPlot('85ef0ba1-5031-4e51-9308-2f114cf4420a', [{"high":[33.1,33.3,33.6,33.2,34.8],"open":[33.0,33.3,33.5,33.0,34.1],"type":"candlestick","low":[32.7,32.7,32.8,32.6,32.8],"close":[33.0,32.9,33.3,33.1,33.1]}],
+               {"margin":{"r":30,"l":40,"b":80,"t":100}}, {showLink: false});
+
+ </script>
+
+<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> candlestick2</span><span class="p">()</span>
+    <span class="p">@</span><span class="n">eval</span> <span class="k">using</span> <span class="n">Quandl</span>
+
+    <span class="k">function</span><span class="nf"> get_candlestick</span><span class="p">(</span><span class="n">ticker</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">quandlget</span><span class="p">(</span><span class="s">&quot;WIKI/</span><span class="si">$(ticker)</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;DataFrame&quot;</span><span class="p">)</span>
+        <span class="n">candlestick</span><span class="p">(</span><span class="n">open</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Open</span><span class="p">],</span> <span class="n">high</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">High</span><span class="p">],</span> <span class="n">low</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Low</span><span class="p">],</span> <span class="n">close</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Close</span><span class="p">];</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">get_candlestick</span><span class="p">(</span><span class="s">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Apple&quot;</span><span class="p">))</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">get_candlestick</span><span class="p">(</span><span class="s">&quot;GOOG&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Google&quot;</span><span class="p">))</span>
+
+
+    <span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">]</span>
+<span class="k">end</span>
+<span class="n">candlestick2</span><span class="p">()</span>
+</pre></div>
+
+
+<div id="d60006ef-45db-4ccb-aa6f-d3f2d05d0e28" class="plotly-graph-div"></div>
+
+<script>
+    window.PLOTLYENV=window.PLOTLYENV || {};
+    window.PLOTLYENV.BASE_URL="https://plot.ly";
+    Plotly.newPlot('d60006ef-45db-4ccb-aa6f-d3f2d05d0e28', [{"yaxis":"y1","high":[99.99,99.3457,99.12,98.475,98.41,97.75,96.65,96.57,96.35,96.89,96.29,94.655,93.05,93.66,94.55,95.77,96.465,95.4,95.66,96.5,96.89,97.65,97.7,97.67,98.99,99.3,100.13,100.0,100.46,101.0,99.3,98.84,97.97,104.35,104.45,104.55,106.15,106.07,105.84,106.0,107.65,108.37,108.94,108.9,108.93,108.44,109.54,110.23,109.37,109.6,109.69,109.1,109.32,108.75,107.88,107.95,107.44,106.5,106.5699,106.8,108.0,108.3,108.76,107.27,105.72,105.72,108.79,113.03,115.73,116.13,116.18,114.12,113.989,114.94,114.79,113.39,113.18,114.64,113.8,113.37,113.05,114.31,113.66,114.34,114.56,116.75,118.69,117.98,117.44,118.17,117.84,118.21,117.76,117.38,116.91,117.74,118.36,115.7,115.86,115.21],"open":[98.5,98.53,98.69,97.32,97.82,96.45,96.62,96.0,94.94,96.25,95.94,92.91,93.0,92.9,93.97,94.44,95.49,95.39,94.6,95.7,96.49,96.75,97.17,97.41,97.39,98.92,98.7,99.56,100.0,99.83,99.26,98.25,96.82,104.265,102.83,104.19,104.41,106.05,104.81,105.58,106.27,107.52,108.23,108.71,108.52,107.78,108.14,109.63,109.1,109.23,108.77,108.86,108.59,108.565,107.39,107.41,106.62,105.8,105.66,106.14,107.7,107.9,107.83,107.25,104.64,102.65,107.51,108.73,113.86,115.12,115.19,113.05,113.85,114.35,114.42,111.64,113.0,113.69,113.16,112.46,112.71,113.06,113.4,113.7,114.31,115.02,117.7,117.35,116.79,117.88,117.33,118.18,117.25,116.86,116.81,117.1,117.95,114.31,115.39,113.87],"name":"Apple","type":"candlestick","xaxis":"x1","low":[98.46,98.48,97.1,96.75,97.03,96.07,95.3,95.03,94.676,95.35,95.25,92.65,91.5,92.14,93.63,94.3,95.33,94.46,94.37,95.62,96.05,96.73,97.12,96.84,97.32,98.5,98.6,99.34,99.735,99.13,98.31,96.92,96.42,102.75,102.82,103.68,104.41,104.0,104.77,105.28,106.18,107.16,108.01,107.76,107.85,107.78,108.08,109.21,108.34,109.02,108.36,107.85,108.53,107.68,106.68,106.31,106.29,105.5,105.64,105.62,106.82,107.51,107.07,105.24,103.13,102.53,107.24,108.6,113.49,114.04,113.25,112.51,112.441,114.0,111.55,111.55,112.34,113.43,111.8,111.8,112.28,112.63,112.69,113.13,113.51,114.72,116.2,116.75,115.72,117.13,116.78,117.45,113.8,116.33,116.28,117.0,117.31,113.31,114.1,113.45],"close":[99.65,98.83,97.34,97.46,97.14,97.55,95.33,95.1,95.91,95.55,96.1,93.4,92.04,93.59,94.4,95.6,95.89,94.99,95.53,95.94,96.68,96.98,97.42,96.87,98.79,98.78,99.83,99.87,99.96,99.43,98.66,97.34,96.67,102.95,104.34,104.21,106.05,104.48,105.79,105.87,107.48,108.37,108.81,108.0,107.93,108.18,109.48,109.38,109.22,109.08,109.36,108.51,108.85,108.03,107.57,106.94,106.82,106.0,106.1,106.73,107.73,107.68,108.3808,105.52,103.13,105.44,108.1292,111.8308,115.57,114.92,113.58,113.57,113.55,114.62,112.71,112.88,113.09,113.95,112.17,112.97,112.52,113.0,113.05,113.89,114.06,116.06,116.35,117.34,116.98,117.66,117.55,117.47,117.12,117.06,116.6,117.6292,118.25,115.59,114.51,113.69]},{"yaxis":"y2","high":[729.54,725.89,725.44,722.47,722.98,716.65,708.82,702.48,702.77,700.86,701.95,689.4,672.3,680.33,687.4292,692.32,700.65,696.94,701.68,698.2,705.71,716.51,722.94,724.0,722.21,725.74,736.13,736.99,742.13,741.69,743.24,742.61,741.69,744.46,748.65,778.55,780.43,775.84,773.21,774.07,783.04,782.63,788.94,786.8123,789.75,783.395,787.49,780.98,780.81,782.86,777.1,774.54,776.44,774.5,771.89,776.0799,774.99,774.466,769.09,771.02,773.9199,782.0,782.73,780.35,773.245,770.29,766.2195,767.68,773.8,769.75,774.0,773.33,777.16,789.85,788.93,782.74,785.9899,781.81,785.8,780.94,776.065,778.71,782.07,780.48,779.66,789.38,792.28,788.13,781.22,783.95,785.85,801.61,804.63,803.97,799.5,815.18,816.68,806.98,803.49,815.49],"open":[722.87,719.47,716.51,716.48,719.0,714.91,708.65,698.77,698.4,699.06,697.45,675.17,671.0,678.97,683.0,685.47,692.2,696.06,689.98,698.08,699.5,708.05,719.12,723.62,721.58,725.73,722.71,729.89,737.33,740.36,741.86,740.67,739.04,738.28,747.04,772.71,761.09,768.69,767.18,772.22,773.78,782.0,781.1,783.75,785.0,781.5,783.75,780.3,777.32,780.01,775.0,773.27,775.48,770.58,767.0,769.0,768.74,769.33,767.01,769.25,773.01,773.45,780.0,778.59,770.1,755.13,764.48,759.61,762.89,769.75,772.42,769.0,772.66,780.0,786.59,782.74,775.5,777.85,781.44,776.33,774.25,776.03,779.31,779.0,779.66,777.71,786.66,783.76,781.22,781.65,779.8,787.85,798.86,803.3,795.0,804.9,816.68,806.34,801.0,808.35],"name":"Google","type":"candlestick","xaxis":"x2","low":[722.3361,716.43,716.51,713.12,717.31,703.26,688.4515,693.41,692.01,693.0819,687.0,673.45,663.284,673.0,681.41,683.65,692.1301,688.88,689.09,688.215,696.435,707.24,715.91,716.85,718.03,719.055,721.19,729.0,737.1,735.831,736.56,737.5,734.27,737.0,739.3,766.77,761.09,767.85,766.82,768.795,772.34,778.091,780.57,782.778,782.97,780.4,780.11,773.444,773.53,777.0,773.13,770.0502,771.785,767.07,763.1846,765.85,766.615,766.84,765.38,764.3,768.41,771.0,776.2,773.58,759.66,754.0001,755.8,759.11,759.96,764.66,764.4406,768.53,768.301,778.44,784.15,773.07,774.308,774.97,774.232,774.09,769.5,772.89,775.65,775.54,770.75,775.87,780.58,782.06,773.0,776.0,777.5,785.565,797.635,796.03,794.0,804.82,805.14,796.32,791.5,793.59],"close":[728.58,719.41,718.36,718.27,718.92,710.36,691.72,693.71,695.94,697.46,701.87,675.22,668.26,680.04,684.11,691.875,699.21,694.49,697.77,695.36,705.63,715.09,720.64,716.98,720.95,719.85,733.78,736.96,741.19,738.63,742.74,739.77,738.42,741.77,745.91,768.79,772.88,771.07,773.18,771.61,782.22,781.76,784.26,784.68,784.85,783.22,782.44,777.14,779.91,777.5,775.42,772.15,772.08,769.64,769.41,769.54,772.15,769.09,767.05,768.78,771.46,780.08,780.35,775.32,759.66,769.02,759.69,762.49,771.76,768.26,765.7,771.41,776.22,787.21,786.9,774.21,783.01,781.56,775.01,777.29,772.56,776.43,776.47,776.86,775.08,785.94,783.07,786.14,778.19,778.53,779.96,795.26,801.56,796.97,799.37,813.11,807.67,799.07,795.35,795.37]}],
+               {"yaxis2":{"domain":[0.0,1.0],"anchor":"x2"},"yaxis1":{"domain":[0.0,1.0],"anchor":"x1"},"xaxis1":{"domain":[0.0,0.45],"anchor":"y1"},"margin":{"r":30,"l":40,"b":80,"t":100},"xaxis2":{"domain":[0.55,1.0],"anchor":"y2"}}, {showLink: false});
+
+ </script>
+          <aside class="copyright" role="note">
+            
+              Copyright &copy; 2016 <a href="http://spencerlyon.com/">Spencer Lyon</a> &ndash;
+            
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="http://squidfunk.github.io/mkdocs-material/" target="_blank">
+              Material
+            </a>
+            theme.
+          </aside>
+          
+            <footer class="footer">
+              
+  <nav class="pagination" aria-label="Footer">
+    <div class="previous">
+      
+        <a href="../contour/" title="Contour">
+          <span class="direction">
+            Previous
+          </span>
+          <div class="page">
+            <div class="button button-previous" role="button" aria-label="Previous">
+              <i class="icon icon-back"></i>
+            </div>
+            <div class="stretch">
+              <div class="title">
+                Contour
+              </div>
+            </div>
+          </div>
+        </a>
+      
+    </div>
+    <div class="next">
+      
+        <a href="../histograms/" title="Histograms">
+          <span class="direction">
+            Next
+          </span>
+          <div class="page">
+            <div class="stretch">
+              <div class="title">
+                Histograms
+              </div>
+            </div>
+            <div class="button button-next" role="button" aria-label="Next">
+              <i class="icon icon-forward"></i>
+            </div>
+          </div>
+        </a>
+      
+    </div>
+  </nav>
+
+            </footer>
+          
+        </div>
+      </article>
+      <div class="results" role="status" aria-live="polite">
+        <div class="scrollable">
+          <div class="wrapper">
+            <div class="meta"></div>
+            <div class="list"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      var base_url = '../..';
+      var repo_id  = 'spencerlyon2/PlotlyJS.jl';
+    </script>
+    <script src="../../assets/javascripts/application-dfb6964a49.js"></script>
+    
+      <script>
+        (function(i,s,o,g,r,a,m){
+          i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||
+          []).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;
+          m.parentNode.insertBefore(a,m)
+        })(window, document,
+          'script', '//www.google-analytics.com/analytics.js', 'ga');
+        /* General initialization */
+        ga('create', 'UA-36732392-3', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+        /* Track outbound links */
+        var buttons = document.querySelectorAll('a');
+        Array.prototype.map.call(buttons, function(item) {
+          if (item.host != document.location.host) {
+            item.addEventListener('click', function() {
+              var action = item.getAttribute('data-action') || 'follow';
+              ga('send', 'event', 'outbound', action, item.href);
+            });
+          }
+        });
+        /* Register handler to log search on blur */
+        var query = document.querySelector('.query');
+        query.addEventListener('blur', function() {
+          if (this.value) {
+            var path = document.location.pathname;
+            ga('send', 'pageview', path + '?q=' + this.value);
+          }
+        });
+      </script>
+    
+  </body>
+</html>
