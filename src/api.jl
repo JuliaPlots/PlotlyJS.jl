@@ -15,10 +15,10 @@ Return the size of the plot in pixels. Obtained from the `layout.width` and
 Base.size(p::Plot) = (get(p.layout.fields, :width, 800),
                       get(p.layout.fields, :height, 450))
 
-
-for t in [:histogram, :scatter3d, :surface, :mesh3d, :bar, :histogram2d,
-          :histogram2dcontour, :scatter, :scatterternary, :pie, :heatmap,
-          :contour, :scattergl, :box, :area, :choropleth, :scattergeo]
+for t in [:histogram, :scatter3d, :pointcloud, :surface, :mesh3d, :bar,
+          :histogram2d, :histogram2dcontour, :ohlc, :scatterternary, :pie,
+          :heatmap, :scattermapbox, :scatter, :contour, :candlestick,
+          :scattergl, :box, :area, :choropleth, :scattergeo]
     str_t = string(t)
     @eval $t(;kwargs...) = GenericTrace($str_t; kwargs...)
     @eval $t(d::Associative; kwargs...) = GenericTrace($str_t, _symbol_dict(d); kwargs...)
