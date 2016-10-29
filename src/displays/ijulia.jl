@@ -141,6 +141,13 @@ movetraces!(jd::JupyterDisplay, src::AbstractVector{Int}, dest::AbstractVector{I
     _call_plotlyjs(jd, "moveTraces", src-1, dest-1)
 
 redraw!(jd::JupyterDisplay) = _call_plotlyjs(jd, "redraw")
+purge!(jd::JupyterDisplay) = _call_plotlyjs(jd, "purge")
+
+to_image(jd::JupyterDisplay; kwargs...) =
+    _call_plotlyjs(jd, "to_image", Dict(kwargs))
+
+download_image(jd::JupyterDisplay; kwargs...) =
+    _call_plotlyjs(jd, "download_image", Dict(kwargs))
 
 # unexported (by plotly.js) api methods
 extendtraces!(jd::JupyterDisplay, update::Associative=Dict(),

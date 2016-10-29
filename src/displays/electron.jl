@@ -180,6 +180,15 @@ movetraces!(p::ElectronDisplay, src::AbstractVector{Int}, dest::AbstractVector{I
 redraw!(p::ElectronDisplay) =
     @js_ p Plotly.redraw(this)
 
+purge!(p::ElectronDisplay) =
+    @js_ p Plotly.purge(this)
+
+to_image(p::ElectronDisplay; kwargs...) =
+    @js p Plotly.toImage(this, $(Dict(kwargs)))
+
+download_image(p::ElectronDisplay; kwargs...) =
+    @js p Plotly.downloadImage(this, $(Dict(kwargs)))
+
 # unexported (by plotly.js) api methods
 extendtraces!(ed::ElectronDisplay, update::Associative=Dict(),
               indices::Vector{Int}=[1], maxpoints=-1;) =

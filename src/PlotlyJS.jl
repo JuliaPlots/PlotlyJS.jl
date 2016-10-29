@@ -88,7 +88,7 @@ export
 
     # plotly.js api methods
     restyle!, relayout!, addtraces!, deletetraces!, movetraces!, redraw!,
-    extendtraces!, prependtraces!,
+    extendtraces!, prependtraces!, purge!, to_image, download_image,
 
     # non-!-versions (forks, then applies, then returns fork)
     restyle, relayout, addtraces, deletetraces, movetraces, redraw,

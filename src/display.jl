@@ -76,7 +76,8 @@ plot(args...; kwargs...) = SyncPlot(Plot(args...; kwargs...))
 
 ## API methods for SyncPlot
 for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
-          :redraw!, :extendtraces!, :prependtraces!]
+          :redraw!, :extendtraces!, :prependtraces!, :purge!, :to_image,
+          :download_image]
     @eval function $(f)(sp::SyncPlot, args...; kwargs...)
         $(f)(sp.plot, args...; kwargs...)
         $(f)(sp.view, args...; kwargs...)

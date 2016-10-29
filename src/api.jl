@@ -236,6 +236,9 @@ movetraces!(p::Plot, src::AbstractVector{Int}, dest::AbstractVector{Int}) =
 
 # no-op here
 redraw!(p::Plot) = nothing
+purge!(p::Plot) = nothing
+to_image(p::Plot; kwargs...) = nothing
+download_image(p::Plot; kwargs...) = nothing
 
 # --------------------------------- #
 # unexported methods in plot_api.js #
