@@ -134,7 +134,7 @@ function __init__()
             SyncPlot(p::Plot) = SyncPlot(p, JupyterDisplay(p))
 
             IJulia.display_dict(p::Plot) =
-                Dict("text/plain" => sprint(writemime, "text/plain", p))
+                Dict("text/plain" => sprint(show, "text/plain", p))
 
         end
     else

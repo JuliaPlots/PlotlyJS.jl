@@ -53,13 +53,13 @@ function savefig_imagemagick(p::ElectronPlot, fn::AbstractString; js::Symbol=:lo
     # if html we don't need a plot window
     if suf == "html"
         open(fn, "w") do f
-            writemime(f, MIME"text/html"(), p, js)
+            show(f, MIME"text/html"(), p, js)
         end
         return p
     end
 
     # for all the rest we need an active plot window
-    show(p)
+    display(p)
 
     # we can export svg directly
     if suf == "svg"
@@ -108,7 +108,7 @@ function savefig(p::ElectronPlot, fn::AbstractString; js::Symbol=:local)
     # if html we don't need a plot window
     if suf == "html"
         open(fn, "w") do f
-            writemime(f, MIME"text/html"(), p, js)
+            show(f, MIME"text/html"(), p, js)
         end
         return p
     end
