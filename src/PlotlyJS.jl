@@ -29,6 +29,10 @@ autoresize() = _autoresize[1]
 
 _isijulia() = isdefined(Main, :IJulia) && Main.IJulia.inited
 
+_symbol_dict(x) = x
+_symbol_dict(d::Associative) =
+    Dict{Symbol,Any}([(Symbol(k), _symbol_dict(v)) for (k, v) in d])
+
 # include these here because they are used below
 include("traces_layouts.jl")
 include("styles.jl")
