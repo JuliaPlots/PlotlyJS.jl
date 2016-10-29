@@ -27,7 +27,7 @@ end
 
 Base.copy{HF<:HasFields}(hf::HF) = HF(deepcopy(hf.fields))
 Base.copy(p::Plot) = Plot(AbstractTrace[copy(t) for t in p.data], copy(p.layout))
-fork(p::Plot) = Plot(deepcopy(p.data), copy(p.layout), Base.Random.uuid4())
+fork(p::Plot) = Plot(deepcopy(p.data), copy(p.layout))
 
 # -------------- #
 # Javascript API #

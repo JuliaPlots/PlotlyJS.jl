@@ -39,8 +39,8 @@ function candlestick2()
         candlestick(open=df[:Open], high=df[:High], low=df[:Low], close=df[:Close]; kwargs...)
     end
 
-    p1 = plot(get_ohlc("AAPL", name="Apple"))
-    p2 = plot(get_ohlc("GOOG", name="Google"))
+    p1 = plot(get_candlestick("AAPL", name="Apple"))
+    p2 = plot(get_candlestick("GOOG", name="Google"))
 
 
     [p1 p2]
