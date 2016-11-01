@@ -121,7 +121,7 @@ function __init__()
         end
 
         # set up the comms we will use to send js messages to be executed
-        global const _ijulia_eval_comm = Comm(:plotlyjs_eval)
+        global const _ijulia_eval_comm = Ref(Comm(:plotlyjs_eval))
         global const _ijulia_return_comms = ObjectIdDict()
 
         @eval begin
