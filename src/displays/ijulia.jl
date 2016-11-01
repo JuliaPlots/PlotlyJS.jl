@@ -10,7 +10,12 @@ end
 
 typealias JupyterPlot SyncPlot{JupyterDisplay}
 
-JupyterDisplay(p::Plot) = JupyterDisplay(p.divid, false, Condition())
+
+const divid2comm = Dict{Base.Random.UUID, Any}()
+JupyterDisplay(p::Plot) = begin
+    divid2comm[p.divid] = Comm(:plotlyjs_eval)
+    JupyterDisplay(p.divid, false, Condition())
+end
 JupyterPlot(p::Plot) = JupyterPlot(p, JupyterDisplay(p))
 
 fork(jp::JupyterPlot) = JupyterPlot(fork(jp.plot))
@@ -72,7 +77,7 @@ end
 # ---------------- #
 
 _call_js(jd::JupyterDisplay, code) =
-    send_comm(_ijulia_eval_comm, Dict("code" => code))
+    send_comm(divid2comm[jd.divid], Dict("code" => code))
 
 ## API Methods for JupyterDisplay
 _the_div_js(jd::JupyterDisplay) = "document.getElementById('$(jd.divid)')"
