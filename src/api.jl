@@ -309,7 +309,7 @@ end
 
 for f in (:extendtraces!, :prependtraces!)
     @eval begin
-        $(f)(p::Plot, inds::Vector{Int}=[0], maxpoints=-1; update...) =
+        $(f)(p::Plot, inds::Vector{Int}=[1], maxpoints=-1; update...) =
             ($f)(p, Dict(map(x->(x[1], _tovec(x[2])), update)), inds, maxpoints)
 
         $(f)(p::Plot, ind::Int, maxpoints=-1; update...) =
