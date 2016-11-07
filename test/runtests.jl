@@ -1,4 +1,5 @@
 module PlotlyJSTest
+using TestSetExtensions
 
 if VERSION >= v"0.5-"
     using Base.Test
@@ -10,10 +11,12 @@ end
 using PlotlyJS
 typealias M PlotlyJS
 
-tests = length(ARGS) > 0 ? ARGS : ["traces", "api", "styles"]
-
-for fn in tests
-    include(string(fn, ".jl"))
+try
+    @testset DottedTestSet "PlotlyJS Tests" begin
+        @includetests ARGS
+    end
+catch
+    exit(-1)
 end
 
 end
