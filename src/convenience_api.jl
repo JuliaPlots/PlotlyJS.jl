@@ -89,29 +89,97 @@ function plot(fs::AbstractVector{Function}, x0::Number, x1::Number,
     plot(traces, l; style=style)
 end
 
+type StemTrace{T} <: AbstractTrace
+    trace::GenericTrace{T}
+    stem_color
+    stem_thickness
+end
+
+Base.setindex!(st::StemTrace, args...; kwargs...) = setindex!(st.trace, args...; kwargs...)
+Base.getindex(st::StemTrace, args...; kwargs...) = getindex(st.trace, args...; kwargs...)
+JSON.lower(st::StemTrace) = JSON.lower(st.trace)
+kind(trace::StemTrace) = :scatter
+
 """
 $(SIGNATURES)
 Creates a "stem" or "lollipop" trace. It is implemented using plotly.js's
 `scatter` type, using the error bars to draw the stem.
 
 ## Keyword Arguments:
-* All properties accepted by `scatter` except `error_y`, which is used to draw
+* All properties accepted by `scatter` except `mode` and `error_y`, which are used to draw
     the stems
 * stem_color - sets the color of the stems
 * stem_thickness - sets the thickness of the stems
 """
-function stem(;y=nothing, stem_color="grey", stem_thickness=1, kwargs...)
-    line_up = -min(y, 0)
-    line_down = max(y, 0)
-    trace = scatter(; y=y, text=y, marker_size=10, mode="markers", hoverinfo="text", kwargs...)
-    trace.fields[:error_y] = Dict(
-        :type => "data",
-        :symmetric => false,
-        :array => line_up,
-        :arrayminus => line_down,
-        :visible => true,
-        :color => stem_color,
-        :width => 0,
-        :thickness => stem_thickness)
-    trace
+function stem(fields::Associative=Dict{Symbol, Any}();
+              stem_color="grey", stem_thickness=1, marker_size=10, kwargs...)
+    _check_stemargs(fields, kwargs)
+    st = StemTrace(
+        scatter(
+            fields;
+            marker_size=marker_size,
+            mode="markers",
+            hoverinfo="text",
+            kwargs...),
+        stem_color,
+        stem_thickness)
+
+    _update_stemfields(st)
+
+    st
+end
+
+function restyle!(st::StemTrace, i::Int=1, update::Associative=Dict(); kwargs...)
+    _check_stemargs(update, kwargs)
+    for coll in (update, kwargs)
+        for (k, v) in coll
+            if k in (:stem_color, :stem_thickness)
+                _apply_restyle_setfield!(st, k, v, i)
+            else
+                _apply_restyle_setindex!(st.trace, k, v, i)
+            end
+        end
+    end
+
+    _update_stemfields(st)
+end
+
+# check that the user isn't trying to set any of the properties that we're
+# using to make the stem plot
+# update is an Associative. kwargs is a list of tuples, as you'd get from
+# splatting keyword arguments
+function _check_stemargs(update::Associative, kwargs)
+    for key in keys(update)
+        if key in (:error_y, :mode)
+            error("`$key` property not allowed in stem plots")
+        end
+    end
+    for (key, _) in kwargs
+        if key in (:error_y, :mode)
+            error("`$key` property not allowed in stem plots")
+        end
+    end
+end
+
+# take the given stem plot and set the extra properties we need
+function _update_stemfields(st::StemTrace)
+    y = get(st, :y, nothing)
+    if y != nothing
+        st[:text] = y
+        line_up = -min(y, 0)
+        line_down = max(y, 0)
+        st[:error_y] = Dict(
+            :type => "data",
+            :symmetric => false,
+            :array => line_up,
+            :arrayminus => line_down,
+            :visible => true,
+            :color => st.stem_color,
+            :width => 0,
+            :thickness => st.stem_thickness)
+    else
+        println("got no y data")
+    end
+
+    nothing
 end

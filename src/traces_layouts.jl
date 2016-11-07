@@ -1,3 +1,4 @@
+# subtypes of AbstractTrace should have a "fields" field that's an Associative
 abstract AbstractTrace
 abstract AbstractLayout
 

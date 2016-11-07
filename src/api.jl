@@ -61,6 +61,12 @@ end
 _apply_restyle_setindex!(hf::Union{Associative,HasFields}, k::Symbol, v, i::Int) =
     setindex!(hf, v, k)
 
+# enable the same automatic indexing behavior but for setfield!
+_apply_restyle_setfield!(obj, k::Symbol, v::Union{AbstractArray,Tuple}, i::Int) =
+    setfield!(obj, k, v[i])
+
+_apply_restyle_setfield!(obj, k::Symbol, v, i::Int) = setfield!(obj, k, v)
+
 
 #=
 Wrap the vector so it repeats to be at least length N
