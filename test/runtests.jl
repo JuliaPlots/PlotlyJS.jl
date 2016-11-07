@@ -10,6 +10,7 @@ end
 
 using PlotlyJS
 typealias M PlotlyJS
+using JSON
 
 try
     @testset DottedTestSet "PlotlyJS Tests" begin

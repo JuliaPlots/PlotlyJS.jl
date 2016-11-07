@@ -97,6 +97,7 @@ end
 
 Base.setindex!(st::StemTrace, args...; kwargs...) = setindex!(st.trace, args...; kwargs...)
 Base.getindex(st::StemTrace, args...; kwargs...) = getindex(st.trace, args...; kwargs...)
+Base.get(st::StemTrace, args...; kwargs...) = get(st.trace, args...; kwargs...)
 JSON.lower(st::StemTrace) = JSON.lower(st.trace)
 kind(trace::StemTrace) = :scatter
 
@@ -177,8 +178,6 @@ function _update_stemfields(st::StemTrace)
             :color => st.stem_color,
             :width => 0,
             :thickness => st.stem_thickness)
-    else
-        println("got no y data")
     end
 
     nothing
