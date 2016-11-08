@@ -17,8 +17,6 @@ end
 function restyle!(disp::MockPlotlyDisplay, I, update::Associative=Dict(); kwargs...)
     argdict = merge(update, prep_kwargs(kwargs))
     push!(disp.calls, ("restyle!", [argdict, I-1]))
-    println("\nrestyle!")
-    println(argdict)
 end
 
 function restyle!(disp::MockPlotlyDisplay, update::Associative=Dict(); kwargs...)
@@ -78,19 +76,25 @@ end
     syncplot = SyncPlot(Plot(stem(y=data)), MockPlotlyDisplay())
 
     data = rand(5)
-    restyle!(syncplot, y=[data], stem_thickness=5)
+    restyle!(syncplot, y=[data], stem_thickness=5, marker_color="red")
     st = JSON.lower(syncplot.plot.data[1])
     # first make sure the julia-side plot got updated
     @test st[:y] == data
     @test st[:error_y][:array] == -min(data, 0)
     @test st[:error_y][:arrayminus] == max(data, 0)
+    @test st[:marker][:color] == "red"
 
     # make sure the right display function got called
     @test length(syncplot.view.calls) == 1
     call = syncplot.view.calls[1]
     @test call[1] == "restyle!"
+    # TODO: currently any kwargs that are passed in get converted to strings,
+    # and anything generated in the StemPlot handler is a symbol. We should
+    # normalize that at some point
     @test call[2][1] == Dict(
-        :y => [data],
+        "y" => [data],
+        :text => [data],
+        "marker.color" => "red",
         :error_y => Dict(
             :type => "data",
             :symmetric => false,
@@ -100,4 +104,30 @@ end
             :color => "grey",
             :width => 0,
             :thickness => 5))
+    @test call[2][2] == 0
+end
+
+# TODO: this should live with the rest of scatter stuff
+@testset "SyncPlot restyling of Scatter" begin
+    data = rand(5)
+    syncplot = SyncPlot(Plot(scatter(y=data)), MockPlotlyDisplay())
+
+    data = rand(5)
+    restyle!(syncplot, y=[data], marker_color="red")
+    st = JSON.lower(syncplot.plot.data[1])
+    # first make sure the julia-side plot got updated
+    @test st[:y] == data
+    @test st[:marker][:color] == "red"
+
+    # make sure the right display function got called
+    @test length(syncplot.view.calls) == 1
+    call = syncplot.view.calls[1]
+    @test call[1] == "restyle!"
+    # TODO: currently any kwargs that are passed in get converted to strings,
+    # and anything generated in the StemPlot handler is a symbol. We should
+    # normalize that at some point
+    @test call[2][1] == Dict(
+        "y" => [data],
+        "marker.color" => "red")
+    @test call[2][2] == 0
 end

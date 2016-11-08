@@ -58,8 +58,10 @@ function _apply_restyle_setindex!(hf::Union{Associative,HasFields}, k::Symbol,
     setindex!(hf, v[i], k)
 end
 
-_apply_restyle_setindex!(hf::Union{Associative,HasFields}, k::Symbol, v, i::Int) =
+function _apply_restyle_setindex!(hf::Union{Associative,HasFields}, k::Symbol,
+                                  v, i::Int)
     setindex!(hf, v, k)
+end
 
 # enable the same automatic indexing behavior but for setfield!
 _apply_restyle_setfield!(obj, k::Symbol, v::Union{AbstractArray,Tuple}, i::Int) =
@@ -93,15 +95,20 @@ _prep_restyle_vec_setindex(v::Tuple, N::Int) =
 # everything else just goes through
 _prep_restyle_vec_setindex(v, N::Int) = v
 
+# updates the trace fields and returns the changed field values as a dict
 function _update_fields(hf::GenericTrace, i::Int, update::Dict=Dict(); kwargs...)
+    change = Dict()
     # apply updates in the dict w/out `_` processing
     for (k,v) in update
         _apply_restyle_setindex!(hf.fields, k, v, i)
+        change[replace(string(k), "_", ".")] = v
     end
     for (k,v) in kwargs
         _apply_restyle_setindex!(hf, k, v, i)
+        change[replace(string(k), "_", ".")] = v
     end
-    hf
+
+    change
 end
 
 """
@@ -130,6 +137,8 @@ relayout!(p::Plot, update::Associative=Dict(); kwargs...) =
 
 Update trace `gt` using dict/kwargs, assuming it was the `i`th ind in a call
 to `restyle!(::Plot, ...)`
+
+returns a dict with the changes
 """
 restyle!(gt::GenericTrace, i::Int=1, update::Associative=Dict(); kwargs...) =
     _update_fields(gt, i, update; kwargs...)
@@ -138,6 +147,8 @@ restyle!(gt::GenericTrace, i::Int=1, update::Associative=Dict(); kwargs...) =
 `restyle!(p::Plot, ind::Int=1, update::Associative=Dict(); kwargs...)`
 
 Update `p.data[ind]` using update dict and/or kwargs
+
+returns a dict with the changes
 """
 restyle!(p::Plot, ind::Int, update::Associative=Dict(); kwargs...) =
     restyle!(p.data[ind], 1, update; kwargs...)
@@ -146,6 +157,8 @@ restyle!(p::Plot, ind::Int, update::Associative=Dict(); kwargs...) =
 `restyle!(::Plot, ::AbstractVector{Int}, ::Associative=Dict(); kwargs...)`
 
 Update specific traces at `p.data[inds]` using update dict and/or kwargs
+
+Returns a list of the Dicts used to update each trace in the plot
 """
 function restyle!(p::Plot, inds::AbstractVector{Int},
                   update::Associative=Dict(); kwargs...)
@@ -165,7 +178,9 @@ end
 """
 `restyle!(p::Plot, update::Associative=Dict(); kwargs...)`
 
-Update all traces using update dict and/or kwargs
+Update all traces using update dict and/or kwargs.
+
+Returns a list of the Dicts used to update each trace in the plot
 """
 restyle!(p::Plot, update::Associative=Dict(); kwargs...) =
     restyle!(p, 1:length(p.data), update; kwargs...)

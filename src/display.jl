@@ -75,7 +75,22 @@ end
 plot(args...; kwargs...) = SyncPlot(Plot(args...; kwargs...))
 
 ## API methods for SyncPlot
-for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
+function restyle!(sp::SyncPlot, args...; kwargs...)
+    diffs = restyle!(sp.plot, args...; kwargs...)
+    # each trace in the plot returns a diff, so we have to apply them
+    # separately. Maybe at some point we can do some clever merging
+    for (i, diff) in enumerate(diffs)
+        restyle!(sp.view, i, diff)
+    end
+end
+
+function restyle(sp::SyncPlot, args...; kwargs...)
+    sp2 = fork(sp)
+    $f(sp2.plot, args...; kwargs...)  # only need to update the julia side
+    sp2  # return so we display fresh
+end
+
+for f in [:relayout!, :addtraces!, :deletetraces!, :movetraces!,
           :redraw!, :extendtraces!, :prependtraces!, :purge!, :to_image,
           :download_image]
     @eval function $(f)(sp::SyncPlot, args...; kwargs...)

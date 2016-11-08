@@ -130,19 +130,30 @@ function stem(fields::Associative=Dict{Symbol, Any}();
     st
 end
 
-function restyle!(st::StemTrace, i::Int=1, update::Associative=Dict(); kwargs...)
+function restyle!(st::StemTrace, i::Int=1, update::Associative=Dict();
+                  stem_thickness=st.stem_thickness,
+                  stem_color=st.stem_color,
+                  kwargs...)
     _check_stemargs(update, kwargs)
+    _apply_restyle_setfield!(st, :stem_thickness, stem_thickness, i)
+    _apply_restyle_setfield!(st, :stem_color, stem_color, i)
+    updatedict = Dict()
     for coll in (update, kwargs)
         for (k, v) in coll
-            if k in (:stem_color, :stem_thickness)
-                _apply_restyle_setfield!(st, k, v, i)
-            else
-                _apply_restyle_setindex!(st.trace, k, v, i)
+            _apply_restyle_setindex!(st.trace, k, v, i)
+            # maintain `outer.inner` to keep with plotly.js update semantics.
+            # nesting the inner value would cause plotly to replace the whole
+            # outer dict instead of just editing the inner value
+            if !(Symbol(k) in _UNDERSCORE_ATTRS)
+                k = replace(string(k), "_", ".")
             end
+            updatedict[k] = v
         end
     end
 
-    _update_stemfields(st)
+    # _update_stemfields updates the trace fields and returns a dict of the
+    # changed fields
+    merge(_update_stemfields(st), updatedict)
 end
 
 # check that the user isn't trying to set any of the properties that we're
@@ -178,7 +189,11 @@ function _update_stemfields(st::StemTrace)
             :color => st.stem_color,
             :width => 0,
             :thickness => st.stem_thickness)
-    end
 
-    nothing
+        # return the new fields that got modified, y needs to be wrapped in an
+        # extra array for restyle to work correctly
+        Dict(:text => [y], :error_y => st[:error_y])
+    else
+        nothing
+    end
 end
