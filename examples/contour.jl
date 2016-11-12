@@ -78,33 +78,24 @@ function contour6()
 end
 
 function contour7()
-    z = [[nothing, nothing, nothing, 12, 13, 14, 15, 16],
-        [nothing, 1, nothing, 11, nothing, nothing, nothing, 17],
-        [nothing, 2, 6, 7, nothing, nothing, nothing, 18],
-        [nothing, 3, nothing, 8, nothing, nothing, nothing, 19],
-        [5, 4, 10, 9, nothing, nothing, nothing, 20],
-        [nothing, nothing, nothing, 27, nothing, nothing, nothing, 21],
-        [nothing, nothing, nothing, 26, 25, 24, 23, 22]]
-    trace1 = contour(;z=z, showscale=false, xaxis="x1", yaxis="y1")
-    trace2 = contour(;z=z, connectgaps=true, showscale=false,
-                     xaxis="x2", yaxis="y2")
-    trace3 = heatmap(;z=z, zsmooth="best",showscale=false,
-                     xaxis="x3", yaxis="y3")
-    trace4 = heatmap(;z=z, zsmooth="best", connectgaps=true,
-                     showscale=false, xaxis="x4", yaxis="y4")
-    data = [trace1, trace2, trace3, trace4]
+    z = [NaN NaN NaN 12  13  14  15  16
+         NaN 1   NaN 11  NaN NaN NaN 17
+         NaN 2   6   7   NaN NaN NaN 18
+         NaN 3   NaN 8   NaN NaN NaN 19
+         5   4   10  9   NaN NaN NaN 20
+         NaN NaN NaN 27  NaN NaN NaN 21
+         NaN NaN NaN 26  25  24  23  22]'
 
-    t = "Connect the Gaps Between Null Values in the Z Matrix"
-    layout = Layout(;title=t,
-                    xaxis=attr(;domain=[0,0.45], anchor="y1"),
-                    yaxis=attr(;domain=[0.55,1], anchor="x1"),
-                    xaxis2=attr(;domain=[0.55,1], anchor="y2"),
-                    yaxis2=attr(;domain=[0.55,1], anchor="x2"),
-                    xaxis3=attr(;domain=[0,0.45], anchor="y3"),
-                    yaxis3=attr(;domain=[0,0.45], anchor="x3"),
-                    xaxis4=attr(;domain=[0.55,1], anchor="y4"),
-                    yaxis4=attr(;domain=[0,0.45], anchor="x4"))
-    plot(data, layout)
+    p1 = plot(contour(;z=z, showscale=false))
+    p2 = plot(contour(;z=z, connectgaps=true, showscale=false))
+    p3 = plot(heatmap(;z=z, zsmooth="best",showscale=false))
+    p4 = plot(heatmap(;z=z, zsmooth="best", connectgaps=true, showscale=false))
+
+    p = [p1 p2; p3 p4]
+
+    relayout!(p, title="Connect the Gaps Between Null Values in the Z Matrix")
+
+    p
 end
 
 function contour8()
@@ -115,18 +106,15 @@ function contour8()
          7  4   10  9   16  18  20  19
          9  10  5   27  23  21  21  21
          11 14  17  26  25  24  23  22]
-    trace1 = contour(;z=z, line_smoothing=0,
-                     xaxis="x1", yaxis="y1")
-    trace2 = contour(;z=z, line_smoothing=0.85,
-                     xaxis="x2", yaxis="y2")
-    data = [trace1, trace2]
 
-    layout = Layout(;title="Smoothing Contour Lines",
-                    xaxis=attr(;domain=[0,0.45], anchor="y1"),
-                    yaxis=attr(;domain=[0,1], anchor="x1"),
-                    xaxis2=attr(;domain=[0.55,1], anchor="y2"),
-                    yaxis2=attr(;domain=[0,1], anchor="x2"))
-    plot(data, layout)
+    p1 = plot(contour(;z=z, line_smoothing=0))
+    p2 = plot(contour(;z=z, line_smoothing=0.85))
+
+    p = [p1 p2]
+
+    relayout!(p, title="Smoothing Contour Lines")
+
+    p
 end
 
 function contour9()
