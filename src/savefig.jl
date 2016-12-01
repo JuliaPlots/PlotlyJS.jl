@@ -113,6 +113,14 @@ function savefig(p::ElectronPlot, fn::AbstractString; js::Symbol=:local)
         return p
     end
 
+    # same for json
+    if suf == "json"
+        open(fn, "w") do f
+            print(f, json(p))
+        end
+        return p
+    end
+
     # for all the rest we need raw svg data. to get that we'd have to display
     # the plot
     raw_svg = svg_data(p)
