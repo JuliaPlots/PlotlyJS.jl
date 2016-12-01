@@ -139,7 +139,7 @@ hline(y, xmin, xmax, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
 Draw horizontal lines at each point in `y` that span the width of the plot
 """
 hline(y, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
-    hline(y, 0, 1, fields; xref="paper", yref="y")
+    hline(y, 0, 1, fields; xref="paper", yref="y", kwargs...)
 
 # ---------------------------------------- #
 # Implementation of getindex and setindex! #
