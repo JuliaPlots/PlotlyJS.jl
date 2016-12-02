@@ -177,7 +177,7 @@ function savefig(p::ElectronPlot, fn::AbstractString; js::Symbol=:local)
         error("Only html, svg, png, pdf, eps output supported")
     end
 
-    p
+    fn
 end
 
 function png_data(p::ElectronPlot)
