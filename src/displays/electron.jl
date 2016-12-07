@@ -125,8 +125,9 @@ function display_blink(p::ElectronPlot; show=true, resize::Bool=_autoresize[1],)
             .append("div")
             .attr("id", "$(p.plot.divid)")
             .node();
-        var data = $(json(p.plot.data));
-        var layout = $(json(p.plot.layout));
+        var plot_json = $(json(p.plot));
+        var data = plot_json.data;
+        var layout = plot_json.layout;
         Plotly.newPlot(gd, data, layout).then(function(gd) {
                  $(done) = true;
                  return Plotly.toImage(gd, {"format": "svg"});
@@ -162,8 +163,9 @@ function display_blink(p::ElectronPlot; show=true, resize::Bool=_autoresize[1],)
                     'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
                 })
                 .node();
-            var data = $(json(p.plot.data));
-            var layout = $(json(p.plot.layout));
+            var plot_json = $(json(p.plot));
+            var data = plot_json.data;
+            var layout = plot_json.layout;
             Plotly.newPlot(gd, data, layout).then(function(gd) {
                      $(done) = true;
                      var img_data = Plotly.toImage(gd, {"format": "svg"});
