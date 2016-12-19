@@ -13,3 +13,18 @@ Check out the [docs](http://spencerlyon.com/PlotlyJS.jl/)!
 
 
 [_plotlyjs]: https://plot.ly/javascript
+
+## Installation
+
+If you intend to use the [Electron display](http://spencerlyon.com/PlotlyJS.jl/syncplots/#electronplot) or any of its features (recommended) you will need to enter the following at the Julia REPL:
+
+```julia
+using Blink
+Blink.AtomShell.install()
+```
+
+Note that this is a one time process.
+
+Also, if you have issues building this package because of installation of the MbedTLS  package please see [this issue](https://github.com/spencerlyon2/PlotlyJS.jl/issues/83).
+
+
