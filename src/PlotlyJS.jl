@@ -7,6 +7,7 @@ using JSON
 using Blink
 using Colors
 using DocStringExtensions
+using DataFrames
 
 import Base: ==
 
