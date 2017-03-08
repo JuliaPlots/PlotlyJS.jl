@@ -74,7 +74,7 @@ end
 function docs()
     schema_path = joinpath(dirname(dirname(@__FILE__)), "deps", "schema.html")
     if !isfile(schem_path)
-        msg = "schema docs not build. Run `Pkg.build(\"PlotlyJS\")` to generate"
+        msg = "schema docs not built. Run `Pkg.build(\"PlotlyJS\")` to generate"
         error(msg)
     end
     w = Blink.Window()
