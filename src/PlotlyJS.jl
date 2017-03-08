@@ -73,7 +73,18 @@ end
 
 function docs()
     schema_path = joinpath(dirname(dirname(@__FILE__)), "deps", "schema.html")
+    if !isfile(schem_path)
+        msg = "schema docs not build. Run `Pkg.build(\"PlotlyJS\")` to generate"
+        error(msg)
+    end
     w = Blink.Window()
+    for f in [
+        "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
+        "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js",
+        "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        ]
+        Blink.load!(w.content, f)
+    end
     Blink.content!(w, "html", open(readstring, schema_path), fade=false)
 end
 
