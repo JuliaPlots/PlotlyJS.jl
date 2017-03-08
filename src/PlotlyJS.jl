@@ -54,6 +54,7 @@ include("subplots.jl")
 include("api.jl")
 include("savefig.jl")
 include("convenience_api.jl")
+include("recession_bands.jl")
 
 # Set some defaults for constructing `Plot`s
 function Plot(;style::Style=DEFAULT_STYLE[1])
@@ -100,6 +101,9 @@ export
 
     # new trace types
     stem,
+
+    # convenience stuff
+    add_recession_bands!,
 
     # frontend methods
     init_notebook,
