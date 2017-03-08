@@ -124,7 +124,7 @@ function add_recession_bands!(p::Plot; kwargs...)
 
     # now we have some bands that we need to apply to the layout
     old_shapes = p.layout[:shapes]
-    new_shapes = isempty(old_shapes) ? bands : append(old_shapes, bands)
+    new_shapes = isempty(old_shapes) ? bands : vcat(old_shapes, bands)
     relayout!(p, shapes=new_shapes)
     new_shapes
 end

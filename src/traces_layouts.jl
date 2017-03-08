@@ -128,7 +128,7 @@ vline(x, ymin, ymax, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
 Draw vertical lines at each point in `x` that span the height of the plot
 """
 vline(x, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
-    vline(x, 0, 1, fields; xref="x", yref="paper")
+    vline(x, 0, 1, fields; xref="x", yref="paper", kwargs...)
 
 hline(y, xmin, xmax, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
     line(xmin, xmax, y, y, fields; kwargs...)
