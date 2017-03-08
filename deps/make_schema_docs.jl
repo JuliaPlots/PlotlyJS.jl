@@ -1,3 +1,5 @@
+module PlotlyJSSchemaDocsGenerator
+
 using Base.Markdown: MD
 using JSON
 
@@ -225,3 +227,5 @@ end
 open(joinpath(dirname(@__FILE__), "schema.html"), "w") do f
   doc_html!(f, Schema())
 end
+
+end  # module
