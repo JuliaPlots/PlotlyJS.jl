@@ -52,14 +52,14 @@ columns (say `N`). Then `N` traces are constructed, where the `i`th column of
 `x` is paired with the `i`th column of `y`.
 """
 function plot(x::AbstractArray, y::AbstractArray, l::Layout=Layout();
-              style::Style=DEFAULT_STYLE[1], kwargs...)
+              kind="scatter", style::Style=DEFAULT_STYLE[1], kwargs...)
     plot(GenericTrace(x, y; kind=kind, kwargs...), l, style=style)
 end
 
 function plot(x::AbstractVector, y::AbstractMatrix, l::Layout=Layout();
               style::Style=DEFAULT_STYLE[1], kwargs...)
     traces = GenericTrace[GenericTrace(x, view(y, :, i); kwargs...)
-                          for i in 1:size(y,2)]
+                          for i in 1:size(y, 2)]
     plot(traces, l, style=style)
 end
 
@@ -85,6 +85,11 @@ as keyword arguments to the constructed scatter.
 function plot(y::AbstractArray, l::Layout=Layout(); kwargs...)
     # call methods above to get many traces if y is >1d
     plot(1:size(y, 1), y, l; kwargs...)
+end
+
+function plot{T<:GenericTrace}(traces::AbstractVector{T},
+                               l::Layout=Layout; style::Style=DEFAULT_STYLE[1])
+    SyncPlot(Plot(traces, l, style=style))
 end
 
 """
