@@ -1,11 +1,12 @@
+module PlotlyJSSchemaDocsGenerator
+
 using Base.Markdown: MD
 using JSON
-using Compat: String
 
 # methods to re-construct a plot from JSON
 _symbol_dict(x) = x
 _symbol_dict(d::Associative) =
-    Dict{Symbol,Any}([(symbol(k), _symbol_dict(v)) for (k, v) in d])
+    Dict{Symbol,Any}([(Symbol(k), _symbol_dict(v)) for (k, v) in d])
 
 immutable SchemaAttribute
     description::Nullable{MD}
@@ -226,3 +227,5 @@ end
 open(joinpath(dirname(@__FILE__), "schema.html"), "w") do f
   doc_html!(f, Schema())
 end
+
+end  # module

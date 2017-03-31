@@ -7,6 +7,7 @@ using JSON
 using Blink
 using Colors
 using DocStringExtensions
+using DataFrames
 
 import Base: ==
 
@@ -53,6 +54,7 @@ include("subplots.jl")
 include("api.jl")
 include("savefig.jl")
 include("convenience_api.jl")
+include("recession_bands.jl")
 
 # Set some defaults for constructing `Plot`s
 function Plot(;style::Style=DEFAULT_STYLE[1])
@@ -71,7 +73,18 @@ end
 
 function docs()
     schema_path = joinpath(dirname(dirname(@__FILE__)), "deps", "schema.html")
+    if !isfile(schema_path)
+        msg = "schema docs not built. Run `Pkg.build(\"PlotlyJS\")` to generate"
+        error(msg)
+    end
     w = Blink.Window()
+    for f in [
+        "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
+        "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js",
+        "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        ]
+        Blink.load!(w.content, f)
+    end
     Blink.content!(w, "html", open(readstring, schema_path), fade=false)
 end
 
@@ -99,6 +112,9 @@ export
 
     # new trace types
     stem,
+
+    # convenience stuff
+    add_recession_bands!,
 
     # frontend methods
     init_notebook,
