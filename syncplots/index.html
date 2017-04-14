@@ -485,7 +485,32 @@ Plot(df::AbstractDataFrame, y::Symbol, l::Layout=Layout(); group=nothing, kwargs
 <p>For more information on how these methods work please see the docstring for the
 <code>Plot</code> function by calling <code>?Plot</code> from the REPL.</p>
 <p>Especially convenient is the <code>group</code> keyword argument when calling
-<code>Plot(::AbstractDataFrame, ... ; ...)</code>.</p>
+<code>Plot(::AbstractDataFrame, ... ; ...)</code>. Here is an example below:</p>
+<pre class="codehilite"><code class="language-jlcon">julia&gt; using RDatasets
+
+julia&gt; iris = dataset(&quot;datasets&quot;, &quot;iris&quot;);
+
+julia&gt; p = Plot(iris, x=:SepalLength, y=:SepalWidth, mode=&quot;markers&quot;, marker_size=8, group=:Species)
+data: [
+  &quot;scatter with fields marker, mode, name, type, x, and y&quot;,
+  &quot;scatter with fields marker, mode, name, type, x, and y&quot;,
+  &quot;scatter with fields marker, mode, name, type, x, and y&quot;
+]
+
+layout: &quot;layout with field margin&quot;</code></pre>
+
+
+<p>which would result in the following plot</p>
+<div id="96cd7dc8-c066-4ffe-b09e-952ba53e14bf" class="plotly-graph-div"></div>
+
+<script>
+window.PLOTLYENV=window.PLOTLYENV || {};
+window.PLOTLYENV.BASE_URL="https://plot.ly";
+Plotly.newPlot('96cd7dc8-c066-4ffe-b09e-952ba53e14bf', [{"y":[3.5,3.0,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3.0,3.0,4.0,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3.0,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3.0,3.4,3.5,2.3,3.2,3.5,3.8,3.0,3.8,3.2,3.7,3.3],"name":"setosa","type":"scatter","x":[5.1,4.9,4.7,4.6,5.0,5.4,4.6,5.0,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5.0,5.0,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5.0,5.5,4.9,4.4,5.1,5.0,4.5,4.4,5.0,5.1,4.8,5.1,4.6,5.3,5.0],"marker":{"size":8},"mode":"markers"},{"y":[3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2.0,3.0,2.2,2.9,2.9,3.1,3.0,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3.0,2.8,3.0,2.9,2.6,2.4,2.4,2.7,2.7,3.0,3.4,3.1,2.3,3.0,2.5,2.6,3.0,2.6,2.3,2.7,3.0,2.9,2.9,2.5,2.8],"name":"versicolor","type":"scatter","x":[7.0,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5.0,5.9,6.0,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6.0,5.7,5.5,5.5,5.8,6.0,5.4,6.0,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5.0,5.6,5.7,5.7,6.2,5.1,5.7],"marker":{"size":8},"mode":"markers"},{"y":[3.3,2.7,3.0,2.9,3.0,3.0,2.5,2.9,2.5,3.6,3.2,2.7,3.0,2.5,2.8,3.2,3.0,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3.0,2.8,3.0,2.8,3.8,2.8,2.8,2.6,3.0,3.4,3.1,3.0,3.1,3.1,3.1,2.7,3.2,3.3,3.0,2.5,3.0,3.4,3.0],"name":"virginica","type":"scatter","x":[6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6.0,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6.0,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"marker":{"size":8},"mode":"markers"}],
+          {"margin":{"r":50,"l":50,"b":50,"t":60}}, {showLink: false});
+
+</script>
+
 <h2 id="syncplots"><code>SyncPlot</code>s<a class="headerlink" href="#syncplots" title="Permanent link">¶</a></h2>
 <p>A <code>Plot</code> is a pure Julia object and doesn't interact with plotly.js by itself.
 This means that we can't view the actual plotly figure the data represents.</p>
