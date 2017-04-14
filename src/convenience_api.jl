@@ -51,30 +51,30 @@ trace.
 columns (say `N`). Then `N` traces are constructed, where the `i`th column of
 `x` is paired with the `i`th column of `y`.
 """
-function plot(x::AbstractArray, y::AbstractArray, l::Layout=Layout();
+function Plot(x::AbstractVector, y::AbstractVector, l::Layout=Layout();
               kind="scatter", style::Style=DEFAULT_STYLE[1], kwargs...)
-    plot(GenericTrace(x, y; kind=kind, kwargs...), l, style=style)
+    Plot(GenericTrace(x, y; kind=kind, kwargs...), l, style=style)
 end
 
-function plot(x::AbstractVector, y::AbstractMatrix, l::Layout=Layout();
+function Plot(x::AbstractVector, y::AbstractMatrix, l::Layout=Layout();
               style::Style=DEFAULT_STYLE[1], kwargs...)
     traces = GenericTrace[GenericTrace(x, view(y, :, i); kwargs...)
                           for i in 1:size(y, 2)]
-    plot(traces, l, style=style)
+    Plot(traces, l, style=style)
 end
 
-function plot(x::AbstractMatrix, y::AbstractMatrix, l::Layout=Layout();
+function Plot(x::AbstractMatrix, y::AbstractMatrix, l::Layout=Layout();
               style::Style=DEFAULT_STYLE[1], kwargs...)
     if size(x, 2) == 1
         # use method above
-        plot(view(x, :, 1), y, l; style=style, kwargs...)
+        Plot(view(x, :, 1), y, l; style=style, kwargs...)
     end
 
     size(x, 2) == size(y, 2) || error("x and y must have same number of cols")
 
     traces = GenericTrace[GenericTrace(view(x, :, i), view(y, :, i); kwargs...)
                           for i in 1:size(y,2)]
-    plot(traces, l; style=style)
+    Plot(traces, l; style=style)
 end
 
 """
@@ -82,14 +82,10 @@ $(SIGNATURES)
 Build a scatter plot and set  `y` to y. All keyword arguments are passed directly
 as keyword arguments to the constructed scatter.
 """
-function plot(y::AbstractArray, l::Layout=Layout(); kwargs...)
+# AbstractArray{T,N}
+function Plot{T<:_Scalar}(y::AbstractArray{T}, l::Layout=Layout(); kwargs...)
     # call methods above to get many traces if y is >1d
-    plot(1:size(y, 1), y, l; kwargs...)
-end
-
-function plot{T<:GenericTrace}(traces::AbstractVector{T},
-                               l::Layout=Layout; style::Style=DEFAULT_STYLE[1])
-    SyncPlot(Plot(traces, l, style=style))
+    Plot(1:size(y, 1), y, l; kwargs...)
 end
 
 """
@@ -97,12 +93,12 @@ $(SIGNATURES)
 Construct a plot of `f` from `x0` to `x1`, using the layout `l`. All
 keyword arguments are applied to the constructed trace.
 """
-function plot(f::Function, x0::Number, x1::Number, l::Layout=Layout();
+function Plot(f::Function, x0::Number, x1::Number, l::Layout=Layout();
               style::Style=DEFAULT_STYLE[1],
               kwargs...)
     x = linspace(x0, x1, 50)
     y = [f(_) for _ in x]
-    plot(GenericTrace(x, y; name=Symbol(f), kwargs...), l, style=style)
+    Plot(GenericTrace(x, y; name=Symbol(f), kwargs...), l, style=style)
 end
 
 """
@@ -111,14 +107,14 @@ For each function in `f` in `fs`, construct a scatter trace that plots `f` from
 `x0` to `x1`, using the layout `l`. All keyword arguments are applied to all
 constructed traces.
 """
-function plot(fs::AbstractVector{Function}, x0::Number, x1::Number,
+function Plot(fs::AbstractVector{Function}, x0::Number, x1::Number,
               l::Layout=Layout();
               style::Style=DEFAULT_STYLE[1],
               kwargs...)
     x = linspace(x0, x1, 50)
     traces = GenericTrace[GenericTrace(x, map(f, x); name=Symbol(f), kwargs...)
                           for f in fs]
-    plot(traces, l; style=style)
+    Plot(traces, l; style=style)
 end
 
 """
@@ -132,7 +128,7 @@ then call `by(df, group)` and construct one trace per SubDataFrame, passing
 all other keyword arguments. This means all keyword arguments are passed
 applied to all traces
 """
-function plot(df::AbstractDataFrame, l::Layout=Layout(); group=nothing,
+function Plot(df::AbstractDataFrame, l::Layout=Layout(); group=nothing,
               style::Style=DEFAULT_STYLE[1], kwargs...)
     if group != nothing
         # the user passed a group argument, we actually have to do something...
@@ -143,12 +139,12 @@ function plot(df::AbstractDataFrame, l::Layout=Layout(); group=nothing,
             traces = GenericTrace[t for t in _traces[:x1]]
             # for some reason I need to bypass calling `plot` due to a type
             # inference error??
-            return SyncPlot(Plot(traces, l, style=style))
+            return Plot(traces, l, style=style)
         else
             warn("Unknown group $(group), skipping")
         end
     end
-    plot(GenericTrace(df; kwargs...), l, style=style)
+    Plot(GenericTrace(df; kwargs...), l, style=style)
 end
 
 """
@@ -156,9 +152,9 @@ $(SIGNATURES)
 Construct a plot from `df`, passing the provided values of x and y as keyword
 arguments. See docstring for other method for more information.
 """
-function plot(d::AbstractDataFrame, x::Symbol, y::Symbol, l::Layout=Layout();
+function Plot(d::AbstractDataFrame, x::Symbol, y::Symbol, l::Layout=Layout();
               style::Style=DEFAULT_STYLE[1], kwargs...)
-    plot(d, l; x=x, y=y, style=style, kwargs...)
+    Plot(d, l; x=x, y=y, style=style, kwargs...)
 end
 
 """
@@ -166,9 +162,9 @@ $(SIGNATURES)
 Construct a plot from `df`, passing the provided value y as a keyword argument.
 See docstring for other method for more information.
 """
-function plot(d::AbstractDataFrame, y::Symbol, l::Layout=Layout();
+function Plot(d::AbstractDataFrame, y::Symbol, l::Layout=Layout();
               style::Style=DEFAULT_STYLE[1], kwargs...)
-    plot(d, l; y=y, style=style, kwargs...)
+    Plot(d, l; y=y, style=style, kwargs...)
 end
 
 """
