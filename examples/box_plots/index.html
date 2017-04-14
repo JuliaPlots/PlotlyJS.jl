@@ -400,16 +400,15 @@
           
             <h1>Box plots</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> box1</span><span class="p">()</span>
-    <span class="n">y0</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
-    <span class="n">y1</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">y1</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">box1</span><span class="p">()</span>
-</pre></div>
+          <pre class="codehilite"><code class="language-julia">function box1()
+    y0 = rand(50)
+    y1 = rand(50) + 1
+    trace1 = box(;y=y0)
+    trace2 = box(;y=y1)
+    data = [trace1, trace2]
+    plot(data)
+end
+box1()</code></pre>
 
 
 <div id="ace50ed9-a2e2-4750-9661-2096aa9aa9f7" class="plotly-graph-div"></div>
@@ -422,15 +421,14 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> box2</span><span class="p">()</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">],</span>
-                <span class="n">boxpoints</span><span class="o">=</span><span class="s">&quot;all&quot;</span><span class="p">,</span>
-                <span class="n">jitter</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
-                <span class="n">pointpos</span><span class="o">=-</span><span class="mf">1.8</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">box2</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function box2()
+    data = box(;y=[0, 1, 1, 2, 3, 5, 8, 13, 21],
+                boxpoints=&quot;all&quot;,
+                jitter=0.3,
+                pointpos=-1.8)
+    plot(data)
+end
+box2()</code></pre>
 
 
 <div id="bf0171ff-6b61-4db8-8b42-0d9d67d8e192" class="plotly-graph-div"></div>
@@ -443,18 +441,17 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> box3</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Set 1&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Set 2&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Horizontal Box Plot&quot;</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function box3()
+    trace1 = box(;x=[1, 2, 3, 4, 4, 4, 8, 9, 10],
+                  name=&quot;Set 1&quot;)
+    trace2 = box(;x=[2, 3, 3, 3, 3, 5, 6, 6, 7],
+                  name=&quot;Set 2&quot;)
+    data = [trace1, trace2]
+    layout = Layout(;title=&quot;Horizontal Box Plot&quot;)
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">box3</span><span class="p">()</span>
-</pre></div>
+    plot(data, layout)
+end
+box3()</code></pre>
 
 
 <div id="49fdb84f-5c25-4dce-9373-a2c207ca5bd8" class="plotly-graph-div"></div>
@@ -467,28 +464,27 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> box4</span><span class="p">()</span>
-    <span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span>
-          <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">]</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
-                  <span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;kale&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#3D9970&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
-                  <span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;radishes&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#FF4136&quot;</span><span class="p">)</span>
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
-                  <span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;carrots&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#FF851B&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;normalized moisture&quot;</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="n">false</span><span class="p">),</span>
-                    <span class="n">boxmode</span><span class="o">=</span><span class="s">&quot;group&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">box4</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function box4()
+    x0 = [&quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;,
+          &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;]
+    trace1 = box(;y=[0.2, 0.2, 0.6, 1.0, 0.5, 0.4, 0.2, 0.7, 0.9, 0.1, 0.5, 0.3],
+                  x=x0,
+                  name=&quot;kale&quot;,
+                  marker_color=&quot;#3D9970&quot;)
+    trace2 = box(;y=[0.6, 0.7, 0.3, 0.6, 0.0, 0.5, 0.7, 0.9, 0.5, 0.8, 0.7, 0.2],
+                  x=x0,
+                  name=&quot;radishes&quot;,
+                  marker_color=&quot;#FF4136&quot;)
+    trace3 = box(;y=[0.1, 0.3, 0.1, 0.9, 0.6, 0.6, 0.9, 1.0, 0.3, 0.6, 0.8, 0.5],
+                  x=x0,
+                  name=&quot;carrots&quot;,
+                  marker_color=&quot;#FF851B&quot;)
+    data = [trace1, trace2, trace3]
+    layout = Layout(;yaxis=attr(title=&quot;normalized moisture&quot;, zeroline=false),
+                    boxmode=&quot;group&quot;)
+    plot(data, layout)
+end
+box4()</code></pre>
 
 
 <div id="83d417af-262b-4aa8-acb3-750f60857664" class="plotly-graph-div"></div>
@@ -501,42 +497,41 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> box5</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="mf">6.80</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span>
-                     <span class="mf">7.75</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.65</span><span class="p">,</span> <span class="mf">8.93</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span>
-                     <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">20.90</span><span class="p">,</span> <span class="mf">22.3</span><span class="p">,</span> <span class="mf">23.25</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;All Points&quot;</span><span class="p">,</span>
-                  <span class="n">jitter</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
-                  <span class="n">pointpos</span><span class="o">=-</span><span class="mf">1.8</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(7, 40, 89)&quot;</span><span class="p">,</span>
-                  <span class="n">boxpoints</span><span class="o">=</span><span class="s">&quot;all&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="mf">6.80</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span>
-                     <span class="mf">7.75</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.65</span><span class="p">,</span> <span class="mf">8.93</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span>
-                     <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">20.90</span><span class="p">,</span> <span class="mf">22.3</span><span class="p">,</span> <span class="mf">23.25</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Only Wiskers&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(9, 56, 125)&quot;</span><span class="p">,</span>
-                  <span class="n">boxpoints</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="mf">6.80</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span>
-                     <span class="mf">7.75</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.65</span><span class="p">,</span> <span class="mf">8.93</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span>
-                     <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">20.90</span><span class="p">,</span> <span class="mf">22.3</span><span class="p">,</span> <span class="mf">23.25</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Suspected Outlier&quot;</span><span class="p">,</span>
-                  <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(8, 8, 156)&quot;</span><span class="p">,</span>
-                              <span class="n">outliercolor</span><span class="o">=</span><span class="s">&quot;rgba(219, 64, 82, 0.6)&quot;</span><span class="p">,</span>
-                              <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">outliercolor</span><span class="o">=</span><span class="s">&quot;rgba(219, 64, 82, 1.0)&quot;</span><span class="p">,</span>
-                                        <span class="n">outlierwidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
-                  <span class="n">boxpoints</span><span class="o">=</span><span class="s">&quot;suspectedoutliers&quot;</span><span class="p">)</span>
-    <span class="n">trace4</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="mf">6.80</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span>
-                     <span class="mf">7.75</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.65</span><span class="p">,</span> <span class="mf">8.93</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span>
-                     <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">20.90</span><span class="p">,</span> <span class="mf">22.3</span><span class="p">,</span> <span class="mf">23.25</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Wiskers and Outliers&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(107, 174, 214)&quot;</span><span class="p">,</span>
-                  <span class="n">boxpoints</span><span class="o">=</span><span class="s">&quot;Outliers&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">,</span> <span class="n">trace4</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Box Plot Styling Outliers&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">box5</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function box5()
+    trace1 = box(;y=[0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5,
+                     7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5,
+                     12, 16, 20.90, 22.3, 23.25],
+                  name=&quot;All Points&quot;,
+                  jitter=0.3,
+                  pointpos=-1.8,
+                  marker_color=&quot;rgb(7, 40, 89)&quot;,
+                  boxpoints=&quot;all&quot;)
+    trace2 = box(;y=[0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5,
+                     7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5,
+                     12, 16, 20.90, 22.3, 23.25],
+                  name=&quot;Only Wiskers&quot;,
+                  marker_color=&quot;rgb(9, 56, 125)&quot;,
+                  boxpoints=false)
+    trace3 = box(;y=[0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5,
+                     7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5,
+                     12, 16, 20.90, 22.3, 23.25],
+                  name=&quot;Suspected Outlier&quot;,
+                  marker=attr(color=&quot;rgb(8, 8, 156)&quot;,
+                              outliercolor=&quot;rgba(219, 64, 82, 0.6)&quot;,
+                              line=attr(outliercolor=&quot;rgba(219, 64, 82, 1.0)&quot;,
+                                        outlierwidth=2)),
+                  boxpoints=&quot;suspectedoutliers&quot;)
+    trace4 = box(;y=[0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5,
+                     7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5,
+                     12, 16, 20.90, 22.3, 23.25],
+                  name=&quot;Wiskers and Outliers&quot;,
+                  marker_color=&quot;rgb(107, 174, 214)&quot;,
+                  boxpoints=&quot;Outliers&quot;)
+    data = [trace1, trace2, trace3, trace4]
+    layout = Layout(;title=&quot;Box Plot Styling Outliers&quot;)
+    plot(data, layout)
+end
+box5()</code></pre>
 
 
 <div id="96780591-203a-4f4f-b487-c292705e7fbf" class="plotly-graph-div"></div>
@@ -549,25 +544,24 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> box6</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.37</span><span class="p">,</span> <span class="mf">2.16</span><span class="p">,</span> <span class="mf">4.82</span><span class="p">,</span> <span class="mf">1.73</span><span class="p">,</span> <span class="mf">1.04</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">1.32</span><span class="p">,</span> <span class="mf">2.91</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">,</span>
-                     <span class="mf">4.51</span><span class="p">,</span> <span class="mf">0.51</span><span class="p">,</span> <span class="mf">3.75</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">,</span> <span class="mf">2.98</span><span class="p">,</span> <span class="mf">4.50</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mf">4.66</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span>
-                     <span class="mf">2.06</span><span class="p">,</span> <span class="mf">1.19</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Only Mean&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(8, 81, 156)&quot;</span><span class="p">,</span>
-                  <span class="n">boxmean</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.37</span><span class="p">,</span> <span class="mf">2.16</span><span class="p">,</span> <span class="mf">4.82</span><span class="p">,</span> <span class="mf">1.73</span><span class="p">,</span> <span class="mf">1.04</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">1.32</span><span class="p">,</span> <span class="mf">2.91</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">,</span>
-                     <span class="mf">4.51</span><span class="p">,</span> <span class="mf">0.51</span><span class="p">,</span> <span class="mf">3.75</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">,</span> <span class="mf">2.98</span><span class="p">,</span> <span class="mf">4.50</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mf">4.66</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span>
-                     <span class="mf">2.06</span><span class="p">,</span> <span class="mf">1.19</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Mean and Standard Deviation&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(10, 140, 208)&quot;</span><span class="p">,</span>
-                  <span class="n">boxmean</span><span class="o">=</span><span class="s">&quot;sd&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Box Plot Styling Mean and Standard Deviation&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">box6</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function box6()
+    trace1 = box(;y=[2.37, 2.16, 4.82, 1.73, 1.04, 0.23, 1.32, 2.91, 0.11,
+                     4.51, 0.51, 3.75, 1.35, 2.98, 4.50, 0.18, 4.66, 1.30,
+                     2.06, 1.19],
+                  name=&quot;Only Mean&quot;,
+                  marker_color=&quot;rgb(8, 81, 156)&quot;,
+                  boxmean=true)
+    trace2 = box(;y=[2.37, 2.16, 4.82, 1.73, 1.04, 0.23, 1.32, 2.91, 0.11,
+                     4.51, 0.51, 3.75, 1.35, 2.98, 4.50, 0.18, 4.66, 1.30,
+                     2.06, 1.19],
+                  name=&quot;Mean and Standard Deviation&quot;,
+                  marker_color=&quot;rgb(10, 140, 208)&quot;,
+                  boxmean=&quot;sd&quot;)
+    data = [trace1, trace2]
+    layout = Layout(;title=&quot;Box Plot Styling Mean and Standard Deviation&quot;)
+    plot(data, layout)
+end
+box6()</code></pre>
 
 
 <div id="cf3152e0-7e1e-40f2-8470-e9d04b1c8389" class="plotly-graph-div"></div>
@@ -580,35 +574,34 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> box7</span><span class="p">()</span>
-    <span class="n">y0</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span>
-          <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">]</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">,</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;kale&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#3D9970&quot;</span><span class="p">,</span>
-                  <span class="n">boxmean</span><span class="o">=</span><span class="n">false</span><span class="p">,</span>
-                  <span class="n">orientation</span><span class="o">=</span><span class="s">&quot;h&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">,</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;radishes&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#FF4136&quot;</span><span class="p">,</span>
-                  <span class="n">boxmean</span><span class="o">=</span><span class="n">false</span><span class="p">,</span>
-                  <span class="n">orientation</span><span class="o">=</span><span class="s">&quot;h&quot;</span><span class="p">)</span>
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">,</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;carrots&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#FF851B&quot;</span><span class="p">,</span>
-                  <span class="n">boxmean</span><span class="o">=</span><span class="n">false</span><span class="p">,</span>
-                  <span class="n">orientation</span><span class="o">=</span><span class="s">&quot;h&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Grouped Horizontal Box Plot&quot;</span><span class="p">,</span>
-                     <span class="n">xaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;normalized moisture&quot;</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="n">false</span><span class="p">),</span>
-                     <span class="n">boxmode</span><span class="o">=</span><span class="s">&quot;group&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">box7</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function box7()
+    y0 = [&quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;,
+          &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;]
+    trace1 = box(;x=[0.2, 0.2, 0.6, 1.0, 0.5, 0.4, 0.2, 0.7, 0.9, 0.1, 0.5, 0.3],
+                  y=y0,
+                  name=&quot;kale&quot;,
+                  marker_color=&quot;#3D9970&quot;,
+                  boxmean=false,
+                  orientation=&quot;h&quot;)
+    trace2 = box(;x=[0.6, 0.7, 0.3, 0.6, 0.0, 0.5, 0.7, 0.9, 0.5, 0.8, 0.7, 0.2],
+                  y=y0,
+                  name=&quot;radishes&quot;,
+                  marker_color=&quot;#FF4136&quot;,
+                  boxmean=false,
+                  orientation=&quot;h&quot;)
+    trace3 = box(;x=[0.1, 0.3, 0.1, 0.9, 0.6, 0.6, 0.9, 1.0, 0.3, 0.6, 0.8, 0.5],
+                  y=y0,
+                  name=&quot;carrots&quot;,
+                  marker_color=&quot;#FF851B&quot;,
+                  boxmean=false,
+                  orientation=&quot;h&quot;)
+    data = [trace1, trace2, trace3]
+    layout = Layout(;title=&quot;Grouped Horizontal Box Plot&quot;,
+                     xaxis=attr(title=&quot;normalized moisture&quot;, zeroline=false),
+                     boxmode=&quot;group&quot;)
+    plot(data, layout)
+end
+box7()</code></pre>
 
 
 <div id="fbb6da3b-ec07-4626-a5fe-e2a498667087" class="plotly-graph-div"></div>
@@ -621,19 +614,18 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> box8</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Sample A&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(214, 12, 140)&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Sample B&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(0, 128, 128)&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Colored Box Plot&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">box8</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function box8()
+    trace1 = box(;y=[1, 2, 3, 4, 4, 4, 8, 9, 10],
+                  name=&quot;Sample A&quot;,
+                  marker_color=&quot;rgb(214, 12, 140)&quot;)
+    trace2 = box(;y=[2, 3, 3, 3, 3, 5, 6, 6, 7],
+                  name=&quot;Sample B&quot;,
+                  marker_color=&quot;rgb(0, 128, 128)&quot;)
+    data = [trace1, trace2]
+    layout = Layout(;title=&quot;Colored Box Plot&quot;)
+    plot(data, layout)
+end
+box8()</code></pre>
 
 
 <div id="a2d9e23b-dfb6-4f21-bef3-b4bfc8352277" class="plotly-graph-div"></div>
@@ -646,58 +638,57 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> box9</span><span class="p">()</span>
-    <span class="n">xData</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Carmelo&lt;br&gt;Anthony&quot;</span><span class="p">,</span> <span class="s">&quot;Dwyane&lt;br&gt;Wade&quot;</span><span class="p">,</span> <span class="s">&quot;Deron&lt;br&gt;Williams&quot;</span><span class="p">,</span>
-             <span class="s">&quot;Brook&lt;br&gt;Lopez&quot;</span><span class="p">,</span> <span class="s">&quot;Damian&lt;br&gt;Lillard&quot;</span><span class="p">,</span> <span class="s">&quot;David&lt;br&gt;West&quot;</span><span class="p">,</span>
-             <span class="s">&quot;Blake&lt;br&gt;Griffin&quot;</span><span class="p">,</span> <span class="s">&quot;David&lt;br&gt;Lee&quot;</span><span class="p">,</span> <span class="s">&quot;Demar&lt;br&gt;Derozan&quot;</span><span class="p">]</span>
+<pre class="codehilite"><code class="language-julia">function box9()
+    xData = [&quot;Carmelo&lt;br&gt;Anthony&quot;, &quot;Dwyane&lt;br&gt;Wade&quot;, &quot;Deron&lt;br&gt;Williams&quot;,
+             &quot;Brook&lt;br&gt;Lopez&quot;, &quot;Damian&lt;br&gt;Lillard&quot;, &quot;David&lt;br&gt;West&quot;,
+             &quot;Blake&lt;br&gt;Griffin&quot;, &quot;David&lt;br&gt;Lee&quot;, &quot;Demar&lt;br&gt;Derozan&quot;]
 
-    <span class="n">_getrandom</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">mul</span><span class="p">)</span> <span class="o">=</span> <span class="n">mul</span> <span class="o">.*</span> <span class="n">rand</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+    _getrandom(num, mul) = mul .* rand(num)
 
-    <span class="n">yData</span> <span class="o">=</span> <span class="n">Array</span><span class="p">[</span>
-            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
-            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
-            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
-            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span>
-            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
-            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
-            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
-            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">43</span><span class="p">)</span>
-        <span class="p">]</span>
-    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;rgba(93, 164, 214, 0.5)&quot;</span><span class="p">,</span> <span class="s">&quot;rgba(255, 144, 14, 0.5)&quot;</span><span class="p">,</span>
-              <span class="s">&quot;rgba(44, 160, 101, 0.5)&quot;</span><span class="p">,</span> <span class="s">&quot;rgba(255, 65, 54, 0.5)&quot;</span><span class="p">,</span>
-              <span class="s">&quot;rgba(207, 114, 255, 0.5)&quot;</span><span class="p">,</span> <span class="s">&quot;rgba(127, 96, 0, 0.5)&quot;</span><span class="p">,</span>
-              <span class="s">&quot;rgba(255, 140, 184, 0.5)&quot;</span><span class="p">,</span> <span class="s">&quot;rgba(79, 90, 117, 0.5)&quot;</span><span class="p">,</span>
-              <span class="s">&quot;rgba(222, 223, 0, 0.5)&quot;</span><span class="p">]</span>
+    yData = Array[
+            _getrandom(30, 10),
+            _getrandom(30, 20),
+            _getrandom(30, 25),
+            _getrandom(30, 40),
+            _getrandom(30, 45),
+            _getrandom(30, 30),
+            _getrandom(30, 20),
+            _getrandom(30, 15),
+            _getrandom(30, 43)
+        ]
+    colors = [&quot;rgba(93, 164, 214, 0.5)&quot;, &quot;rgba(255, 144, 14, 0.5)&quot;,
+              &quot;rgba(44, 160, 101, 0.5)&quot;, &quot;rgba(255, 65, 54, 0.5)&quot;,
+              &quot;rgba(207, 114, 255, 0.5)&quot;, &quot;rgba(127, 96, 0, 0.5)&quot;,
+              &quot;rgba(255, 140, 184, 0.5)&quot;, &quot;rgba(79, 90, 117, 0.5)&quot;,
+              &quot;rgba(222, 223, 0, 0.5)&quot;]
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">GenericTrace</span><span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">length</span><span class="p">(</span><span class="n">xData</span><span class="p">)</span>
-        <span class="n">trace</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">yData</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                     <span class="n">name</span><span class="o">=</span><span class="n">xData</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                     <span class="n">boxpoints</span><span class="o">=</span><span class="s">&quot;all&quot;</span><span class="p">,</span>
-                     <span class="n">jitter</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-                     <span class="n">whiskerwidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                     <span class="n">fillcolor</span><span class="o">=</span><span class="s">&quot;cls&quot;</span><span class="p">,</span>
-                     <span class="n">marker_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                     <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">push!</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">trace</span><span class="p">)</span>
-    <span class="k">end</span>
+    data = GenericTrace[]
+    for i in 1:length(xData)
+        trace = box(;y=yData[i],
+                     name=xData[i],
+                     boxpoints=&quot;all&quot;,
+                     jitter=0.5,
+                     whiskerwidth=0.2,
+                     fillcolor=&quot;cls&quot;,
+                     marker_size=2,
+                     line_width=1)
+        push!(data, trace)
+    end
 
-    <span class="n">t</span> <span class="o">=</span> <span class="s">&quot;Points Scored by the Top 9 Scoring NBA Players in 2012&quot;</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="n">t</span><span class="p">,</span>
-                     <span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">autorange</span><span class="o">=</span><span class="n">true</span><span class="p">,</span> <span class="n">showgrid</span><span class="o">=</span><span class="n">true</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                                <span class="n">dtick</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                                <span class="n">gridwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                <span class="n">zerolinecolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                                <span class="n">zerolinewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-                     <span class="n">margin</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
-                     <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s">&quot;rgb(243, 243, 243)&quot;</span><span class="p">,</span>
-                     <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s">&quot;rgb(243, 243, 243)&quot;</span><span class="p">,</span>
-                     <span class="n">showlegend</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">box9</span><span class="p">()</span>
-</pre></div>
+    t = &quot;Points Scored by the Top 9 Scoring NBA Players in 2012&quot;
+    layout = Layout(;title=t,
+                     yaxis=attr(autorange=true, showgrid=true, zeroline=true,
+                                dtick=5, gridcolor=&quot;rgb(255, 255, 255)&quot;,
+                                gridwidth=1,
+                                zerolinecolor=&quot;rgb(255, 255, 255)&quot;,
+                                zerolinewidth=2),
+                     margin=attr(l=40, r=30, b=80, t=100),
+                     paper_bgcolor=&quot;rgb(243, 243, 243)&quot;,
+                     plot_bgcolor=&quot;rgb(243, 243, 243)&quot;,
+                     showlegend=false)
+    plot(data, layout)
+end
+box9()</code></pre>
 
 
 <div id="d57760ab-45a6-4df7-bad0-2ae4e7c77dba" class="plotly-graph-div"></div>
@@ -710,29 +701,28 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> box10</span><span class="p">()</span>
-    <span class="n">n_box</span> <span class="o">=</span> <span class="mi">30</span>
-    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;hsl(</span><span class="si">$i</span><span class="s">, 50%, 50%)&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="n">n_box</span><span class="p">)]</span>
+<pre class="codehilite"><code class="language-julia">function box10()
+    n_box = 30
+    colors = [&quot;hsl($i, 50%, 50%)&quot; for i in linspace(0, 360, n_box)]
 
-    <span class="n">gen_y_data</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span>
-        <span class="mf">3.5</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="nb">pi</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="n">n_box</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span><span class="o">/</span><span class="n">n_box</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.5</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="nb">pi</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="n">n_box</span><span class="p">))</span><span class="o">.*</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    gen_y_data(i) =
+        3.5*sin(pi*i/n_box) + i/n_box + (1.5+0.5*cos(pi*i/n_box)).*rand(10)
 
-    <span class="n">ys</span> <span class="o">=</span> <span class="n">Array</span><span class="p">[</span><span class="n">gen_y_data</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">n_box</span><span class="p">]</span>
+    ys = Array[gen_y_data(i) for i in 1:n_box]
 
-    <span class="c"># Create Traces</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">GenericTrace</span><span class="p">[</span><span class="n">box</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="n">mc</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">mc</span><span class="p">)</span> <span class="k">in</span> <span class="n">zip</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">colors</span><span class="p">)]</span>
+    # Create Traces
+    data = GenericTrace[box(y=y, marker_color=mc) for (y, mc) in zip(ys, colors)]
 
-    <span class="c">#Format the layout</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">xaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(;</span><span class="n">showgrid</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="n">false</span><span class="p">,</span>
-                                 <span class="n">tickangle</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">showticklabels</span><span class="o">=</span><span class="n">true</span><span class="p">),</span>
-                     <span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(;</span><span class="n">zeroline</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s">&quot;white&quot;</span><span class="p">),</span>
-                     <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s">&quot;rgb(233, 233, 233)&quot;</span><span class="p">,</span>
-                     <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s">&quot;rgb(233, 233, 233)&quot;</span><span class="p">,</span>
-                     <span class="n">showlegend</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">box10</span><span class="p">()</span>
-</pre></div>
+    #Format the layout
+    layout = Layout(;xaxis=attr(;showgrid=false, zeroline=false,
+                                 tickangle=60, showticklabels=true),
+                     yaxis=attr(;zeroline=false, gridcolor=&quot;white&quot;),
+                     paper_bgcolor=&quot;rgb(233, 233, 233)&quot;,
+                     plot_bgcolor=&quot;rgb(233, 233, 233)&quot;,
+                     showlegend=true)
+    plot(data, layout)
+end
+box10()</code></pre>
 
 
 <div id="62396325-361f-4ad1-93b1-8b4dd48f4490" class="plotly-graph-div"></div>

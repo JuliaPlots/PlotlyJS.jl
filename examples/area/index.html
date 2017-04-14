@@ -400,13 +400,12 @@
           
             <h1>Area</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> area1</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozeroy&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">])</span>
-<span class="k">end</span>
-<span class="n">area1</span><span class="p">()</span>
-</pre></div>
+          <pre class="codehilite"><code class="language-julia">function area1()
+    trace1 = scatter(;x=1:4, y=[0, 2, 3, 5], fill=&quot;tozeroy&quot;)
+    trace2 = scatter(;x=1:4, y=[3, 5, 1, 7], fill=&quot;tonexty&quot;)
+    plot([trace1, trace2])
+end
+area1()</code></pre>
 
 
 <div id="2597c84a-6e37-43a3-9615-1601a19cbe2f" class="plotly-graph-div"></div>
@@ -419,25 +418,24 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> area2</span><span class="p">()</span>
-    <span class="k">function</span><span class="nf"> _stacked_area</span><span class="o">!</span><span class="p">(</span><span class="n">traces</span><span class="p">)</span>
-        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tr</span><span class="p">)</span> <span class="k">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">traces</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="k">end</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">min</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">traces</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&quot;y&quot;</span><span class="p">]),</span> <span class="n">length</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="s">&quot;y&quot;</span><span class="p">]))</span>
-                <span class="n">tr</span><span class="p">[</span><span class="s">&quot;y&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">traces</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&quot;y&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
-            <span class="k">end</span>
-        <span class="k">end</span>
-        <span class="n">traces</span>
-    <span class="k">end</span>
+<pre class="codehilite"><code class="language-julia">function area2()
+    function _stacked_area!(traces)
+        for (i, tr) in enumerate(traces[2:end])
+            for j in 1:min(length(traces[i][&quot;y&quot;]), length(tr[&quot;y&quot;]))
+                tr[&quot;y&quot;][j] += traces[i][&quot;y&quot;][j]
+            end
+        end
+        traces
+    end
 
-    <span class="n">traces</span> <span class="o">=</span> <span class="p">[</span><span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozeroy&quot;</span><span class="p">),</span>
-              <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">),</span>
-              <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">)]</span>
-    <span class="n">_stacked_area!</span><span class="p">(</span><span class="n">traces</span><span class="p">)</span>
+    traces = [scatter(;x=1:3, y=[2, 1, 4], fill=&quot;tozeroy&quot;),
+              scatter(;x=1:3, y=[1, 1, 2], fill=&quot;tonexty&quot;),
+              scatter(;x=1:3, y=[3, 0, 2], fill=&quot;tonexty&quot;)]
+    _stacked_area!(traces)
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">traces</span><span class="p">,</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;stacked and filled line chart&quot;</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">area2</span><span class="p">()</span>
-</pre></div>
+    plot(traces, Layout(title=&quot;stacked and filled line chart&quot;))
+end
+area2()</code></pre>
 
 
 <div id="b74231f9-33c9-4d86-a702-cd953038b504" class="plotly-graph-div"></div>
@@ -450,14 +448,13 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> area3</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozeroy&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">],</span>
-         <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Overlaid Chart Without Boundary Lines&quot;</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">area3</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function area3()
+    trace1 = scatter(;x=1:4, y=[0, 2, 3, 5], fill=&quot;tozeroy&quot;, mode=&quot;none&quot;)
+    trace2 = scatter(;x=1:4, y=[3, 5, 1, 7], fill=&quot;tonexty&quot;, mode=&quot;none&quot;)
+    plot([trace1, trace2],
+         Layout(title=&quot;Overlaid Chart Without Boundary Lines&quot;))
+end
+area3()</code></pre>
 
 
 <div id="8d58e511-a32f-4fc7-9dee-3a075290d15a" class="plotly-graph-div"></div>

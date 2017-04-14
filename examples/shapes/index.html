@@ -400,18 +400,17 @@
           
             <h1>Shapes</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> house</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">()</span>
-    <span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span>   <span class="mi">2</span><span class="p">,</span>   <span class="mf">5.5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span>   <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>   <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
-    <span class="n">y0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>   <span class="mf">5.5</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-    <span class="n">x1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span>   <span class="mf">5.5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span>   <span class="mi">9</span><span class="p">,</span>   <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span>   <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
-    <span class="n">y1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>   <span class="mi">1</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">line</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">;</span> <span class="n">xref</span><span class="o">=</span><span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="n">yref</span><span class="o">=</span><span class="s">&quot;y&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span>
-         <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">,</span> <span class="n">xaxis_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">yaxis_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
-<span class="k">end</span>
-<span class="n">house</span><span class="p">()</span>
-</pre></div>
+          <pre class="codehilite"><code class="language-julia">function house()
+    trace1 = scatter()
+    x0 = [2,   2,   5.5, 9,   9, 2,   5, 5, 6]
+    y0 = [1,   5.5, 9.5, 5.5, 1, 5.5, 1, 4, 4]
+    x1 = [2,   5.5, 9,   9,   2, 9,   5, 6, 6]
+    y1 = [5.5, 9.5, 5.5, 1,   1, 5.5, 4, 4, 1]
+    shapes = line(x0, x1, y0, y1; xref=&quot;x&quot;, yref=&quot;y&quot;)
+    plot([trace1],
+         Layout(;shapes=shapes, xaxis_range=(1, 10), yaxis_range=(0, 10)))
+end
+house()</code></pre>
 
 
 <div id="d7378c9d-89a2-4f64-b8a4-d8ddcb454380" class="plotly-graph-div"></div>
@@ -424,16 +423,15 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> house2</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">()</span>
-    <span class="n">_p</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="s">&quot;M 2 1 L 2 5.5 L 5.5 9.6 L 9 5.5 L 9 1 L 2 1 &quot;</span><span class="p">,</span>
-                <span class="s">&quot;M 2 5.5 L 9 5.5 &quot;</span><span class="p">,</span>
-                <span class="s">&quot;M 5 1 L 5 4 L 6 4 L 6 1 Z&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span>
-         <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="p">[</span><span class="n">path</span><span class="p">(</span><span class="n">_p</span><span class="p">)],</span> <span class="n">xaxis_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">yaxis_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
-<span class="k">end</span>
-<span class="n">house2</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function house2()
+    trace1 = scatter()
+    _p = string(&quot;M 2 1 L 2 5.5 L 5.5 9.6 L 9 5.5 L 9 1 L 2 1 &quot;,
+                &quot;M 2 5.5 L 9 5.5 &quot;,
+                &quot;M 5 1 L 5 4 L 6 4 L 6 1 Z&quot;)
+    plot([trace1],
+         Layout(;shapes=[path(_p)], xaxis_range=(1, 10), yaxis_range=(0, 10)))
+end
+house2()</code></pre>
 
 
 <div id="ec520fa9-b9f7-4c35-92a4-73b50e01afe0" class="plotly-graph-div"></div>
@@ -446,30 +444,29 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> clusters</span><span class="p">()</span>
-    <span class="p">@</span><span class="n">eval</span> <span class="k">using</span> <span class="n">Distributions</span>
-    <span class="n">x0</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">Normal</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">),</span> <span class="mi">300</span><span class="p">)</span>
-    <span class="n">y0</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">Normal</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">),</span> <span class="mi">300</span><span class="p">)</span>
-    <span class="n">x1</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">Normal</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span> <span class="mi">200</span><span class="p">)</span>
-    <span class="n">y1</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">Normal</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span> <span class="mi">200</span><span class="p">)</span>
-    <span class="n">x2</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">Normal</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span> <span class="mi">200</span><span class="p">)</span>
-    <span class="n">y2</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">Normal</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span> <span class="mi">200</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function clusters()
+    @eval using Distributions
+    x0 = rand(Normal(2, 0.45), 300)
+    y0 = rand(Normal(2, 0.45), 300)
+    x1 = rand(Normal(6, 0.4), 200)
+    y1 = rand(Normal(6, 0.4), 200)
+    x2 = rand(Normal(4, 0.3), 200)
+    y2 = rand(Normal(4, 0.3), 200)
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">),</span>
-              <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">x1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">),</span>
-              <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y2</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">),</span>
-              <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">x1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">)]</span>
+    data = [scatter(;x=x0, y=y0, mode=&quot;markers&quot;),
+              scatter(;x=x1, y=y1, mode=&quot;markers&quot;),
+              scatter(;x=x2, y=y2, mode=&quot;markers&quot;),
+              scatter(;x=x1, y=y0, mode=&quot;markers&quot;)]
 
-    <span class="n">args</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="s">&quot;blue&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="s">&quot;orange&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="s">&quot;green&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="s">&quot;red&quot;</span><span class="p">)]</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">circle</span><span class="p">(</span><span class="n">x0</span><span class="o">=</span><span class="n">minimum</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y0</span><span class="o">=</span><span class="n">minimum</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
-                     <span class="n">x1</span><span class="o">=</span><span class="n">maximum</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y1</span><span class="o">=</span><span class="n">maximum</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
-                     <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">fillcolor</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
-              <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">in</span> <span class="n">args</span><span class="p">]</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">showlegend</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">clusters</span><span class="p">()</span>
-</pre></div>
+    args = [(x0, y0, &quot;blue&quot;), (x1, y1, &quot;orange&quot;), (x2, y2, &quot;green&quot;),
+            (x1, y0, &quot;red&quot;)]
+    shapes = [circle(x0=minimum(x), y0=minimum(y),
+                     x1=maximum(x), y1=maximum(y);
+                     opacity=0.2, fillcolor=c, line_color=c)
+              for (x, y, c) in args]
+    plot(data, Layout(;height=400, width=480, showlegend=false, shapes=shapes))
+end
+clusters()</code></pre>
 
 
 <div id="6085a27e-6f7f-47e1-9315-7eea0f61c0b4" class="plotly-graph-div"></div>
@@ -482,23 +479,22 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> temperature</span><span class="p">()</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;2015-02-01&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-02&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-03&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-04&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-05&quot;</span><span class="p">,</span>
-         <span class="s">&quot;2015-02-06&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-07&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-08&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-09&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-10&quot;</span><span class="p">,</span>
-         <span class="s">&quot;2015-02-11&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-12&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-13&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-14&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-15&quot;</span><span class="p">,</span>
-         <span class="s">&quot;2015-02-16&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-17&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-18&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-19&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-20&quot;</span><span class="p">,</span>
-         <span class="s">&quot;2015-02-21&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-22&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-23&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-24&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-25&quot;</span><span class="p">,</span>
-         <span class="s">&quot;2015-02-26&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-27&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-28&quot;</span><span class="p">]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span> <span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;temperature&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;line&quot;</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function temperature()
+    x = [&quot;2015-02-01&quot;, &quot;2015-02-02&quot;, &quot;2015-02-03&quot;, &quot;2015-02-04&quot;, &quot;2015-02-05&quot;,
+         &quot;2015-02-06&quot;, &quot;2015-02-07&quot;, &quot;2015-02-08&quot;, &quot;2015-02-09&quot;, &quot;2015-02-10&quot;,
+         &quot;2015-02-11&quot;, &quot;2015-02-12&quot;, &quot;2015-02-13&quot;, &quot;2015-02-14&quot;, &quot;2015-02-15&quot;,
+         &quot;2015-02-16&quot;, &quot;2015-02-17&quot;, &quot;2015-02-18&quot;, &quot;2015-02-19&quot;, &quot;2015-02-20&quot;,
+         &quot;2015-02-21&quot;, &quot;2015-02-22&quot;, &quot;2015-02-23&quot;, &quot;2015-02-24&quot;, &quot;2015-02-25&quot;,
+         &quot;2015-02-26&quot;, &quot;2015-02-27&quot;, &quot;2015-02-28&quot;]
+    y = rand(1:20, length(x))
+    data = scatter(;x=x, y=y, name=&quot;temperature&quot;, mode=&quot;line&quot;)
 
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">rect</span><span class="p">([</span><span class="s">&quot;2015-02-04&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-20&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s">&quot;2015-02-06&quot;</span><span class="p">,</span> <span class="s">&quot;2015-02-22&quot;</span><span class="p">],</span>
-                  <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">;</span> <span class="n">fillcolor</span><span class="o">=</span><span class="s">&quot;#d3d3d3&quot;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                  <span class="n">xref</span><span class="o">=</span><span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="n">yref</span><span class="o">=</span><span class="s">&quot;paper&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Layout</span><span class="p">(</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">temperature</span><span class="p">()</span>
-</pre></div>
+    shapes = rect([&quot;2015-02-04&quot;, &quot;2015-02-20&quot;], [&quot;2015-02-06&quot;, &quot;2015-02-22&quot;],
+                  0, 1; fillcolor=&quot;#d3d3d3&quot;, opacity=0.2, line_width=0,
+                  xref=&quot;x&quot;, yref=&quot;paper&quot;)
+    plot(data, Layout(shapes=shapes, width=500, height=500))
+end
+temperature()</code></pre>
 
 
 <div id="452ee37d-92ac-46ae-9576-2fab99a7d430" class="plotly-graph-div"></div>
@@ -511,15 +507,14 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> vlines1</span><span class="p">()</span>
-    <span class="c"># one scalar argument produces one line. Need to wrap in an array because</span>
-    <span class="c"># layout.shapes should be an array</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">vline</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">vlines1</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function vlines1()
+    # one scalar argument produces one line. Need to wrap in an array because
+    # layout.shapes should be an array
+    trace1 = scatter(;x=1:10, y=(1:10).^2)
+    shapes = [vline(2)]
+    plot([trace1], Layout(;shapes=shapes))
+end
+vlines1()</code></pre>
 
 
 <div id="6bafaa41-b3f3-48da-bcf7-e60c32eb72de" class="plotly-graph-div"></div>
@@ -532,14 +527,13 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> vlines2</span><span class="p">()</span>
-    <span class="c"># one argument draws a vertical line up the entire plot</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">vline</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">vlines2</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function vlines2()
+    # one argument draws a vertical line up the entire plot
+    trace1 = scatter(;x=1:10, y=(1:10).^2)
+    shapes = vline([2, 6])
+    plot([trace1], Layout(;shapes=shapes))
+end
+vlines2()</code></pre>
 
 
 <div id="40f81d03-6067-4ba6-9b0c-1acdc7ee486a" class="plotly-graph-div"></div>
@@ -552,15 +546,14 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> vlines3</span><span class="p">()</span>
-    <span class="c"># yref paper makes the 2nd and 3rd arguments on a (0, 1) scale vertically</span>
-    <span class="c"># so 0.5 is 1/2 through the plot regardless of the values on y-axis</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">vline</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">;</span> <span class="n">yref</span><span class="o">=</span><span class="s">&quot;paper&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">vlines3</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function vlines3()
+    # yref paper makes the 2nd and 3rd arguments on a (0, 1) scale vertically
+    # so 0.5 is 1/2 through the plot regardless of the values on y-axis
+    trace1 = scatter(;x=1:10, y=(1:10).^2)
+    shapes = vline([2, 6], 0, 0.5; yref=&quot;paper&quot;)
+    plot([trace1], Layout(;shapes=shapes))
+end
+vlines3()</code></pre>
 
 
 <div id="96f352df-12dd-443c-8b20-a168e43d83ed" class="plotly-graph-div"></div>
@@ -573,14 +566,13 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> vlines4</span><span class="p">()</span>
-    <span class="c"># Whichever argument is a scalar is repeated</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">vline</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">];</span> <span class="n">yref</span><span class="o">=</span><span class="s">&quot;paper&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">vlines4</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function vlines4()
+    # Whichever argument is a scalar is repeated
+    trace1 = scatter(;x=1:10, y=(1:10).^2)
+    shapes = vline([2, 6], 0, [0.5, 0.75]; yref=&quot;paper&quot;)
+    plot([trace1], Layout(;shapes=shapes))
+end
+vlines4()</code></pre>
 
 
 <div id="f6c2e611-466b-4784-a1c2-47111ce1d098" class="plotly-graph-div"></div>
@@ -593,15 +585,14 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> vlines5</span><span class="p">()</span>
-    <span class="c"># we can also set arbitrary line attributes line color and dash</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">vline</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">];</span> <span class="n">yref</span><span class="o">=</span><span class="s">&quot;paper&quot;</span><span class="p">,</span>
-                   <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;green&quot;</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s">&quot;dashdot&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">vlines5</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function vlines5()
+    # we can also set arbitrary line attributes line color and dash
+    trace1 = scatter(;x=1:10, y=(1:10).^2)
+    shapes = vline([2, 6], 0, [0.5, 0.75]; yref=&quot;paper&quot;,
+                   line_color=&quot;green&quot;, line_dash=&quot;dashdot&quot;)
+    plot([trace1], Layout(;shapes=shapes))
+end
+vlines5()</code></pre>
 
 
 <div id="4d1c7f3e-2efa-4217-a421-87ce90667cbc" class="plotly-graph-div"></div>
@@ -614,15 +605,14 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> hlines1</span><span class="p">()</span>
-    <span class="c"># one scalar argument produces one line. Need to wrap in an array because</span>
-    <span class="c"># layout.shapes should be an array</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">hline</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">hlines1</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function hlines1()
+    # one scalar argument produces one line. Need to wrap in an array because
+    # layout.shapes should be an array
+    trace1 = scatter(;x=1:10, y=(1:10).^2)
+    shapes = [hline(2)]
+    plot([trace1], Layout(;shapes=shapes))
+end
+hlines1()</code></pre>
 
 
 <div id="f34913c3-432b-43fc-a1e6-cf837fa3a195" class="plotly-graph-div"></div>
@@ -635,14 +625,13 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> hlines2</span><span class="p">()</span>
-    <span class="c"># one argument draws a horizontal line across the entire plot</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">hline</span><span class="p">([</span><span class="mi">25</span><span class="p">,</span> <span class="mi">81</span><span class="p">])</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">hlines2</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function hlines2()
+    # one argument draws a horizontal line across the entire plot
+    trace1 = scatter(;x=1:10, y=(1:10).^2)
+    shapes = hline([25, 81])
+    plot([trace1], Layout(;shapes=shapes))
+end
+hlines2()</code></pre>
 
 
 <div id="01479d5c-cba9-4c93-8643-83f76357ce7d" class="plotly-graph-div"></div>
@@ -655,15 +644,14 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> hlines3</span><span class="p">()</span>
-    <span class="c"># xref paper makes the 2nd and 3rd arguments on a (0, 1) scale horizontally</span>
-    <span class="c"># so 0.5 is 1/2 through the plot regardless of the values on x-axis</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">hline</span><span class="p">([</span><span class="mi">25</span><span class="p">,</span> <span class="mi">81</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">;</span> <span class="n">xref</span><span class="o">=</span><span class="s">&quot;paper&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">hlines3</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function hlines3()
+    # xref paper makes the 2nd and 3rd arguments on a (0, 1) scale horizontally
+    # so 0.5 is 1/2 through the plot regardless of the values on x-axis
+    trace1 = scatter(;x=1:10, y=(1:10).^2)
+    shapes = hline([25, 81], 0, 0.5; xref=&quot;paper&quot;)
+    plot([trace1], Layout(;shapes=shapes))
+end
+hlines3()</code></pre>
 
 
 <div id="e4a630a8-f22b-49e8-9c79-843641e7e829" class="plotly-graph-div"></div>
@@ -676,14 +664,13 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> hlines4</span><span class="p">()</span>
-    <span class="c"># Whichever argument is a scalar is repeated</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">hline</span><span class="p">([</span><span class="mi">25</span><span class="p">,</span> <span class="mi">81</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">];</span> <span class="n">xref</span><span class="o">=</span><span class="s">&quot;paper&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">hlines4</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function hlines4()
+    # Whichever argument is a scalar is repeated
+    trace1 = scatter(;x=1:10, y=(1:10).^2)
+    shapes = hline([25, 81], 0, [0.5, 0.75]; xref=&quot;paper&quot;)
+    plot([trace1], Layout(;shapes=shapes))
+end
+hlines4()</code></pre>
 
 
 <div id="97725009-b50a-495c-b6f9-a56ad43f7f5b" class="plotly-graph-div"></div>
@@ -696,15 +683,14 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> hlines5</span><span class="p">()</span>
-    <span class="c"># we can also set arbitrary line attributes line color and dash</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">hline</span><span class="p">([</span><span class="mi">25</span><span class="p">,</span> <span class="mi">81</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">];</span> <span class="n">xref</span><span class="o">=</span><span class="s">&quot;paper&quot;</span><span class="p">,</span>
-                   <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;green&quot;</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s">&quot;dashdot&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">],</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">shapes</span><span class="o">=</span><span class="n">shapes</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">hlines5</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function hlines5()
+    # we can also set arbitrary line attributes line color and dash
+    trace1 = scatter(;x=1:10, y=(1:10).^2)
+    shapes = hline([25, 81], 0, [0.5, 0.75]; xref=&quot;paper&quot;,
+                   line_color=&quot;green&quot;, line_dash=&quot;dashdot&quot;)
+    plot([trace1], Layout(;shapes=shapes))
+end
+hlines5()</code></pre>
 
 
 <div id="e2c68101-fccf-4aa2-bd09-d8ab0c49465d" class="plotly-graph-div"></div>

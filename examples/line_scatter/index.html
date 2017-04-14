@@ -400,14 +400,13 @@
           
             <h1>Line scatter</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> linescatter1</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">17</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">)</span>
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines+markers&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">])</span>
-<span class="k">end</span>
-<span class="n">linescatter1</span><span class="p">()</span>
-</pre></div>
+          <pre class="codehilite"><code class="language-julia">function linescatter1()
+    trace1 = scatter(;x=1:4, y=[10, 15, 13, 17], mode=&quot;markers&quot;)
+    trace2 = scatter(;x=2:5, y=[16, 5, 11, 9], mode=&quot;lines&quot;)
+    trace3 = scatter(;x=1:4, y=[12, 9, 15, 12], mode=&quot;lines+markers&quot;)
+    plot([trace1, trace2, trace3])
+end
+linescatter1()</code></pre>
 
 
 <div id="815b6c28-1169-4248-b35f-d00bfc44f9aa" class="plotly-graph-div"></div>
@@ -420,25 +419,24 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> linescatter2</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                      <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Team A&quot;</span><span class="p">,</span>
-                      <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;A-1&quot;</span><span class="p">,</span> <span class="s">&quot;A-2&quot;</span><span class="p">,</span> <span class="s">&quot;A-3&quot;</span><span class="p">,</span> <span class="s">&quot;A-4&quot;</span><span class="p">,</span> <span class="s">&quot;A-5&quot;</span><span class="p">],</span>
-                      <span class="n">marker_size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function linescatter2()
+    trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
+                      mode=&quot;markers&quot;, name=&quot;Team A&quot;,
+                      text=[&quot;A-1&quot;, &quot;A-2&quot;, &quot;A-3&quot;, &quot;A-4&quot;, &quot;A-5&quot;],
+                      marker_size=12)
 
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-                      <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span> <span class="s">&quot;Team B&quot;</span><span class="p">,</span>
-                      <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;B-a&quot;</span><span class="p">,</span> <span class="s">&quot;B-b&quot;</span><span class="p">,</span> <span class="s">&quot;B-c&quot;</span><span class="p">,</span> <span class="s">&quot;B-d&quot;</span><span class="p">,</span> <span class="s">&quot;B-e&quot;</span><span class="p">])</span>
-    <span class="c"># setting marker.size this way is _equivalent_ to what we did for trace1</span>
-    <span class="n">trace2</span><span class="p">[</span><span class="s">&quot;marker&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(:</span><span class="n">size</span> <span class="o">=&gt;</span> <span class="mi">12</span><span class="p">)</span>
+    trace2 = scatter(;x=1:5+0.5, y=[4, 1, 7, 1, 4],
+                      mode=&quot;markers&quot;, name= &quot;Team B&quot;,
+                      text=[&quot;B-a&quot;, &quot;B-b&quot;, &quot;B-c&quot;, &quot;B-d&quot;, &quot;B-e&quot;])
+    # setting marker.size this way is _equivalent_ to what we did for trace1
+    trace2[&quot;marker&quot;] = Dict(:size =&gt; 12)
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Data Labels Hover&quot;</span><span class="p">,</span> <span class="n">xaxis_range</span><span class="o">=</span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">],</span>
-                     <span class="n">yaxis_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">linescatter2</span><span class="p">()</span>
-</pre></div>
+    data = [trace1, trace2]
+    layout = Layout(;title=&quot;Data Labels Hover&quot;, xaxis_range=[0.75, 5.25],
+                     yaxis_range=[0, 8])
+    plot(data, layout)
+end
+linescatter2()</code></pre>
 
 
 <div id="31036a32-7de1-4054-9605-66b359634914" class="plotly-graph-div"></div>
@@ -451,29 +449,28 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> linescatter3</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                      <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers+text&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Team A&quot;</span><span class="p">,</span>
-                      <span class="n">textposition</span><span class="o">=</span><span class="s">&quot;top center&quot;</span><span class="p">,</span>
-                      <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;A-1&quot;</span><span class="p">,</span> <span class="s">&quot;A-2&quot;</span><span class="p">,</span> <span class="s">&quot;A-3&quot;</span><span class="p">,</span> <span class="s">&quot;A-4&quot;</span><span class="p">,</span> <span class="s">&quot;A-5&quot;</span><span class="p">],</span>
-                      <span class="n">marker_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">textfont_family</span><span class="o">=</span><span class="s">&quot;Raleway, sans-serif&quot;</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function linescatter3()
+    trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
+                      mode=&quot;markers+text&quot;, name=&quot;Team A&quot;,
+                      textposition=&quot;top center&quot;,
+                      text=[&quot;A-1&quot;, &quot;A-2&quot;, &quot;A-3&quot;, &quot;A-4&quot;, &quot;A-5&quot;],
+                      marker_size=12, textfont_family=&quot;Raleway, sans-serif&quot;)
 
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-                      <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers+text&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span> <span class="s">&quot;Team B&quot;</span><span class="p">,</span>
-                      <span class="n">textposition</span><span class="o">=</span><span class="s">&quot;bottom center&quot;</span><span class="p">,</span>
-                      <span class="n">text</span><span class="o">=</span> <span class="p">[</span><span class="s">&quot;B-a&quot;</span><span class="p">,</span> <span class="s">&quot;B-b&quot;</span><span class="p">,</span> <span class="s">&quot;B-c&quot;</span><span class="p">,</span> <span class="s">&quot;B-d&quot;</span><span class="p">,</span> <span class="s">&quot;B-e&quot;</span><span class="p">],</span>
-                      <span class="n">marker_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">textfont_family</span><span class="o">=</span><span class="s">&quot;Times New Roman&quot;</span><span class="p">)</span>
+    trace2 = scatter(;x=1:5+0.5, y=[4, 1, 7, 1, 4],
+                      mode=&quot;markers+text&quot;, name= &quot;Team B&quot;,
+                      textposition=&quot;bottom center&quot;,
+                      text= [&quot;B-a&quot;, &quot;B-b&quot;, &quot;B-c&quot;, &quot;B-d&quot;, &quot;B-e&quot;],
+                      marker_size=12, textfont_family=&quot;Times New Roman&quot;)
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
+    data = [trace1, trace2]
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Data Labels on the Plot&quot;</span><span class="p">,</span> <span class="n">xaxis_range</span><span class="o">=</span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">],</span>
-                     <span class="n">yaxis_range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">legend_y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">legend_yref</span><span class="o">=</span><span class="s">&quot;paper&quot;</span><span class="p">,</span>
-                     <span class="n">legend</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">family</span><span class="o">=</span><span class="s">&quot;Arial, sans-serif&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                                 <span class="n">color</span><span class="o">=</span><span class="s">&quot;grey&quot;</span><span class="p">))</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">linescatter3</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;Data Labels on the Plot&quot;, xaxis_range=[0.75, 5.25],
+                     yaxis_range=[0, 8], legend_y=0.5, legend_yref=&quot;paper&quot;,
+                     legend=attr(family=&quot;Arial, sans-serif&quot;, size=20,
+                                 color=&quot;grey&quot;))
+    plot(data, layout)
+end
+linescatter3()</code></pre>
 
 
 <div id="09ef5f2c-cdcb-4711-9a30-d3f0aaca6e99" class="plotly-graph-div"></div>
@@ -486,14 +483,13 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> linescatter4</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">fill</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">marker_size</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
-                      <span class="n">marker_color</span><span class="o">=</span><span class="mi">0</span><span class="p">:</span><span class="mi">39</span><span class="p">)</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Scatter Plot with a Color Dimension&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">trace1</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">linescatter4</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function linescatter4()
+    trace1 = scatter(;y=fill(5, 40), mode=&quot;markers&quot;, marker_size=40,
+                      marker_color=0:39)
+    layout = Layout(title=&quot;Scatter Plot with a Color Dimension&quot;)
+    plot(trace1, layout)
+end
+linescatter4()</code></pre>
 
 
 <div id="b999ee09-6f83-425c-af43-121030dde32f" class="plotly-graph-div"></div>
@@ -506,51 +502,50 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> linescatter5</span><span class="p">()</span>
+<pre class="codehilite"><code class="language-julia">function linescatter5()
 
-    <span class="n">country</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Switzerland (2011)&quot;</span><span class="p">,</span> <span class="s">&quot;Chile (2013)&quot;</span><span class="p">,</span> <span class="s">&quot;Japan (2014)&quot;</span><span class="p">,</span>
-               <span class="s">&quot;United States (2012)&quot;</span><span class="p">,</span> <span class="s">&quot;Slovenia (2014)&quot;</span><span class="p">,</span> <span class="s">&quot;Canada (2011)&quot;</span><span class="p">,</span>
-               <span class="s">&quot;Poland (2010)&quot;</span><span class="p">,</span> <span class="s">&quot;Estonia (2015)&quot;</span><span class="p">,</span> <span class="s">&quot;Luxembourg (2013)&quot;</span><span class="p">,</span>
-               <span class="s">&quot;Portugal (2011)&quot;</span><span class="p">]</span>
+    country = [&quot;Switzerland (2011)&quot;, &quot;Chile (2013)&quot;, &quot;Japan (2014)&quot;,
+               &quot;United States (2012)&quot;, &quot;Slovenia (2014)&quot;, &quot;Canada (2011)&quot;,
+               &quot;Poland (2010)&quot;, &quot;Estonia (2015)&quot;, &quot;Luxembourg (2013)&quot;,
+               &quot;Portugal (2011)&quot;]
 
-    <span class="n">votingPop</span> <span class="o">=</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mf">45.7</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mf">53.6</span><span class="p">,</span> <span class="mf">54.1</span><span class="p">,</span> <span class="mf">54.2</span><span class="p">,</span> <span class="mf">54.5</span><span class="p">,</span> <span class="mf">54.7</span><span class="p">,</span> <span class="mf">55.1</span><span class="p">,</span> <span class="mf">56.6</span><span class="p">]</span>
-    <span class="n">regVoters</span> <span class="o">=</span> <span class="p">[</span><span class="mf">49.1</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mf">52.7</span><span class="p">,</span> <span class="mf">84.3</span><span class="p">,</span> <span class="mf">51.7</span><span class="p">,</span> <span class="mf">61.1</span><span class="p">,</span> <span class="mf">55.3</span><span class="p">,</span> <span class="mf">64.2</span><span class="p">,</span> <span class="mf">91.1</span><span class="p">,</span> <span class="mf">58.9</span><span class="p">]</span>
+    votingPop = [40, 45.7, 52, 53.6, 54.1, 54.2, 54.5, 54.7, 55.1, 56.6]
+    regVoters = [49.1, 42, 52.7, 84.3, 51.7, 61.1, 55.3, 64.2, 91.1, 58.9]
 
-    <span class="c"># notice use of `attr` function to make nested attributes</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">votingPop</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">country</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span>
-                      <span class="n">name</span><span class="o">=</span><span class="s">&quot;Percent of estimated voting age population&quot;</span><span class="p">,</span>
-                      <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgba(156, 165, 196, 0.95)&quot;</span><span class="p">,</span>
-                                  <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;rgba(156, 165, 196, 1.0)&quot;</span><span class="p">,</span>
-                                  <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s">&quot;circle&quot;</span><span class="p">))</span>
+    # notice use of `attr` function to make nested attributes
+    trace1 = scatter(;x=votingPop, y=country, mode=&quot;markers&quot;,
+                      name=&quot;Percent of estimated voting age population&quot;,
+                      marker=attr(color=&quot;rgba(156, 165, 196, 0.95)&quot;,
+                                  line_color=&quot;rgba(156, 165, 196, 1.0)&quot;,
+                                  line_width=1, size=16, symbol=&quot;circle&quot;))
 
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">regVoters</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">country</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span>
-                      <span class="n">name</span><span class="o">=</span><span class="s">&quot;Percent of estimated registered voters&quot;</span><span class="p">)</span>
-    <span class="c"># also could have set the marker props above by using a dict</span>
-    <span class="n">trace2</span><span class="p">[</span><span class="s">&quot;marker&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(:</span><span class="n">color</span> <span class="o">=&gt;</span> <span class="s">&quot;rgba(204, 204, 204, 0.95)&quot;</span><span class="p">,</span>
-                           <span class="p">:</span><span class="n">line</span> <span class="o">=&gt;</span> <span class="n">Dict</span><span class="p">(:</span><span class="n">color</span><span class="o">=&gt;</span> <span class="s">&quot;rgba(217, 217, 217, 1.0)&quot;</span><span class="p">,</span>
-                                         <span class="p">:</span><span class="n">width</span><span class="o">=&gt;</span> <span class="mi">1</span><span class="p">),</span>
-                           <span class="p">:</span><span class="n">symbol</span> <span class="o">=&gt;</span> <span class="s">&quot;circle&quot;</span><span class="p">,</span>
-                           <span class="p">:</span><span class="n">size</span> <span class="o">=&gt;</span> <span class="mi">16</span><span class="p">)</span>
+    trace2 = scatter(;x=regVoters, y=country, mode=&quot;markers&quot;,
+                      name=&quot;Percent of estimated registered voters&quot;)
+    # also could have set the marker props above by using a dict
+    trace2[&quot;marker&quot;] = Dict(:color =&gt; &quot;rgba(204, 204, 204, 0.95)&quot;,
+                           :line =&gt; Dict(:color=&gt; &quot;rgba(217, 217, 217, 1.0)&quot;,
+                                         :width=&gt; 1),
+                           :symbol =&gt; &quot;circle&quot;,
+                           :size =&gt; 16)
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">Dict</span><span class="p">{</span><span class="n">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}(:</span><span class="n">paper_bgcolor</span> <span class="o">=&gt;</span> <span class="s">&quot;rgb(254, 247, 234)&quot;</span><span class="p">,</span>
-                                     <span class="p">:</span><span class="n">plot_bgcolor</span> <span class="o">=&gt;</span> <span class="s">&quot;rgb(254, 247, 234)&quot;</span><span class="p">);</span>
-                    <span class="n">title</span><span class="o">=</span><span class="s">&quot;Votes cast for ten lowest voting age population in OECD countries&quot;</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">hovermode</span><span class="o">=</span><span class="s">&quot;closest&quot;</span><span class="p">,</span>
-                    <span class="n">margin</span><span class="o">=</span><span class="n">Dict</span><span class="p">(:</span><span class="n">l</span> <span class="o">=&gt;</span> <span class="mi">140</span><span class="p">,</span> <span class="p">:</span><span class="n">r</span> <span class="o">=&gt;</span> <span class="mi">40</span><span class="p">,</span> <span class="p">:</span><span class="n">b</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">,</span> <span class="p">:</span><span class="n">t</span> <span class="o">=&gt;</span> <span class="mi">80</span><span class="p">),</span>
-                    <span class="n">xaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">showgrid</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">showline</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                               <span class="n">linecolor</span><span class="o">=</span><span class="s">&quot;rgb(102, 102, 102)&quot;</span><span class="p">,</span>
-                               <span class="n">titlefont_font_color</span><span class="o">=</span><span class="s">&quot;rgb(204, 204, 204)&quot;</span><span class="p">,</span>
-                               <span class="n">tickfont_font_color</span><span class="o">=</span><span class="s">&quot;rgb(102, 102, 102)&quot;</span><span class="p">,</span>
-                               <span class="n">autotick</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">dtick</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="s">&quot;outside&quot;</span><span class="p">,</span>
-                               <span class="n">tickcolor</span><span class="o">=</span><span class="s">&quot;rgb(102, 102, 102)&quot;</span><span class="p">),</span>
-                    <span class="n">legend</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">yanchor</span><span class="o">=</span><span class="s">&quot;middle&quot;</span><span class="p">,</span>
-                                <span class="n">xanchor</span><span class="o">=</span><span class="s">&quot;right&quot;</span><span class="p">),</span>
-                    <span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">linescatter5</span><span class="p">()</span>
-</pre></div>
+    data = [trace1, trace2]
+    layout = Layout(Dict{Symbol,Any}(:paper_bgcolor =&gt; &quot;rgb(254, 247, 234)&quot;,
+                                     :plot_bgcolor =&gt; &quot;rgb(254, 247, 234)&quot;);
+                    title=&quot;Votes cast for ten lowest voting age population in OECD countries&quot;,
+                    width=600, height=600, hovermode=&quot;closest&quot;,
+                    margin=Dict(:l =&gt; 140, :r =&gt; 40, :b =&gt; 50, :t =&gt; 80),
+                    xaxis=attr(showgrid=false, showline=true,
+                               linecolor=&quot;rgb(102, 102, 102)&quot;,
+                               titlefont_font_color=&quot;rgb(204, 204, 204)&quot;,
+                               tickfont_font_color=&quot;rgb(102, 102, 102)&quot;,
+                               autotick=false, dtick=10, ticks=&quot;outside&quot;,
+                               tickcolor=&quot;rgb(102, 102, 102)&quot;),
+                    legend=attr(font_size=10, yanchor=&quot;middle&quot;,
+                                xanchor=&quot;right&quot;),
+                    )
+    plot(data, layout)
+end
+linescatter5()</code></pre>
 
 
 <div id="f32b32eb-a711-429c-ae7e-fd3e209f30e5" class="plotly-graph-div"></div>
@@ -563,47 +558,46 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> linescatter6</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">52698</span><span class="p">,</span> <span class="mi">43117</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">53</span><span class="p">,</span> <span class="mi">31</span><span class="p">],</span>
-                      <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span>
-                      <span class="n">name</span><span class="o">=</span><span class="s">&quot;North America&quot;</span><span class="p">,</span>
-                      <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;United States&quot;</span><span class="p">,</span> <span class="s">&quot;Canada&quot;</span><span class="p">],</span>
-                      <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(164, 194, 244)&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-                                  <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;white&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
-                      <span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function linescatter6()
+    trace1 = scatter(;x=[52698, 43117], y=[53, 31],
+                      mode=&quot;markers&quot;,
+                      name=&quot;North America&quot;,
+                      text=[&quot;United States&quot;, &quot;Canada&quot;],
+                      marker=attr(color=&quot;rgb(164, 194, 244)&quot;, size=12,
+                                  line=attr(color=&quot;white&quot;, width=0.5))
+                      )
 
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">39317</span><span class="p">,</span> <span class="mi">37236</span><span class="p">,</span> <span class="mi">35650</span><span class="p">,</span> <span class="mi">30066</span><span class="p">,</span> <span class="mi">29570</span><span class="p">,</span> <span class="mi">27159</span><span class="p">,</span> <span class="mi">23557</span><span class="p">,</span> <span class="mi">21046</span><span class="p">,</span> <span class="mi">18007</span><span class="p">],</span>
-                      <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">33</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">38</span><span class="p">],</span>
-                      <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Europe&quot;</span><span class="p">,</span>
-                      <span class="n">marker_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(255, 217, 102)&quot;</span><span class="p">,</span>
-                      <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Germany&quot;</span><span class="p">,</span> <span class="s">&quot;Britain&quot;</span><span class="p">,</span> <span class="s">&quot;France&quot;</span><span class="p">,</span> <span class="s">&quot;Spain&quot;</span><span class="p">,</span> <span class="s">&quot;Italy&quot;</span><span class="p">,</span>
-                            <span class="s">&quot;Czech Rep.&quot;</span><span class="p">,</span> <span class="s">&quot;Greece&quot;</span><span class="p">,</span> <span class="s">&quot;Poland&quot;</span><span class="p">,</span> <span class="s">&quot;Portugal&quot;</span><span class="p">])</span>
+    trace2 = scatter(;x=[39317, 37236, 35650, 30066, 29570, 27159, 23557, 21046, 18007],
+                      y=[33, 20, 13, 19, 27, 19, 49, 44, 38],
+                      mode=&quot;markers&quot;, name=&quot;Europe&quot;,
+                      marker_size=12, marker_color=&quot;rgb(255, 217, 102)&quot;,
+                      text=[&quot;Germany&quot;, &quot;Britain&quot;, &quot;France&quot;, &quot;Spain&quot;, &quot;Italy&quot;,
+                            &quot;Czech Rep.&quot;, &quot;Greece&quot;, &quot;Poland&quot;, &quot;Portugal&quot;])
 
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">42952</span><span class="p">,</span> <span class="mi">37037</span><span class="p">,</span> <span class="mi">33106</span><span class="p">,</span> <span class="mi">17478</span><span class="p">,</span> <span class="mi">9813</span><span class="p">,</span> <span class="mi">5253</span><span class="p">,</span> <span class="mi">4692</span><span class="p">,</span> <span class="mi">3899</span><span class="p">],</span>
-                      <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">23</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">70</span><span class="p">],</span>
-                      <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span>
-                      <span class="n">name</span><span class="o">=</span><span class="s">&quot;Asia/Pacific&quot;</span><span class="p">,</span>
-                      <span class="n">marker_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(234, 153, 153)&quot;</span><span class="p">,</span>
-                      <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Australia&quot;</span><span class="p">,</span> <span class="s">&quot;Japan&quot;</span><span class="p">,</span> <span class="s">&quot;South Korea&quot;</span><span class="p">,</span> <span class="s">&quot;Malaysia&quot;</span><span class="p">,</span>
-                            <span class="s">&quot;China&quot;</span><span class="p">,</span> <span class="s">&quot;Indonesia&quot;</span><span class="p">,</span> <span class="s">&quot;Philippines&quot;</span><span class="p">,</span> <span class="s">&quot;India&quot;</span><span class="p">])</span>
+    trace3 = scatter(;x=[42952, 37037, 33106, 17478, 9813, 5253, 4692, 3899],
+                      y=[23, 42, 54, 89, 14, 99, 93, 70],
+                      mode=&quot;markers&quot;,
+                      name=&quot;Asia/Pacific&quot;,
+                      marker_size=12, marker_color=&quot;rgb(234, 153, 153)&quot;,
+                      text=[&quot;Australia&quot;, &quot;Japan&quot;, &quot;South Korea&quot;, &quot;Malaysia&quot;,
+                            &quot;China&quot;, &quot;Indonesia&quot;, &quot;Philippines&quot;, &quot;India&quot;])
 
-    <span class="n">trace4</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">19097</span><span class="p">,</span> <span class="mi">18601</span><span class="p">,</span> <span class="mi">15595</span><span class="p">,</span> <span class="mi">13546</span><span class="p">,</span> <span class="mi">12026</span><span class="p">,</span> <span class="mi">7434</span><span class="p">,</span> <span class="mi">5419</span><span class="p">],</span>
-                      <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">43</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span>
-                      <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Latin America&quot;</span><span class="p">,</span>
-                      <span class="n">marker_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(142, 124, 195)&quot;</span><span class="p">,</span>
-                      <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Chile&quot;</span><span class="p">,</span> <span class="s">&quot;Argentina&quot;</span><span class="p">,</span> <span class="s">&quot;Mexico&quot;</span><span class="p">,</span> <span class="s">&quot;Venezuela&quot;</span><span class="p">,</span>
-                            <span class="s">&quot;Venezuela&quot;</span><span class="p">,</span> <span class="s">&quot;El Salvador&quot;</span><span class="p">,</span> <span class="s">&quot;Bolivia&quot;</span><span class="p">])</span>
+    trace4 = scatter(;x=[19097, 18601, 15595, 13546, 12026, 7434, 5419],
+                      y=[43, 47, 56, 80, 86, 93, 80],
+                      mode=&quot;markers&quot;, name=&quot;Latin America&quot;,
+                      marker_size=12, marker_color=&quot;rgb(142, 124, 195)&quot;,
+                      text=[&quot;Chile&quot;, &quot;Argentina&quot;, &quot;Mexico&quot;, &quot;Venezuela&quot;,
+                            &quot;Venezuela&quot;, &quot;El Salvador&quot;, &quot;Bolivia&quot;])
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">,</span> <span class="n">trace4</span><span class="p">]</span>
+    data = [trace1, trace2, trace3, trace4]
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Quarter 1 Growth&quot;</span><span class="p">,</span>
-                     <span class="n">xaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;GDP per Capital&quot;</span><span class="p">,</span> <span class="n">showgrid</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="n">false</span><span class="p">),</span>
-                     <span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Percent&quot;</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="n">false</span><span class="p">))</span>
+    layout = Layout(;title=&quot;Quarter 1 Growth&quot;,
+                     xaxis=attr(title=&quot;GDP per Capital&quot;, showgrid=false, zeroline=false),
+                     yaxis=attr(title=&quot;Percent&quot;, zeroline=false))
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">linescatter6</span><span class="p">()</span>
-</pre></div>
+    plot(data, layout)
+end
+linescatter6()</code></pre>
 
 
 <div id="8ec60f1e-6fd0-4741-ace5-dcb2c0b8f62e" class="plotly-graph-div"></div>
@@ -616,27 +610,26 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> batman</span><span class="p">()</span>
-    <span class="c"># reference: https://github.com/alanedelman/18.337_2015/blob/master/Lecture01_0909/The%20Bat%20Curve.ipynb</span>
-    <span class="n">σ</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">√</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">el</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">σ</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">7</span><span class="p">)</span>
-    <span class="n">s</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="mf">4.2</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">σ</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">b</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">σ</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="o">/</span><span class="mi">11</span> <span class="o">+</span> <span class="mf">0.5</span><span class="n">x</span> <span class="o">-</span> <span class="mi">3</span>
-    <span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.7</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]</span>
+<pre class="codehilite"><code class="language-julia">function batman()
+    # reference: https://github.com/alanedelman/18.337_2015/blob/master/Lecture01_0909/The%20Bat%20Curve.ipynb
+    σ(x) = √(1-x.^2)
+    el(x) = 3*σ(x/7)
+    s(x) = 4.2 - 0.5*x - 2.0*σ(0.5*x-0.5)
+    b(x) = σ(abs(2-x)-1) - x.^2/11 + 0.5x - 3
+    c(x) = [1.7, 1.7, 2.6, 0.9]
 
-    <span class="n">p</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">;</span> <span class="mf">0.0</span><span class="p">;</span> <span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="n">NaN</span><span class="p">;</span> <span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)],</span>
-                                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span> <span class="n">showlegend</span><span class="o">=</span><span class="n">false</span><span class="p">,</span>
-                                  <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
-    <span class="n">traces</span> <span class="o">=</span> <span class="n">vcat</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="mi">3</span><span class="p">:</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="n">el</span><span class="p">;</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;wings 1&quot;</span><span class="p">),</span>
-                  <span class="n">p</span><span class="p">(</span><span class="mi">4</span><span class="p">:</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;-</span><span class="n">el</span><span class="p">(</span><span class="n">t</span><span class="p">);</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;wings 2&quot;</span><span class="p">),</span>
-                  <span class="n">p</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">s</span><span class="p">;</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Shoulders&quot;</span><span class="p">),</span>
-                  <span class="n">p</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Bottom&quot;</span><span class="p">),</span>
-                  <span class="n">p</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="p">;</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;head&quot;</span><span class="p">))</span>
+    p(i, f; kwargs...) = scatter(;x=[-i; 0.0; i], y=[f(i); NaN; f(i)],
+                                  marker_color=&quot;black&quot;, showlegend=false,
+                                  kwargs...)
+    traces = vcat(p(3:0.1:7, el; name=&quot;wings 1&quot;),
+                  p(4:0.1:7, t-&gt;-el(t); name=&quot;wings 2&quot;),
+                  p(1:0.1:3, s; name=&quot;Shoulders&quot;),
+                  p(0:0.1:4, b; name=&quot;Bottom&quot;),
+                  p([0, 0.5, 0.8, 1], c; name=&quot;head&quot;))
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">traces</span><span class="p">,</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Batman&quot;</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">batman</span><span class="p">()</span>
-</pre></div>
+    plot(traces, Layout(title=&quot;Batman&quot;))
+end
+batman()</code></pre>
 
 
 <div id="cda992d1-d0cc-46f7-be6f-7239702ded8a" class="plotly-graph-div"></div>
@@ -649,39 +642,38 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> dumbell</span><span class="p">()</span>
-    <span class="c"># reference: https://plot.ly/r/dumbbell-plots/</span>
-    <span class="p">@</span><span class="n">eval</span> <span class="k">using</span> <span class="n">DataFrames</span>
+<pre class="codehilite"><code class="language-julia">function dumbell()
+    # reference: https://plot.ly/r/dumbbell-plots/
+    @eval using DataFrames
 
-    <span class="c"># read Data into dataframe</span>
-    <span class="n">nm</span> <span class="o">=</span> <span class="n">tempname</span><span class="p">()</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;https://raw.githubusercontent.com/plotly/datasets/master/school_earnings.csv&quot;</span>
-    <span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">nm</span><span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">readtable</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span>
-    <span class="n">rm</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span>
+    # read Data into dataframe
+    nm = tempname()
+    url = &quot;https://raw.githubusercontent.com/plotly/datasets/master/school_earnings.csv&quot;
+    download(url, nm)
+    df = readtable(nm)
+    rm(nm)
 
-    <span class="c"># sort dataframe by male earnings</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="p">[:</span><span class="n">Men</span><span class="p">],</span> <span class="n">rev</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
+    # sort dataframe by male earnings
+    df = sort(df, cols=[:Men], rev=false)
 
-    <span class="n">men</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">School</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Men</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Men&quot;</span><span class="p">,</span>
-                   <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;blue&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
-    <span class="n">women</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">School</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Women</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Women&quot;</span><span class="p">,</span>
-                     <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;pink&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">))</span>
+    men = scatter(;y=df[:School], x=df[:Men], mode=&quot;markers&quot;, name=&quot;Men&quot;,
+                   marker=attr(color=&quot;blue&quot;, size=12))
+    women = scatter(;y=df[:School], x=df[:Women], mode=&quot;markers&quot;, name=&quot;Women&quot;,
+                     marker=attr(color=&quot;pink&quot;, size=12))
 
-    <span class="n">lines</span> <span class="o">=</span> <span class="n">map</span><span class="p">(</span><span class="n">eachrow</span><span class="p">(</span><span class="n">df</span><span class="p">))</span> <span class="k">do</span> <span class="n">r</span>
-        <span class="n">scatter</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">fill</span><span class="p">(</span><span class="n">r</span><span class="p">[:</span><span class="n">School</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">r</span><span class="p">[:</span><span class="n">Women</span><span class="p">],</span> <span class="n">r</span><span class="p">[:</span><span class="n">Men</span><span class="p">]],</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="n">r</span><span class="p">[:</span><span class="n">School</span><span class="p">],</span> <span class="n">showlegend</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;gray&quot;</span><span class="p">)</span>
-    <span class="k">end</span>
+    lines = map(eachrow(df)) do r
+        scatter(y=fill(r[:School], 2), x=[r[:Women], r[:Men]], mode=&quot;lines&quot;,
+                name=r[:School], showlegend=false, line_color=&quot;gray&quot;)
+    end
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">Base</span><span class="o">.</span><span class="n">typed_vcat</span><span class="p">(</span><span class="n">GenericTrace</span><span class="p">,</span> <span class="n">men</span><span class="p">,</span> <span class="n">women</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">650</span><span class="p">,</span> <span class="n">margin_l</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s">&quot;School&quot;</span><span class="p">,</span>
-                    <span class="n">xaxis_title</span><span class="o">=</span><span class="s">&quot;Annual Salary (thousands)&quot;</span><span class="p">,</span>
-                    <span class="n">title</span><span class="o">=</span><span class="s">&quot;Gender earnings disparity&quot;</span><span class="p">)</span>
+    data = Base.typed_vcat(GenericTrace, men, women, lines)
+    layout = Layout(width=650, height=650, margin_l=100, yaxis_title=&quot;School&quot;,
+                    xaxis_title=&quot;Annual Salary (thousands)&quot;,
+                    title=&quot;Gender earnings disparity&quot;)
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">dumbell</span><span class="p">()</span>
-</pre></div>
+    plot(data, layout)
+end
+dumbell()</code></pre>
 
 
 <div id="9e518137-a3c2-4682-8e6b-16f91b18ad72" class="plotly-graph-div"></div>
@@ -694,73 +686,72 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> errorbars1</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">vcat</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">),</span>
-                     <span class="n">y</span><span class="o">=</span><span class="n">vcat</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">),</span>
-                     <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozerox&quot;</span><span class="p">,</span>
-                     <span class="n">fillcolor</span><span class="o">=</span><span class="s">&quot;rgba(0, 100, 80, 0.2)&quot;</span><span class="p">,</span>
-                     <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;transparent&quot;</span><span class="p">,</span>
-                     <span class="n">name</span><span class="o">=</span><span class="s">&quot;Fair&quot;</span><span class="p">,</span>
-                     <span class="n">showlegend</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function errorbars1()
+    trace1 = scatter(;x=vcat(1:10, 10:-1:1),
+                     y=vcat(2:11, 9:-1:0),
+                     fill=&quot;tozerox&quot;,
+                     fillcolor=&quot;rgba(0, 100, 80, 0.2)&quot;,
+                     line_color=&quot;transparent&quot;,
+                     name=&quot;Fair&quot;,
+                     showlegend=false)
 
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">vcat</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">),</span>
-                     <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">,</span>
-                        <span class="mf">5.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">],</span>
-                     <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozerox&quot;</span><span class="p">,</span>
-                     <span class="n">fillcolor</span><span class="o">=</span><span class="s">&quot;rgba(0, 176, 246, 0.2)&quot;</span><span class="p">,</span>
-                     <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;transparent&quot;</span><span class="p">,</span>
-                     <span class="n">name</span><span class="o">=</span><span class="s">&quot;Premium&quot;</span><span class="p">,</span>
-                     <span class="n">showlegend</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
+    trace2 = scatter(;x=vcat(1:10, 10:-1:1),
+                     y=[5.5, 3.0, 5.5, 8.0, 6.0, 3.0, 8.0, 5.0, 6.0, 5.5, 4.75,
+                        5.0, 4.0, 7.0, 2.0, 4.0, 7.0, 4.4, 2.0, 4.5],
+                     fill=&quot;tozerox&quot;,
+                     fillcolor=&quot;rgba(0, 176, 246, 0.2)&quot;,
+                     line_color=&quot;transparent&quot;,
+                     name=&quot;Premium&quot;,
+                     showlegend=false)
 
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">vcat</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">),</span>
-                     <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span>
-                        <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">9.</span><span class="p">],</span>
-                     <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozerox&quot;</span><span class="p">,</span>
-                     <span class="n">fillcolor</span><span class="o">=</span><span class="s">&quot;rgba(231, 107, 243, 0.2)&quot;</span><span class="p">,</span>
-                     <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;transparent&quot;</span><span class="p">,</span>
-                     <span class="n">name</span><span class="o">=</span><span class="s">&quot;Fair&quot;</span><span class="p">,</span>
-                     <span class="n">showlegend</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
+    trace3 = scatter(;x=vcat(1:10, 10:-1:1),
+                     y=[11.0, 9.0, 7.0, 5.0, 3.0, 1.0, 3.0, 5.0, 3.0, 1.0,
+                        -1.0, 1.0, 3.0, 1.0, -0.5, 1.0, 3.0, 5.0, 7.0, 9.],
+                     fill=&quot;tozerox&quot;,
+                     fillcolor=&quot;rgba(231, 107, 243, 0.2)&quot;,
+                     line_color=&quot;transparent&quot;,
+                     name=&quot;Fair&quot;,
+                     showlegend=false)
 
-    <span class="n">trace4</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
-                     <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;rgb(00, 100, 80)&quot;</span><span class="p">,</span>
-                     <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span>
-                     <span class="n">name</span><span class="o">=</span><span class="s">&quot;Fair&quot;</span><span class="p">)</span>
+    trace4 = scatter(;x=1:10, y=1:10,
+                     line_color=&quot;rgb(00, 100, 80)&quot;,
+                     mode=&quot;lines&quot;,
+                     name=&quot;Fair&quot;)
 
-    <span class="n">trace5</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
-                     <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">5.</span><span class="p">],</span>
-                     <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;rgb(0, 176, 246)&quot;</span><span class="p">,</span>
-                     <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span>
-                     <span class="n">name</span><span class="o">=</span><span class="s">&quot;Premium&quot;</span><span class="p">)</span>
+    trace5 = scatter(;x=1:10,
+                     y=[5.0, 2.5, 5.0, 7.5, 5.0, 2.5, 7.5, 4.5, 5.5, 5.],
+                     line_color=&quot;rgb(0, 176, 246)&quot;,
+                     mode=&quot;lines&quot;,
+                     name=&quot;Premium&quot;)
 
-    <span class="n">trace6</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">vcat</span><span class="p">(</span><span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
-                     <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;rgb(231, 107, 243)&quot;</span><span class="p">,</span>
-                     <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span>
-                     <span class="n">name</span><span class="o">=</span><span class="s">&quot;Ideal&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">,</span> <span class="n">trace4</span><span class="p">,</span> <span class="n">trace5</span><span class="p">,</span> <span class="n">trace6</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">paper_bgcolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                    <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s">&quot;rgb(229, 229, 229)&quot;</span><span class="p">,</span>
+    trace6 = scatter(;x=1:10, y=vcat(10:-2:0, [2, 4,2, 0]),
+                     line_color=&quot;rgb(231, 107, 243)&quot;,
+                     mode=&quot;lines&quot;,
+                     name=&quot;Ideal&quot;)
+    data = [trace1, trace2, trace3, trace4, trace5, trace6]
+    layout = Layout(;paper_bgcolor=&quot;rgb(255, 255, 255)&quot;,
+                    plot_bgcolor=&quot;rgb(229, 229, 229)&quot;,
 
-                    <span class="n">xaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">gridcolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                               <span class="n">range</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
-                               <span class="n">showgrid</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                               <span class="n">showline</span><span class="o">=</span><span class="n">false</span><span class="p">,</span>
-                               <span class="n">showticklabels</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                               <span class="n">tickcolor</span><span class="o">=</span><span class="s">&quot;rgb(127, 127, 127)&quot;</span><span class="p">,</span>
-                               <span class="n">ticks</span><span class="o">=</span><span class="s">&quot;outside&quot;</span><span class="p">,</span>
-                               <span class="n">zeroline</span><span class="o">=</span><span class="n">false</span><span class="p">),</span>
+                    xaxis=attr(gridcolor=&quot;rgb(255, 255, 255)&quot;,
+                               range=[1, 10],
+                               showgrid=true,
+                               showline=false,
+                               showticklabels=true,
+                               tickcolor=&quot;rgb(127, 127, 127)&quot;,
+                               ticks=&quot;outside&quot;,
+                               zeroline=false),
 
-                    <span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">gridcolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                               <span class="n">showgrid</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                               <span class="n">showline</span><span class="o">=</span><span class="n">false</span><span class="p">,</span>
-                               <span class="n">showticklabels</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                               <span class="n">tickcolor</span><span class="o">=</span><span class="s">&quot;rgb(127, 127, 127)&quot;</span><span class="p">,</span>
-                               <span class="n">ticks</span><span class="o">=</span><span class="s">&quot;outside&quot;</span><span class="p">,</span>
-                               <span class="n">zeroline</span><span class="o">=</span><span class="n">false</span><span class="p">))</span>
+                    yaxis=attr(gridcolor=&quot;rgb(255, 255, 255)&quot;,
+                               showgrid=true,
+                               showline=false,
+                               showticklabels=true,
+                               tickcolor=&quot;rgb(127, 127, 127)&quot;,
+                               ticks=&quot;outside&quot;,
+                               zeroline=false))
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">errorbars1</span><span class="p">()</span>
-</pre></div>
+    plot(data, layout)
+end
+errorbars1()</code></pre>
 
 
 <div id="4dae8fe1-3196-4f92-92d0-79493546bc38" class="plotly-graph-div"></div>
@@ -773,56 +764,55 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> errorbars2</span><span class="p">()</span>
-    <span class="k">function</span><span class="nf"> random_dates</span><span class="p">(</span><span class="n">d1</span><span class="p">::</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">d2</span><span class="p">::</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">n</span><span class="p">::</span><span class="kt">Int</span><span class="p">)</span>
-        <span class="n">map</span><span class="p">(</span><span class="n">Date</span><span class="p">,</span> <span class="n">sort!</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="n">d1</span><span class="p">:</span><span class="n">Dates</span><span class="o">.</span><span class="n">Hour</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span><span class="n">d2</span><span class="p">,</span> <span class="n">n</span><span class="p">)))</span>
-    <span class="k">end</span>
+<pre class="codehilite"><code class="language-julia">function errorbars2()
+    function random_dates(d1::DateTime, d2::DateTime, n::Int)
+        map(Date, sort!(rand(d1:Dates.Hour(12):d2, n)))
+    end
 
-    <span class="k">function</span><span class="nf"> _random_number</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">mul</span><span class="p">)</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">rand</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="o">+</span><span class="mi">1</span>
-            <span class="n">rand</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">*</span> <span class="n">mul</span>
-            <span class="n">append!</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">[</span><span class="n">rand</span><span class="p">])</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">end</span>
-        <span class="k">return</span> <span class="n">value</span>
-    <span class="k">end</span>
+    function _random_number(num, mul)
+        value = []
+        j = 0
+        rand = 0
+        while j &lt;= num+1
+            rand = rand() * mul
+            append!(value, [rand])
+            j += 1
+        end
+        return value
+    end
 
-    <span class="n">dates</span> <span class="o">=</span> <span class="n">random_dates</span><span class="p">(</span><span class="n">DateTime</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">DateTime</span><span class="p">(</span><span class="mi">2005</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="mi">50</span><span class="p">)</span>
+    dates = random_dates(DateTime(2001, 1, 1), DateTime(2005, 12, 31), 50)
 
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
-                     <span class="n">y</span><span class="o">=</span><span class="mf">20.0</span> <span class="o">.*</span> <span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
-                     <span class="n">line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                     <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;444&quot;</span><span class="p">,</span>
-                     <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span>
-                     <span class="n">name</span><span class="o">=</span><span class="s">&quot;Lower Bound&quot;</span><span class="p">)</span>
+    trace1 = scatter(;x=dates,
+                     y=20.0 .* rand(50),
+                     line_width=0,
+                     marker_color=&quot;444&quot;,
+                     mode=&quot;lines&quot;,
+                     name=&quot;Lower Bound&quot;)
 
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
-                     <span class="n">y</span><span class="o">=</span><span class="mf">21.0</span> <span class="o">.*</span> <span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
-                     <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">,</span>
-                     <span class="n">fillcolor</span><span class="o">=</span><span class="s">&quot;rgba(68, 68, 68, 0.3)&quot;</span><span class="p">,</span>
-                     <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;rgb(31, 119, 180)&quot;</span><span class="p">,</span>
-                     <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span>
-                     <span class="n">name</span><span class="o">=</span><span class="s">&quot;Measurement&quot;</span><span class="p">)</span>
+    trace2 = scatter(;x=dates,
+                     y=21.0 .* rand(50),
+                     fill=&quot;tonexty&quot;,
+                     fillcolor=&quot;rgba(68, 68, 68, 0.3)&quot;,
+                     line_color=&quot;rgb(31, 119, 180)&quot;,
+                     mode=&quot;lines&quot;,
+                     name=&quot;Measurement&quot;)
 
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span>
-                     <span class="n">y</span><span class="o">=</span><span class="mf">22.0</span> <span class="o">.*</span> <span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
-                     <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">,</span>
-                     <span class="n">fillcolor</span><span class="o">=</span><span class="s">&quot;rgba(68, 68, 68, 0.3)&quot;</span><span class="p">,</span>
-                     <span class="n">line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                     <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;444&quot;</span><span class="p">,</span>
-                     <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span>
-                     <span class="n">name</span><span class="o">=</span><span class="s">&quot;Upper Bound&quot;</span><span class="p">)</span>
+    trace3 = scatter(;x=dates,
+                     y=22.0 .* rand(50),
+                     fill=&quot;tonexty&quot;,
+                     fillcolor=&quot;rgba(68, 68, 68, 0.3)&quot;,
+                     line_width=0,
+                     marker_color=&quot;444&quot;,
+                     mode=&quot;lines&quot;,
+                     name=&quot;Upper Bound&quot;)
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">]</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="s">&quot;Continuous, variable value error bars&lt;br&gt; Notice the hover text!&quot;</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s">&quot;Wind speed (m/s)&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">errorbars2</span><span class="p">()</span>
-</pre></div>
+    data = [trace1, trace2, trace3]
+    t = &quot;Continuous, variable value error bars&lt;br&gt; Notice the hover text!&quot;
+    layout = Layout(;title=t, yaxis_title=&quot;Wind speed (m/s)&quot;)
+    plot(data, layout)
+end
+errorbars2()</code></pre>
 
 
 <div id="3f11312d-4b5a-469b-b391-6bde3b0704a9" class="plotly-graph-div"></div>

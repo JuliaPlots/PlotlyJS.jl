@@ -400,18 +400,17 @@
           
             <h1>Contour</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour1</span><span class="p">()</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="mi">100</span> <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">]</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-         <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">100</span> <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">]</span>
-    <span class="n">z_</span> <span class="o">=</span> <span class="p">[</span><span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">99</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">100</span><span class="p">:</span><span class="mi">10000</span><span class="p">]</span>
+          <pre class="codehilite"><code class="language-julia">function contour1()
+    x = y = [-2*pi + 4*pi*i/100 for i in 1:100]
+    z = [sin(x[i]) * cos(y[j]) * sin(x[i]*x[i]+y[j]*y[j])/log(x[i]*x[i]+y[j]*y[j]+1)
+         for i in 1:100 for j in 1:100]
+    z_ = [z[i:i+99] for i in 1:100:10000]
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z_</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+    data = contour(;z=z_, x=x, y=y)
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour1</span><span class="p">()</span>
-</pre></div>
+    plot(data)
+end
+contour1()</code></pre>
 
 
 <div id="b32e3360-0996-45e7-8a40-5a011f00832a" class="plotly-graph-div"></div>
@@ -424,19 +423,18 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour2</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function contour2()
+    z =  [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+    data = contour(;z=z)
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Basic Contour Plot&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour2</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;Basic Contour Plot&quot;)
+    plot(data, layout)
+end
+contour2()</code></pre>
 
 
 <div id="b2814d2d-e1ea-4473-a7bc-0178a70dfc41" class="plotly-graph-div"></div>
@@ -449,21 +447,20 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour3</span><span class="p">()</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span> <span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function contour3()
+    x = [-9, -6, -5 , -3, -1]
+    y = [0, 1, 4, 5, 7]
+    z = [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+    trace = contour(x=x, y=y, z=z)
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Setting the X and Y Coordinates in a Contour Plot&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour3</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(title=&quot;Setting the X and Y Coordinates in a Contour Plot&quot;)
+    plot(trace, layout)
+end
+contour3()</code></pre>
 
 
 <div id="919de9ba-b79b-4405-ba21-7dd2d09569f9" class="plotly-graph-div"></div>
@@ -476,19 +473,18 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour4</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s">&quot;Jet&quot;</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function contour4()
+    z = [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+    data = contour(;z=z, colorscale=&quot;Jet&quot;)
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Colorscale for Contour Plot&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour4</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;Colorscale for Contour Plot&quot;)
+    plot(data, layout)
+end
+contour4()</code></pre>
 
 
 <div id="a3c518ea-d580-4ee4-b5d0-75af1c2ba441" class="plotly-graph-div"></div>
@@ -501,22 +497,21 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour5</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-                   <span class="n">colorscale</span><span class="o">=</span><span class="s">&quot;Jet&quot;</span><span class="p">,</span>
-                   <span class="n">autocontour</span><span class="o">=</span><span class="n">false</span><span class="p">,</span>
-                   <span class="n">contours</span><span class="o">=</span><span class="n">Dict</span><span class="p">(:</span><span class="n">start</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="k">end</span><span class="o">=&gt;</span><span class="mi">8</span><span class="p">,</span> <span class="p">:</span><span class="n">size</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">))</span>
+<pre class="codehilite"><code class="language-julia">function contour5()
+    z = [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+    data = contour(;z=z,
+                   colorscale=&quot;Jet&quot;,
+                   autocontour=false,
+                   contours=Dict(:start=&gt;0, :end=&gt;8, :size=&gt;2))
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Customizing Size and Range of Contours&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour5</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;Customizing Size and Range of Contours&quot;)
+    plot(data, layout)
+end
+contour5()</code></pre>
 
 
 <div id="352e00a1-f885-4692-8e5c-e196ae666152" class="plotly-graph-div"></div>
@@ -529,20 +524,19 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour6</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s">&quot;Jet&quot;</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y0</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function contour6()
+    z = [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+    data = contour(;z=z, colorscale=&quot;Jet&quot;, dx=10, x0=5, dy=10, y0=10)
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Customizing Spacing Between X and Y Axis Ticks&quot;</span><span class="p">)</span>
+    layout = Layout(;title=&quot;Customizing Spacing Between X and Y Axis Ticks&quot;)
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour6</span><span class="p">()</span>
-</pre></div>
+    plot(data, layout)
+end
+contour6()</code></pre>
 
 
 <div id="29320c49-bb2b-4ebf-9915-78d12e8d107b" class="plotly-graph-div"></div>
@@ -555,28 +549,27 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour7</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">NaN</span> <span class="n">NaN</span> <span class="n">NaN</span> <span class="mi">12</span>  <span class="mi">13</span>  <span class="mi">14</span>  <span class="mi">15</span>  <span class="mi">16</span>
-         <span class="n">NaN</span> <span class="mi">1</span>   <span class="n">NaN</span> <span class="mi">11</span>  <span class="n">NaN</span> <span class="n">NaN</span> <span class="n">NaN</span> <span class="mi">17</span>
-         <span class="n">NaN</span> <span class="mi">2</span>   <span class="mi">6</span>   <span class="mi">7</span>   <span class="n">NaN</span> <span class="n">NaN</span> <span class="n">NaN</span> <span class="mi">18</span>
-         <span class="n">NaN</span> <span class="mi">3</span>   <span class="n">NaN</span> <span class="mi">8</span>   <span class="n">NaN</span> <span class="n">NaN</span> <span class="n">NaN</span> <span class="mi">19</span>
-         <span class="mi">5</span>   <span class="mi">4</span>   <span class="mi">10</span>  <span class="mi">9</span>   <span class="n">NaN</span> <span class="n">NaN</span> <span class="n">NaN</span> <span class="mi">20</span>
-         <span class="n">NaN</span> <span class="n">NaN</span> <span class="n">NaN</span> <span class="mi">27</span>  <span class="n">NaN</span> <span class="n">NaN</span> <span class="n">NaN</span> <span class="mi">21</span>
-         <span class="n">NaN</span> <span class="n">NaN</span> <span class="n">NaN</span> <span class="mi">26</span>  <span class="mi">25</span>  <span class="mi">24</span>  <span class="mi">23</span>  <span class="mi">22</span><span class="p">]</span><span class="o">&#39;</span>
+<pre class="codehilite"><code class="language-julia">function contour7()
+    z = [NaN NaN NaN 12  13  14  15  16
+         NaN 1   NaN 11  NaN NaN NaN 17
+         NaN 2   6   7   NaN NaN NaN 18
+         NaN 3   NaN 8   NaN NaN NaN 19
+         5   4   10  9   NaN NaN NaN 20
+         NaN NaN NaN 27  NaN NaN NaN 21
+         NaN NaN NaN 26  25  24  23  22]'
 
-    <span class="n">p1</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">showscale</span><span class="o">=</span><span class="n">false</span><span class="p">))</span>
-    <span class="n">p2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">connectgaps</span><span class="o">=</span><span class="n">true</span><span class="p">,</span> <span class="n">showscale</span><span class="o">=</span><span class="n">false</span><span class="p">))</span>
-    <span class="n">p3</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">heatmap</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">zsmooth</span><span class="o">=</span><span class="s">&quot;best&quot;</span><span class="p">,</span><span class="n">showscale</span><span class="o">=</span><span class="n">false</span><span class="p">))</span>
-    <span class="n">p4</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">heatmap</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">zsmooth</span><span class="o">=</span><span class="s">&quot;best&quot;</span><span class="p">,</span> <span class="n">connectgaps</span><span class="o">=</span><span class="n">true</span><span class="p">,</span> <span class="n">showscale</span><span class="o">=</span><span class="n">false</span><span class="p">))</span>
+    p1 = plot(contour(;z=z, showscale=false))
+    p2 = plot(contour(;z=z, connectgaps=true, showscale=false))
+    p3 = plot(heatmap(;z=z, zsmooth=&quot;best&quot;,showscale=false))
+    p4 = plot(heatmap(;z=z, zsmooth=&quot;best&quot;, connectgaps=true, showscale=false))
 
-    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">;</span> <span class="n">p3</span> <span class="n">p4</span><span class="p">]</span>
+    p = [p1 p2; p3 p4]
 
-    <span class="n">relayout!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Connect the Gaps Between Null Values in the Z Matrix&quot;</span><span class="p">)</span>
+    relayout!(p, title=&quot;Connect the Gaps Between Null Values in the Z Matrix&quot;)
 
-    <span class="n">p</span>
-<span class="k">end</span>
-<span class="n">contour7</span><span class="p">()</span>
-</pre></div>
+    p
+end
+contour7()</code></pre>
 
 
 <div id="e63d9302-c12b-4d02-a373-b2cbe47388c5" class="plotly-graph-div"></div>
@@ -589,26 +582,25 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour8</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span>  <span class="mi">4</span>   <span class="mi">7</span>   <span class="mi">12</span>  <span class="mi">13</span>  <span class="mi">14</span>  <span class="mi">15</span>  <span class="mi">16</span>
-         <span class="mi">3</span>  <span class="mi">1</span>   <span class="mi">6</span>   <span class="mi">11</span>  <span class="mi">12</span>  <span class="mi">13</span>  <span class="mi">16</span>  <span class="mi">17</span>
-         <span class="mi">4</span>  <span class="mi">2</span>   <span class="mi">7</span>   <span class="mi">7</span>   <span class="mi">11</span>  <span class="mi">14</span>  <span class="mi">17</span>  <span class="mi">18</span>
-         <span class="mi">5</span>  <span class="mi">3</span>   <span class="mi">8</span>   <span class="mi">8</span>   <span class="mi">13</span>  <span class="mi">15</span>  <span class="mi">18</span>  <span class="mi">19</span>
-         <span class="mi">7</span>  <span class="mi">4</span>   <span class="mi">10</span>  <span class="mi">9</span>   <span class="mi">16</span>  <span class="mi">18</span>  <span class="mi">20</span>  <span class="mi">19</span>
-         <span class="mi">9</span>  <span class="mi">10</span>  <span class="mi">5</span>   <span class="mi">27</span>  <span class="mi">23</span>  <span class="mi">21</span>  <span class="mi">21</span>  <span class="mi">21</span>
-         <span class="mi">11</span> <span class="mi">14</span>  <span class="mi">17</span>  <span class="mi">26</span>  <span class="mi">25</span>  <span class="mi">24</span>  <span class="mi">23</span>  <span class="mi">22</span><span class="p">]</span>
+<pre class="codehilite"><code class="language-julia">function contour8()
+    z = [2  4   7   12  13  14  15  16
+         3  1   6   11  12  13  16  17
+         4  2   7   7   11  14  17  18
+         5  3   8   8   13  15  18  19
+         7  4   10  9   16  18  20  19
+         9  10  5   27  23  21  21  21
+         11 14  17  26  25  24  23  22]
 
-    <span class="n">p1</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">line_smoothing</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-    <span class="n">p2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">line_smoothing</span><span class="o">=</span><span class="mf">0.85</span><span class="p">))</span>
+    p1 = plot(contour(;z=z, line_smoothing=0))
+    p2 = plot(contour(;z=z, line_smoothing=0.85))
 
-    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">]</span>
+    p = [p1 p2]
 
-    <span class="n">relayout!</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Smoothing Contour Lines&quot;</span><span class="p">)</span>
+    relayout!(p, title=&quot;Smoothing Contour Lines&quot;)
 
-    <span class="n">p</span>
-<span class="k">end</span>
-<span class="n">contour8</span><span class="p">()</span>
-</pre></div>
+    p
+end
+contour8()</code></pre>
 
 
 <div id="4c1f763f-d9e8-4598-842a-37a0b6f40cb0" class="plotly-graph-div"></div>
@@ -621,19 +613,18 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour9</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">contours_coloring</span><span class="o">=</span><span class="s">&quot;heatmap&quot;</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function contour9()
+    z = [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+    data = contour(;z=z, contours_coloring=&quot;heatmap&quot;)
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Smooth Contour Coloring&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour9</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;Smooth Contour Coloring&quot;)
+    plot(data, layout)
+end
+contour9()</code></pre>
 
 
 <div id="fd0d68c8-2d25-43f7-986f-f1e82c29e08e" class="plotly-graph-div"></div>
@@ -646,19 +637,18 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour10</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s">&quot;Jet&quot;</span><span class="p">,</span> <span class="n">contours_coloring</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function contour10()
+    z = [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+    data = contour(;z=z, colorscale=&quot;Jet&quot;, contours_coloring=&quot;lines&quot;)
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Contour Lines&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour10</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;Contour Lines&quot;)
+    plot(data, layout)
+end
+contour10()</code></pre>
 
 
 <div id="d2d487f3-c492-452e-a82e-76ea721401d4" class="plotly-graph-div"></div>
@@ -671,26 +661,25 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour11</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-   <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-                  <span class="n">colorscale</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;rgb(166,206,227)&quot;</span><span class="p">],</span>
-                              <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="s">&quot;rgb(31,120,180)&quot;</span><span class="p">],</span>
-                              <span class="p">[</span><span class="mf">0.45</span><span class="p">,</span> <span class="s">&quot;rgb(178,223,138)&quot;</span><span class="p">],</span>
-                              <span class="p">[</span><span class="mf">0.64</span><span class="p">,</span> <span class="s">&quot;rgb(51,160,44)&quot;</span><span class="p">],</span>
-                              <span class="p">[</span><span class="mf">0.85</span><span class="p">,</span> <span class="s">&quot;rgb(251,154,153)&quot;</span><span class="p">],</span>
-                              <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;rgb(227,26,28)&quot;</span><span class="p">]])</span>
+<pre class="codehilite"><code class="language-julia">function contour11()
+    z = [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+   data = contour(;z=z,
+                  colorscale=[[0, &quot;rgb(166,206,227)&quot;],
+                              [0.25, &quot;rgb(31,120,180)&quot;],
+                              [0.45, &quot;rgb(178,223,138)&quot;],
+                              [0.64, &quot;rgb(51,160,44)&quot;],
+                              [0.85, &quot;rgb(251,154,153)&quot;],
+                              [1, &quot;rgb(227,26,28)&quot;]])
 
-   <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Custom Contour Plot Colorscale&quot;</span><span class="p">)</span>
+   layout = Layout(;title=&quot;Custom Contour Plot Colorscale&quot;)
 
-   <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour11</span><span class="p">()</span>
-</pre></div>
+   plot(data, layout)
+end
+contour11()</code></pre>
 
 
 <div id="7b56876f-10bf-4403-bccc-d2524ec78e8d" class="plotly-graph-div"></div>
@@ -703,22 +692,21 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour12</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-                   <span class="n">colorbar</span><span class="o">=</span><span class="n">attr</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Color Bar Title&quot;</span><span class="p">,</span><span class="n">titleside</span><span class="o">=</span><span class="s">&quot;right&quot;</span><span class="p">,</span>
-                                 <span class="n">titlefont</span><span class="o">=</span><span class="n">attr</span><span class="p">(;</span><span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
-                                                <span class="n">family</span><span class="o">=</span><span class="s">&quot;Arial, sans-serif&quot;</span><span class="p">)))</span>
+<pre class="codehilite"><code class="language-julia">function contour12()
+    z = [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+    data = contour(;z=z,
+                   colorbar=attr(;title=&quot;Color Bar Title&quot;,titleside=&quot;right&quot;,
+                                 titlefont=attr(;size=14,
+                                                family=&quot;Arial, sans-serif&quot;)))
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Colorbar with Title&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour12</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;Colorbar with Title&quot;)
+    plot(data,layout)
+end
+contour12()</code></pre>
 
 
 <div id="db5ea044-d077-48bd-a14f-e7809893b1a7" class="plotly-graph-div"></div>
@@ -731,22 +719,21 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour13</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-                   <span class="n">colorbar</span><span class="o">=</span><span class="n">attr</span><span class="p">(;</span><span class="n">thickness</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">thicknessmode</span><span class="o">=</span><span class="s">&quot;pixels&quot;</span><span class="p">,</span>
-                                 <span class="n">len</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">lenmode</span><span class="o">=</span><span class="s">&quot;fraction&quot;</span><span class="p">,</span>
-                                 <span class="n">outlinewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<pre class="codehilite"><code class="language-julia">function contour13()
+    z = [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+    data = contour(;z=z,
+                   colorbar=attr(;thickness=75, thicknessmode=&quot;pixels&quot;,
+                                 len=0.9, lenmode=&quot;fraction&quot;,
+                                 outlinewidth=0))
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Colorbar Size for Contour Plots&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour13</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;Colorbar Size for Contour Plots&quot;)
+    plot(data,layout)
+end
+contour13()</code></pre>
 
 
 <div id="db4599c2-ff14-4db4-91cb-07294aed1705" class="plotly-graph-div"></div>
@@ -759,23 +746,22 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> contour14</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span>     <span class="mf">10.625</span>  <span class="mf">12.5</span>  <span class="mf">15.625</span>  <span class="mi">20</span>
-         <span class="mf">5.625</span>  <span class="mf">6.25</span>    <span class="mf">8.125</span> <span class="mf">11.25</span>   <span class="mf">15.625</span>
-         <span class="mf">2.5</span>    <span class="mf">3.125</span>   <span class="mf">5.</span>    <span class="mf">8.125</span>   <span class="mf">12.5</span>
-         <span class="mf">0.625</span>  <span class="mf">1.25</span>    <span class="mf">3.125</span> <span class="mf">6.25</span>    <span class="mf">10.625</span>
-         <span class="mi">0</span>      <span class="mf">0.625</span>   <span class="mf">2.5</span>   <span class="mf">5.625</span>   <span class="mi">10</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">contour</span><span class="p">(;</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-                   <span class="n">colorbar</span><span class="o">=</span><span class="n">attr</span><span class="p">(;</span><span class="n">ticks</span><span class="o">=</span><span class="s">&quot;outside&quot;</span><span class="p">,</span> <span class="n">dtick</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                 <span class="n">tickwidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ticklen</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                 <span class="n">tickcolor</span><span class="o">=</span><span class="s">&quot;grey&quot;</span><span class="p">,</span> <span class="n">showticklabels</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                                 <span class="n">tickfont_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">xpad</span><span class="o">=</span><span class="mi">50</span><span class="p">))</span>
+<pre class="codehilite"><code class="language-julia">function contour14()
+    z = [10     10.625  12.5  15.625  20
+         5.625  6.25    8.125 11.25   15.625
+         2.5    3.125   5.    8.125   12.5
+         0.625  1.25    3.125 6.25    10.625
+         0      0.625   2.5   5.625   10]
+    data = contour(;z=z,
+                   colorbar=attr(;ticks=&quot;outside&quot;, dtick=1,
+                                 tickwidth=2, ticklen=10,
+                                 tickcolor=&quot;grey&quot;, showticklabels=true,
+                                 tickfont_size=15, xpad=50))
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Styling Color Bar Ticks for Contour Plots&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">contour14</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;Styling Color Bar Ticks for Contour Plots&quot;)
+    plot(data,layout)
+end
+contour14()</code></pre>
 
 
 <div id="30555de9-ba83-4a55-a1be-a6b4782de0cf" class="plotly-graph-div"></div>

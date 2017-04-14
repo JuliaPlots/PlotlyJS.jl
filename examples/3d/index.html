@@ -400,27 +400,26 @@
           
             <h1>3d</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> random_line</span><span class="p">()</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="mi">400</span>
-    <span class="n">rw</span><span class="p">()</span> <span class="o">=</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter3d</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">rw</span><span class="p">(),</span><span class="n">y</span><span class="o">=</span><span class="n">rw</span><span class="p">(),</span> <span class="n">z</span><span class="o">=</span><span class="n">rw</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span>
-                        <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#1f77b4&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s">&quot;circle&quot;</span><span class="p">,</span>
-                                    <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(0,0,0)&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
-                        <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#1f77b4&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter3d</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">rw</span><span class="p">(),</span><span class="n">y</span><span class="o">=</span><span class="n">rw</span><span class="p">(),</span> <span class="n">z</span><span class="o">=</span><span class="n">rw</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span>
-                        <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#9467bd&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s">&quot;circle&quot;</span><span class="p">,</span>
-                                    <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(0,0,0)&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
-                        <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(44, 160, 44)&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">scatter3d</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">rw</span><span class="p">(),</span><span class="n">y</span><span class="o">=</span><span class="n">rw</span><span class="p">(),</span> <span class="n">z</span><span class="o">=</span><span class="n">rw</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span>
-                        <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#bcbd22&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s">&quot;circle&quot;</span><span class="p">,</span>
-                                    <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(0,0,0)&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span>
-                        <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;#bcbd22&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">autosize</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-                    <span class="n">margin</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">65</span><span class="p">))</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">],</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">random_line</span><span class="p">()</span>
-</pre></div>
+          <pre class="codehilite"><code class="language-julia">function random_line()
+    n = 400
+    rw() = cumsum(randn(n))
+    trace1 = scatter3d(;x=rw(),y=rw(), z=rw(), mode=&quot;lines&quot;,
+                        marker=attr(color=&quot;#1f77b4&quot;, size=12, symbol=&quot;circle&quot;,
+                                    line=attr(color=&quot;rgb(0,0,0)&quot;, width=0)),
+                        line=attr(color=&quot;#1f77b4&quot;, width=1))
+    trace2 = scatter3d(;x=rw(),y=rw(), z=rw(), mode=&quot;lines&quot;,
+                        marker=attr(color=&quot;#9467bd&quot;, size=12, symbol=&quot;circle&quot;,
+                                    line=attr(color=&quot;rgb(0,0,0)&quot;, width=0)),
+                        line=attr(color=&quot;rgb(44, 160, 44)&quot;, width=1))
+    trace3 = scatter3d(;x=rw(),y=rw(), z=rw(), mode=&quot;lines&quot;,
+                        marker=attr(color=&quot;#bcbd22&quot;, size=12, symbol=&quot;circle&quot;,
+                                    line=attr(color=&quot;rgb(0,0,0)&quot;, width=0)),
+                        line=attr(color=&quot;#bcbd22&quot;, width=1))
+    layout = Layout(autosize=false, width=500, height=500,
+                    margin=attr(l=0, r=0, b=0, t=65))
+    plot([trace1, trace2, trace3], layout)
+end
+random_line()</code></pre>
 
 
 <div id="1ce79195-07e9-4cc6-bfcc-90e230b0fcae" class="plotly-graph-div"></div>
@@ -433,101 +432,100 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> topo_surface</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">[[</span><span class="mf">27.80985</span><span class="p">,</span> <span class="mf">49.61936</span><span class="p">,</span> <span class="mf">83.08067</span><span class="p">,</span> <span class="mf">116.6632</span><span class="p">,</span> <span class="mf">130.414</span><span class="p">,</span> <span class="mf">150.7206</span><span class="p">,</span> <span class="mf">220.1871</span><span class="p">,</span>
-                <span class="mf">156.1536</span><span class="p">,</span> <span class="mf">148.6416</span><span class="p">,</span> <span class="mf">203.7845</span><span class="p">,</span> <span class="mf">206.0386</span><span class="p">,</span> <span class="mf">107.1618</span><span class="p">,</span> <span class="mf">68.36975</span><span class="p">,</span> <span class="mf">45.3359</span><span class="p">,</span>
-                <span class="mf">49.96142</span><span class="p">,</span> <span class="mf">21.89279</span><span class="p">,</span> <span class="mf">17.02552</span><span class="p">,</span> <span class="mf">11.74317</span><span class="p">,</span>   <span class="mf">14.75226</span><span class="p">,</span> <span class="mf">13.6671</span><span class="p">,</span> <span class="mf">5.677561</span><span class="p">,</span>
-                <span class="mf">3.31234</span><span class="p">,</span> <span class="mf">1.156517</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.147662</span><span class="p">],</span>
-               <span class="p">[</span><span class="mf">27.71966</span><span class="p">,</span> <span class="mf">48.55022</span><span class="p">,</span> <span class="mf">65.21374</span><span class="p">,</span> <span class="mf">95.27666</span><span class="p">,</span> <span class="mf">116.9964</span><span class="p">,</span> <span class="mf">133.9056</span><span class="p">,</span> <span class="mf">152.3412</span><span class="p">,</span>
-                <span class="mf">151.934</span><span class="p">,</span> <span class="mf">160.1139</span><span class="p">,</span> <span class="mf">179.5327</span><span class="p">,</span> <span class="mf">147.6184</span><span class="p">,</span> <span class="mf">170.3943</span><span class="p">,</span> <span class="mf">121.8194</span><span class="p">,</span> <span class="mf">52.58537</span><span class="p">,</span>
-                <span class="mf">33.08871</span><span class="p">,</span> <span class="mf">38.40972</span><span class="p">,</span> <span class="mf">44.24843</span><span class="p">,</span> <span class="mf">69.5786</span><span class="p">,</span> <span class="mf">4.019351</span><span class="p">,</span> <span class="mf">3.050024</span><span class="p">,</span> <span class="mf">3.039719</span><span class="p">,</span>
-                <span class="mf">2.996142</span><span class="p">,</span> <span class="mf">2.967954</span><span class="p">,</span> <span class="mf">1.999594</span><span class="p">],</span>
-               <span class="p">[</span><span class="mf">30.4267</span><span class="p">,</span> <span class="mf">33.47752</span><span class="p">,</span> <span class="mf">44.80953</span><span class="p">,</span> <span class="mf">62.47495</span><span class="p">,</span> <span class="mf">77.43523</span><span class="p">,</span> <span class="mf">104.2153</span><span class="p">,</span> <span class="mf">102.7393</span><span class="p">,</span> <span class="mf">137.0004</span><span class="p">,</span>
-                <span class="mf">186.0706</span><span class="p">,</span> <span class="mf">219.3173</span><span class="p">,</span> <span class="mf">181.7615</span><span class="p">,</span> <span class="mf">120.9154</span><span class="p">,</span> <span class="mf">143.1835</span><span class="p">,</span> <span class="mf">82.40501</span><span class="p">,</span> <span class="mf">48.47132</span><span class="p">,</span>
-                <span class="mf">74.71461</span><span class="p">,</span> <span class="mf">60.0909</span><span class="p">,</span> <span class="mf">7.073525</span><span class="p">,</span> <span class="mf">6.089851</span><span class="p">,</span> <span class="mf">6.53745</span><span class="p">,</span> <span class="mf">6.666096</span><span class="p">,</span> <span class="mf">7.306965</span><span class="p">,</span> <span class="mf">5.73684</span><span class="p">,</span>
-                <span class="mf">3.625628</span><span class="p">],</span>
-               <span class="p">[</span><span class="mf">16.66549</span><span class="p">,</span> <span class="mf">30.1086</span><span class="p">,</span> <span class="mf">39.96952</span><span class="p">,</span> <span class="mf">44.12225</span><span class="p">,</span> <span class="mf">59.57512</span><span class="p">,</span> <span class="mf">77.56929</span><span class="p">,</span> <span class="mf">106.8925</span><span class="p">,</span>
-                <span class="mf">166.5539</span><span class="p">,</span> <span class="mf">175.2381</span><span class="p">,</span> <span class="mf">185.2815</span><span class="p">,</span> <span class="mf">154.5056</span><span class="p">,</span> <span class="mf">83.0433</span><span class="p">,</span> <span class="mf">62.61732</span><span class="p">,</span> <span class="mf">62.33167</span><span class="p">,</span>
-                <span class="mf">60.55916</span><span class="p">,</span> <span class="mf">55.92124</span><span class="p">,</span> <span class="mf">15.17284</span><span class="p">,</span> <span class="mf">8.248324</span><span class="p">,</span> <span class="mf">36.68087</span><span class="p">,</span> <span class="mf">61.93413</span><span class="p">,</span> <span class="mf">20.26867</span><span class="p">,</span>
-                <span class="mf">68.58819</span><span class="p">,</span> <span class="mf">46.49812</span><span class="p">,</span> <span class="mf">0.2360095</span><span class="p">],</span>
-               <span class="p">[</span><span class="mf">8.815617</span><span class="p">,</span> <span class="mf">18.3516</span><span class="p">,</span> <span class="mf">8.658275</span><span class="p">,</span> <span class="mf">27.5859</span><span class="p">,</span> <span class="mf">48.62691</span><span class="p">,</span> <span class="mf">60.18013</span><span class="p">,</span> <span class="mf">91.3286</span><span class="p">,</span>
-                <span class="mf">145.7109</span><span class="p">,</span> <span class="mf">116.0653</span><span class="p">,</span> <span class="mf">106.2662</span><span class="p">,</span> <span class="mf">68.69447</span><span class="p">,</span> <span class="mf">53.10596</span><span class="p">,</span> <span class="mf">37.92797</span><span class="p">,</span> <span class="mf">47.95942</span><span class="p">,</span>
-                <span class="mf">47.42691</span><span class="p">,</span> <span class="mf">69.20731</span><span class="p">,</span> <span class="mf">44.95468</span><span class="p">,</span> <span class="mf">29.17197</span><span class="p">,</span> <span class="mf">17.91674</span><span class="p">,</span> <span class="mf">16.25515</span><span class="p">,</span> <span class="mf">14.65559</span><span class="p">,</span>
-                <span class="mf">17.26048</span><span class="p">,</span> <span class="mf">31.22245</span><span class="p">,</span> <span class="mf">46.71704</span><span class="p">],</span>
-               <span class="p">[</span><span class="mf">6.628881</span><span class="p">,</span> <span class="mf">10.41339</span><span class="p">,</span> <span class="mf">24.81939</span><span class="p">,</span> <span class="mf">26.08952</span><span class="p">,</span> <span class="mf">30.1605</span><span class="p">,</span> <span class="mf">52.30802</span><span class="p">,</span> <span class="mf">64.71007</span><span class="p">,</span>
-                <span class="mf">76.30823</span><span class="p">,</span> <span class="mf">84.63686</span><span class="p">,</span> <span class="mf">99.4324</span><span class="p">,</span> <span class="mf">62.52132</span><span class="p">,</span> <span class="mf">46.81647</span><span class="p">,</span> <span class="mf">55.76606</span><span class="p">,</span> <span class="mf">82.4099</span><span class="p">,</span>
-                <span class="mf">140.2647</span><span class="p">,</span> <span class="mf">81.26501</span><span class="p">,</span> <span class="mf">56.45756</span><span class="p">,</span> <span class="mf">30.42164</span><span class="p">,</span> <span class="mf">17.28782</span><span class="p">,</span> <span class="mf">8.302431</span><span class="p">,</span> <span class="mf">2.981626</span><span class="p">,</span>
-                <span class="mf">2.698536</span><span class="p">,</span> <span class="mf">5.886086</span><span class="p">,</span> <span class="mf">5.268358</span><span class="p">],</span>
-               <span class="p">[</span><span class="mf">21.83975</span><span class="p">,</span> <span class="mf">6.63927</span><span class="p">,</span> <span class="mf">18.97085</span><span class="p">,</span> <span class="mf">32.89204</span><span class="p">,</span> <span class="mf">43.15014</span><span class="p">,</span> <span class="mf">62.86014</span><span class="p">,</span> <span class="mf">104.6657</span><span class="p">,</span>
-                <span class="mf">130.2294</span><span class="p">,</span> <span class="mf">114.8494</span><span class="p">,</span> <span class="mf">106.9873</span><span class="p">,</span> <span class="mf">61.89647</span><span class="p">,</span> <span class="mf">55.55682</span><span class="p">,</span> <span class="mf">86.80986</span><span class="p">,</span> <span class="mf">89.27802</span><span class="p">,</span>
-                <span class="mf">122.4221</span><span class="p">,</span> <span class="mf">123.9698</span><span class="p">,</span> <span class="mf">109.0952</span><span class="p">,</span> <span class="mf">98.41956</span><span class="p">,</span> <span class="mf">77.61374</span><span class="p">,</span> <span class="mf">32.49031</span><span class="p">,</span> <span class="mf">14.67344</span><span class="p">,</span>
-                <span class="mf">7.370775</span><span class="p">,</span> <span class="mf">0.03711011</span><span class="p">,</span> <span class="mf">0.6423392</span><span class="p">],</span>
-               <span class="p">[</span><span class="mf">53.34303</span><span class="p">,</span> <span class="mf">26.79797</span><span class="p">,</span> <span class="mf">6.63927</span><span class="p">,</span> <span class="mf">10.88787</span><span class="p">,</span> <span class="mf">17.2044</span><span class="p">,</span> <span class="mf">56.18116</span><span class="p">,</span> <span class="mf">79.70141</span><span class="p">,</span>
-                <span class="mf">90.8453</span><span class="p">,</span> <span class="mf">98.27675</span><span class="p">,</span> <span class="mf">80.87243</span><span class="p">,</span> <span class="mf">74.7931</span><span class="p">,</span> <span class="mf">75.54661</span><span class="p">,</span> <span class="mf">73.4373</span><span class="p">,</span> <span class="mf">74.11694</span><span class="p">,</span> <span class="mf">68.1749</span><span class="p">,</span>
-                <span class="mf">46.24076</span><span class="p">,</span> <span class="mf">39.93857</span><span class="p">,</span> <span class="mf">31.21653</span><span class="p">,</span> <span class="mf">36.88335</span><span class="p">,</span> <span class="mf">40.02525</span><span class="p">,</span> <span class="mf">117.4297</span><span class="p">,</span> <span class="mf">12.70328</span><span class="p">,</span>
-                <span class="mf">1.729771</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mf">25.66785</span><span class="p">,</span> <span class="mf">63.05717</span><span class="p">,</span> <span class="mf">22.1414</span><span class="p">,</span> <span class="mf">17.074</span><span class="p">,</span> <span class="mf">41.74483</span><span class="p">,</span> <span class="mf">60.27227</span><span class="p">,</span> <span class="mf">81.42432</span><span class="p">,</span> <span class="mf">114.444</span><span class="p">,</span>
-                <span class="mf">102.3234</span><span class="p">,</span> <span class="mf">101.7878</span><span class="p">,</span> <span class="mf">111.031</span><span class="p">,</span> <span class="mf">119.2309</span><span class="p">,</span> <span class="mf">114.0777</span><span class="p">,</span> <span class="mf">110.5296</span><span class="p">,</span> <span class="mf">59.19355</span><span class="p">,</span>
-                <span class="mf">42.47175</span><span class="p">,</span> <span class="mf">14.63598</span><span class="p">,</span> <span class="mf">6.944074</span><span class="p">,</span> <span class="mf">6.944075</span><span class="p">,</span> <span class="mf">27.74936</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.09449376</span><span class="p">,</span> <span class="mf">0.07732264</span><span class="p">],</span>
-               <span class="p">[</span><span class="mf">12.827</span><span class="p">,</span> <span class="mf">69.20554</span><span class="p">,</span> <span class="mf">46.76293</span><span class="p">,</span> <span class="mf">13.96517</span><span class="p">,</span> <span class="mf">33.88744</span><span class="p">,</span> <span class="mf">61.82613</span><span class="p">,</span> <span class="mf">84.74799</span><span class="p">,</span>
-                <span class="mf">121.122</span><span class="p">,</span> <span class="mf">145.2741</span><span class="p">,</span> <span class="mf">153.1797</span><span class="p">,</span> <span class="mf">204.786</span><span class="p">,</span> <span class="mf">227.9242</span><span class="p">,</span> <span class="mf">236.3038</span><span class="p">,</span> <span class="mf">228.3655</span><span class="p">,</span>
-                <span class="mf">79.34425</span><span class="p">,</span> <span class="mf">25.93483</span><span class="p">,</span> <span class="mf">6.944074</span><span class="p">,</span> <span class="mf">6.944074</span><span class="p">,</span> <span class="mf">6.944075</span><span class="p">,</span> <span class="mf">7.553681</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">68.66396</span><span class="p">,</span> <span class="mf">59.0435</span><span class="p">,</span> <span class="mf">33.35762</span><span class="p">,</span> <span class="mf">47.45282</span><span class="p">,</span> <span class="mf">57.8355</span><span class="p">,</span> <span class="mf">78.91689</span><span class="p">,</span> <span class="mf">107.8275</span><span class="p">,</span>
-                <span class="mf">168.0053</span><span class="p">,</span> <span class="mf">130.9597</span><span class="p">,</span> <span class="mf">212.5541</span><span class="p">,</span> <span class="mf">165.8122</span><span class="p">,</span> <span class="mf">210.2429</span><span class="p">,</span> <span class="mf">181.1713</span><span class="p">,</span> <span class="mf">189.7617</span><span class="p">,</span>
-                <span class="mf">137.3378</span><span class="p">,</span> <span class="mf">84.65395</span><span class="p">,</span> <span class="mf">8.677168</span><span class="p">,</span> <span class="mf">6.956576</span><span class="p">,</span> <span class="mf">8.468093</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">95.17499</span><span class="p">,</span> <span class="mf">80.03818</span><span class="p">,</span> <span class="mf">59.89862</span><span class="p">,</span> <span class="mf">39.58476</span><span class="p">,</span> <span class="mf">50.28058</span><span class="p">,</span> <span class="mf">63.81641</span><span class="p">,</span> <span class="mf">80.61302</span><span class="p">,</span>
-                <span class="mf">66.37824</span><span class="p">,</span> <span class="mf">198.7651</span><span class="p">,</span> <span class="mf">244.3467</span><span class="p">,</span> <span class="mf">294.2474</span><span class="p">,</span> <span class="mf">264.3517</span><span class="p">,</span> <span class="mf">176.4082</span><span class="p">,</span> <span class="mf">60.21857</span><span class="p">,</span>
-                <span class="mf">77.41475</span><span class="p">,</span> <span class="mf">53.16981</span><span class="p">,</span> <span class="mf">56.16393</span><span class="p">,</span> <span class="mf">6.949235</span><span class="p">,</span> <span class="mf">7.531059</span><span class="p">,</span> <span class="mf">3.780177</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">134.9879</span><span class="p">,</span> <span class="mf">130.3696</span><span class="p">,</span> <span class="mf">96.86325</span><span class="p">,</span> <span class="mf">75.70494</span><span class="p">,</span> <span class="mf">58.86466</span><span class="p">,</span> <span class="mf">57.20374</span><span class="p">,</span> <span class="mf">55.18837</span><span class="p">,</span>
-                <span class="mf">78.128</span><span class="p">,</span> <span class="mf">108.5582</span><span class="p">,</span> <span class="mf">154.3774</span><span class="p">,</span> <span class="mf">319.1686</span><span class="p">,</span> <span class="mf">372.8826</span><span class="p">,</span> <span class="mf">275.4655</span><span class="p">,</span> <span class="mf">130.2632</span><span class="p">,</span> <span class="mf">54.93822</span><span class="p">,</span>
-                <span class="mf">25.49719</span><span class="p">,</span> <span class="mf">8.047439</span><span class="p">,</span> <span class="mf">8.084393</span><span class="p">,</span> <span class="mf">5.115252</span><span class="p">,</span> <span class="mf">5.678269</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">48.08919</span><span class="p">,</span> <span class="mf">142.5558</span><span class="p">,</span> <span class="mf">140.3777</span><span class="p">,</span> <span class="mf">154.7261</span><span class="p">,</span> <span class="mf">87.9361</span><span class="p">,</span> <span class="mf">58.11092</span><span class="p">,</span> <span class="mf">52.83869</span><span class="p">,</span>
-                <span class="mf">67.14822</span><span class="p">,</span> <span class="mf">83.66798</span><span class="p">,</span> <span class="mf">118.9242</span><span class="p">,</span> <span class="mf">150.0681</span><span class="p">,</span> <span class="mf">272.9709</span><span class="p">,</span> <span class="mf">341.1366</span><span class="p">,</span> <span class="mf">238.664</span><span class="p">,</span> <span class="mf">190.2</span><span class="p">,</span>
-                <span class="mf">116.8943</span><span class="p">,</span> <span class="mf">91.48672</span><span class="p">,</span> <span class="mf">14.0157</span><span class="p">,</span> <span class="mf">42.29277</span><span class="p">,</span> <span class="mf">5.115252</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">54.1941</span><span class="p">,</span> <span class="mf">146.3839</span><span class="p">,</span> <span class="mf">99.48143</span><span class="p">,</span> <span class="mf">96.19411</span><span class="p">,</span> <span class="mf">102.9473</span><span class="p">,</span> <span class="mf">76.14089</span><span class="p">,</span> <span class="mf">57.7844</span><span class="p">,</span>
-                <span class="mf">47.0402</span><span class="p">,</span> <span class="mf">64.36799</span><span class="p">,</span> <span class="mf">84.23767</span><span class="p">,</span> <span class="mf">162.7181</span><span class="p">,</span> <span class="mf">121.3275</span><span class="p">,</span> <span class="mf">213.1646</span><span class="p">,</span> <span class="mf">328.482</span><span class="p">,</span>
-                <span class="mf">285.4489</span><span class="p">,</span> <span class="mf">283.8319</span><span class="p">,</span> <span class="mf">212.815</span><span class="p">,</span> <span class="mf">164.549</span><span class="p">,</span> <span class="mf">92.29631</span><span class="p">,</span> <span class="mf">7.244015</span><span class="p">,</span> <span class="mf">1.167</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">6.919659</span><span class="p">,</span> <span class="mf">195.1709</span><span class="p">,</span> <span class="mf">132.5253</span><span class="p">,</span> <span class="mf">135.2341</span><span class="p">,</span> <span class="mf">89.85069</span><span class="p">,</span> <span class="mf">89.45549</span><span class="p">,</span> <span class="mf">60.29967</span><span class="p">,</span>
-                <span class="mf">50.33806</span><span class="p">,</span> <span class="mf">39.17583</span><span class="p">,</span> <span class="mf">59.06854</span><span class="p">,</span> <span class="mf">74.52159</span><span class="p">,</span> <span class="mf">84.93402</span><span class="p">,</span> <span class="mf">187.1219</span><span class="p">,</span> <span class="mf">123.9673</span><span class="p">,</span>
-                <span class="mf">103.7027</span><span class="p">,</span> <span class="mf">128.986</span><span class="p">,</span> <span class="mf">165.1283</span><span class="p">,</span> <span class="mf">249.7054</span><span class="p">,</span> <span class="mf">95.39966</span><span class="p">,</span> <span class="mf">10.00284</span><span class="p">,</span> <span class="mf">2.39255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">21.73871</span><span class="p">,</span> <span class="mf">123.1339</span><span class="p">,</span> <span class="mf">176.7414</span><span class="p">,</span> <span class="mf">158.2698</span><span class="p">,</span> <span class="mf">137.235</span><span class="p">,</span> <span class="mf">105.3089</span><span class="p">,</span> <span class="mf">86.63255</span><span class="p">,</span> <span class="mf">53.11591</span><span class="p">,</span>
-                <span class="mf">29.03865</span><span class="p">,</span> <span class="mf">30.40539</span><span class="p">,</span> <span class="mf">39.04902</span><span class="p">,</span> <span class="mf">49.23405</span><span class="p">,</span> <span class="mf">63.27853</span><span class="p">,</span> <span class="mf">111.4215</span><span class="p">,</span> <span class="mf">101.1956</span><span class="p">,</span>
-                <span class="mf">40.00962</span><span class="p">,</span> <span class="mf">59.84565</span><span class="p">,</span> <span class="mf">74.51253</span><span class="p">,</span> <span class="mf">17.06316</span><span class="p">,</span> <span class="mf">2.435141</span><span class="p">,</span> <span class="mf">2.287471</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.0003636982</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">62.04672</span><span class="p">,</span> <span class="mf">136.3122</span><span class="p">,</span> <span class="mf">201.7952</span><span class="p">,</span> <span class="mf">168.1343</span><span class="p">,</span> <span class="mf">95.2046</span><span class="p">,</span> <span class="mf">58.90624</span><span class="p">,</span> <span class="mf">46.94091</span><span class="p">,</span>
-                <span class="mf">49.27053</span><span class="p">,</span> <span class="mf">37.10416</span><span class="p">,</span> <span class="mf">17.97011</span><span class="p">,</span> <span class="mf">30.93697</span><span class="p">,</span> <span class="mf">33.39257</span><span class="p">,</span> <span class="mf">44.03077</span><span class="p">,</span> <span class="mf">55.64542</span><span class="p">,</span>
-                <span class="mf">78.22423</span><span class="p">,</span> <span class="mf">14.42782</span><span class="p">,</span> <span class="mf">9.954997</span><span class="p">,</span> <span class="mf">7.768213</span><span class="p">,</span> <span class="mf">13.0254</span><span class="p">,</span> <span class="mf">21.73166</span><span class="p">,</span> <span class="mf">2.156372</span><span class="p">,</span>
-                <span class="mf">0.5317867</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">79.62993</span><span class="p">,</span> <span class="mf">139.6978</span><span class="p">,</span> <span class="mf">173.167</span><span class="p">,</span> <span class="mf">192.8718</span><span class="p">,</span> <span class="mf">196.3499</span><span class="p">,</span> <span class="mf">144.6611</span><span class="p">,</span> <span class="mf">106.5424</span><span class="p">,</span>
-                <span class="mf">57.16653</span><span class="p">,</span> <span class="mf">41.16107</span><span class="p">,</span> <span class="mf">32.12764</span><span class="p">,</span> <span class="mf">13.8566</span><span class="p">,</span> <span class="mf">10.91772</span><span class="p">,</span> <span class="mf">12.07177</span><span class="p">,</span> <span class="mf">22.38254</span><span class="p">,</span>
-                <span class="mf">24.72105</span><span class="p">,</span> <span class="mf">6.803666</span><span class="p">,</span> <span class="mf">4.200841</span><span class="p">,</span> <span class="mf">16.46857</span><span class="p">,</span> <span class="mf">15.70744</span><span class="p">,</span> <span class="mf">33.96221</span><span class="p">,</span> <span class="mf">7.575688</span><span class="p">,</span>
-                <span class="o">-</span><span class="mf">0.04880907</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">33.2664</span><span class="p">,</span> <span class="mf">57.53643</span><span class="p">,</span> <span class="mf">167.2241</span><span class="p">,</span> <span class="mf">196.4833</span><span class="p">,</span> <span class="mf">194.7966</span><span class="p">,</span> <span class="mf">182.1884</span><span class="p">,</span> <span class="mf">119.6961</span><span class="p">,</span>
-                <span class="mf">73.02113</span><span class="p">,</span> <span class="mf">48.36549</span><span class="p">,</span> <span class="mf">33.74652</span><span class="p">,</span> <span class="mf">26.2379</span><span class="p">,</span> <span class="mf">16.3578</span><span class="p">,</span> <span class="mf">6.811293</span><span class="p">,</span> <span class="mf">6.63927</span><span class="p">,</span> <span class="mf">6.639271</span><span class="p">,</span>
-                <span class="mf">8.468093</span><span class="p">,</span> <span class="mf">6.194273</span><span class="p">,</span> <span class="mf">3.591233</span><span class="p">,</span> <span class="mf">3.81486</span><span class="p">,</span> <span class="mf">8.600739</span><span class="p">,</span> <span class="mf">5.21889</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">29.77937</span><span class="p">,</span> <span class="mf">54.97282</span><span class="p">,</span> <span class="mf">144.7995</span><span class="p">,</span> <span class="mf">207.4904</span><span class="p">,</span> <span class="mf">165.3432</span><span class="p">,</span> <span class="mf">171.4047</span><span class="p">,</span> <span class="mf">174.9216</span><span class="p">,</span>
-                <span class="mf">100.2733</span><span class="p">,</span> <span class="mf">61.46441</span><span class="p">,</span> <span class="mf">50.19171</span><span class="p">,</span> <span class="mf">26.08209</span><span class="p">,</span> <span class="mf">17.18218</span><span class="p">,</span> <span class="mf">8.468093</span><span class="p">,</span> <span class="mf">6.63927</span><span class="p">,</span>
-                <span class="mf">6.334467</span><span class="p">,</span> <span class="mf">6.334467</span><span class="p">,</span> <span class="mf">5.666687</span><span class="p">,</span> <span class="mf">4.272203</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">31.409</span><span class="p">,</span> <span class="mf">132.7418</span><span class="p">,</span> <span class="mf">185.5796</span><span class="p">,</span> <span class="mf">121.8299</span><span class="p">,</span> <span class="mf">185.3841</span><span class="p">,</span> <span class="mf">160.6566</span><span class="p">,</span> <span class="mf">116.1478</span><span class="p">,</span>
-                <span class="mf">118.1078</span><span class="p">,</span> <span class="mf">141.7946</span><span class="p">,</span> <span class="mf">65.56351</span><span class="p">,</span> <span class="mf">48.84066</span><span class="p">,</span> <span class="mf">23.13864</span><span class="p">,</span> <span class="mf">18.12932</span><span class="p">,</span> <span class="mf">10.28531</span><span class="p">,</span>
-                <span class="mf">6.029663</span><span class="p">,</span> <span class="mf">6.044627</span><span class="p">,</span> <span class="mf">5.694764</span><span class="p">,</span> <span class="mf">3.739085</span><span class="p">,</span> <span class="mf">3.896037</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">19.58994</span><span class="p">,</span> <span class="mf">42.30355</span><span class="p">,</span> <span class="mf">96.26777</span><span class="p">,</span> <span class="mf">187.1207</span><span class="p">,</span> <span class="mf">179.6626</span><span class="p">,</span> <span class="mf">221.3898</span><span class="p">,</span> <span class="mf">154.2617</span><span class="p">,</span>
-                <span class="mf">142.1604</span><span class="p">,</span> <span class="mf">148.5737</span><span class="p">,</span> <span class="mf">67.17937</span><span class="p">,</span> <span class="mf">40.69044</span><span class="p">,</span> <span class="mf">39.74512</span><span class="p">,</span> <span class="mf">26.10166</span><span class="p">,</span> <span class="mf">14.48469</span><span class="p">,</span>
-                <span class="mf">8.65873</span><span class="p">,</span> <span class="mf">3.896037</span><span class="p">,</span> <span class="mf">3.571392</span><span class="p">,</span> <span class="mf">3.896037</span><span class="p">,</span> <span class="mf">3.896037</span><span class="p">,</span> <span class="mf">3.896037</span><span class="p">,</span> <span class="mf">1.077756</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-               <span class="p">[</span><span class="mf">0.001229679</span><span class="p">,</span> <span class="mf">3.008948</span><span class="p">,</span> <span class="mf">5.909858</span><span class="p">,</span> <span class="mf">33.50574</span><span class="p">,</span> <span class="mf">104.3341</span><span class="p">,</span> <span class="mf">152.2165</span><span class="p">,</span> <span class="mf">198.1988</span><span class="p">,</span>
-                <span class="mf">191.841</span><span class="p">,</span> <span class="mf">228.7349</span><span class="p">,</span> <span class="mf">168.1041</span><span class="p">,</span> <span class="mf">144.2759</span><span class="p">,</span> <span class="mf">110.7436</span><span class="p">,</span> <span class="mf">57.65214</span><span class="p">,</span> <span class="mf">42.63504</span><span class="p">,</span>
-                <span class="mf">27.91891</span><span class="p">,</span> <span class="mf">15.41052</span><span class="p">,</span> <span class="mf">8.056102</span><span class="p">,</span> <span class="mf">3.90283</span><span class="p">,</span> <span class="mf">3.879774</span><span class="p">,</span> <span class="mf">3.936718</span><span class="p">,</span> <span class="mf">3.968634</span><span class="p">,</span>
-                <span class="mf">0.1236256</span><span class="p">,</span> <span class="mf">3.985531</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1835741</span><span class="p">],</span>
-               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">5.626141</span><span class="p">,</span> <span class="mf">7.676256</span><span class="p">,</span> <span class="mf">63.16226</span><span class="p">,</span> <span class="mf">45.99762</span><span class="p">,</span> <span class="mf">79.56688</span><span class="p">,</span> <span class="mf">227.311</span><span class="p">,</span> <span class="mf">203.9287</span><span class="p">,</span>
-                <span class="mf">172.5618</span><span class="p">,</span> <span class="mf">177.1462</span><span class="p">,</span> <span class="mf">140.4554</span><span class="p">,</span> <span class="mf">123.9905</span><span class="p">,</span> <span class="mf">110.346</span><span class="p">,</span> <span class="mf">65.12319</span><span class="p">,</span> <span class="mf">34.31887</span><span class="p">,</span>
-                <span class="mf">24.5278</span><span class="p">,</span> <span class="mf">9.561069</span><span class="p">,</span> <span class="mf">3.334991</span><span class="p">,</span> <span class="mf">5.590495</span><span class="p">,</span> <span class="mf">5.487353</span><span class="p">,</span> <span class="mf">5.909499</span><span class="p">,</span> <span class="mf">5.868994</span><span class="p">,</span>
-                <span class="mf">5.833817</span><span class="p">,</span> <span class="mf">3.568177</span><span class="p">]]</span>
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">surface</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Mt. Bruno Elevation&quot;</span><span class="p">,</span> <span class="n">autosize</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-                    <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">90</span><span class="p">))</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">topo_surface</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function topo_surface()
+    z = Vector[[27.80985, 49.61936, 83.08067, 116.6632, 130.414, 150.7206, 220.1871,
+                156.1536, 148.6416, 203.7845, 206.0386, 107.1618, 68.36975, 45.3359,
+                49.96142, 21.89279, 17.02552, 11.74317,   14.75226, 13.6671, 5.677561,
+                3.31234, 1.156517, -0.147662],
+               [27.71966, 48.55022, 65.21374, 95.27666, 116.9964, 133.9056, 152.3412,
+                151.934, 160.1139, 179.5327, 147.6184, 170.3943, 121.8194, 52.58537,
+                33.08871, 38.40972, 44.24843, 69.5786, 4.019351, 3.050024, 3.039719,
+                2.996142, 2.967954, 1.999594],
+               [30.4267, 33.47752, 44.80953, 62.47495, 77.43523, 104.2153, 102.7393, 137.0004,
+                186.0706, 219.3173, 181.7615, 120.9154, 143.1835, 82.40501, 48.47132,
+                74.71461, 60.0909, 7.073525, 6.089851, 6.53745, 6.666096, 7.306965, 5.73684,
+                3.625628],
+               [16.66549, 30.1086, 39.96952, 44.12225, 59.57512, 77.56929, 106.8925,
+                166.5539, 175.2381, 185.2815, 154.5056, 83.0433, 62.61732, 62.33167,
+                60.55916, 55.92124, 15.17284, 8.248324, 36.68087, 61.93413, 20.26867,
+                68.58819, 46.49812, 0.2360095],
+               [8.815617, 18.3516, 8.658275, 27.5859, 48.62691, 60.18013, 91.3286,
+                145.7109, 116.0653, 106.2662, 68.69447, 53.10596, 37.92797, 47.95942,
+                47.42691, 69.20731, 44.95468, 29.17197, 17.91674, 16.25515, 14.65559,
+                17.26048, 31.22245, 46.71704],
+               [6.628881, 10.41339, 24.81939, 26.08952, 30.1605, 52.30802, 64.71007,
+                76.30823, 84.63686, 99.4324, 62.52132, 46.81647, 55.76606, 82.4099,
+                140.2647, 81.26501, 56.45756, 30.42164, 17.28782, 8.302431, 2.981626,
+                2.698536, 5.886086, 5.268358],
+               [21.83975, 6.63927, 18.97085, 32.89204, 43.15014, 62.86014, 104.6657,
+                130.2294, 114.8494, 106.9873, 61.89647, 55.55682, 86.80986, 89.27802,
+                122.4221, 123.9698, 109.0952, 98.41956, 77.61374, 32.49031, 14.67344,
+                7.370775, 0.03711011, 0.6423392],
+               [53.34303, 26.79797, 6.63927, 10.88787, 17.2044, 56.18116, 79.70141,
+                90.8453, 98.27675, 80.87243, 74.7931, 75.54661, 73.4373, 74.11694, 68.1749,
+                46.24076, 39.93857, 31.21653, 36.88335, 40.02525, 117.4297, 12.70328,
+                1.729771, 0],
+               [25.66785, 63.05717, 22.1414, 17.074, 41.74483, 60.27227, 81.42432, 114.444,
+                102.3234, 101.7878, 111.031, 119.2309, 114.0777, 110.5296, 59.19355,
+                42.47175, 14.63598, 6.944074, 6.944075, 27.74936, 0, 0, 0.09449376, 0.07732264],
+               [12.827, 69.20554, 46.76293, 13.96517, 33.88744, 61.82613, 84.74799,
+                121.122, 145.2741, 153.1797, 204.786, 227.9242, 236.3038, 228.3655,
+                79.34425, 25.93483, 6.944074, 6.944074, 6.944075, 7.553681, 0, 0, 0, 0],
+               [0, 68.66396, 59.0435, 33.35762, 47.45282, 57.8355, 78.91689, 107.8275,
+                168.0053, 130.9597, 212.5541, 165.8122, 210.2429, 181.1713, 189.7617,
+                137.3378, 84.65395, 8.677168, 6.956576, 8.468093, 0, 0, 0, 0],
+               [0, 95.17499, 80.03818, 59.89862, 39.58476, 50.28058, 63.81641, 80.61302,
+                66.37824, 198.7651, 244.3467, 294.2474, 264.3517, 176.4082, 60.21857,
+                77.41475, 53.16981, 56.16393, 6.949235, 7.531059, 3.780177, 0, 0, 0],
+               [0, 134.9879, 130.3696, 96.86325, 75.70494, 58.86466, 57.20374, 55.18837,
+                78.128, 108.5582, 154.3774, 319.1686, 372.8826, 275.4655, 130.2632, 54.93822,
+                25.49719, 8.047439, 8.084393, 5.115252, 5.678269, 0, 0, 0],
+               [0, 48.08919, 142.5558, 140.3777, 154.7261, 87.9361, 58.11092, 52.83869,
+                67.14822, 83.66798, 118.9242, 150.0681, 272.9709, 341.1366, 238.664, 190.2,
+                116.8943, 91.48672, 14.0157, 42.29277, 5.115252, 0, 0, 0],
+               [0, 54.1941, 146.3839, 99.48143, 96.19411, 102.9473, 76.14089, 57.7844,
+                47.0402, 64.36799, 84.23767, 162.7181, 121.3275, 213.1646, 328.482,
+                285.4489, 283.8319, 212.815, 164.549, 92.29631, 7.244015, 1.167, 0, 0],
+               [0, 6.919659, 195.1709, 132.5253, 135.2341, 89.85069, 89.45549, 60.29967,
+                50.33806, 39.17583, 59.06854, 74.52159, 84.93402, 187.1219, 123.9673,
+                103.7027, 128.986, 165.1283, 249.7054, 95.39966, 10.00284, 2.39255, 0, 0],
+               [0, 21.73871, 123.1339, 176.7414, 158.2698, 137.235, 105.3089, 86.63255, 53.11591,
+                29.03865, 30.40539, 39.04902, 49.23405, 63.27853, 111.4215, 101.1956,
+                40.00962, 59.84565, 74.51253, 17.06316, 2.435141, 2.287471, -0.0003636982, 0],
+               [0, 0, 62.04672, 136.3122, 201.7952, 168.1343, 95.2046, 58.90624, 46.94091,
+                49.27053, 37.10416, 17.97011, 30.93697, 33.39257, 44.03077, 55.64542,
+                78.22423, 14.42782, 9.954997, 7.768213, 13.0254, 21.73166, 2.156372,
+                0.5317867],
+               [0, 0, 79.62993, 139.6978, 173.167, 192.8718, 196.3499, 144.6611, 106.5424,
+                57.16653, 41.16107, 32.12764, 13.8566, 10.91772, 12.07177, 22.38254,
+                24.72105, 6.803666, 4.200841, 16.46857, 15.70744, 33.96221, 7.575688,
+                -0.04880907],
+               [0, 0, 33.2664, 57.53643, 167.2241, 196.4833, 194.7966, 182.1884, 119.6961,
+                73.02113, 48.36549, 33.74652, 26.2379, 16.3578, 6.811293, 6.63927, 6.639271,
+                8.468093, 6.194273, 3.591233, 3.81486, 8.600739, 5.21889, 0],
+               [0, 0, 29.77937, 54.97282, 144.7995, 207.4904, 165.3432, 171.4047, 174.9216,
+                100.2733, 61.46441, 50.19171, 26.08209, 17.18218, 8.468093, 6.63927,
+                6.334467, 6.334467, 5.666687, 4.272203, 0, 0, 0, 0],
+               [0, 0, 31.409, 132.7418, 185.5796, 121.8299, 185.3841, 160.6566, 116.1478,
+                118.1078, 141.7946, 65.56351, 48.84066, 23.13864, 18.12932, 10.28531,
+                6.029663, 6.044627, 5.694764, 3.739085, 3.896037, 0, 0, 0],
+               [0, 0, 19.58994, 42.30355, 96.26777, 187.1207, 179.6626, 221.3898, 154.2617,
+                142.1604, 148.5737, 67.17937, 40.69044, 39.74512, 26.10166, 14.48469,
+                8.65873, 3.896037, 3.571392, 3.896037, 3.896037, 3.896037, 1.077756, 0],
+               [0.001229679, 3.008948, 5.909858, 33.50574, 104.3341, 152.2165, 198.1988,
+                191.841, 228.7349, 168.1041, 144.2759, 110.7436, 57.65214, 42.63504,
+                27.91891, 15.41052, 8.056102, 3.90283, 3.879774, 3.936718, 3.968634,
+                0.1236256, 3.985531, -0.1835741],
+               [0, 5.626141, 7.676256, 63.16226, 45.99762, 79.56688, 227.311, 203.9287,
+                172.5618, 177.1462, 140.4554, 123.9905, 110.346, 65.12319, 34.31887,
+                24.5278, 9.561069, 3.334991, 5.590495, 5.487353, 5.909499, 5.868994,
+                5.833817, 3.568177]]
+    trace = surface(z=z)
+    layout = Layout(title=&quot;Mt. Bruno Elevation&quot;, autosize=false, width=500,
+                    height=500, margin=attr(l=65, r=50, b=65, t=90))
+    plot(trace, layout)
+end
+topo_surface()</code></pre>
 
 
 <div id="5d0ede56-b50c-4ba4-bf36-c44d5613dd68" class="plotly-graph-div"></div>
@@ -540,31 +538,30 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> multiple_surface</span><span class="p">()</span>
-    <span class="n">z1</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">[[</span><span class="mf">8.83</span><span class="p">,</span> <span class="mf">8.89</span><span class="p">,</span> <span class="mf">8.81</span><span class="p">,</span> <span class="mf">8.87</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mf">8.87</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.89</span><span class="p">,</span> <span class="mf">8.94</span><span class="p">,</span> <span class="mf">8.85</span><span class="p">,</span> <span class="mf">8.94</span><span class="p">,</span> <span class="mf">8.96</span><span class="p">,</span> <span class="mf">8.92</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.84</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mf">8.82</span><span class="p">,</span> <span class="mf">8.92</span><span class="p">,</span> <span class="mf">8.93</span><span class="p">,</span> <span class="mf">8.91</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.79</span><span class="p">,</span> <span class="mf">8.85</span><span class="p">,</span> <span class="mf">8.79</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mf">8.94</span><span class="p">,</span> <span class="mf">8.92</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.79</span><span class="p">,</span> <span class="mf">8.88</span><span class="p">,</span> <span class="mf">8.81</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mf">8.95</span><span class="p">,</span> <span class="mf">8.92</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.8</span><span class="p">,</span> <span class="mf">8.82</span><span class="p">,</span> <span class="mf">8.78</span><span class="p">,</span> <span class="mf">8.91</span><span class="p">,</span> <span class="mf">8.94</span><span class="p">,</span> <span class="mf">8.92</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.75</span><span class="p">,</span> <span class="mf">8.78</span><span class="p">,</span> <span class="mf">8.77</span><span class="p">,</span> <span class="mf">8.91</span><span class="p">,</span> <span class="mf">8.95</span><span class="p">,</span> <span class="mf">8.92</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.8</span><span class="p">,</span> <span class="mf">8.8</span><span class="p">,</span> <span class="mf">8.77</span><span class="p">,</span> <span class="mf">8.91</span><span class="p">,</span> <span class="mf">8.95</span><span class="p">,</span> <span class="mf">8.94</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.74</span><span class="p">,</span> <span class="mf">8.81</span><span class="p">,</span> <span class="mf">8.76</span><span class="p">,</span> <span class="mf">8.93</span><span class="p">,</span> <span class="mf">8.98</span><span class="p">,</span> <span class="mf">8.99</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.89</span><span class="p">,</span> <span class="mf">8.99</span><span class="p">,</span> <span class="mf">8.92</span><span class="p">,</span> <span class="mf">9.1</span><span class="p">,</span> <span class="mf">9.13</span><span class="p">,</span> <span class="mf">9.11</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.97</span><span class="p">,</span> <span class="mf">8.97</span><span class="p">,</span> <span class="mf">8.91</span><span class="p">,</span> <span class="mf">9.09</span><span class="p">,</span> <span class="mf">9.11</span><span class="p">,</span> <span class="mf">9.11</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">9.04</span><span class="p">,</span> <span class="mf">9.08</span><span class="p">,</span> <span class="mf">9.05</span><span class="p">,</span> <span class="mf">9.25</span><span class="p">,</span> <span class="mf">9.28</span><span class="p">,</span> <span class="mf">9.27</span><span class="p">],</span>
-                <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mf">9.01</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.23</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.99</span><span class="p">,</span> <span class="mf">8.99</span><span class="p">,</span> <span class="mf">8.98</span><span class="p">,</span> <span class="mf">9.18</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.19</span><span class="p">],</span>
-                <span class="p">[</span><span class="mf">8.93</span><span class="p">,</span> <span class="mf">8.97</span><span class="p">,</span> <span class="mf">8.97</span><span class="p">,</span> <span class="mf">9.18</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.18</span><span class="p">]]</span>
-    <span class="n">z2</span> <span class="o">=</span> <span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">z1</span><span class="p">)</span>
-    <span class="n">z3</span> <span class="o">=</span> <span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">z1</span><span class="p">)</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">surface</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">z1</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s">&quot;Viridis&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">surface</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">z2</span><span class="p">,</span> <span class="n">showscale</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s">&quot;Viridis&quot;</span><span class="p">)</span>
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">surface</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">z3</span><span class="p">,</span> <span class="n">showscale</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s">&quot;Viridis&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">])</span>
-<span class="k">end</span>
-<span class="n">multiple_surface</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function multiple_surface()
+    z1 = Vector[[8.83, 8.89, 8.81, 8.87, 8.9, 8.87],
+                [8.89, 8.94, 8.85, 8.94, 8.96, 8.92],
+                [8.84, 8.9, 8.82, 8.92, 8.93, 8.91],
+                [8.79, 8.85, 8.79, 8.9, 8.94, 8.92],
+                [8.79, 8.88, 8.81, 8.9, 8.95, 8.92],
+                [8.8, 8.82, 8.78, 8.91, 8.94, 8.92],
+                [8.75, 8.78, 8.77, 8.91, 8.95, 8.92],
+                [8.8, 8.8, 8.77, 8.91, 8.95, 8.94],
+                [8.74, 8.81, 8.76, 8.93, 8.98, 8.99],
+                [8.89, 8.99, 8.92, 9.1, 9.13, 9.11],
+                [8.97, 8.97, 8.91, 9.09, 9.11, 9.11],
+                [9.04, 9.08, 9.05, 9.25, 9.28, 9.27],
+                [9, 9.01, 9, 9.2, 9.23, 9.2],
+                [8.99, 8.99, 8.98, 9.18, 9.2, 9.19],
+                [8.93, 8.97, 8.97, 9.18, 9.2, 9.18]]
+    z2 = map(x-&gt;x+1, z1)
+    z3 = map(x-&gt;x-1, z1)
+    trace1 = surface(z=z1, colorscale=&quot;Viridis&quot;)
+    trace2 = surface(z=z2, showscale=false, opacity=0.9, colorscale=&quot;Viridis&quot;)
+    trace3 = surface(z=z3, showscale=false, opacity=0.9, colorscale=&quot;Viridis&quot;)
+    plot([trace1, trace2, trace3])
+end
+multiple_surface()</code></pre>
 
 
 <div id="72d62603-7371-401c-8cc0-3d026fed5177" class="plotly-graph-div"></div>
@@ -577,50 +574,49 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> clustering_alpha_shapes</span><span class="p">()</span>
-    <span class="p">@</span><span class="n">eval</span> <span class="k">using</span> <span class="n">DataFrames</span><span class="p">,</span> <span class="n">RDatasets</span><span class="p">,</span> <span class="n">Colors</span>
+<pre class="codehilite"><code class="language-julia">function clustering_alpha_shapes()
+    @eval using DataFrames, RDatasets, Colors
 
-    <span class="c"># load data</span>
-    <span class="n">iris</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">(</span><span class="s">&quot;datasets&quot;</span><span class="p">,</span> <span class="s">&quot;iris&quot;</span><span class="p">)</span>
-    <span class="n">nms</span> <span class="o">=</span> <span class="n">unique</span><span class="p">(</span><span class="n">iris</span><span class="p">[:</span><span class="n">Species</span><span class="p">])</span>
-    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">RGB</span><span class="p">(</span><span class="mf">0.89</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">RGB</span><span class="p">(</span><span class="mf">0.21</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.72</span><span class="p">),</span> <span class="n">RGB</span><span class="p">(</span><span class="mf">0.28</span><span class="p">,</span> <span class="mf">0.68</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)]</span>
+    # load data
+    iris = dataset(&quot;datasets&quot;, &quot;iris&quot;)
+    nms = unique(iris[:Species])
+    colors = [RGB(0.89, 0.1, 0.1), RGB(0.21, 0.50, 0.72), RGB(0.28, 0.68, 0.3)]
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">GenericTrace</span><span class="p">[]</span>
+    data = GenericTrace[]
 
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">nm</span><span class="p">)</span> <span class="k">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">nms</span><span class="p">)</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="n">iris</span><span class="p">[:</span><span class="n">Species</span><span class="p">]</span> <span class="o">.==</span> <span class="n">nm</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">SepalLength</span><span class="p">]</span>
-        <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">SepalWidth</span><span class="p">]</span>
-        <span class="n">z</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">PetalLength</span><span class="p">]</span>
-        <span class="n">trace</span> <span class="o">=</span> <span class="n">scatter3d</span><span class="p">(;</span><span class="n">name</span><span class="o">=</span><span class="n">nm</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span>
-                           <span class="n">marker_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">marker_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                           <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
-        <span class="n">push!</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">trace</span><span class="p">)</span>
+    for (i, nm) in enumerate(nms)
+        df = iris[iris[:Species] .== nm, :]
+        x=df[:SepalLength]
+        y=df[:SepalWidth]
+        z=df[:PetalLength]
+        trace = scatter3d(;name=nm, mode=&quot;markers&quot;,
+                           marker_size=3, marker_color=colors[i], marker_line_width=0,
+                           x=x, y=y, z=z)
+        push!(data, trace)
 
-        <span class="n">cluster</span> <span class="o">=</span> <span class="n">mesh3d</span><span class="p">(;</span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
-        <span class="n">push!</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cluster</span><span class="p">)</span>
-    <span class="k">end</span>
+        cluster = mesh3d(;color=colors[i], opacity=0.3, x=x, y=y, z=z)
+        push!(data, cluster)
+    end
 
-    <span class="c"># notice the nested attrs to create complex JSON objects</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">550</span><span class="p">,</span> <span class="n">autosize</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Iris dataset&quot;</span><span class="p">,</span>
-                    <span class="n">scene</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">xaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">gridcolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                                          <span class="n">zerolinecolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                                          <span class="n">showbackground</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                                          <span class="n">backgroundcolor</span><span class="o">=</span><span class="s">&quot;rgb(230, 230,230)&quot;</span><span class="p">),</span>
-                               <span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">gridcolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                                           <span class="n">zerolinecolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                                           <span class="n">showbackground</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                                           <span class="n">backgroundcolor</span><span class="o">=</span><span class="s">&quot;rgb(230, 230,230)&quot;</span><span class="p">),</span>
-                               <span class="n">zaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">gridcolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                                           <span class="n">zerolinecolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
-                                           <span class="n">showbackground</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                                           <span class="n">backgroundcolor</span><span class="o">=</span><span class="s">&quot;rgb(230, 230,230)&quot;</span><span class="p">),</span>
-                               <span class="n">aspectratio</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.7</span><span class="p">),</span>
-                               <span class="n">aspectmode</span> <span class="o">=</span> <span class="s">&quot;manual&quot;</span><span class="p">))</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">clustering_alpha_shapes</span><span class="p">()</span>
-</pre></div>
+    # notice the nested attrs to create complex JSON objects
+    layout = Layout(width=800, height=550, autosize=false, title=&quot;Iris dataset&quot;,
+                    scene=attr(xaxis=attr(gridcolor=&quot;rgb(255, 255, 255)&quot;,
+                                          zerolinecolor=&quot;rgb(255, 255, 255)&quot;,
+                                          showbackground=true,
+                                          backgroundcolor=&quot;rgb(230, 230,230)&quot;),
+                               yaxis=attr(gridcolor=&quot;rgb(255, 255, 255)&quot;,
+                                           zerolinecolor=&quot;rgb(255, 255, 255)&quot;,
+                                           showbackground=true,
+                                           backgroundcolor=&quot;rgb(230, 230,230)&quot;),
+                               zaxis=attr(gridcolor=&quot;rgb(255, 255, 255)&quot;,
+                                           zerolinecolor=&quot;rgb(255, 255, 255)&quot;,
+                                           showbackground=true,
+                                           backgroundcolor=&quot;rgb(230, 230,230)&quot;),
+                               aspectratio=attr(x=1, y=1, z=0.7),
+                               aspectmode = &quot;manual&quot;))
+    plot(data, layout)
+end
+clustering_alpha_shapes()</code></pre>
 
 
 <div id="2a58efea-2cc2-49b0-9fa5-569b084f7be1" class="plotly-graph-div"></div>
@@ -633,29 +629,28 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> scatter_3d</span><span class="p">()</span>
-    <span class="p">@</span><span class="n">eval</span> <span class="k">using</span> <span class="n">Distributions</span>
-    <span class="n">Σ</span> <span class="o">=</span> <span class="n">fill</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">Diagonal</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
-    <span class="n">obs1</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">MvNormal</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">Σ</span><span class="p">),</span> <span class="mi">200</span><span class="p">)</span><span class="o">&#39;</span>
-    <span class="n">obs2</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">MvNormal</span><span class="p">(</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mf">0.5</span><span class="n">Σ</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span><span class="o">&#39;</span>
+<pre class="codehilite"><code class="language-julia">function scatter_3d()
+    @eval using Distributions
+    Σ = fill(0.5, 3, 3) + Diagonal([0.5, 0.5, 0.5])
+    obs1 = rand(MvNormal(zeros(3), Σ), 200)'
+    obs2 = rand(MvNormal(zeros(3), 0.5Σ), 100)'
 
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter3d</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">obs1</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">obs1</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">z</span><span class="o">=</span><span class="n">obs1</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span>
-                        <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                        <span class="n">marker_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">marker_line_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-                        <span class="n">marker_line_color</span><span class="o">=</span><span class="s">&quot;rgba(217, 217, 217, 0.14)&quot;</span><span class="p">)</span>
+    trace1 = scatter3d(;x=obs1[:, 1], y=obs1[:, 2], z=obs1[:, 3],
+                        mode=&quot;markers&quot;, opacity=0.8,
+                        marker_size=12, marker_line_width=0.5,
+                        marker_line_color=&quot;rgba(217, 217, 217, 0.14)&quot;)
 
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter3d</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">obs2</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">obs2</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">z</span><span class="o">=</span><span class="n">obs2</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span>
-                        <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
-                        <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(127, 127, 127)&quot;</span><span class="p">,</span>
-                                    <span class="n">symbol</span><span class="o">=</span><span class="s">&quot;circle&quot;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-                                    <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;rgb(204, 204, 204)&quot;</span><span class="p">))</span>
+    trace2 = scatter3d(;x=obs2[:, 1], y=obs2[:, 2], z=obs2[:, 3],
+                        mode=&quot;markers&quot;, opacity=0.9,
+                        marker=attr(color=&quot;rgb(127, 127, 127)&quot;,
+                                    symbol=&quot;circle&quot;, line_width=1.0,
+                                    line_color=&quot;rgb(204, 204, 204)&quot;))
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    layout = Layout(margin=attr(l=0, r=0, t=0, b=0))
 
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">],</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">scatter_3d</span><span class="p">()</span>
-</pre></div>
+    plot([trace1, trace2], layout)
+end
+scatter_3d()</code></pre>
 
 
 <div id="9dcfb4e6-1ab5-458d-98fb-0918f80d39ca" class="plotly-graph-div"></div>
@@ -668,29 +663,28 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> trisurf</span><span class="p">()</span>
-    <span class="n">facecolor</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">([</span>
-        <span class="s">&quot;rgb(50, 200, 200)&quot;</span><span class="p">,</span>
-        <span class="s">&quot;rgb(100, 200, 255)&quot;</span><span class="p">,</span>
-        <span class="s">&quot;rgb(150, 200, 115)&quot;</span><span class="p">,</span>
-        <span class="s">&quot;rgb(200, 200, 50)&quot;</span><span class="p">,</span>
-        <span class="s">&quot;rgb(230, 200, 10)&quot;</span><span class="p">,</span>
-        <span class="s">&quot;rgb(255, 140, 0)&quot;</span>
-    <span class="p">],</span> <span class="n">inner</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<pre class="codehilite"><code class="language-julia">function trisurf()
+    facecolor = repeat([
+        &quot;rgb(50, 200, 200)&quot;,
+        &quot;rgb(100, 200, 255)&quot;,
+        &quot;rgb(150, 200, 115)&quot;,
+        &quot;rgb(200, 200, 50)&quot;,
+        &quot;rgb(230, 200, 10)&quot;,
+        &quot;rgb(255, 140, 0)&quot;
+    ], inner=[2])
 
-    <span class="n">t</span> <span class="o">=</span> <span class="n">mesh3d</span><span class="p">(</span>
-        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="n">z</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">i</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
-        <span class="n">j</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-        <span class="n">k</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
-        <span class="n">facecolor</span><span class="o">=</span><span class="n">facecolor</span><span class="p">)</span>
+    t = mesh3d(
+        x=[0, 0, 1, 1, 0, 0, 1, 1],
+        y=[0, 1, 1, 0, 0, 1, 1, 0],
+        z=[0, 0, 0, 0, 1, 1, 1, 1],
+        i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
+        j=[3, 4, 1, 2, 5, 6, 5, 5, 0, 1, 2, 2],
+        k=[0, 7, 2, 3, 6, 7, 1, 2, 5, 5, 7, 6],
+        facecolor=facecolor)
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">trisurf</span><span class="p">()</span>
-</pre></div>
+    plot(t)
+end
+trisurf()</code></pre>
 
 
 <div id="e931327a-ed50-4538-9f2d-95b7ae0473ca" class="plotly-graph-div"></div>
@@ -703,25 +697,24 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> meshcube</span><span class="p">()</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">mesh3d</span><span class="p">(</span>
-        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="n">z</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">i</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-        <span class="n">j</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-        <span class="n">k</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
-        <span class="n">intensity</span><span class="o">=</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
-        <span class="n">colorscale</span><span class="o">=</span><span class="p">[</span>
-            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;rgb(255, 0, 255)&quot;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="s">&quot;rgb(0, 255, 0)&quot;</span><span class="p">],</span>
-            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;rgb(0, 0, 255)&quot;</span><span class="p">]</span>
-        <span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">meshcube</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function meshcube()
+    t = mesh3d(
+        x=[0, 0, 1, 1, 0, 0, 1, 1],
+        y=[0, 1, 1, 0, 0, 1, 1, 0],
+        z=[0, 0, 0, 0, 1, 1, 1, 1],
+        i=[7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2],
+        j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
+        k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6],
+        intensity=linspace(0, 1, 8),
+        colorscale=[
+            [0, &quot;rgb(255, 0, 255)&quot;],
+            [0.5, &quot;rgb(0, 255, 0)&quot;],
+            [1, &quot;rgb(0, 0, 255)&quot;]
+        ]
+    )
+    plot(t)
+end
+meshcube()</code></pre>
 
 
 <div id="60ce1c2b-200a-4188-bfad-04e62048ae92" class="plotly-graph-div"></div>

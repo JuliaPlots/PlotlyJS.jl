@@ -400,18 +400,17 @@
           
             <h1>Histograms</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> two_hists</span><span class="p">()</span>
-    <span class="n">x0</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-    <span class="n">x1</span> <span class="o">=</span> <span class="n">x0</span><span class="o">+</span><span class="mi">1</span>
+          <pre class="codehilite"><code class="language-julia">function two_hists()
+    x0 = randn(500)
+    x1 = x0+1
 
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x1</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">barmode</span><span class="o">=</span><span class="s">&quot;overlay&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">two_hists</span><span class="p">()</span>
-</pre></div>
+    trace1 = histogram(x=x0, opacity=0.75)
+    trace2 = histogram(x=x1, opacity=0.75)
+    data = [trace1, trace2]
+    layout = Layout(barmode=&quot;overlay&quot;)
+    plot(data, layout)
+end
+two_hists()</code></pre>
 
 
 <div id="62b6b9ba-791a-41d3-82fd-6461265d3b98" class="plotly-graph-div"></div>

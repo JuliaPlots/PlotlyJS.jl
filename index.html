@@ -405,7 +405,7 @@
         <div class="wrapper">
           
           <h1 id="plotlyjs">PlotlyJS<a class="headerlink" href="#plotlyjs" title="Permanent link">¶</a></h1>
-<p>Welcome to the documentation for PlotlyJS.jl, a julia interface to the
+<p>Welcome to the documentation for PlotlyJS.jl, a Julia interface to the
 <a href="https://plot.ly/javascript">plotly.js</a> visualization library.</p>
 <p>This package does not interact with the <a href="TODO: LINK">Plotly web API</a>, but
 rather leverages the underlying javascript library to construct plotly graphics
@@ -419,24 +419,31 @@ plotly graphics to files</li>
 </ol>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h2>
 <p>To install PlotlyJS.jl enter the following at the Julia prompt:</p>
-<div class="codehilite"><pre><span></span>Pkg.add(&quot;PlotlyJS&quot;)
-</pre></div>
+<pre class="codehilite"><code>Pkg.add(&quot;PlotlyJS&quot;)</code></pre>
 
 
+<p>For existing users you can run <code>Pkg.update()</code> to get the latest release. If
+after doing this plots do not show up in your chosen frontend, please run
+<code>Pkg.build("PlotlyJS")</code> to tell Julia to download the latest release of the
+plotly.js javascript library.</p>
+<p>Note that you can also run <code>Pkg.build()</code> if you wish to update the javascript
+library by itself.</p>
+<h3 id="electron">Electron<a class="headerlink" href="#electron" title="Permanent link">¶</a></h3>
 <p>This will download an install PlotlyJS and all dependencies. If you have not
 previously used the Blink.jl package and would like to use the
 <a href="http://spencerlyon.com/PlotlyJS.jl/syncplots/#electronplot">Electron</a> display
-frontent from the REPL (recommended) you will need to enter evaluate the
+frontend from the REPL (recommended) you will need to enter evaluate the
 following code at the REPL:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">Blink</span>
-<span class="n">Blink</span><span class="o">.</span><span class="n">AtomShell</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">using Blink
+Blink.AtomShell.install()</code></pre>
 
 
+<h3 id="saving-figures">Saving figures<a class="headerlink" href="#saving-figures" title="Permanent link">¶</a></h3>
 <p>If you would like to be able to save plotly graphics to png or pdf formats you
 will need additional packages. Please see the documentation on <a href="http://spencerlyon.com/PlotlyJS.jl/manipulating_plots/#saving-figures">exporting
 figures</a>
 for more information.</p>
+<h3 id="plotsjl">Plots.jl<a class="headerlink" href="#plotsjl" title="Permanent link">¶</a></h3>
 <p>If you would like to have a more exhaustive set of top-level functions for
 constructing plots, see the <a href="http://plots.readthedocs.io/en/latest/">Plots.jl</a>
 package. This package is the <code>plotlyjs</code> Plots.jl backend and is fully supported

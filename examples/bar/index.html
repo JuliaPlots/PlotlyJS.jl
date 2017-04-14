@@ -400,13 +400,12 @@
           
             <h1>Bar</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar1</span><span class="p">()</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;giraffes&quot;</span><span class="p">,</span> <span class="s">&quot;orangutans&quot;</span><span class="p">,</span> <span class="s">&quot;monkeys&quot;</span><span class="p">],</span>
-                <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">23</span><span class="p">])</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar1</span><span class="p">()</span>
-</pre></div>
+          <pre class="codehilite"><code class="language-julia">function bar1()
+    data = bar(;x=[&quot;giraffes&quot;, &quot;orangutans&quot;, &quot;monkeys&quot;],
+                y=[20, 14, 23])
+    plot(data)
+end
+bar1()</code></pre>
 
 
 <div id="b3549d76-6fe0-48e7-beaa-e4b404eace37" class="plotly-graph-div"></div>
@@ -419,19 +418,18 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar2</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;giraffes&quot;</span><span class="p">,</span> <span class="s">&quot;orangutans&quot;</span><span class="p">,</span> <span class="s">&quot;monkeys&quot;</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">23</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;SF Zoo&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;giraffes&quot;</span><span class="p">,</span> <span class="s">&quot;orangutans&quot;</span><span class="p">,</span> <span class="s">&quot;monkeys&quot;</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">29</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;LA Zoo&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">barmode</span><span class="o">=</span><span class="s">&quot;group&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar2</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function bar2()
+    trace1 = bar(;x=[&quot;giraffes&quot;, &quot;orangutans&quot;, &quot;monkeys&quot;],
+                  y=[20, 14, 23],
+                  name=&quot;SF Zoo&quot;)
+    trace2 = bar(;x=[&quot;giraffes&quot;, &quot;orangutans&quot;, &quot;monkeys&quot;],
+                  y=[12, 18, 29],
+                  name=&quot;LA Zoo&quot;)
+    data = [trace1, trace2]
+    layout = Layout(;barmode=&quot;group&quot;)
+    plot(data, layout)
+end
+bar2()</code></pre>
 
 
 <div id="2cce01a2-b9ff-4351-9179-3900815c9eae" class="plotly-graph-div"></div>
@@ -444,19 +442,18 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar3</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;giraffes&quot;</span><span class="p">,</span> <span class="s">&quot;orangutans&quot;</span><span class="p">,</span> <span class="s">&quot;monkeys&quot;</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">23</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;SF Zoo&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;giraffes&quot;</span><span class="p">,</span> <span class="s">&quot;orangutans&quot;</span><span class="p">,</span> <span class="s">&quot;monkeys&quot;</span><span class="p">],</span>
-                 <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">29</span><span class="p">],</span>
-                 <span class="n">name</span><span class="o">=</span><span class="s">&quot;LA Zoo&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">barmode</span><span class="o">=</span><span class="s">&quot;stack&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar3</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function bar3()
+    trace1 = bar(;x=[&quot;giraffes&quot;, &quot;orangutans&quot;, &quot;monkeys&quot;],
+                  y=[20, 14, 23],
+                  name=&quot;SF Zoo&quot;)
+    trace2 = bar(x=[&quot;giraffes&quot;, &quot;orangutans&quot;, &quot;monkeys&quot;],
+                 y=[12, 18, 29],
+                 name=&quot;LA Zoo&quot;)
+    data = [trace1, trace2]
+    layout = Layout(;barmode=&quot;stack&quot;)
+    plot(data, layout)
+end
+bar3()</code></pre>
 
 
 <div id="7a32cc59-cfd3-4bd3-85f3-33e5eb523434" class="plotly-graph-div"></div>
@@ -469,19 +466,18 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar4</span><span class="p">()</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Product A&quot;</span><span class="p">,</span> <span class="s">&quot;Product B&quot;</span><span class="p">,</span> <span class="s">&quot;Product C&quot;</span><span class="p">],</span>
-                <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">23</span><span class="p">],</span>
-                <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;</span><span class="si">$(i)</span><span class="s">% market share&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">rand</span><span class="p">(</span><span class="mi">15</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span>
-                <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(158, 202, 225)&quot;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">),</span>
-                <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(8, 48, 107)&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<pre class="codehilite"><code class="language-julia">function bar4()
+    data = bar(;x=[&quot;Product A&quot;, &quot;Product B&quot;, &quot;Product C&quot;],
+                y=[20, 14, 23],
+                text=[&quot;$(i)% market share&quot; for i in rand(15:30, 3)],
+                marker=attr(color=&quot;rgb(158, 202, 225)&quot;, opacity=0.6),
+                line=attr(color=&quot;rgb(8, 48, 107)&quot;, width=1.5))
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;January 2013 Sales Report&quot;</span><span class="p">)</span>
+    layout = Layout(;title=&quot;January 2013 Sales Report&quot;)
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar4</span><span class="p">()</span>
-</pre></div>
+    plot(data, layout)
+end
+bar4()</code></pre>
 
 
 <div id="68e9cd06-7019-4969-8fb9-791787ce5abb" class="plotly-graph-div"></div>
@@ -494,34 +490,33 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar5</span><span class="p">()</span>
-    <span class="n">x_value</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Product A&quot;</span><span class="p">,</span> <span class="s">&quot;Product B&quot;</span><span class="p">,</span> <span class="s">&quot;Product C&quot;</span><span class="p">]</span>
-    <span class="n">y_value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">23</span><span class="p">]</span>
+<pre class="codehilite"><code class="language-julia">function bar5()
+    x_value = [&quot;Product A&quot;, &quot;Product B&quot;, &quot;Product C&quot;]
+    y_value = [20, 14, 23]
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">x_value</span><span class="p">,</span>
-                <span class="n">y</span><span class="o">=</span><span class="n">y_value</span><span class="p">,</span>
-                <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;</span><span class="si">$(i)</span><span class="s">% market share&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">rand</span><span class="p">(</span><span class="mi">15</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span>
-                <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(158, 202, 225)&quot;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
-                            <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(8, 48, 107)&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)))</span>
+    data = bar(;x=x_value,
+                y=y_value,
+                text=[&quot;$(i)% market share&quot; for i in rand(15:30, 3)],
+                marker=attr(color=&quot;rgb(158, 202, 225)&quot;, opacity=0.6,
+                            line=attr(color=&quot;rgb(8, 48, 107)&quot;, width=1.5)))
 
-    <span class="n">annotations</span> <span class="o">=</span> <span class="p">[]</span>
+    annotations = []
 
-    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">length</span><span class="p">(</span><span class="n">x_value</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_value</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                      <span class="n">y</span><span class="o">=</span><span class="n">y_value</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                      <span class="n">text</span><span class="o">=</span><span class="n">y_value</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                      <span class="n">xanchor</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">,</span>
-                      <span class="n">yanchor</span><span class="o">=</span><span class="s">&quot;bottom&quot;</span><span class="p">,</span>
-                      <span class="n">showarrow</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
-        <span class="n">push!</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-    <span class="k">end</span>
+    for i in 1:length(x_value)
+        result = attr(x=x_value[i],
+                      y=y_value[i],
+                      text=y_value[i],
+                      xanchor=&quot;center&quot;,
+                      yanchor=&quot;bottom&quot;,
+                      showarrow=false)
+        push!(annotations, result)
+    end
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;January 2013 Sales Report&quot;</span><span class="p">,</span>
-                    <span class="n">annotations</span><span class="o">=</span><span class="n">annotations</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar5</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;January 2013 Sales Report&quot;,
+                    annotations=annotations)
+    plot(data, layout)
+end
+bar5()</code></pre>
 
 
 <div id="4ccaf42b-1cc2-4a38-957a-6bc10c44edcd" class="plotly-graph-div"></div>
@@ -534,26 +529,25 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar6</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Jan&quot;</span><span class="p">,</span> <span class="s">&quot;Feb&quot;</span><span class="p">,</span> <span class="s">&quot;Mar&quot;</span><span class="p">,</span> <span class="s">&quot;Apr&quot;</span><span class="p">,</span> <span class="s">&quot;May&quot;</span><span class="p">,</span> <span class="s">&quot;Jun&quot;</span><span class="p">,</span> <span class="s">&quot;Jul&quot;</span><span class="p">,</span> <span class="s">&quot;Aug&quot;</span><span class="p">,</span>
-                     <span class="s">&quot;Sep&quot;</span><span class="p">,</span> <span class="s">&quot;Oct&quot;</span><span class="p">,</span> <span class="s">&quot;Nov&quot;</span><span class="p">,</span> <span class="s">&quot;Dec&quot;</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Primary Product&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(49, 130, 189)&quot;</span><span class="p">,</span>
-                  <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Jan&quot;</span><span class="p">,</span> <span class="s">&quot;Feb&quot;</span><span class="p">,</span> <span class="s">&quot;Mar&quot;</span><span class="p">,</span> <span class="s">&quot;Apr&quot;</span><span class="p">,</span> <span class="s">&quot;May&quot;</span><span class="p">,</span> <span class="s">&quot;Jun&quot;</span><span class="p">,</span> <span class="s">&quot;Jul&quot;</span><span class="p">,</span> <span class="s">&quot;Aug&quot;</span><span class="p">,</span>
-                     <span class="s">&quot;Sep&quot;</span><span class="p">,</span> <span class="s">&quot;Oct&quot;</span><span class="p">,</span> <span class="s">&quot;Nov&quot;</span><span class="p">,</span> <span class="s">&quot;Dec&quot;</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Secondary Product&quot;</span><span class="p">,</span>
-          <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(204, 204, 204)&quot;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;2013 Sales Report&quot;</span><span class="p">,</span>
-                     <span class="n">xaxis_tickangle</span><span class="o">=-</span><span class="mi">45</span><span class="p">,</span>
-                     <span class="n">barmode</span><span class="o">=</span><span class="s">&quot;group&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar6</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function bar6()
+    trace1 = bar(;x=[&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;,
+                     &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;],
+                  y=[20, 14, 25, 16, 18, 22, 19, 15, 12, 16, 14, 17],
+                  name=&quot;Primary Product&quot;,
+                  marker_color=&quot;rgb(49, 130, 189)&quot;,
+                  opacity=0.7)
+    trace2 = bar(;x=[&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;,
+                     &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;],
+                  y=[19, 14, 22, 14, 16, 19, 15, 14, 10, 12, 12, 16],
+                  name=&quot;Secondary Product&quot;,
+          marker=attr(color=&quot;rgb(204, 204, 204)&quot;, opacity=0.5))
+    data = [trace1, trace2]
+    layout = Layout(;title=&quot;2013 Sales Report&quot;,
+                     xaxis_tickangle=-45,
+                     barmode=&quot;group&quot;)
+    plot(data, layout)
+end
+bar6()</code></pre>
 
 
 <div id="fb9869b3-2981-4de9-9f13-e4a4283b1e28" class="plotly-graph-div"></div>
@@ -566,19 +560,18 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar7</span><span class="p">()</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Feature </span><span class="si">$(s)</span><span class="s">&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="k">in</span> <span class="sc">&#39;A&#39;</span><span class="p">:</span><span class="sc">&#39;E&#39;</span><span class="p">],</span>
-                <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">22</span><span class="p">],</span>
-                <span class="n">marker_color</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;rgba(204, 204, 204, 1)&quot;</span><span class="p">,</span>
-                              <span class="s">&quot;rgba(222, 45, 38, 0.8)&quot;</span><span class="p">,</span>
-                              <span class="s">&quot;rgba(204, 204, 204, 1)&quot;</span><span class="p">,</span>
-                              <span class="s">&quot;rgba(204, 204, 204, 1)&quot;</span><span class="p">,</span>
-                              <span class="s">&quot;rgba(204, 204, 204, 1)&quot;</span><span class="p">])</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Least Used Feature&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar7</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function bar7()
+    data = bar(;x=[&quot;Feature $(s)&quot; for s in 'A':'E'],
+                y=[20, 14, 23, 25, 22],
+                marker_color=[&quot;rgba(204, 204, 204, 1)&quot;,
+                              &quot;rgba(222, 45, 38, 0.8)&quot;,
+                              &quot;rgba(204, 204, 204, 1)&quot;,
+                              &quot;rgba(204, 204, 204, 1)&quot;,
+                              &quot;rgba(204, 204, 204, 1)&quot;])
+    layout = Layout(;title=&quot;Least Used Feature&quot;)
+    plot(data, layout)
+end
+bar7()</code></pre>
 
 
 <div id="33753f65-d6bb-44f7-b2c4-7bedea5f6d21" class="plotly-graph-div"></div>
@@ -591,23 +584,22 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar8</span><span class="p">()</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Liam&quot;</span><span class="p">,</span> <span class="s">&quot;Sophie&quot;</span><span class="p">,</span> <span class="s">&quot;Jacob&quot;</span><span class="p">,</span> <span class="s">&quot;Mia&quot;</span><span class="p">,</span> <span class="s">&quot;William&quot;</span><span class="p">,</span> <span class="s">&quot;Olivia&quot;</span><span class="p">],</span>
-                <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">],</span>
-                <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;4.17 below the mean&quot;</span><span class="p">,</span> <span class="s">&quot;4.17 below the mean&quot;</span><span class="p">,</span>
-                      <span class="s">&quot;0.17 below the mean&quot;</span><span class="p">,</span> <span class="s">&quot;0.17 below the mean&quot;</span><span class="p">,</span>
-                      <span class="s">&quot;0.83 above the mean&quot;</span><span class="p">,</span> <span class="s">&quot;7.83 above the mean&quot;</span><span class="p">],</span>
-                <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(142, 124, 195)&quot;</span><span class="p">)</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Number of Graphs Made this Week&quot;</span><span class="p">,</span>
-                     <span class="n">font_family</span><span class="o">=</span><span class="s">&quot;Raleway, sans-serif&quot;</span><span class="p">,</span>
-                     <span class="n">showlegend</span><span class="o">=</span><span class="n">false</span><span class="p">,</span>
-                     <span class="n">xaxis_tickangle</span><span class="o">=-</span><span class="mi">45</span><span class="p">,</span>
-                     <span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">zeroline</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">gridwidth</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-                     <span class="n">bargap</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar8</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function bar8()
+    data = bar(;x=[&quot;Liam&quot;, &quot;Sophie&quot;, &quot;Jacob&quot;, &quot;Mia&quot;, &quot;William&quot;, &quot;Olivia&quot;],
+                y=[8.0, 8.0, 12.0, 12.0, 13.0, 20.0],
+                text=[&quot;4.17 below the mean&quot;, &quot;4.17 below the mean&quot;,
+                      &quot;0.17 below the mean&quot;, &quot;0.17 below the mean&quot;,
+                      &quot;0.83 above the mean&quot;, &quot;7.83 above the mean&quot;],
+                marker_color=&quot;rgb(142, 124, 195)&quot;)
+    layout = Layout(;title=&quot;Number of Graphs Made this Week&quot;,
+                     font_family=&quot;Raleway, sans-serif&quot;,
+                     showlegend=false,
+                     xaxis_tickangle=-45,
+                     yaxis=attr(zeroline=false, gridwidth=2),
+                     bargap=0.05)
+    plot(data, layout)
+end
+bar8()</code></pre>
 
 
 <div id="2a845abf-27c5-40da-bfeb-e70d088f7a1f" class="plotly-graph-div"></div>
@@ -620,37 +612,36 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar9</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1995</span><span class="p">:</span><span class="mi">2012</span><span class="p">,</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">219</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">236</span><span class="p">,</span> <span class="mi">207</span><span class="p">,</span> <span class="mi">236</span><span class="p">,</span> <span class="mi">263</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span>
-                     <span class="mi">430</span><span class="p">,</span> <span class="mi">474</span><span class="p">,</span> <span class="mi">526</span><span class="p">,</span> <span class="mi">488</span><span class="p">,</span> <span class="mi">537</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">439</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Rest of world&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(55, 83, 109)&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1995</span><span class="p">:</span><span class="mi">2012</span><span class="p">,</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span>
-                     <span class="mi">299</span><span class="p">,</span> <span class="mi">340</span><span class="p">,</span> <span class="mi">403</span><span class="p">,</span> <span class="mi">549</span><span class="p">,</span> <span class="mi">499</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;China&quot;</span><span class="p">,</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(26, 118, 255)&quot;</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia">function bar9()
+    trace1 = bar(;x=1995:2012,
+                  y=[219, 146, 112, 127, 124, 180, 236, 207, 236, 263, 350,
+                     430, 474, 526, 488, 537, 500, 439],
+                  name=&quot;Rest of world&quot;,
+                  marker_color=&quot;rgb(55, 83, 109)&quot;)
+    trace2 = bar(;x=1995:2012,
+                  y=[16, 13, 10, 11, 28, 37, 43, 55, 56, 88, 105, 156, 270,
+                     299, 340, 403, 549, 499],
+                  name=&quot;China&quot;,
+                  marker_color=&quot;rgb(26, 118, 255)&quot;)
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
+    data = [trace1, trace2]
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;US Export of Plastic Scrap&quot;</span><span class="p">,</span>
-                     <span class="n">xaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">tickfont_size</span><span class="o">=</span> <span class="mi">14</span><span class="p">,</span>
-                                <span class="n">tickfont_color</span><span class="o">=</span><span class="s">&quot;rgb(107, 107, 107)&quot;</span><span class="p">),</span>
-                     <span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;USD (millions)&quot;</span><span class="p">,</span>
-                                <span class="n">titlefont</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-                                               <span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(107, 107, 107)&quot;</span><span class="p">),</span>
-                                <span class="n">tickfont</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
-                                              <span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(107, 107, 107)&quot;</span><span class="p">)),</span>
-                     <span class="n">legend</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s">&quot;rgba(255, 255, 255, 0)&quot;</span><span class="p">,</span>
-                                 <span class="n">bordercolor</span><span class="o">=</span><span class="s">&quot;rgba(255, 255, 255, 0)&quot;</span><span class="p">),</span>
-                     <span class="n">barmode</span><span class="o">=</span><span class="s">&quot;group&quot;</span><span class="p">,</span>
-                     <span class="n">bargap</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span>
-                     <span class="n">bargroupgap</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar9</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;US Export of Plastic Scrap&quot;,
+                     xaxis=attr(tickfont_size= 14,
+                                tickfont_color=&quot;rgb(107, 107, 107)&quot;),
+                     yaxis=attr(title=&quot;USD (millions)&quot;,
+                                titlefont=attr(size=16,
+                                               color=&quot;rgb(107, 107, 107)&quot;),
+                                tickfont=attr(size=14,
+                                              color=&quot;rgb(107, 107, 107)&quot;)),
+                     legend=attr(x=0, y=1.0, bgcolor=&quot;rgba(255, 255, 255, 0)&quot;,
+                                 bordercolor=&quot;rgba(255, 255, 255, 0)&quot;),
+                     barmode=&quot;group&quot;,
+                     bargap=0.15,
+                     bargroupgap=0.1)
+    plot(data, layout)
+end
+bar9()</code></pre>
 
 
 <div id="384fdae5-ef41-4793-9599-e6b81e798a61" class="plotly-graph-div"></div>
@@ -663,63 +654,62 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar10</span><span class="p">()</span>
-    <span class="n">x_data</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Product Revenue&quot;</span><span class="p">,</span> <span class="s">&quot;Services Revenue&quot;</span><span class="p">,</span> <span class="s">&quot;Total Revenue&quot;</span><span class="p">,</span>
-              <span class="s">&quot;Fixed Costs&quot;</span><span class="p">,</span> <span class="s">&quot;Variable Costs&quot;</span><span class="p">,</span> <span class="s">&quot;Total Costs&quot;</span><span class="p">,</span> <span class="s">&quot;Total&quot;</span><span class="p">]</span>
-    <span class="n">y_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">660</span><span class="p">,</span> <span class="mi">660</span><span class="p">,</span> <span class="mi">590</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">340</span><span class="p">]</span>
-    <span class="n">textList</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;\$430K&quot;</span><span class="p">,</span> <span class="s">&quot;\$260K&quot;</span><span class="p">,</span> <span class="s">&quot;\$690K&quot;</span><span class="p">,</span> <span class="s">&quot;\$-120K&quot;</span><span class="p">,</span> <span class="s">&quot;\$-200K&quot;</span><span class="p">,</span> <span class="s">&quot;\$-320K&quot;</span><span class="p">,</span>
-                <span class="s">&quot;\$370K&quot;</span><span class="p">]</span>
+<pre class="codehilite"><code class="language-julia">function bar10()
+    x_data = [&quot;Product Revenue&quot;, &quot;Services Revenue&quot;, &quot;Total Revenue&quot;,
+              &quot;Fixed Costs&quot;, &quot;Variable Costs&quot;, &quot;Total Costs&quot;, &quot;Total&quot;]
+    y_data = [400, 660, 660, 590, 400, 400, 340]
+    textList = [&quot;\$430K&quot;, &quot;\$260K&quot;, &quot;\$690K&quot;, &quot;\$-120K&quot;, &quot;\$-200K&quot;, &quot;\$-320K&quot;,
+                &quot;\$370K&quot;]
 
-    <span class="c">#Base</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">x_data</span><span class="p">,</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">430</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">570</span><span class="p">,</span> <span class="mi">370</span><span class="p">,</span> <span class="mi">370</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgba(1, 1, 1, 0.0)&quot;</span><span class="p">)</span>
+    #Base
+    trace1 = bar(;x=x_data,
+                  y=[0, 430, 0, 570, 370, 370, 0],
+                  marker_color=&quot;rgba(1, 1, 1, 0.0)&quot;)
 
-    <span class="c">#Revenue</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">x_data</span><span class="p">,</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">430</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">690</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgba(55, 128, 191, 0.7)&quot;</span><span class="p">,</span>
-          <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgba(55, 128, 191, 1.0)&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    #Revenue
+    trace2 = bar(;x=x_data,
+                  y=[430, 260, 690, 0, 0, 0, 0],
+                  marker_color=&quot;rgba(55, 128, 191, 0.7)&quot;,
+          line=attr(color=&quot;rgba(55, 128, 191, 1.0)&quot;, width=2))
 
-    <span class="c">#Cost</span>
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">x_data</span><span class="p">,</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-          <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgba(219, 64, 82, 0.7)&quot;</span><span class="p">,</span>
-          <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgba(219, 64, 82, 1.0)&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)))</span>
+    #Cost
+    trace3 = bar(;x=x_data,
+                  y=[0, 0, 0, 120, 200, 320, 0],
+          marker=attr(color=&quot;rgba(219, 64, 82, 0.7)&quot;,
+          line=attr(color=&quot;rgba(219, 64, 82, 1.0)&quot;, width=2)))
 
-    <span class="c">#Profit</span>
-    <span class="n">trace4</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">x_data</span><span class="p">,</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">370</span><span class="p">],</span>
-          <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgba(50, 171, 96, 0.7)&quot;</span><span class="p">,</span>
-          <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgba(50, 171, 96, 1.0)&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)))</span>
+    #Profit
+    trace4 = bar(;x=x_data,
+                  y=[0, 0, 0, 0, 0, 0, 370],
+          marker=attr(color=&quot;rgba(50, 171, 96, 0.7)&quot;,
+          line=attr(color=&quot;rgba(50, 171, 96, 1.0)&quot;, width=2)))
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">,</span> <span class="n">trace4</span><span class="p">]</span>
+    data = [trace1, trace2, trace3, trace4]
 
-    <span class="n">annotations</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">7</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                      <span class="n">y</span><span class="o">=</span><span class="n">y_data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                      <span class="n">text</span><span class="o">=</span><span class="n">textList</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                      <span class="n">font</span><span class="o">=</span><span class="n">attr</span><span class="p">(;</span><span class="n">family</span><span class="o">=</span><span class="s">&quot;Arial&quot;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
-                                 <span class="n">font_color</span><span class="o">=</span><span class="s">&quot;rgba(245, 246, 249, 1)&quot;</span><span class="p">),</span>
-                                 <span class="n">showarrow</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
-        <span class="n">push!</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-    <span class="k">end</span>
+    annotations = []
+    for i in 1:7
+        result = attr(x=x_data[i],
+                      y=y_data[i],
+                      text=textList[i],
+                      font=attr(;family=&quot;Arial&quot;, font_size=14,
+                                 font_color=&quot;rgba(245, 246, 249, 1)&quot;),
+                                 showarrow=false)
+        push!(annotations, result)
+    end
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Annual Profit 2015&quot;</span><span class="p">,</span>
-                     <span class="n">barmode</span><span class="o">=</span><span class="s">&quot;stack&quot;</span><span class="p">,</span>
-                     <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s">&quot;rgba(245, 246, 249, 1)&quot;</span><span class="p">,</span>
-                     <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s">&quot;rgba(245, 246, 249, 1)&quot;</span><span class="p">,</span>
-                     <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
-                     <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
-                     <span class="n">showlegend</span><span class="o">=</span><span class="n">false</span><span class="p">,</span>
-                     <span class="n">xaxis_showtickabels</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-                     <span class="n">annotations</span><span class="o">=</span><span class="n">annotations</span><span class="p">)</span>
+    layout = Layout(;title=&quot;Annual Profit 2015&quot;,
+                     barmode=&quot;stack&quot;,
+                     paper_bgcolor=&quot;rgba(245, 246, 249, 1)&quot;,
+                     plot_bgcolor=&quot;rgba(245, 246, 249, 1)&quot;,
+                     width=600,
+                     height=600,
+                     showlegend=false,
+                     xaxis_showtickabels=true,
+                     annotations=annotations)
 
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar10</span><span class="p">()</span>
-</pre></div>
+    plot(data, layout)
+end
+bar10()</code></pre>
 
 
 <div id="7d7d9eb5-7f21-4443-8d8a-615a93310af0" class="plotly-graph-div"></div>
@@ -732,28 +722,27 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> bar11</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Trace1&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Trace2&quot;</span><span class="p">)</span>
-    <span class="n">trace3</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Trace3&quot;</span><span class="p">)</span>
-    <span class="n">trace4</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-                  <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">],</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Trace4&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">,</span> <span class="n">trace4</span><span class="p">]</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">xaxis_title</span><span class="o">=</span><span class="s">&quot;X axis&quot;</span><span class="p">,</span>
-                     <span class="n">yaxis_title</span><span class="o">=</span><span class="s">&quot;Y axis&quot;</span><span class="p">,</span>
-                     <span class="n">barmode</span><span class="o">=</span><span class="s">&quot;relative&quot;</span><span class="p">,</span>
-                     <span class="n">title</span><span class="o">=</span><span class="s">&quot;Relative Barmode&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">bar11</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function bar11()
+    trace1 = bar(;x=[1, 2, 3, 4],
+                  y=[1, 4, 9, 16],
+                  name=&quot;Trace1&quot;)
+    trace2 = bar(;x=[1, 2, 3, 4],
+                  y=[6, -8, -4.5, 8],
+                  name=&quot;Trace2&quot;)
+    trace3 = bar(;x=[1, 2, 3, 4],
+                  y=[-15, -3, 4.5, -8],
+                  name=&quot;Trace3&quot;)
+    trace4 = bar(;x=[1, 2, 3, 4],
+                  y=[-1, 3, -3, -4],
+                  name=&quot;Trace4&quot;)
+    data = [trace1, trace2, trace3, trace4]
+    layout = Layout(;xaxis_title=&quot;X axis&quot;,
+                     yaxis_title=&quot;Y axis&quot;,
+                     barmode=&quot;relative&quot;,
+                     title=&quot;Relative Barmode&quot;)
+    plot(data, layout)
+end
+bar11()</code></pre>
 
 
 <div id="bfa0d8e7-1ed7-4541-b255-72c2eb449968" class="plotly-graph-div"></div>

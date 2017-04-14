@@ -416,31 +416,29 @@
 <p>We'll also discuss how to integrate with various frontends</p>
 <h2 id="plot"><code>Plot</code><a class="headerlink" href="#plot" title="Permanent link">¶</a></h2>
 <p>Recall that the definition of the <code>Plot</code> object is</p>
-<div class="codehilite"><pre><span></span><span class="k">type</span><span class="nc"> Plot</span><span class="p">{</span><span class="n">TT</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}</span>
-    <span class="n">data</span><span class="p">::</span><span class="n">Vector</span><span class="p">{</span><span class="n">TT</span><span class="p">}</span>
-    <span class="n">layout</span><span class="p">::</span><span class="n">AbstractLayout</span>
-    <span class="n">divid</span><span class="p">::</span><span class="n">Base</span><span class="o">.</span><span class="n">Random</span><span class="o">.</span><span class="n">UUID</span>
-<span class="k">end</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">type Plot{TT&lt;:AbstractTrace}
+    data::Vector{TT}
+    layout::AbstractLayout
+    divid::Base.Random.UUID
+end</code></pre>
 
 
 <p>Given one or more <code>AbstractTrace</code>s and optionally a <code>layout</code>, we construct a
 <code>Plot</code> object with any of the following constructors</p>
-<div class="codehilite"><pre><span></span><span class="c"># A blank canvas no traces or a layout</span>
-<span class="n">Plot</span><span class="p">()</span>
+<pre class="codehilite"><code class="language-julia"># A blank canvas no traces or a layout
+Plot()
 
-<span class="c"># A vector of traces and a layout</span>
-<span class="n">Plot</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}(</span><span class="n">data</span><span class="p">::</span><span class="n">Vector</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">layout</span><span class="p">::</span><span class="n">AbstractLayout</span><span class="p">)</span>
+# A vector of traces and a layout
+Plot{T&lt;:AbstractTrace}(data::Vector{T}, layout::AbstractLayout)
 
-<span class="c"># A vector of traces -- default layout supplied</span>
-<span class="n">Plot</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}(</span><span class="n">data</span><span class="p">::</span><span class="n">Vector</span><span class="p">{</span><span class="n">T</span><span class="p">})</span>
+# A vector of traces -- default layout supplied
+Plot{T&lt;:AbstractTrace}(data::Vector{T})
 
-<span class="c"># a single trace: will be put into a vector -- default layout supplied</span>
-<span class="n">Plot</span><span class="p">(</span><span class="n">data</span><span class="p">::</span><span class="n">AbstractTrace</span><span class="p">)</span>
+# a single trace: will be put into a vector -- default layout supplied
+Plot(data::AbstractTrace)
 
-<span class="c"># a single trace and a layout (trace put into a vector)</span>
-<span class="n">Plot</span><span class="p">(</span><span class="n">data</span><span class="p">::</span><span class="n">AbstractTrace</span><span class="p">,</span> <span class="n">layout</span><span class="p">::</span><span class="n">AbstractLayout</span><span class="p">)</span>
-</pre></div>
+# a single trace and a layout (trace put into a vector)
+Plot(data::AbstractTrace, layout::AbstractLayout)</code></pre>
 
 
 <p>Notice that none of the recommended constructors have you pass the <code>divid</code>
@@ -452,13 +450,12 @@ This means that we can't view the actual plotly figure the data represents.</p>
 <p>To do that we need to link the <code>Plot</code> to one or more display frontends.</p>
 <p>To do this in a simple and reliable way we introduce the concept of a
 <code>SyncPlot</code>, which is defined as:</p>
-<div class="codehilite"><pre><span></span><span class="k">abstract</span><span class="nc"> AbstractPlotlyDisplay</span>
+<pre class="codehilite"><code class="language-julia">abstract AbstractPlotlyDisplay
 
-<span class="k">immutable</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">TD</span><span class="o">&lt;:</span><span class="n">AbstractPlotlyDisplay</span><span class="p">}</span>
-    <span class="n">plot</span><span class="p">::</span><span class="n">Plot</span>
-    <span class="n">view</span><span class="p">::</span><span class="n">TD</span>
-<span class="k">end</span>
-</pre></div>
+immutable SyncPlot{TD&lt;:AbstractPlotlyDisplay}
+    plot::Plot
+    view::TD
+end</code></pre>
 
 
 <p>As its name suggests, a <code>SyncPlot</code> will sync a plot with a frontend. To see the
@@ -499,8 +496,7 @@ process it and save to pdf, png, jpeg, or eps files</li>
 package.</p>
 <p>A convenient typealias has been defined for <code>SyncPlot</code>s with the
 <code>ElectronDisplay</code> frontend:</p>
-<div class="codehilite"><pre><span></span><span class="k">typealias</span><span class="nc"> ElectronPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">ElectronDisplay</span><span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">typealias ElectronPlot SyncPlot{ElectronDisplay}</code></pre>
 
 
 <h3 id="jupyerplot"><code>JupyerPlot</code><a class="headerlink" href="#jupyerplot" title="Permanent link">¶</a></h3>
@@ -513,8 +509,7 @@ now. This means that we have not implemented features that require Julia to
 receive a return value from javascript. This includes obtaining raw svg data
 for the plot as well as registering Julia functions as callbacks.</p>
 <p>A <code>SyncPlot</code> with a <code>JupyterDisplay</code> also has a typealias:</p>
-<div class="codehilite"><pre><span></span><span class="k">typealias</span><span class="nc"> JupyterPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">JupyterDisplay</span><span class="p">}</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">typealias JupyterPlot SyncPlot{JupyterDisplay}</code></pre>
 
 
 <div class="admonition note">

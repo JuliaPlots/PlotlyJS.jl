@@ -477,17 +477,15 @@ call regular grids of subplots. By regular we mean a square grid of plots.</p>
 <p>To do this we will make a pun of the <code>vcat</code>, <code>hcat</code>, and <code>hvcat</code> functions from
 <code>Base</code> and leverage the array construction syntax to build up our subplots.</p>
 <p>Suppose we are working with the following plots:</p>
-<div class="codehilite"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="n">Plot</span><span class="p">(</span><span class="n">scatter</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
-<span class="n">p2</span> <span class="o">=</span> <span class="n">Plot</span><span class="p">(</span><span class="n">histogram</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">nbinsx</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">p3</span> <span class="o">=</span> <span class="n">Plot</span><span class="p">(</span><span class="n">scatter</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">cumsum</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="mi">12</span><span class="p">)),</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Random Walk&quot;</span><span class="p">))</span>
-<span class="n">p4</span> <span class="o">=</span> <span class="n">Plot</span><span class="p">([</span><span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozeroy&quot;</span><span class="p">),</span>
-           <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">)])</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">p1 = Plot(scatter(;y=randn(3)))
+p2 = Plot(histogram(;x=randn(50), nbinsx=4))
+p3 = Plot(scatter(;y=cumsum(randn(12)), name=&quot;Random Walk&quot;))
+p4 = Plot([scatter(;x=1:4, y=[0, 2, 3, 5], fill=&quot;tozeroy&quot;),
+           scatter(;x=1:4, y=[3, 5, 1, 7], fill=&quot;tonexty&quot;)])</code></pre>
 
 
 <p>If we wanted to combine <code>p1</code> and <code>p2</code> as subplots side-by-side, we would do</p>
-<div class="codehilite"><pre><span></span><span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">]</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">[p1 p2]</code></pre>
 
 
 <p>which would be displayed as</p>
@@ -503,8 +501,7 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
  </script>
 
 <p>If instead we wanted two rows and one column we could</p>
-<div class="codehilite"><pre><span></span><span class="p">[</span><span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">]</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">[p3, p4]</code></pre>
 
 
 <div id="5f7a7d9a-7e61-4ddd-9fe2-738e192ff6da"></div>
@@ -519,9 +516,8 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
 </script>
 
 <p>Finally, we can make a 2x2 grid of subplots:</p>
-<div class="codehilite"><pre><span></span><span class="p">[</span><span class="n">p1</span> <span class="n">p2</span>
- <span class="n">p3</span> <span class="n">p4</span><span class="p">]</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">[p1 p2
+ p3 p4]</code></pre>
 
 
 <div id="bd979d53-9a3d-4594-a03e-c0674720f5c4"></div>
@@ -539,14 +535,13 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
 <p>Right now saving figures to a file only works when using the <code>ElectronDisplay</code>
 frontend.</p>
 <p>The following syntaxes are currently supported without any other packages</p>
-<div class="codehilite"><pre><span></span><span class="c"># save to html. `js` is a keyword argument that specifies  how plotly.js can be</span>
-<span class="c"># included. Supported values are `:local`, `:remote`, `:embed`. See docstring</span>
-<span class="c"># for more details</span>
-<span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.html&quot;</span><span class="p">;</span> <span class="n">js</span><span class="p">::</span><span class="n">Symbol</span><span class="p">)</span>
+<pre class="codehilite"><code class="language-julia"># save to html. `js` is a keyword argument that specifies  how plotly.js can be
+# included. Supported values are `:local`, `:remote`, `:embed`. See docstring
+# for more details
+savefig(sp::ElectronPlot, &quot;output_filename.html&quot;; js::Symbol)
 
-<span class="c"># save svg</span>
-<span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.svg&quot;</span><span class="p">)</span>
-</pre></div>
+# save svg
+savefig(sp::ElectronPlot, &quot;output_filename.svg&quot;)</code></pre>
 
 
 <p>Other routines are available for saving figures, but they require the
@@ -554,27 +549,24 @@ independent installation of various Julia packages.</p>
 <h3 id="rsvg">Rsvg<a class="headerlink" href="#rsvg" title="Permanent link">¶</a></h3>
 <p>If you have installed <a href="https://github.com/lobingera/Rsvg.jl">Rsvg.jl</a><br />
 you can use the following routines:</p>
-<div class="codehilite"><pre><span></span><span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.pdf&quot;</span><span class="p">)</span>
-<span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.png&quot;</span><span class="p">)</span>
-<span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.eps&quot;</span><span class="p">)</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">PlotlyJS.savefig(sp::ElectronPlot, &quot;output_filename.pdf&quot;)
+PlotlyJS.savefig(sp::ElectronPlot, &quot;output_filename.png&quot;)
+PlotlyJS.savefig(sp::ElectronPlot, &quot;output_filename.eps&quot;)</code></pre>
 
 
 <p>Note that the pdf and eps (not png) export from this function this case will be
 a true vector image. This allows you to have infinitely zoomable quality. This
 is the recommended way to obtain a pdf of your plot, but comes with the extra
 step of installing Rsvg.jl via:</p>
-<div class="codehilite"><pre><span></span><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;Rsvg&quot;</span><span class="p">)</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">Pkg.add(&quot;Rsvg&quot;)</code></pre>
 
 
 <h3 id="imagemagick">ImageMagick<a class="headerlink" href="#imagemagick" title="Permanent link">¶</a></h3>
 <p>If you have <a href="https://github.com/JuliaIO/ImageMagick.jl">ImageMagick.jl</a>
 properly installed in your Julia installation you can also do the following:</p>
-<div class="codehilite"><pre><span></span><span class="n">savefig_imagemagick</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.png&quot;</span><span class="p">)</span>
-<span class="n">savefig_imagemagick</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.pdf&quot;</span><span class="p">)</span>
-<span class="n">savefig_imagemagick</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.jpeg&quot;</span><span class="p">)</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">savefig_imagemagick(sp::ElectronPlot, &quot;output_filename.png&quot;)
+savefig_imagemagick(sp::ElectronPlot, &quot;output_filename.pdf&quot;)
+savefig_imagemagick(sp::ElectronPlot, &quot;output_filename.jpeg&quot;)</code></pre>
 
 
 <p>Please note that the maximum DPI resolution for any of these formats is 96.</p>
@@ -584,10 +576,9 @@ properly installed in your Julia installation you can also do the following:</p>
 requires that you have properly installed the <a href="http://cairosvg.org">cairosvg</a>
 python package and that the <code>cairosvg</code> command is on your PATH.</p>
 <p>If <code>cairosvg</code> can be found, you can use the following routines:</p>
-<div class="codehilite"><pre><span></span><span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig_cairosvg</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.png&quot;</span><span class="p">)</span>
-<span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig_cairosvg</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.pdf&quot;</span><span class="p">)</span>
-<span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig_cairosvg</span><span class="p">(</span><span class="n">sp</span><span class="p">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.ps&quot;</span><span class="p">)</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">PlotlyJS.savefig_cairosvg(sp::ElectronPlot, &quot;output_filename.png&quot;)
+PlotlyJS.savefig_cairosvg(sp::ElectronPlot, &quot;output_filename.pdf&quot;)
+PlotlyJS.savefig_cairosvg(sp::ElectronPlot, &quot;output_filename.ps&quot;)</code></pre>
           <aside class="copyright" role="note">
             
               Copyright &copy; 2016 <a href="http://spencerlyon.com/">Spencer Lyon</a> &ndash;

@@ -400,24 +400,23 @@
           
             <h1>Maps</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> maps1</span><span class="p">()</span>
-    <span class="n">marker</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
-                  <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
-                  <span class="n">cmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                  <span class="n">cmax</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-                  <span class="n">colorscale</span><span class="o">=</span><span class="s">&quot;Greens&quot;</span><span class="p">,</span>
-                  <span class="n">colorbar</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Some rate&quot;</span><span class="p">,</span>
-                                <span class="n">ticksuffix</span><span class="o">=</span><span class="s">&quot;%&quot;</span><span class="p">,</span>
-                                <span class="n">showticksuffix</span><span class="o">=</span><span class="s">&quot;last&quot;</span><span class="p">),</span>
-                  <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">)</span>
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">scattergeo</span><span class="p">(;</span><span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">locations</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;FRA&quot;</span><span class="p">,</span> <span class="s">&quot;DEU&quot;</span><span class="p">,</span> <span class="s">&quot;RUS&quot;</span><span class="p">,</span> <span class="s">&quot;ESP&quot;</span><span class="p">],</span>
-                        <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Europe Data&quot;</span><span class="p">)</span>
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">geo_scope</span><span class="o">=</span><span class="s">&quot;europe&quot;</span><span class="p">,</span> <span class="n">geo_resolution</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">550</span><span class="p">,</span>
-                    <span class="n">margin</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">maps1</span><span class="p">()</span>
-</pre></div>
+          <pre class="codehilite"><code class="language-julia">function maps1()
+    marker = attr(size=[20, 30, 15, 10],
+                  color=[10, 20, 40, 50],
+                  cmin=0,
+                  cmax=50,
+                  colorscale=&quot;Greens&quot;,
+                  colorbar=attr(title=&quot;Some rate&quot;,
+                                ticksuffix=&quot;%&quot;,
+                                showticksuffix=&quot;last&quot;),
+                  line_color=&quot;black&quot;)
+    trace = scattergeo(;mode=&quot;markers&quot;, locations=[&quot;FRA&quot;, &quot;DEU&quot;, &quot;RUS&quot;, &quot;ESP&quot;],
+                        marker=marker, name=&quot;Europe Data&quot;)
+    layout = Layout(geo_scope=&quot;europe&quot;, geo_resolution=50, width=500, height=550,
+                    margin=attr(l=0, r=0, t=10, b=0))
+    plot(trace, layout)
+end
+maps1()</code></pre>
 
 
 <div id="0f161bd6-7d60-434d-bc45-a0fb5e00974d" class="plotly-graph-div"></div>
@@ -430,37 +429,36 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> maps2</span><span class="p">()</span>
-    <span class="p">@</span><span class="n">eval</span> <span class="k">using</span> <span class="n">DataFrames</span>
+<pre class="codehilite"><code class="language-julia">function maps2()
+    @eval using DataFrames
 
-    <span class="c"># read Data into dataframe</span>
-    <span class="n">nm</span> <span class="o">=</span> <span class="n">tempname</span><span class="p">()</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv&quot;</span>
-    <span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">nm</span><span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">readtable</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span>
-    <span class="n">rm</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span>
+    # read Data into dataframe
+    nm = tempname()
+    url = &quot;https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv&quot;
+    download(url, nm)
+    df = readtable(nm)
+    rm(nm)
 
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">scattergeo</span><span class="p">(;</span><span class="n">locationmode</span><span class="o">=</span><span class="s">&quot;USA-states&quot;</span><span class="p">,</span>
-                        <span class="n">lat</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">lat</span><span class="p">],</span>
-                        <span class="n">lon</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">lon</span><span class="p">],</span>
-                        <span class="n">hoverinfo</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">,</span>
-                        <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="n">string</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="n">name</span><span class="p">],</span> <span class="s">&quot; pop: &quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">[:</span><span class="n">pop</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="n">eachrow</span><span class="p">(</span><span class="n">df</span><span class="p">)],</span>
-                        <span class="n">marker_size</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">pop</span><span class="p">]</span><span class="o">/</span><span class="mi">50_000</span><span class="p">,</span>
-                        <span class="n">marker_line_color</span><span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">,</span> <span class="n">marker_line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">geo</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s">&quot;usa&quot;</span><span class="p">,</span>
-               <span class="n">projection_type</span><span class="o">=</span><span class="s">&quot;albers usa&quot;</span><span class="p">,</span>
-               <span class="n">showland</span><span class="o">=</span><span class="n">true</span><span class="p">,</span>
-               <span class="n">landcolor</span><span class="o">=</span><span class="s">&quot;rgb(217, 217, 217)&quot;</span><span class="p">,</span>
-               <span class="n">subunitwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-               <span class="n">countrywidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-               <span class="n">subunitcolor</span><span class="o">=</span><span class="s">&quot;rgb(255,255,255)&quot;</span><span class="p">,</span>
-               <span class="n">countrycolor</span><span class="o">=</span><span class="s">&quot;rgb(255,255,255)&quot;</span><span class="p">)</span>
+    trace = scattergeo(;locationmode=&quot;USA-states&quot;,
+                        lat=df[:lat],
+                        lon=df[:lon],
+                        hoverinfo=&quot;text&quot;,
+                        text=[string(x[:name], &quot; pop: &quot;, x[:pop]) for x in eachrow(df)],
+                        marker_size=df[:pop]/50_000,
+                        marker_line_color=&quot;black&quot;, marker_line_width=2)
+    geo = attr(scope=&quot;usa&quot;,
+               projection_type=&quot;albers usa&quot;,
+               showland=true,
+               landcolor=&quot;rgb(217, 217, 217)&quot;,
+               subunitwidth=1,
+               countrywidth=1,
+               subunitcolor=&quot;rgb(255,255,255)&quot;,
+               countrycolor=&quot;rgb(255,255,255)&quot;)
 
-    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;2014 US City Populations&quot;</span><span class="p">,</span> <span class="n">showlegend</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">geo</span><span class="o">=</span><span class="n">geo</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">maps2</span><span class="p">()</span>
-</pre></div>
+    layout = Layout(;title=&quot;2014 US City Populations&quot;, showlegend=false, geo=geo)
+    plot(trace, layout)
+end
+maps2()</code></pre>
 
 
 <div id="f570afdd-b6ac-4f88-8897-2e6662f7fbdb" class="plotly-graph-div"></div>

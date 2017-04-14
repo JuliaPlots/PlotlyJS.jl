@@ -400,15 +400,14 @@
           
             <h1>Finance</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> ohlc1</span><span class="p">()</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">ohlc</span><span class="p">(</span><span class="n">open</span><span class="o">=</span><span class="p">[</span><span class="mf">33.0</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">,</span> <span class="mf">34.1</span><span class="p">],</span>
-             <span class="n">high</span><span class="o">=</span><span class="p">[</span><span class="mf">33.1</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.6</span><span class="p">,</span> <span class="mf">33.2</span><span class="p">,</span> <span class="mf">34.8</span><span class="p">],</span>
-             <span class="n">low</span><span class="o">=</span><span class="p">[</span><span class="mf">32.7</span><span class="p">,</span> <span class="mf">32.7</span><span class="p">,</span> <span class="mf">32.8</span><span class="p">,</span> <span class="mf">32.6</span><span class="p">,</span> <span class="mf">32.8</span><span class="p">],</span>
-             <span class="n">close</span><span class="o">=</span><span class="p">[</span><span class="mf">33.0</span><span class="p">,</span> <span class="mf">32.9</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.1</span><span class="p">,</span> <span class="mf">33.1</span><span class="p">])</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">ohlc1</span><span class="p">()</span>
-</pre></div>
+          <pre class="codehilite"><code class="language-julia">function ohlc1()
+    t = ohlc(open=[33.0, 33.3, 33.5, 33.0, 34.1],
+             high=[33.1, 33.3, 33.6, 33.2, 34.8],
+             low=[32.7, 32.7, 32.8, 32.6, 32.8],
+             close=[33.0, 32.9, 33.3, 33.1, 33.1])
+    plot(t)
+end
+ohlc1()</code></pre>
 
 
 <div id="dd9e02b0-d737-42e8-9ee3-dea6e7ed3063" class="plotly-graph-div"></div>
@@ -421,22 +420,21 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> ohlc2</span><span class="p">()</span>
-    <span class="p">@</span><span class="n">eval</span> <span class="k">using</span> <span class="n">Quandl</span>
+<pre class="codehilite"><code class="language-julia">function ohlc2()
+    @eval using Quandl
 
-    <span class="k">function</span><span class="nf"> get_ohlc</span><span class="p">(</span><span class="n">ticker</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">quandlget</span><span class="p">(</span><span class="s">&quot;WIKI/</span><span class="si">$(ticker)</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;DataFrame&quot;</span><span class="p">)</span>
-        <span class="n">ohlc</span><span class="p">(</span><span class="n">open</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Open</span><span class="p">],</span> <span class="n">high</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">High</span><span class="p">],</span> <span class="n">low</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Low</span><span class="p">],</span> <span class="n">close</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Close</span><span class="p">];</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
-    <span class="k">end</span>
+    function get_ohlc(ticker; kwargs...)
+        df = quandlget(&quot;WIKI/$(ticker)&quot;, format=&quot;DataFrame&quot;)
+        ohlc(open=df[:Open], high=df[:High], low=df[:Low], close=df[:Close]; kwargs...)
+    end
 
-    <span class="n">p1</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">get_ohlc</span><span class="p">(</span><span class="s">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Apple&quot;</span><span class="p">))</span>
-    <span class="n">p2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">get_ohlc</span><span class="p">(</span><span class="s">&quot;GOOG&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Google&quot;</span><span class="p">))</span>
+    p1 = plot(get_ohlc(&quot;AAPL&quot;, name=&quot;Apple&quot;))
+    p2 = plot(get_ohlc(&quot;GOOG&quot;, name=&quot;Google&quot;))
 
 
-    <span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">]</span>
-<span class="k">end</span>
-<span class="n">ohlc2</span><span class="p">()</span>
-</pre></div>
+    [p1 p2]
+end
+ohlc2()</code></pre>
 
 
 <div id="b99f3d23-002c-4098-a379-f5aa00a37464" class="plotly-graph-div"></div>
@@ -449,15 +447,14 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> candlestick1</span><span class="p">()</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">candlestick</span><span class="p">(</span><span class="n">open</span><span class="o">=</span><span class="p">[</span><span class="mf">33.0</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">,</span> <span class="mf">34.1</span><span class="p">],</span>
-                    <span class="n">high</span><span class="o">=</span><span class="p">[</span><span class="mf">33.1</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.6</span><span class="p">,</span> <span class="mf">33.2</span><span class="p">,</span> <span class="mf">34.8</span><span class="p">],</span>
-                    <span class="n">low</span><span class="o">=</span><span class="p">[</span><span class="mf">32.7</span><span class="p">,</span> <span class="mf">32.7</span><span class="p">,</span> <span class="mf">32.8</span><span class="p">,</span> <span class="mf">32.6</span><span class="p">,</span> <span class="mf">32.8</span><span class="p">],</span>
-                    <span class="n">close</span><span class="o">=</span><span class="p">[</span><span class="mf">33.0</span><span class="p">,</span> <span class="mf">32.9</span><span class="p">,</span> <span class="mf">33.3</span><span class="p">,</span> <span class="mf">33.1</span><span class="p">,</span> <span class="mf">33.1</span><span class="p">])</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="n">candlestick1</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function candlestick1()
+    t = candlestick(open=[33.0, 33.3, 33.5, 33.0, 34.1],
+                    high=[33.1, 33.3, 33.6, 33.2, 34.8],
+                    low=[32.7, 32.7, 32.8, 32.6, 32.8],
+                    close=[33.0, 32.9, 33.3, 33.1, 33.1])
+    plot(t)
+end
+candlestick1()</code></pre>
 
 
 <div id="4047083c-8771-4275-851a-778ccdb19d32" class="plotly-graph-div"></div>
@@ -470,22 +467,21 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> candlestick2</span><span class="p">()</span>
-    <span class="p">@</span><span class="n">eval</span> <span class="k">using</span> <span class="n">Quandl</span>
+<pre class="codehilite"><code class="language-julia">function candlestick2()
+    @eval using Quandl
 
-    <span class="k">function</span><span class="nf"> get_candlestick</span><span class="p">(</span><span class="n">ticker</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">quandlget</span><span class="p">(</span><span class="s">&quot;WIKI/</span><span class="si">$(ticker)</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;DataFrame&quot;</span><span class="p">)</span>
-        <span class="n">candlestick</span><span class="p">(</span><span class="n">open</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Open</span><span class="p">],</span> <span class="n">high</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">High</span><span class="p">],</span> <span class="n">low</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Low</span><span class="p">],</span> <span class="n">close</span><span class="o">=</span><span class="n">df</span><span class="p">[:</span><span class="n">Close</span><span class="p">];</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
-    <span class="k">end</span>
+    function get_candlestick(ticker; kwargs...)
+        df = quandlget(&quot;WIKI/$(ticker)&quot;, format=&quot;DataFrame&quot;)
+        candlestick(open=df[:Open], high=df[:High], low=df[:Low], close=df[:Close]; kwargs...)
+    end
 
-    <span class="n">p1</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">get_candlestick</span><span class="p">(</span><span class="s">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Apple&quot;</span><span class="p">))</span>
-    <span class="n">p2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">get_candlestick</span><span class="p">(</span><span class="s">&quot;GOOG&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Google&quot;</span><span class="p">))</span>
+    p1 = plot(get_candlestick(&quot;AAPL&quot;, name=&quot;Apple&quot;))
+    p2 = plot(get_candlestick(&quot;GOOG&quot;, name=&quot;Google&quot;))
 
 
-    <span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">]</span>
-<span class="k">end</span>
-<span class="n">candlestick2</span><span class="p">()</span>
-</pre></div>
+    [p1 p2]
+end
+candlestick2()</code></pre>
 
 
 <div id="8f64eef5-2c63-4682-95dd-85c536712088" class="plotly-graph-div"></div>

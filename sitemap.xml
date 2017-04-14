@@ -3,8 +3,8 @@
 
     
     <url>
-     <loc>None/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,38 +12,38 @@
     
         
     <url>
-     <loc>None/basics/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/basics/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/building_traces_layouts/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/building_traces_layouts/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/syncplots/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/syncplots/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/manipulating_plots/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/manipulating_plots/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/styles/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/styles/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/contributing/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/contributing/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -52,80 +52,80 @@
     
         
     <url>
-     <loc>None/examples/3d/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/3d/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/area/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/area/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/box_plots/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/box_plots/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/bar/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/bar/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/contour/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/contour/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/finance/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/finance/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/histograms/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/histograms/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/line_scatter/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/line_scatter/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/time_series/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/time_series/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/maps/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/maps/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/ternary/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/ternary/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/subplots/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/subplots/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/examples/shapes/</loc>
-     <lastmod>2016-11-14</lastmod>
+     <loc>/examples/shapes/</loc>
+     <lastmod>2017-04-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

@@ -400,14 +400,13 @@
           
             <h1>Subplots</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> subplots1</span><span class="p">()</span>
-    <span class="n">p1</span> <span class="o">=</span> <span class="n">linescatter1</span><span class="p">()</span>
-    <span class="n">p2</span> <span class="o">=</span> <span class="n">linescatter2</span><span class="p">()</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">]</span>
-    <span class="n">p</span>
-<span class="k">end</span>
-<span class="n">subplots1</span><span class="p">()</span>
-</pre></div>
+          <pre class="codehilite"><code class="language-julia">function subplots1()
+    p1 = linescatter1()
+    p2 = linescatter2()
+    p = [p1 p2]
+    p
+end
+subplots1()</code></pre>
 
 
 <div id="a0335a3e-55d1-4149-b64f-f58f5335eec8" class="plotly-graph-div"></div>
@@ -420,14 +419,13 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> subplots2</span><span class="p">()</span>
-    <span class="n">p1</span> <span class="o">=</span> <span class="n">linescatter1</span><span class="p">()</span>
-    <span class="n">p2</span> <span class="o">=</span> <span class="n">linescatter2</span><span class="p">()</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">]</span>
-    <span class="n">p</span>
-<span class="k">end</span>
-<span class="n">subplots2</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function subplots2()
+    p1 = linescatter1()
+    p2 = linescatter2()
+    p = [p1, p2]
+    p
+end
+subplots2()</code></pre>
 
 
 <div id="7c63e28d-39f9-4dd3-bc74-1998cdf6b463" class="plotly-graph-div"></div>
@@ -440,19 +438,18 @@
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span><span class="nf"> subplots3</span><span class="p">()</span>
-    <span class="n">p1</span> <span class="o">=</span> <span class="n">linescatter6</span><span class="p">()</span>
-    <span class="n">p2</span> <span class="o">=</span> <span class="n">linescatter2</span><span class="p">()</span>
-    <span class="n">p3</span> <span class="o">=</span> <span class="n">linescatter3</span><span class="p">()</span>
-    <span class="n">p4</span> <span class="o">=</span> <span class="n">batman</span><span class="p">()</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span> <span class="n">p2</span><span class="p">;</span> <span class="n">p3</span> <span class="n">p4</span><span class="p">]</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="s">&quot;showlegend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">false</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="s">&quot;width&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="s">&quot;height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
-    <span class="n">p</span>
-<span class="k">end</span>
-<span class="n">subplots3</span><span class="p">()</span>
-</pre></div>
+<pre class="codehilite"><code class="language-julia">function subplots3()
+    p1 = linescatter6()
+    p2 = linescatter2()
+    p3 = linescatter3()
+    p4 = batman()
+    p = [p1 p2; p3 p4]
+    p.plot.layout[&quot;showlegend&quot;] = false
+    p.plot.layout[&quot;width&quot;] = 1000
+    p.plot.layout[&quot;height&quot;] = 600
+    p
+end
+subplots3()</code></pre>
 
 
 <div id="d23ac8d2-d6ef-4d7e-b053-a07f6c1797d8" class="plotly-graph-div"></div>
