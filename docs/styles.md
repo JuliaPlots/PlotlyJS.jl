@@ -147,7 +147,7 @@ keyword argument `style::Style` that sets the style for that plot only.
     to apply a `Style` to a plot containing subplots you must either use the
     global mode or construct the plot and set the `style` field on the parent
     after subplots are created (e.g. `p = [p1 p2]; p.style=ggplot`, where
-    `ggplot` is defined as aobve)
+    `ggplot` is defined as above)
 
 ## Built in `Style`s
 

@@ -330,3 +330,70 @@ julia> println(JSON.json(l2, 2))
 Notice we got the exact same output as before, but we didn't have to resort to
 building the `Dict` by hand _or_ prefixing multiple arguments with `xaxis_` or
 `legend_`.
+
+
+## Using `DataFrame`s
+
+!!! note
+    New in version 0.6.0
+
+You can also construct traces using the columns of any subtype of
+`AbstractDataFrame` (e.g. the `DataFrame` type from DataFrames.jl).
+
+To demonstrate this functionality let's load the famous iris data set:
+
+```jlcon
+julia> using DataFrames, RDatasets
+
+julia> iris = dataset("datasets", "iris");
+
+julia> head(iris)
+6×5 DataFrames.DataFrame
+│ Row │ SepalLength │ SepalWidth │ PetalLength │ PetalWidth │ Species  │
+├─────┼─────────────┼────────────┼─────────────┼────────────┼──────────┤
+│ 1   │ 5.1         │ 3.5        │ 1.4         │ 0.2        │ "setosa" │
+│ 2   │ 4.9         │ 3.0        │ 1.4         │ 0.2        │ "setosa" │
+│ 3   │ 4.7         │ 3.2        │ 1.3         │ 0.2        │ "setosa" │
+│ 4   │ 4.6         │ 3.1        │ 1.5         │ 0.2        │ "setosa" │
+│ 5   │ 5.0         │ 3.6        │ 1.4         │ 0.2        │ "setosa" │
+│ 6   │ 5.4         │ 3.9        │ 1.7         │ 0.4        │ "setosa" │
+```
+
+Suppose that we wanted to construct a scatter trace with the  `SepalLength`
+column as the x variable and the `SepalWidth` columns as the y variable. We
+do this by calling
+
+```jlcon
+julia> my_trace = scatter(iris, x=:SepalLength, y=:SepalWidth, marker_color=:red)
+scatter with fields marker, type, x, and y
+
+julia> [my_trace[:x][1:5] my_trace[:y][1:5]]
+5×2 DataArrays.DataArray{Float64,2}:
+ 5.1  3.5
+ 4.9  3.0
+ 4.7  3.2
+ 4.6  3.1
+ 5.0  3.6
+
+julia> my_trace[:marker_color]
+:red
+```
+
+How does this work? The basic rule is that if the value of any keyword argument
+is a Julia Symbol (i.e. created with `:something`), then the function creating
+the trace checks if that symbol is one of the column names in the DataFrame.
+If so, it extracts the column from the DataFrame and sets that as the value
+for the keyword argument. Otherwise it passes the symbol directly through.
+
+In the above example, when we constructed `my_trace` the value of the keyword
+argument `x` was set to the Symbol `:SepalLength`. This did match a column name
+from `iris` so that column was extracted and replaced `:SepalLength` as the
+value for the `x` argument. The same holds for `y` and `SepalWidth`.
+
+However, when setting `marker_color=:red` we found that `:red` is not one of
+the column names, so the value for the `marker_color` keyword argument remained
+`:red`.
+
+The DataFrame interface becomes more useful when constructing whole plots. See
+the [convenience methods](syncplots.md#convenience-methods) section of the
+documentation for more information.
