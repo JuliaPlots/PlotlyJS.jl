@@ -61,7 +61,7 @@ function Plot(;style::Style=DEFAULT_STYLE[1])
     Plot(GenericTrace{Dict{Symbol,Any}}[], Layout(), Base.Random.uuid4(), style)
 end
 
-function Plot{T<:AbstractTrace}(data::Vector{T}, layout=Layout();
+function Plot{T<:AbstractTrace}(data::AbstractVector{T}, layout=Layout();
                                 style::Style=DEFAULT_STYLE[1])
     Plot(data, layout, Base.Random.uuid4(), style)
 end
