@@ -3,7 +3,7 @@ site_description: Julia + plotly.js
 site_author: Spencer Lyon
 theme_dir: 'docs/theme'
 
-repo_url: https://github.com/spencerlyon2/PlotlyJS.jl
+repo_url: https://github.com/sglyon/PlotlyJS.jl
 
 pages:
 - Home: index.md
@@ -38,9 +38,9 @@ markdown_extensions:
 google_analytics: ['UA-36732392-3', 'auto']
 
 extra:
-  version: '0.5.0'
+  version: '0.6.0'
   author:
-    github: 'spencerlyon2'
+    github: 'sglyon'
 extra_css: [css/github.css]
 extra_javascript: ["https://cdn.plot.ly/plotly-latest.min.js"]
 
