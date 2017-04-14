@@ -429,10 +429,10 @@ end</code></pre>
 Plot()
 
 # A vector of traces and a layout
-Plot{T&lt;:AbstractTrace}(data::Vector{T}, layout::AbstractLayout)
+Plot{T&lt;:AbstractTrace}(data::AbstrractVector{T}, layout::AbstractLayout)
 
 # A vector of traces -- default layout supplied
-Plot{T&lt;:AbstractTrace}(data::Vector{T})
+Plot{T&lt;:AbstractTrace}(data::AbstrractVector{T})
 
 # a single trace: will be put into a vector -- default layout supplied
 Plot(data::AbstractTrace)
@@ -444,6 +444,48 @@ Plot(data::AbstractTrace, layout::AbstractLayout)</code></pre>
 <p>Notice that none of the recommended constructors have you pass the <code>divid</code>
 field manually. This is an internal field used to allow the display and
 unique identification of multiple plots in a single web page.</p>
+<h3 id="convenience-methods">Convenience methods<a class="headerlink" href="#convenience-methods" title="Permanent link">¶</a></h3>
+<p>There are also a number of convenience methods to the <code>Plot</code> function that will
+attempt to construct the traces for you. They have the following signatures</p>
+<pre class="codehilite"><code class="language-julia"># Build a trace of type `kind` from x and y -- apply all kwargs to this trace
+Plot(x::AbstractVector, y::AbstractVector, l::Layout=Layout(); kind=&quot;scatter&quot;, kwargs...)
+
+# Build one trace of type `kind` for each column of the matrix `y`. Repeat the
+# `x` argument for all traces. Apply `kwargs` identically to all traces
+Plot(x::AbstractVector, y::AbstractMatrix, l::Layout=Layout(); kind=&quot;scatter&quot;, kwargs...)
+
+# For `x` and `y` with the same number of columns, build one trace of type
+# `kind` for each column pair, applying all `kwargs` identically do all traces
+Plot(x::AbstractMatrix, y::AbstractMatrix, l::Layout=Layout(); kind=&quot;scatter&quot;, kwargs...)
+
+# For any array of eltype `_Scalar` (really data, see PlotlyJS._Scalar), call
+# the method `Plot(1:size(y, 1), y, l; kwargs...)` described above
+Plot{T&lt;:_Scalar}(y::AbstractArray{T}, l::Layout=Layout(); kwargs...)
+
+# Create one trace by applying `f` at 50 evenly spaced points from `x0` to `x1`
+Plot(f::Function, x0::Number, x1::Number, l::Layout=Layout(); kwargs...)
+
+# Create one trace for each function `f ∈ fs` by applying `f` at 50 evenly
+# spaced points from `x0` to `x1`
+Plot(fs::AbstractVector{Function}, x0::Number, x1::Number, l::Layout=Layout(); kwargs...)
+
+# Construct one or more traces using data from the DataFrame `df` when possible
+# If `group` is a symbol and that symbol matches one of the column names of
+# `df`, make one trace for each unique value in the column `df[group]` (see
+# example below)
+Plot(df::AbstractDataFrame, l::Layout=Layout(); group=nothing, kwargs...)
+
+# Use the column `df[x]` as the x value on each trace. Similar for `y`
+Plot(df::AbstractDataFrame, x::Symbol, y::Symbol, l::Layout=Layout(); group=nothing, kwargs...)
+
+# Use the column `df[y]` as the y value on each trace
+Plot(df::AbstractDataFrame, y::Symbol, l::Layout=Layout(); group=nothing, kwargs...)</code></pre>
+
+
+<p>For more information on how these methods work please see the docstring for the
+<code>Plot</code> function by calling <code>?Plot</code> from the REPL.</p>
+<p>Especially convenient is the <code>group</code> keyword argument when calling
+<code>Plot(::AbstractDataFrame, ... ; ...)</code>.</p>
 <h2 id="syncplots"><code>SyncPlot</code>s<a class="headerlink" href="#syncplots" title="Permanent link">¶</a></h2>
 <p>A <code>Plot</code> is a pure Julia object and doesn't interact with plotly.js by itself.
 This means that we can't view the actual plotly figure the data represents.</p>
@@ -468,7 +510,9 @@ the REPL or in a Jupyter notebook.</p>
 <p>The <code>Plot</code> function will create a new <code>Plot</code> object and the <code>plot</code> function
 will create a new <code>SyncPlot</code>. Which frontend is selected will depend on
 context: if the Jupyter notebook is active the <code>JupyterDisplay</code> is chosen,
-otherwise the <code>ElectronDisplay</code> will be used.</p>
+otherwise the <code>ElectronDisplay</code> will be used. The <code>plot</code> function simply
+constructs a <code>Plot</code> object and picks a default display by wrapping the
+<code>Plot</code>in a <code>SyncPlot</code>. All methods for <code>Plot</code> apply similarly to <code>plot</code></p>
 </div>
 <p>As of the time of writing there are two supported frontends...</p>
 <h3 id="electronplot"><code>ElectronPlot</code><a class="headerlink" href="#electronplot" title="Permanent link">¶</a></h3>
@@ -499,6 +543,9 @@ package.</p>
 <pre class="codehilite"><code class="language-julia">typealias ElectronPlot SyncPlot{ElectronDisplay}</code></pre>
 
 
+<p>Please note that the Electron frontend also allows PlotlyJS.jl figures to be
+displayed inside the Atom text editor when using the
+<a href="https://github.com/JunoLab/atom-julia-client">atom-julia-client</a> environment.</p>
 <h3 id="jupyerplot"><code>JupyerPlot</code><a class="headerlink" href="#jupyerplot" title="Permanent link">¶</a></h3>
 <p>We also have <code>JupyterDisplay &lt;: AbstractPlotlyDisplay</code>, which can be used to
 display PlotlyJS figures in Jupyter notebooks. Because the notebook is inside
@@ -512,6 +559,10 @@ for the plot as well as registering Julia functions as callbacks.</p>
 <pre class="codehilite"><code class="language-julia">typealias JupyterPlot SyncPlot{JupyterDisplay}</code></pre>
 
 
+<p>Please note that the <code>JupyterPlot</code> frontend also allows PlotlyJS.jl figures to
+be viewed inside the Atom text editor when using the
+<a href="https://github.com/nteract/hydrogen">hydrogen</a> package and inside the <a href="https://nteract.io">nteract
+notebook</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>2 way communication between javascript and Julia is possible in the

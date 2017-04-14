@@ -220,6 +220,12 @@
               </a>
             </li>
           
+            <li class="anchor">
+              <a title="Using DataFrames" href="#using-dataframes">
+                Using DataFrames
+              </a>
+            </li>
+          
         </ul>
       
     
@@ -717,6 +723,63 @@ julia&gt; println(JSON.json(l2, 2))
 <p>Notice we got the exact same output as before, but we didn't have to resort to
 building the <code>Dict</code> by hand <em>or</em> prefixing multiple arguments with <code>xaxis_</code> or
 <code>legend_</code>.</p>
+<h2 id="using-dataframes">Using <code>DataFrame</code>s<a class="headerlink" href="#using-dataframes" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>New in version 0.6.0</p>
+</div>
+<p>You can also construct traces using the columns of any subtype of
+<code>AbstractDataFrame</code> (e.g. the <code>DataFrame</code> type from DataFrames.jl).</p>
+<p>To demonstrate this functionality let's load the famous iris data set:</p>
+<pre class="codehilite"><code class="language-jlcon">julia&gt; using DataFrames, RDatasets
+
+julia&gt; iris = dataset(&quot;datasets&quot;, &quot;iris&quot;);
+
+julia&gt; head(iris)
+6×5 DataFrames.DataFrame
+│ Row │ SepalLength │ SepalWidth │ PetalLength │ PetalWidth │ Species  │
+├─────┼─────────────┼────────────┼─────────────┼────────────┼──────────┤
+│ 1   │ 5.1         │ 3.5        │ 1.4         │ 0.2        │ &quot;setosa&quot; │
+│ 2   │ 4.9         │ 3.0        │ 1.4         │ 0.2        │ &quot;setosa&quot; │
+│ 3   │ 4.7         │ 3.2        │ 1.3         │ 0.2        │ &quot;setosa&quot; │
+│ 4   │ 4.6         │ 3.1        │ 1.5         │ 0.2        │ &quot;setosa&quot; │
+│ 5   │ 5.0         │ 3.6        │ 1.4         │ 0.2        │ &quot;setosa&quot; │
+│ 6   │ 5.4         │ 3.9        │ 1.7         │ 0.4        │ &quot;setosa&quot; │</code></pre>
+
+
+<p>Suppose that we wanted to construct a scatter trace with the  <code>SepalLength</code>
+column as the x variable and the <code>SepalWidth</code> columns as the y variable. We
+do this by calling</p>
+<pre class="codehilite"><code class="language-jlcon">julia&gt; my_trace = scatter(iris, x=:SepalLength, y=:SepalWidth, marker_color=:red)
+scatter with fields marker, type, x, and y
+
+julia&gt; [my_trace[:x][1:5] my_trace[:y][1:5]]
+5×2 DataArrays.DataArray{Float64,2}:
+ 5.1  3.5
+ 4.9  3.0
+ 4.7  3.2
+ 4.6  3.1
+ 5.0  3.6
+
+julia&gt; my_trace[:marker_color]
+:red</code></pre>
+
+
+<p>How does this work? The basic rule is that if the value of any keyword argument
+is a Julia Symbol (i.e. created with <code>:something</code>), then the function creating
+the trace checks if that symbol is one of the column names in the DataFrame.
+If so, it extracts the column from the DataFrame and sets that as the value
+for the keyword argument. Otherwise it passes the symbol directly through.</p>
+<p>In the above example, when we constructed <code>my_trace</code> the value of the keyword
+argument <code>x</code> was set to the Symbol <code>:SepalLength</code>. This did match a column name
+from <code>iris</code> so that column was extracted and replaced <code>:SepalLength</code> as the
+value for the <code>x</code> argument. The same holds for <code>y</code> and <code>SepalWidth</code>.</p>
+<p>However, when setting <code>marker_color=:red</code> we found that <code>:red</code> is not one of
+the column names, so the value for the <code>marker_color</code> keyword argument remained
+<code>:red</code>.</p>
+<p>The DataFrame interface becomes more useful when constructing whole plots. See
+the <a href="../syncplots/#convenience-methods">convenience methods</a> section of the
+documentation for more information.</p>
           <aside class="copyright" role="note">
             
               Copyright &copy; 2016 <a href="http://spencerlyon.com/">Spencer Lyon</a> &ndash;
