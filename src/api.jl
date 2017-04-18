@@ -162,13 +162,6 @@ function restyle!(p::Plot, inds::AbstractVector{Int},
     map((ind, i) -> restyle!(p.data[ind], i, update; kw...), inds, 1:N)
 end
 
-"""
-`restyle!(p::Plot, update::Associative=Dict(); kwargs...)`
-
-Update all traces using update dict and/or kwargs
-"""
-restyle!(p::Plot, update::Associative=Dict(); kwargs...) =
-    restyle!(p, 1:length(p.data), update; kwargs...)
 
 @doc """
 The `restyle!` method follows the semantics of the `Plotly.restyle` function in
