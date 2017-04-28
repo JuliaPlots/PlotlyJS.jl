@@ -126,6 +126,10 @@ function __init__()
     # --------------------------------------------- #
     # Code to run once when the notebook starts up! #
     # --------------------------------------------- #
+    if !isfile(_js_path)
+        info("plotly.js javascript libary not found -- downloading now")
+        include(joinpath(dirname(_js_path), "build.jl"))
+    end
 
     if _isijulia()
 
