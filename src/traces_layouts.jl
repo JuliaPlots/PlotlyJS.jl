@@ -193,6 +193,8 @@ function Base.merge!(hf1::HasFields, hf2::HasFields)
     hf1
 end
 
+Base.haskey(hf::HasFields, k::Symbol) = haskey(hf.fields, k)
+
 Base.merge{T<:HasFields}(hf1::T, hf2::T) =
     merge!(deepcopy(hf1), hf2)
 

@@ -49,6 +49,7 @@ end
 
 # include the rest of the core parts of the package
 include("display.jl")
+include("util.jl")
 include("json.jl")
 include("subplots.jl")
 include("api.jl")
