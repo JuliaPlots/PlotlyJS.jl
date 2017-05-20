@@ -7,7 +7,6 @@
 #[![AppVeyor](https://ci.appveyor.com/api/projects/status/mue0n1yhlxq4ok8d/branch/master?svg=true)](https://ci.appveyor.com/project/sglyon/plotlyjs-jl/branch/master)
 #[![Coverage Status](https://img.shields.io/coveralls/sglyon/PlotlyJS.jl.svg)](https://coveralls.io/r/sglyon/PlotlyJS.jl)
 
-[![PlotlyJS](http://pkg.julialang.org/badges/PlotlyJS_0.4.svg)](http://pkg.julialang.org/?pkg=PlotlyJS)
 [![PlotlyJS](http://pkg.julialang.org/badges/PlotlyJS_0.5.svg)](http://pkg.julialang.org/?pkg=PlotlyJS)
 [![PlotlyJS](http://pkg.julialang.org/badges/PlotlyJS_0.6.svg)](http://pkg.julialang.org/?pkg=PlotlyJS)
 
