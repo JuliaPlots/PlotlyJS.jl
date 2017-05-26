@@ -98,12 +98,10 @@ end
 
 function fivethirtyeight_style()
     ta = Dict(:scatter=>attr(line_width=4))
-    axis = attr(showgrid=true, gridcolor="#cbcbcb", linewidth=1.0,
-                      ticklen=0.0,
-                      linecolor="#f0f0f0", titlefont_color="#555555",
-                      titlefont_size=12, ticks="outside", showgrid=true,
-                      tickcolor="#555555"
-                      )
+    axis = attr(showgrid=true, gridcolor="#cbcbcb",
+                linewidth=1.0, linecolor="#f0f0f0",
+                ticklen=0.0, tickcolor="#555555", ticks="outside",
+                titlefont_size=12, titlefont_color="#555555")
     layout = Layout(plot_bgcolor="#f0f0f0",
                     paper_bgcolor="#f0f0f0",
                     font_size=14,
@@ -121,13 +119,10 @@ function seaborn_style()
     ta = Dict(:heatmap=>attr(colorscale="Greys"),
               :scatter=>attr(marker=attr(size=7, line_width=0.0),
                              line_width=1.75))
-    axis = attr(showgrid=true, gridcolor="white", linewidth=1.0,
-                      ticklen=0.0, showgrid=true,
-                      linecolor="white", titlefont_color="#555555",
-                      titlefont_size=12, ticks="outside",
-                      tickfont_size=10,
-                      tickcolor="#555555"
-                      )
+    axis = attr(showgrid=true, gridcolor="white",
+                linewidth=1.0, linecolor="white",
+                ticklen=0.0, tickcolor="#555555", ticks="outside", tickfont_size=10,
+                titlefont_size=12, titlefont_color="#555555")
     # TODO: no concept of major vs minor ticks...
     layout = Layout(plot_bgcolor="EAEAF2",
                     paper_bgcolor="white",
