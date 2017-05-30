@@ -154,8 +154,8 @@ function _recession_band_shapes(p::Plot; kwargs...)
     max_ax_date = fill(Date(-500_000), n_xaxis)
     for i in 1:n_trace
         ix = xmap[i]
-        min_ax_date[ix] = minimum(min_ax_date[ix], min_date[ix])
-        max_ax_date[ix] = maximum(max_ax_date[ix], max_date[ix])
+        min_ax_date[ix] = min(min_ax_date[ix], min_date[ix])
+        max_ax_date[ix] = max(max_ax_date[ix], max_date[ix])
     end
 
     # now loop through the traces and add one set of shapes per axis that

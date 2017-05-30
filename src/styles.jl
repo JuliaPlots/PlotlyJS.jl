@@ -8,7 +8,7 @@ Note that the following styles used values from the matplotlib style library
 
 =#
 
-immutable Style
+@compat struct Style
     color_cycle::Vector
     layout::Layout
     global_trace::PlotlyAttribute

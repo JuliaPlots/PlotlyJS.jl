@@ -37,10 +37,10 @@ _symbol_dict(d::Associative) =
 # include these here because they are used below
 include("traces_layouts.jl")
 include("styles.jl")
-abstract AbstractPlotlyDisplay
+@compat abstract type AbstractPlotlyDisplay end
 
 # core plot object
-type Plot{TT<:AbstractTrace}
+@compat mutable struct Plot{TT<:AbstractTrace}
     data::Vector{TT}
     layout::AbstractLayout
     divid::Base.Random.UUID

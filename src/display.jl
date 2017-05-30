@@ -67,7 +67,7 @@ Base.show(io::IO, p::Plot) = @compat show(io, MIME("text/plain"), p)
 # ----------------------------------------- #
 # SyncPlot -- sync Plot object with display #
 # ----------------------------------------- #
-immutable SyncPlot{TD<:AbstractPlotlyDisplay}
+@compat struct SyncPlot{TD<:AbstractPlotlyDisplay}
     plot::Plot
     view::TD
 end

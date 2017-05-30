@@ -1,7 +1,7 @@
-abstract AbstractTrace
-abstract AbstractLayout
+@compat abstract type AbstractTrace end
+@compat abstract type AbstractLayout end
 
-type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
+@compat mutable struct GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
     fields::T
 end
 
@@ -16,7 +16,7 @@ end
 
 const _layout_defaults = Dict{Symbol,Any}(:margin => Dict(:l=>50, :r=>50, :t=>60, :b=>50))
 
-type Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
+@compat mutable struct Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
     fields::T
 
     function Layout(fields; kwargs...)
@@ -35,9 +35,9 @@ kind(l::Layout) = "layout"
 # -------------------------------------------- #
 # Specific types of trace or layout attributes #
 # -------------------------------------------- #
-abstract AbstractPlotlyAttribute
+@compat abstract type AbstractPlotlyAttribute end
 
-type PlotlyAttribute{T<:Associative{Symbol,Any}} <: AbstractPlotlyAttribute
+@compat mutable struct PlotlyAttribute{T<:Associative{Symbol,Any}} <: AbstractPlotlyAttribute
     fields::T
 end
 
@@ -50,8 +50,8 @@ function attr(fields=Dict{Symbol,Any}(); kwargs...)
     s
 end
 
-abstract AbstractLayoutAttribute <: AbstractPlotlyAttribute
-abstract AbstractShape <: AbstractLayoutAttribute
+@compat abstract type AbstractLayoutAttribute <: AbstractPlotlyAttribute end
+@compat abstract type AbstractShape <: AbstractLayoutAttribute end
 
 kind(::AbstractPlotlyAttribute) = "PlotlyAttribute"
 
@@ -62,7 +62,7 @@ typealias _Scalar Union{Base.Dates.Date,Number,AbstractString,Symbol}
 # Shapes #
 # ------ #
 
-type Shape <: AbstractLayoutAttribute
+@compat mutable struct Shape <: AbstractLayoutAttribute
     fields::Associative{Symbol}
 end
 
