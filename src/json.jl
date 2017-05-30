@@ -5,7 +5,7 @@ JSON.lower(a::HasFields) = a.fields
 
 function _apply_style_axis!(p::Plot, ax, force::Bool=false)
     if haskey(p.style.layout.fields, Symbol(ax, "axis")) || force
-        ax_names = filter(_-> startswith(string(_), "$(ax)axis"),
+        ax_names = filter(_x-> startswith(string(_x), "$(ax)axis"),
                           keys(p.layout.fields))
 
         for ax_name in ax_names
@@ -44,7 +44,7 @@ function JSON.lower(p::Plot)
         end
     end
 
-    _is3d = any(_ -> contains(string(_[:type]), "3d"), p.data)
+    _is3d = any(_x -> contains(string(_x[:type]), "3d"), p.data)
 
     # apply layout attrs
     if !isempty(p.style.layout)

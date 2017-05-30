@@ -9,7 +9,7 @@ else
 end
 
 using PlotlyJS
-typealias M PlotlyJS
+@compat const M = PlotlyJS
 
 try
     @testset DottedTestSet "PlotlyJS Tests" begin

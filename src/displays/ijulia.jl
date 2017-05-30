@@ -8,7 +8,7 @@
     cond::Condition  # for getting data back from js
 end
 
-typealias JupyterPlot SyncPlot{JupyterDisplay}
+@compat const JupyterPlot = SyncPlot{JupyterDisplay}
 
 JupyterDisplay(p::Plot) = begin
     _ijulia_eval_comm[] = Comm(:plotlyjs_eval)

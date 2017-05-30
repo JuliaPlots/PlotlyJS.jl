@@ -19,8 +19,8 @@ const _layout_defaults = Dict{Symbol,Any}(:margin => Dict(:l=>50, :r=>50, :t=>60
 @compat mutable struct Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
     fields::T
 
-    function Layout(fields; kwargs...)
-        l = new(merge(_layout_defaults, fields))
+    function (::Type{Layout{T}}){T}(fields::T; kwargs...)
+        l = new{T}(merge(_layout_defaults, fields))
         map(x->setindex!(l, x[2], x[1]), kwargs)
         l
     end
@@ -56,7 +56,7 @@ end
 kind(::AbstractPlotlyAttribute) = "PlotlyAttribute"
 
 # TODO: maybe loosen some day
-typealias _Scalar Union{Base.Dates.Date,Number,AbstractString,Symbol}
+@compat const _Scalar = Union{Base.Dates.Date,Number,AbstractString,Symbol}
 
 # ------ #
 # Shapes #
@@ -145,8 +145,8 @@ hline(y, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
 # Implementation of getindex and setindex! #
 # ---------------------------------------- #
 
-typealias HasFields Union{GenericTrace,Layout,Shape,PlotlyAttribute}
-typealias _LikeAssociative Union{PlotlyAttribute,Associative}
+@compat const HasFields = Union{GenericTrace,Layout,Shape,PlotlyAttribute}
+@compat const _LikeAssociative = Union{PlotlyAttribute,Associative}
 
 #= NOTE: Generate this list with the following code
 using JSON, PlotlyJS
