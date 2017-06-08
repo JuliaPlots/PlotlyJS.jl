@@ -8,7 +8,7 @@ _symbol_dict(x) = x
 _symbol_dict(d::Associative) =
     Dict{Symbol,Any}([(Symbol(k), _symbol_dict(v)) for (k, v) in d])
 
-struct SchemaAttribute
+immutable SchemaAttribute
     description::Nullable{MD}
     valtype::Nullable{String}
     flags::Nullable{Vector{Any}}
@@ -51,7 +51,7 @@ function SchemaAttribute(d::Associative)
     SchemaAttribute(desc, valtype, flags, vals, children)
 end
 
-struct TraceSchema
+immutable TraceSchema
     name::Symbol
     description::Nullable{MD}
     attributes::Dict{Symbol,SchemaAttribute}
@@ -69,7 +69,7 @@ function TraceSchema(nm::Symbol, d::Associative, attrs_key=:attributes)
     TraceSchema(nm, description, attrs)
 end
 
-struct Schema
+immutable Schema
     traces::Dict{Symbol,TraceSchema}
     layout::TraceSchema
 
