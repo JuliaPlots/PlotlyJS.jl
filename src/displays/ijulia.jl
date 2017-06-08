@@ -2,7 +2,7 @@
 # Jupyter notebook setup #
 # ---------------------- #
 
-@compat mutable struct JupyterDisplay <: AbstractPlotlyDisplay
+type JupyterDisplay <: AbstractPlotlyDisplay
     divid::Base.Random.UUID
     displayed::Bool
     cond::Condition  # for getting data back from js

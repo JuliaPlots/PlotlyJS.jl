@@ -2,7 +2,7 @@
 # Blink setup #
 # ----------- #
 
-@compat mutable struct ElectronDisplay <: AbstractPlotlyDisplay
+type ElectronDisplay <: AbstractPlotlyDisplay
     divid::Base.Random.UUID
     w::Nullable{Any}
 end

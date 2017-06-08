@@ -41,7 +41,7 @@ include("styles.jl")
 @compat abstract type AbstractPlotlyDisplay end
 
 # core plot object
-@compat mutable struct Plot{TT<:AbstractTrace}
+type Plot{TT<:AbstractTrace}
     data::Vector{TT}
     layout::AbstractLayout
     divid::Base.Random.UUID

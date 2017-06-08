@@ -1,7 +1,7 @@
 @compat abstract type AbstractTrace end
 @compat abstract type AbstractLayout end
 
-@compat mutable struct GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
+type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
     fields::T
 end
 
@@ -16,7 +16,7 @@ end
 
 const _layout_defaults = Dict{Symbol,Any}(:margin => Dict(:l=>50, :r=>50, :t=>60, :b=>50))
 
-@compat mutable struct Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
+type Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
     fields::T
 
     function (::Type{Layout{T}}){T}(fields::T; kwargs...)
@@ -37,7 +37,7 @@ kind(l::Layout) = "layout"
 # -------------------------------------------- #
 @compat abstract type AbstractPlotlyAttribute end
 
-@compat mutable struct PlotlyAttribute{T<:Associative{Symbol,Any}} <: AbstractPlotlyAttribute
+type PlotlyAttribute{T<:Associative{Symbol,Any}} <: AbstractPlotlyAttribute
     fields::T
 end
 
@@ -62,7 +62,7 @@ kind(::AbstractPlotlyAttribute) = "PlotlyAttribute"
 # Shapes #
 # ------ #
 
-@compat mutable struct Shape <: AbstractLayoutAttribute
+type Shape <: AbstractLayoutAttribute
     fields::Associative{Symbol}
 end
 
