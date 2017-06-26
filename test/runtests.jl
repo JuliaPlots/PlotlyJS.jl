@@ -1,12 +1,8 @@
 module PlotlyJSTest
 using TestSetExtensions
+using Compat
 
-if VERSION >= v"0.5-"
-    using Base.Test
-else
-    using BaseTestNext
-    const Test = BaseTestNext
-end
+using Base.Test
 
 using PlotlyJS
 @compat const M = PlotlyJS
