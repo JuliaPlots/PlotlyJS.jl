@@ -3,6 +3,7 @@ __precompile__()
 module PlotlyJS
 
 using Compat; import Compat: String, readstring, view
+using Compat.Iterators
 using JSON
 using Blink
 using Colors
