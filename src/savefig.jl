@@ -42,7 +42,7 @@ end
     - `:remote` - reference the javascript from plotly CDN
     - `:embed` - embed the javascript in output (add's 1.7MB to size)
 """
-function savefig_imagemagick(p::ElectronPlot, fn::AbstractString; js::Symbol=:local
+function savefig_imagemagick(p::ElectronPlot, fn::AbstractString; js::Symbol=js_default[]
                              #   sz::Tuple{Int,Int}=(8,6),
                              #   dpi::Int=300
                              )
@@ -102,7 +102,7 @@ function savefig_imagemagick(p::ElectronPlot, fn::AbstractString; js::Symbol=:lo
     p
 end
 
-function savefig(p::ElectronPlot, fn::AbstractString; js::Symbol=:local)
+function savefig(p::ElectronPlot, fn::AbstractString; js::Symbol=js_default[])
     suf = split(fn, ".")[end]
 
     # if html we don't need a plot window
