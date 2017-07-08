@@ -22,15 +22,16 @@ function script_content(p::Plot)
     """
 end
 
+const js_default = Ref(:local)
 
-function stringmime(::MIME"text/html", p::Plot, js::Symbol=:local)
+function stringmime(::MIME"text/html", p::Plot, js::Symbol=js_default[])
 
     if js == :local
         script_txt = "<script src=\"$(_js_path)\"></script>"
     elseif js == :remote
         script_txt = "<script src=\"$(_js_cdn_path)\"></script>"
     elseif js == :embed
-        script_txt = "<script>$(readall(_js_path))</script>"
+        script_txt = "<script>$(@compat readstring(_js_path))</script>"
     else
         msg = """
         Unknown value for argument js: $js.
@@ -52,7 +53,7 @@ function stringmime(::MIME"text/html", p::Plot, js::Symbol=:local)
 
 end
 
-@compat Base.show(io::IO, ::MIME"text/html", p::Plot, js::Symbol=:local) =
+@compat Base.show(io::IO, ::MIME"text/html", p::Plot, js::Symbol=js_default[]) =
     print(io, stringmime(MIME"text/html"(), p, js))
 
 @compat function Base.show(io::IO, ::MIME"text/plain", p::Plot)
@@ -111,7 +112,7 @@ for f in (:extendtraces!, :prependtraces!)
     end
 end
 
-@compat Base.show(io::IO, ::MIME"text/html", sp::SyncPlot, js::Symbol=:local) =
+@compat Base.show(io::IO, ::MIME"text/html", sp::SyncPlot, js::Symbol=js_default[]) =
     print(io, stringmime(MIME"text/html"(), sp.plot, js))
 
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
