@@ -30,7 +30,7 @@ function stringmime(::MIME"text/html", p::Plot, js::Symbol=:local)
     elseif js == :remote
         script_txt = "<script src=\"$(_js_cdn_path)\"></script>"
     elseif js == :embed
-        script_txt = "<script>$(readall(_js_path))</script>"
+        script_txt = "<script>$(@compat readstring(_js_path))</script>"
     else
         msg = """
         Unknown value for argument js: $js.
