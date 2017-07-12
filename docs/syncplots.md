@@ -22,10 +22,10 @@ Given one or more `AbstractTrace`s and optionally a `layout`, we construct a
 Plot()
 
 # A vector of traces and a layout
-Plot{T<:AbstractTrace}(data::AbstrractVector{T}, layout::AbstractLayout)
+Plot{T<:AbstractTrace}(data::AbstractVector{T}, layout::AbstractLayout)
 
 # A vector of traces -- default layout supplied
-Plot{T<:AbstractTrace}(data::AbstrractVector{T})
+Plot{T<:AbstractTrace}(data::AbstractVector{T})
 
 # a single trace: will be put into a vector -- default layout supplied
 Plot(data::AbstractTrace)
