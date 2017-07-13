@@ -51,16 +51,25 @@ trace.
 columns (say `N`). Then `N` traces are constructed, where the `i`th column of
 `x` is paired with the `i`th column of `y`.
 """
-function Plot(x::AbstractVector, y::AbstractVector, l::Layout=Layout();
+function Plot{T<:_Scalar}(x::AbstractVector{T}, y::AbstractVector, l::Layout=Layout();
               kind="scatter", style::Style=DEFAULT_STYLE[1], kwargs...)
     Plot(GenericTrace(x, y; kind=kind, kwargs...), l, style=style)
 end
 
-function Plot(x::AbstractVector, y::AbstractMatrix, l::Layout=Layout();
+function Plot{T<:_Scalar}(x::AbstractVector{T}, y::AbstractMatrix, l::Layout=Layout();
               style::Style=DEFAULT_STYLE[1], kwargs...)
     traces = GenericTrace[GenericTrace(x, view(y, :, i); kwargs...)
                           for i in 1:size(y, 2)]
     Plot(traces, l, style=style)
+end
+
+function Plot{T<:AbstractVector}(x::AbstractVector{T}, y::AbstractMatrix, l::Layout=Layout();
+              style::Style=DEFAULT_STYLE[1], kwargs...)
+    size(x, 1) == size(y, 2) || error("x and y must have same number of cols")
+
+    traces = GenericTrace[GenericTrace(x[i], view(y, :, i); kwargs...)
+                          for i in 1:size(y,2)]
+    Plot(traces, l; style=style)
 end
 
 function Plot(x::AbstractMatrix, y::AbstractMatrix, l::Layout=Layout();
