@@ -10,6 +10,9 @@ Notes:
   *
 =#
 using PlotlyJS
+using Distributions, Quandl, RDatasets  # used in examples
+
+doc_style = Style(Style(layout=Layout(margin=attr(t=60, b=60, l=50, r=50))))
 
 # Read all file names in
 this_dir = dirname(@__FILE__)
@@ -30,8 +33,10 @@ for i in all_julia_files
     include(joinpath(this_dir, "..", "examples", i))
 end
 
+use_style!(doc_style)
+
 # Walk through each example in a file and get the markdown from `single_example`
-function single_file(filename::AbstractString)
+function single_file(filename::String)
     # Open a file to write to
     outfile = open(joinpath(this_dir, "examples", filename[1:end-3]*".md"), "w")
 
@@ -58,7 +63,9 @@ function single_file(filename::AbstractString)
         println("adding $fun_name")
 
         # Get html block
-        html_block = PlotlyJS.html_body(eval(Expr(:call, Symbol(fun_name))).plot)
+        plt = eval(Expr(:call, Symbol(fun_name))).plot
+        relayout!(plt, margin=attr(t=60, b=60, l=50, r=50))
+        html_block = PlotlyJS.html_body(plt)
 
         println(outfile, "```julia\n$func_block\n$(fun_name)()\n```\n\n\n$html_block\n\n")
         l = end_l
