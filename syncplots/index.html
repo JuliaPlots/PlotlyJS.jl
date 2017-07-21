@@ -416,29 +416,31 @@
 <p>We'll also discuss how to integrate with various frontends</p>
 <h2 id="plot"><code>Plot</code><a class="headerlink" href="#plot" title="Permanent link">¶</a></h2>
 <p>Recall that the definition of the <code>Plot</code> object is</p>
-<pre class="codehilite"><code class="language-julia">type Plot{TT&lt;:AbstractTrace}
-    data::Vector{TT}
-    layout::AbstractLayout
-    divid::Base.Random.UUID
-end</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">type</span> <span class="n">Plot</span><span class="p">{</span><span class="n">TT</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}</span>
+    <span class="n">data</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">TT</span><span class="p">}</span>
+    <span class="n">layout</span><span class="o">::</span><span class="n">AbstractLayout</span>
+    <span class="n">divid</span><span class="o">::</span><span class="n">Base</span><span class="o">.</span><span class="n">Random</span><span class="o">.</span><span class="n">UUID</span>
+<span class="k">end</span>
+</pre></div>
 
 
 <p>Given one or more <code>AbstractTrace</code>s and optionally a <code>layout</code>, we construct a
 <code>Plot</code> object with any of the following constructors</p>
-<pre class="codehilite"><code class="language-julia"># A blank canvas no traces or a layout
-Plot()
+<div class="codehilite"><pre><span></span><span class="c"># A blank canvas no traces or a layout</span>
+<span class="n">Plot</span><span class="p">()</span>
 
-# A vector of traces and a layout
-Plot{T&lt;:AbstractTrace}(data::AbstrractVector{T}, layout::AbstractLayout)
+<span class="c"># A vector of traces and a layout</span>
+<span class="n">Plot</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}(</span><span class="n">data</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">layout</span><span class="o">::</span><span class="n">AbstractLayout</span><span class="p">)</span>
 
-# A vector of traces -- default layout supplied
-Plot{T&lt;:AbstractTrace}(data::AbstrractVector{T})
+<span class="c"># A vector of traces -- default layout supplied</span>
+<span class="n">Plot</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}(</span><span class="n">data</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">{</span><span class="n">T</span><span class="p">})</span>
 
-# a single trace: will be put into a vector -- default layout supplied
-Plot(data::AbstractTrace)
+<span class="c"># a single trace: will be put into a vector -- default layout supplied</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">data</span><span class="o">::</span><span class="n">AbstractTrace</span><span class="p">)</span>
 
-# a single trace and a layout (trace put into a vector)
-Plot(data::AbstractTrace, layout::AbstractLayout)</code></pre>
+<span class="c"># a single trace and a layout (trace put into a vector)</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">data</span><span class="o">::</span><span class="n">AbstractTrace</span><span class="p">,</span> <span class="n">layout</span><span class="o">::</span><span class="n">AbstractLayout</span><span class="p">)</span>
+</pre></div>
 
 
 <p>Notice that none of the recommended constructors have you pass the <code>divid</code>
@@ -447,57 +449,59 @@ unique identification of multiple plots in a single web page.</p>
 <h3 id="convenience-methods">Convenience methods<a class="headerlink" href="#convenience-methods" title="Permanent link">¶</a></h3>
 <p>There are also a number of convenience methods to the <code>Plot</code> function that will
 attempt to construct the traces for you. They have the following signatures</p>
-<pre class="codehilite"><code class="language-julia"># Build a trace of type `kind` from x and y -- apply all kwargs to this trace
-Plot(x::AbstractVector, y::AbstractVector, l::Layout=Layout(); kind=&quot;scatter&quot;, kwargs...)
+<div class="codehilite"><pre><span></span><span class="c"># Build a trace of type `kind` from x and y -- apply all kwargs to this trace</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">y</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">l</span><span class="o">::</span><span class="n">Layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">();</span> <span class="n">kind</span><span class="o">=</span><span class="s">&quot;scatter&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 
-# Build one trace of type `kind` for each column of the matrix `y`. Repeat the
-# `x` argument for all traces. Apply `kwargs` identically to all traces
-Plot(x::AbstractVector, y::AbstractMatrix, l::Layout=Layout(); kind=&quot;scatter&quot;, kwargs...)
+<span class="c"># Build one trace of type `kind` for each column of the matrix `y`. Repeat the</span>
+<span class="c"># `x` argument for all traces. Apply `kwargs` identically to all traces</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">y</span><span class="o">::</span><span class="kt">AbstractMatrix</span><span class="p">,</span> <span class="n">l</span><span class="o">::</span><span class="n">Layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">();</span> <span class="n">kind</span><span class="o">=</span><span class="s">&quot;scatter&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 
-# For `x` and `y` with the same number of columns, build one trace of type
-# `kind` for each column pair, applying all `kwargs` identically do all traces
-Plot(x::AbstractMatrix, y::AbstractMatrix, l::Layout=Layout(); kind=&quot;scatter&quot;, kwargs...)
+<span class="c"># For `x` and `y` with the same number of columns, build one trace of type</span>
+<span class="c"># `kind` for each column pair, applying all `kwargs` identically do all traces</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="kt">AbstractMatrix</span><span class="p">,</span> <span class="n">y</span><span class="o">::</span><span class="kt">AbstractMatrix</span><span class="p">,</span> <span class="n">l</span><span class="o">::</span><span class="n">Layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">();</span> <span class="n">kind</span><span class="o">=</span><span class="s">&quot;scatter&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 
-# For any array of eltype `_Scalar` (really data, see PlotlyJS._Scalar), call
-# the method `Plot(1:size(y, 1), y, l; kwargs...)` described above
-Plot{T&lt;:_Scalar}(y::AbstractArray{T}, l::Layout=Layout(); kwargs...)
+<span class="c"># For any array of eltype `_Scalar` (really data, see PlotlyJS._Scalar), call</span>
+<span class="c"># the method `Plot(1:size(y, 1), y, l; kwargs...)` described above</span>
+<span class="n">Plot</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">_Scalar</span><span class="p">}(</span><span class="n">y</span><span class="o">::</span><span class="kt">AbstractArray</span><span class="p">{</span><span class="n">T</span><span class="p">},</span> <span class="n">l</span><span class="o">::</span><span class="n">Layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">();</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 
-# Create one trace by applying `f` at 50 evenly spaced points from `x0` to `x1`
-Plot(f::Function, x0::Number, x1::Number, l::Layout=Layout(); kwargs...)
+<span class="c"># Create one trace by applying `f` at 50 evenly spaced points from `x0` to `x1`</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">f</span><span class="o">::</span><span class="kt">Function</span><span class="p">,</span> <span class="n">x0</span><span class="o">::</span><span class="kt">Number</span><span class="p">,</span> <span class="n">x1</span><span class="o">::</span><span class="kt">Number</span><span class="p">,</span> <span class="n">l</span><span class="o">::</span><span class="n">Layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">();</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 
-# Create one trace for each function `f ∈ fs` by applying `f` at 50 evenly
-# spaced points from `x0` to `x1`
-Plot(fs::AbstractVector{Function}, x0::Number, x1::Number, l::Layout=Layout(); kwargs...)
+<span class="c"># Create one trace for each function `f ∈ fs` by applying `f` at 50 evenly</span>
+<span class="c"># spaced points from `x0` to `x1`</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">fs</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">{</span><span class="kt">Function</span><span class="p">},</span> <span class="n">x0</span><span class="o">::</span><span class="kt">Number</span><span class="p">,</span> <span class="n">x1</span><span class="o">::</span><span class="kt">Number</span><span class="p">,</span> <span class="n">l</span><span class="o">::</span><span class="n">Layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">();</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 
-# Construct one or more traces using data from the DataFrame `df` when possible
-# If `group` is a symbol and that symbol matches one of the column names of
-# `df`, make one trace for each unique value in the column `df[group]` (see
-# example below)
-Plot(df::AbstractDataFrame, l::Layout=Layout(); group=nothing, kwargs...)
+<span class="c"># Construct one or more traces using data from the DataFrame `df` when possible</span>
+<span class="c"># If `group` is a symbol and that symbol matches one of the column names of</span>
+<span class="c"># `df`, make one trace for each unique value in the column `df[group]` (see</span>
+<span class="c"># example below)</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">df</span><span class="o">::</span><span class="n">AbstractDataFrame</span><span class="p">,</span> <span class="n">l</span><span class="o">::</span><span class="n">Layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">();</span> <span class="n">group</span><span class="o">=</span><span class="nb">nothing</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 
-# Use the column `df[x]` as the x value on each trace. Similar for `y`
-Plot(df::AbstractDataFrame, x::Symbol, y::Symbol, l::Layout=Layout(); group=nothing, kwargs...)
+<span class="c"># Use the column `df[x]` as the x value on each trace. Similar for `y`</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">df</span><span class="o">::</span><span class="n">AbstractDataFrame</span><span class="p">,</span> <span class="n">x</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span> <span class="n">y</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span> <span class="n">l</span><span class="o">::</span><span class="n">Layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">();</span> <span class="n">group</span><span class="o">=</span><span class="nb">nothing</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 
-# Use the column `df[y]` as the y value on each trace
-Plot(df::AbstractDataFrame, y::Symbol, l::Layout=Layout(); group=nothing, kwargs...)</code></pre>
+<span class="c"># Use the column `df[y]` as the y value on each trace</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">df</span><span class="o">::</span><span class="n">AbstractDataFrame</span><span class="p">,</span> <span class="n">y</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span> <span class="n">l</span><span class="o">::</span><span class="n">Layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">();</span> <span class="n">group</span><span class="o">=</span><span class="nb">nothing</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
 
 
 <p>For more information on how these methods work please see the docstring for the
 <code>Plot</code> function by calling <code>?Plot</code> from the REPL.</p>
 <p>Especially convenient is the <code>group</code> keyword argument when calling
 <code>Plot(::AbstractDataFrame, ... ; ...)</code>. Here is an example below:</p>
-<pre class="codehilite"><code class="language-jlcon">julia&gt; using RDatasets
+<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="k">using</span> <span class="n">RDatasets</span>
 
-julia&gt; iris = dataset(&quot;datasets&quot;, &quot;iris&quot;);
+<span class="gp">julia&gt;</span> <span class="n">iris</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">(</span><span class="s">&quot;datasets&quot;</span><span class="p">,</span> <span class="s">&quot;iris&quot;</span><span class="p">);</span>
 
-julia&gt; p = Plot(iris, x=:SepalLength, y=:SepalWidth, mode=&quot;markers&quot;, marker_size=8, group=:Species)
-data: [
-  &quot;scatter with fields marker, mode, name, type, x, and y&quot;,
-  &quot;scatter with fields marker, mode, name, type, x, and y&quot;,
-  &quot;scatter with fields marker, mode, name, type, x, and y&quot;
-]
+<span class="gp">julia&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Plot</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span> <span class="n">x</span><span class="o">=:</span><span class="n">SepalLength</span><span class="p">,</span> <span class="n">y</span><span class="o">=:</span><span class="n">SepalWidth</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">marker_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">group</span><span class="o">=:</span><span class="n">Species</span><span class="p">)</span>
+<span class="go">data: [</span>
+<span class="go">  &quot;scatter with fields marker, mode, name, type, x, and y&quot;,</span>
+<span class="go">  &quot;scatter with fields marker, mode, name, type, x, and y&quot;,</span>
+<span class="go">  &quot;scatter with fields marker, mode, name, type, x, and y&quot;</span>
+<span class="go">]</span>
 
-layout: &quot;layout with field margin&quot;</code></pre>
+<span class="go">layout: &quot;layout with field margin&quot;</span>
+</pre></div>
 
 
 <p>which would result in the following plot</p>
@@ -517,12 +521,13 @@ This means that we can't view the actual plotly figure the data represents.</p>
 <p>To do that we need to link the <code>Plot</code> to one or more display frontends.</p>
 <p>To do this in a simple and reliable way we introduce the concept of a
 <code>SyncPlot</code>, which is defined as:</p>
-<pre class="codehilite"><code class="language-julia">abstract AbstractPlotlyDisplay
+<div class="codehilite"><pre><span></span><span class="k">abstract</span> <span class="n">AbstractPlotlyDisplay</span>
 
-immutable SyncPlot{TD&lt;:AbstractPlotlyDisplay}
-    plot::Plot
-    view::TD
-end</code></pre>
+<span class="k">immutable</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">TD</span><span class="o">&lt;:</span><span class="n">AbstractPlotlyDisplay</span><span class="p">}</span>
+    <span class="n">plot</span><span class="o">::</span><span class="n">Plot</span>
+    <span class="n">view</span><span class="o">::</span><span class="n">TD</span>
+<span class="k">end</span>
+</pre></div>
 
 
 <p>As its name suggests, a <code>SyncPlot</code> will sync a plot with a frontend. To see the
@@ -565,7 +570,8 @@ process it and save to pdf, png, jpeg, or eps files</li>
 package.</p>
 <p>A convenient typealias has been defined for <code>SyncPlot</code>s with the
 <code>ElectronDisplay</code> frontend:</p>
-<pre class="codehilite"><code class="language-julia">typealias ElectronPlot SyncPlot{ElectronDisplay}</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">typealias</span> <span class="n">ElectronPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">ElectronDisplay</span><span class="p">}</span>
+</pre></div>
 
 
 <p>Please note that the Electron frontend also allows PlotlyJS.jl figures to be
@@ -581,7 +587,8 @@ now. This means that we have not implemented features that require Julia to
 receive a return value from javascript. This includes obtaining raw svg data
 for the plot as well as registering Julia functions as callbacks.</p>
 <p>A <code>SyncPlot</code> with a <code>JupyterDisplay</code> also has a typealias:</p>
-<pre class="codehilite"><code class="language-julia">typealias JupyterPlot SyncPlot{JupyterDisplay}</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">typealias</span> <span class="n">JupyterPlot</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">JupyterDisplay</span><span class="p">}</span>
+</pre></div>
 
 
 <p>Please note that the <code>JupyterPlot</code> frontend also allows PlotlyJS.jl figures to

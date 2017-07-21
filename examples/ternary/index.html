@@ -400,133 +400,135 @@
           
             <h1>Ternary</h1>
           
-          <pre class="codehilite"><code class="language-julia">function ternary_markers()
-    function make_ax(title, tickangle)
-        attr(title=title, titlefont_size=20, tickangle=tickangle,
-            tickfont_size=15, tickcolor=&quot;rgba(0, 0, 0, 0)&quot;, ticklen=5,
-            showline=true, showgrid=true)
-    end
+          <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">ternary_markers</span><span class="p">()</span>
+    <span class="k">function</span> <span class="n">make_ax</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">tickangle</span><span class="p">)</span>
+        <span class="n">attr</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">titlefont_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="n">tickangle</span><span class="p">,</span>
+            <span class="n">tickfont_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">tickcolor</span><span class="o">=</span><span class="s">&quot;rgba(0, 0, 0, 0)&quot;</span><span class="p">,</span> <span class="n">ticklen</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">showline</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span> <span class="n">showgrid</span><span class="o">=</span><span class="kc">true</span><span class="p">)</span>
+    <span class="k">end</span>
 
-    raw_data = [
-        Dict(:journalist=&gt;75, :developer=&gt;:25, :designer=&gt;0, :label=&gt;&quot;point 1&quot;),
-        Dict(:journalist=&gt;70, :developer=&gt;:10, :designer=&gt;20, :label=&gt;&quot;point 2&quot;),
-        Dict(:journalist=&gt;75, :developer=&gt;:20, :designer=&gt;5, :label=&gt;&quot;point 3&quot;),
-        Dict(:journalist=&gt;5, :developer=&gt;:60, :designer=&gt;35, :label=&gt;&quot;point 4&quot;),
-        Dict(:journalist=&gt;10, :developer=&gt;:80, :designer=&gt;10, :label=&gt;&quot;point 5&quot;),
-        Dict(:journalist=&gt;10, :developer=&gt;:90, :designer=&gt;0, :label=&gt;&quot;point 6&quot;),
-        Dict(:journalist=&gt;20, :developer=&gt;:70, :designer=&gt;10, :label=&gt;&quot;point 7&quot;),
-        Dict(:journalist=&gt;10, :developer=&gt;:20, :designer=&gt;70, :label=&gt;&quot;point 8&quot;),
-        Dict(:journalist=&gt;15, :developer=&gt;:5, :designer=&gt;80, :label=&gt;&quot;point 9&quot;),
-        Dict(:journalist=&gt;10, :developer=&gt;:10, :designer=&gt;80, :label=&gt;&quot;point 10&quot;),
-        Dict(:journalist=&gt;20, :developer=&gt;:10, :designer=&gt;70, :label=&gt;&quot;point 11&quot;)
-    ]
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">75</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">25</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 1&quot;</span><span class="p">),</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">70</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">10</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">20</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 2&quot;</span><span class="p">),</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">75</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">20</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">5</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 3&quot;</span><span class="p">),</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">5</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">60</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">35</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 4&quot;</span><span class="p">),</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">10</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">80</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">10</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 5&quot;</span><span class="p">),</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">10</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">90</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 6&quot;</span><span class="p">),</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">20</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">70</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">10</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 7&quot;</span><span class="p">),</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">10</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">20</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">70</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 8&quot;</span><span class="p">),</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">15</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">5</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">80</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 9&quot;</span><span class="p">),</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">10</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">10</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">80</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 10&quot;</span><span class="p">),</span>
+        <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">journalist</span><span class="o">=&gt;</span><span class="mi">20</span><span class="p">,</span> <span class="o">:</span><span class="n">developer</span><span class="o">=&gt;:</span><span class="mi">10</span><span class="p">,</span> <span class="o">:</span><span class="n">designer</span><span class="o">=&gt;</span><span class="mi">70</span><span class="p">,</span> <span class="o">:</span><span class="n">label</span><span class="o">=&gt;</span><span class="s">&quot;point 11&quot;</span><span class="p">)</span>
+    <span class="p">]</span>
 
-    t = scatterternary(
-        mode=&quot;markers&quot;,
-        a=[_[:journalist] for _ in raw_data],
-        b=[_[:developer] for _ in raw_data],
-        c=[_[:designer] for _ in raw_data],
-        text=[_[:label] for _ in raw_data],
-        marker=attr(symbol=100, color=&quot;#DB7365&quot;, size=14, line_width=2)
-    )
-    layout = Layout(
-        ternary=attr(
-            sum=100,
-            aaxis=make_ax(&quot;Journalist&quot;, 0),
-            baxis=make_ax(&quot;Developer&quot;, 45),
-            caxis=make_ax(&quot;Designer&quot;, -45),
-            bgcolor=&quot;#fff1e0&quot;,
-        ), annotations=attr(
-            showarrow=false,
-            text=&quot;Replica of Tom Pearson's block&quot;,
-            x=1.0, y=1.3, font_size=15
-        ),
-        paper_bgcolor=&quot;#fff1e0&quot;
-    )
-    plot(t, layout)
-end
-ternary_markers()</code></pre>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">scatterternary</span><span class="p">(</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span>
+        <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="o">:</span><span class="n">journalist</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="kp">in</span> <span class="n">raw_data</span><span class="p">],</span>
+        <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="o">:</span><span class="n">developer</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="kp">in</span> <span class="n">raw_data</span><span class="p">],</span>
+        <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="o">:</span><span class="n">designer</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="kp">in</span> <span class="n">raw_data</span><span class="p">],</span>
+        <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="o">:</span><span class="n">label</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="kp">in</span> <span class="n">raw_data</span><span class="p">],</span>
+        <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&quot;#DB7365&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span>
+        <span class="n">ternary</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span>
+            <span class="n">sum</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+            <span class="n">aaxis</span><span class="o">=</span><span class="n">make_ax</span><span class="p">(</span><span class="s">&quot;Journalist&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">baxis</span><span class="o">=</span><span class="n">make_ax</span><span class="p">(</span><span class="s">&quot;Developer&quot;</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span>
+            <span class="n">caxis</span><span class="o">=</span><span class="n">make_ax</span><span class="p">(</span><span class="s">&quot;Designer&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">45</span><span class="p">),</span>
+            <span class="n">bgcolor</span><span class="o">=</span><span class="s">&quot;#fff1e0&quot;</span><span class="p">,</span>
+        <span class="p">),</span> <span class="n">annotations</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span>
+            <span class="n">showarrow</span><span class="o">=</span><span class="kc">false</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s">&quot;Replica of Tom Pearson&#39;s block&quot;</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">15</span>
+        <span class="p">),</span>
+        <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s">&quot;#fff1e0&quot;</span>
+    <span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">ternary_markers</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="a21cf0f2-461f-405b-ad1c-19f256f1b3f0" class="plotly-graph-div"></div>
+<div id="34ada863-7419-4ad8-9f11-4bcf423213bf" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('a21cf0f2-461f-405b-ad1c-19f256f1b3f0', [{"c":[0,20,5,35,10,0,10,70,80,80,70],"text":["point 1","point 2","point 3","point 4","point 5","point 6","point 7","point 8","point 9","point 10","point 11"],"type":"scatterternary","a":[75,70,75,5,10,10,20,10,15,10,20],"b":[25,10,20,60,80,90,70,20,5,10,10],"mode":"markers","marker":{"symbol":100,"line":{"width":2},"size":14,"color":"#DB7365"}}],
-               {"annotations":{"text":"Replica of Tom Pearson's block","y":1.3,"font":{"size":15},"showarrow":false,"x":1.0},"paper_bgcolor":"#fff1e0","margin":{"r":0,"l":0,"b":0,"t":10},"ternary":{"bgcolor":"#fff1e0","baxis":{"showline":true,"titlefont":{"size":20},"tickcolor":"rgba(0, 0, 0, 0)","title":"Developer","tickangle":45,"tickfont":{"size":15},"ticklen":5,"showgrid":true},"aaxis":{"showline":true,"titlefont":{"size":20},"tickcolor":"rgba(0, 0, 0, 0)","title":"Journalist","tickangle":0,"tickfont":{"size":15},"ticklen":5,"showgrid":true},"caxis":{"showline":true,"titlefont":{"size":20},"tickcolor":"rgba(0, 0, 0, 0)","title":"Designer","tickangle":-45,"tickfont":{"size":15},"ticklen":5,"showgrid":true},"sum":100}}, {showLink: false});
+    Plotly.newPlot('34ada863-7419-4ad8-9f11-4bcf423213bf', [{"a":[75,70,75,5,10,10,20,10,15,10,20],"mode":"markers","b":[25,10,20,60,80,90,70,20,5,10,10],"type":"scatterternary","c":[0,20,5,35,10,0,10,70,80,80,70],"text":["point 1","point 2","point 3","point 4","point 5","point 6","point 7","point 8","point 9","point 10","point 11"],"marker":{"symbol":100,"color":"#DB7365","line":{"width":2},"size":14}}],
+               {"paper_bgcolor":"#fff1e0","ternary":{"baxis":{"tickangle":45,"showline":true,"showgrid":true,"titlefont":{"size":20},"tickfont":{"size":15},"ticklen":5,"title":"Developer","tickcolor":"rgba(0, 0, 0, 0)"},"bgcolor":"#fff1e0","caxis":{"tickangle":-45,"showline":true,"showgrid":true,"titlefont":{"size":20},"tickfont":{"size":15},"ticklen":5,"title":"Designer","tickcolor":"rgba(0, 0, 0, 0)"},"sum":100,"aaxis":{"tickangle":0,"showline":true,"showgrid":true,"titlefont":{"size":20},"tickfont":{"size":15},"ticklen":5,"title":"Journalist","tickcolor":"rgba(0, 0, 0, 0)"}},"annotations":{"y":1.3,"font":{"size":15},"showarrow":false,"text":"Replica of Tom Pearson's block","x":1.0},"margin":{"l":50,"b":60,"r":50,"t":60}}, {showLink: false});
 
  </script>
 
-<pre class="codehilite"><code class="language-julia">function filled_ternary()
-    function make_ax(title)
-        attr(
-            title=title,
-            ticksuffix=&quot;%&quot;,
-            min=0.01,
-            linewidth=2,
-            ticks=&quot;outside&quot;,
-            ticklen=8,
-            showgrid=true
-        )
-    end
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">filled_ternary</span><span class="p">()</span>
+    <span class="k">function</span> <span class="n">make_ax</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">attr</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">ticksuffix</span><span class="o">=</span><span class="s">&quot;%&quot;</span><span class="p">,</span>
+            <span class="n">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+            <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">ticks</span><span class="o">=</span><span class="s">&quot;outside&quot;</span><span class="p">,</span>
+            <span class="n">ticklen</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">showgrid</span><span class="o">=</span><span class="kc">true</span>
+        <span class="p">)</span>
+    <span class="k">end</span>
 
-    fn = tempname()
-    download(&quot;https://gist.githubusercontent.com/davenquinn/988167471993bc2ece29/raw/f38d9cb3dd86e315e237fde5d65e185c39c931c2/data.json&quot;, fn)
-    raw_data = JSON.parsefile(fn)
-    rm(fn)
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">tempname</span><span class="p">()</span>
+    <span class="n">download</span><span class="p">(</span><span class="s">&quot;https://gist.githubusercontent.com/davenquinn/988167471993bc2ece29/raw/f38d9cb3dd86e315e237fde5d65e185c39c931c2/data.json&quot;</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="n">parsefile</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">rm</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
 
-    colors = [
-        &quot;#8dd3c7&quot;,
-        &quot;#ffffb3&quot;,
-        &quot;#bebada&quot;,
-        &quot;#fb8072&quot;,
-        &quot;#80b1d3&quot;,
-        &quot;#fdb462&quot;,
-        &quot;#b3de69&quot;,
-        &quot;#fccde5&quot;,
-        &quot;#d9d9d9&quot;,
-        &quot;#bc80bd&quot;,
-        &quot;#ccebc5&quot;,
-        &quot;#ffed6f&quot;
-    ]
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s">&quot;#8dd3c7&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#ffffb3&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#bebada&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#fb8072&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#80b1d3&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#fdb462&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#b3de69&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#fccde5&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#d9d9d9&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#bc80bd&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#ccebc5&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#ffed6f&quot;</span>
+    <span class="p">]</span>
 
-    traces = Array(GenericTrace, length(raw_data))
-    for (i, (k, v)) in enumerate(raw_data)
-        traces[i] = scatterternary(mode=&quot;lines&quot;, name=k,
-            a=[_[&quot;clay&quot;] for _ in v],
-            b=[_[&quot;sand&quot;] for _ in v],
-            c=[_[&quot;silt&quot;] for _ in v],
-            line_color=&quot;#444&quot;,
-            fill=&quot;toself&quot;,
-            fillcolor=colors[i],
-            hoveron=&quot;fills+points&quot;
-        )
-    end
-    layout = Layout(
-        ternary=attr(
-            sum=100,
-            aaxis=make_ax(&quot;Clay&quot;),
-            baxis=make_ax(&quot;Sand&quot;),
-            caxis=make_ax(&quot;Slit&quot;)),
-        showlegend=false,
-        width=700,
-        annotations=[attr(
-            showarrow=false, x=0.15, y=1.1, text=&quot;Soil types fill plot&quot;
-        )]
-    )
-    plot(traces, layout)
-end
-filled_ternary()</code></pre>
+    <span class="n">traces</span> <span class="o">=</span> <span class="kt">Array</span><span class="p">(</span><span class="n">GenericTrace</span><span class="p">,</span> <span class="n">length</span><span class="p">(</span><span class="n">raw_data</span><span class="p">))</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span> <span class="kp">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+        <span class="n">traces</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">scatterternary</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
+            <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="s">&quot;clay&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="kp">in</span> <span class="n">v</span><span class="p">],</span>
+            <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="s">&quot;sand&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="kp">in</span> <span class="n">v</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">_</span><span class="p">[</span><span class="s">&quot;silt&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="kp">in</span> <span class="n">v</span><span class="p">],</span>
+            <span class="n">line_color</span><span class="o">=</span><span class="s">&quot;#444&quot;</span><span class="p">,</span>
+            <span class="n">fill</span><span class="o">=</span><span class="s">&quot;toself&quot;</span><span class="p">,</span>
+            <span class="n">fillcolor</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">hoveron</span><span class="o">=</span><span class="s">&quot;fills+points&quot;</span>
+        <span class="p">)</span>
+    <span class="k">end</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span>
+        <span class="n">ternary</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span>
+            <span class="n">sum</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+            <span class="n">aaxis</span><span class="o">=</span><span class="n">make_ax</span><span class="p">(</span><span class="s">&quot;Clay&quot;</span><span class="p">),</span>
+            <span class="n">baxis</span><span class="o">=</span><span class="n">make_ax</span><span class="p">(</span><span class="s">&quot;Sand&quot;</span><span class="p">),</span>
+            <span class="n">caxis</span><span class="o">=</span><span class="n">make_ax</span><span class="p">(</span><span class="s">&quot;Slit&quot;</span><span class="p">)),</span>
+        <span class="n">showlegend</span><span class="o">=</span><span class="kc">false</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span>
+        <span class="n">annotations</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="p">(</span>
+            <span class="n">showarrow</span><span class="o">=</span><span class="kc">false</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s">&quot;Soil types fill plot&quot;</span>
+        <span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">traces</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">filled_ternary</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="ded8c12b-1393-4806-a13e-675b3f02bc58" class="plotly-graph-div"></div>
+<div id="ba5052b1-8394-4e54-9807-b69b82025e8d" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('ded8c12b-1393-4806-a13e-675b3f02bc58', [{"c":[0,0,40,40,15],"name":"clay","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#8dd3c7","a":[55,100,60,40,40],"b":[45,0,0,20,45],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[0,0,20,27,32],"name":"sandy clay loam","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#ffffb3","a":[20,35,35,28,20],"b":[80,65,45,45,53],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[40,60,40],"name":"silty clay","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#bebada","a":[60,40,40],"b":[0,0,20],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[30,0,0,32,42,50,50],"name":"sandy loam","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#fb8072","a":[0,15,20,20,5,5,0],"b":[70,85,80,53,53,45,50],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[0,20,0],"name":"sandy clay","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#80b1d3","a":[35,35,55],"b":[65,45,45],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[27,50,50,42,32],"name":"loam","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#fdb462","a":[28,28,5,5,20],"b":[45,22,45,53,53],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[0,0,10],"name":"sand","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#b3de69","a":[0,10,0],"b":[100,90,90],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[100,80,80,88],"name":"silt","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#fccde5","a":[0,0,12,12],"b":[0,20,8,0],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[15,40,52,27],"name":"clay loam","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#d9d9d9","a":[40,40,28,28],"b":[45,20,20,45],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[50,50,72,88,80,80],"name":"silty loam","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#bc80bd","a":[0,28,28,12,12,0],"b":[50,22,0,0,8,20],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[10,0,0,30],"name":"loamy sand","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#ccebc5","a":[0,10,15,0],"b":[90,90,85,70],"hoveron":"fills+points","fill":"toself","mode":"lines"},{"c":[72,52,40,60],"name":"silty clay loam","type":"scatterternary","line":{"color":"#444"},"fillcolor":"#ffed6f","a":[28,28,40,40],"b":[0,20,20,0],"hoveron":"fills+points","fill":"toself","mode":"lines"}],
-               {"annotations":[{"y":1.1,"text":"Soil types fill plot","showarrow":false,"x":0.15}],"width":700,"showlegend":false,"margin":{"r":0,"l":0,"b":0,"t":10},"ternary":{"baxis":{"ticksuffix":"%","title":"Sand","min":0.01,"ticks":"outside","ticklen":8,"linewidth":2,"showgrid":true},"aaxis":{"ticksuffix":"%","title":"Clay","min":0.01,"ticks":"outside","ticklen":8,"linewidth":2,"showgrid":true},"caxis":{"ticksuffix":"%","title":"Slit","min":0.01,"ticks":"outside","ticklen":8,"linewidth":2,"showgrid":true},"sum":100}}, {showLink: false});
+    Plotly.newPlot('ba5052b1-8394-4e54-9807-b69b82025e8d', [{"a":[55,100,60,40,40],"mode":"lines","b":[45,0,0,20,45],"line":{"color":"#444"},"fillcolor":"#8dd3c7","type":"scatterternary","name":"clay","fill":"toself","c":[0,0,40,40,15],"hoveron":"fills+points"},{"a":[20,35,35,28,20],"mode":"lines","b":[80,65,45,45,53],"line":{"color":"#444"},"fillcolor":"#ffffb3","type":"scatterternary","name":"sandy clay loam","fill":"toself","c":[0,0,20,27,32],"hoveron":"fills+points"},{"a":[60,40,40],"mode":"lines","b":[0,0,20],"line":{"color":"#444"},"fillcolor":"#bebada","type":"scatterternary","name":"silty clay","fill":"toself","c":[40,60,40],"hoveron":"fills+points"},{"a":[0,15,20,20,5,5,0],"mode":"lines","b":[70,85,80,53,53,45,50],"line":{"color":"#444"},"fillcolor":"#fb8072","type":"scatterternary","name":"sandy loam","fill":"toself","c":[30,0,0,32,42,50,50],"hoveron":"fills+points"},{"a":[35,35,55],"mode":"lines","b":[65,45,45],"line":{"color":"#444"},"fillcolor":"#80b1d3","type":"scatterternary","name":"sandy clay","fill":"toself","c":[0,20,0],"hoveron":"fills+points"},{"a":[28,28,5,5,20],"mode":"lines","b":[45,22,45,53,53],"line":{"color":"#444"},"fillcolor":"#fdb462","type":"scatterternary","name":"loam","fill":"toself","c":[27,50,50,42,32],"hoveron":"fills+points"},{"a":[0,10,0],"mode":"lines","b":[100,90,90],"line":{"color":"#444"},"fillcolor":"#b3de69","type":"scatterternary","name":"sand","fill":"toself","c":[0,0,10],"hoveron":"fills+points"},{"a":[0,0,12,12],"mode":"lines","b":[0,20,8,0],"line":{"color":"#444"},"fillcolor":"#fccde5","type":"scatterternary","name":"silt","fill":"toself","c":[100,80,80,88],"hoveron":"fills+points"},{"a":[40,40,28,28],"mode":"lines","b":[45,20,20,45],"line":{"color":"#444"},"fillcolor":"#d9d9d9","type":"scatterternary","name":"clay loam","fill":"toself","c":[15,40,52,27],"hoveron":"fills+points"},{"a":[0,28,28,12,12,0],"mode":"lines","b":[50,22,0,0,8,20],"line":{"color":"#444"},"fillcolor":"#bc80bd","type":"scatterternary","name":"silty loam","fill":"toself","c":[50,50,72,88,80,80],"hoveron":"fills+points"},{"a":[0,10,15,0],"mode":"lines","b":[90,90,85,70],"line":{"color":"#444"},"fillcolor":"#ccebc5","type":"scatterternary","name":"loamy sand","fill":"toself","c":[10,0,0,30],"hoveron":"fills+points"},{"a":[28,28,40,40],"mode":"lines","b":[0,20,20,0],"line":{"color":"#444"},"fillcolor":"#ffed6f","type":"scatterternary","name":"silty clay loam","fill":"toself","c":[72,52,40,60],"hoveron":"fills+points"}],
+               {"showlegend":false,"ternary":{"baxis":{"showgrid":true,"ticklen":8,"ticks":"outside","title":"Sand","linewidth":2,"ticksuffix":"%","min":0.01},"caxis":{"showgrid":true,"ticklen":8,"ticks":"outside","title":"Slit","linewidth":2,"ticksuffix":"%","min":0.01},"sum":100,"aaxis":{"showgrid":true,"ticklen":8,"ticks":"outside","title":"Clay","linewidth":2,"ticksuffix":"%","min":0.01}},"annotations":[{"y":1.1,"showarrow":false,"text":"Soil types fill plot","x":0.15}],"margin":{"l":50,"b":60,"r":50,"t":60},"width":700}, {showLink: false});
 
  </script>
           <aside class="copyright" role="note">

@@ -426,12 +426,13 @@
           
           <p>Starting with v0.4.0, PlotlyJS.jl now has support for styles. A style is
 defined as an instance of the following type:</p>
-<pre class="codehilite"><code class="language-julia">immutable Style
-    color_cycle::Vector
-    layout::Layout
-    global_trace::PlotlyAttribute
-    trace::Dict{Symbol,PlotlyAttribute}
-end</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">immutable</span> <span class="n">Style</span>
+    <span class="n">color_cycle</span><span class="o">::</span><span class="kt">Vector</span>
+    <span class="n">layout</span><span class="o">::</span><span class="n">Layout</span>
+    <span class="n">global_trace</span><span class="o">::</span><span class="n">PlotlyAttribute</span>
+    <span class="n">trace</span><span class="o">::</span><span class="kt">Dict</span><span class="p">{</span><span class="kt">Symbol</span><span class="p">,</span><span class="n">PlotlyAttribute</span><span class="p">}</span>
+<span class="k">end</span>
+</pre></div>
 
 
 <p>Let's go over the fields one by one:</p>
@@ -450,32 +451,34 @@ that type of trace</li>
 <p>To define a brand new style, you simply construct one or more of the fields and
 assign it using the keyword argument <code>Style</code> constructor. For example, this is
 how the <code>ggplot</code> style is defined (as of time of writing):</p>
-<pre class="codehilite"><code class="language-julia">ggplot = let
-    axis = attr(showgrid=true, gridcolor=&quot;white&quot;, linewidth=1.0,
-                linecolor=&quot;white&quot;, titlefont_color=&quot;#555555&quot;,
-                titlefont_size=14, ticks=&quot;outside&quot;,
-                tickcolor=&quot;#555555&quot;
-                )
-    layout = Layout(plot_bgcolor=&quot;#E5E5E5&quot;,
-                    paper_bgcolor=&quot;white&quot;,
-                    font_size=10,
-                    xaxis=axis,
-                    yaxis=axis,
-                    titlefont_size=14)
+<div class="codehilite"><pre><span></span><span class="n">ggplot</span> <span class="o">=</span> <span class="k">let</span>
+    <span class="n">axis</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">showgrid</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s">&quot;white&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">linecolor</span><span class="o">=</span><span class="s">&quot;white&quot;</span><span class="p">,</span> <span class="n">titlefont_color</span><span class="o">=</span><span class="s">&quot;#555555&quot;</span><span class="p">,</span>
+                <span class="n">titlefont_size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="s">&quot;outside&quot;</span><span class="p">,</span>
+                <span class="n">tickcolor</span><span class="o">=</span><span class="s">&quot;#555555&quot;</span>
+                <span class="p">)</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">plot_bgcolor</span><span class="o">=</span><span class="s">&quot;#E5E5E5&quot;</span><span class="p">,</span>
+                    <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s">&quot;white&quot;</span><span class="p">,</span>
+                    <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                    <span class="n">xaxis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+                    <span class="n">yaxis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+                    <span class="n">titlefont_size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 
-    gta = attr(marker_line_width=0.5, marker_line_color=&quot;#348ABD&quot;)
+    <span class="n">gta</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">marker_line_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker_line_color</span><span class="o">=</span><span class="s">&quot;#348ABD&quot;</span><span class="p">)</span>
 
-    colors = [&quot;#E24A33&quot;, &quot;#348ABD&quot;, &quot;#988ED5&quot;, &quot;#777777&quot;, &quot;#FBC15E&quot;,
-              &quot;#8EBA42&quot;, &quot;#FFB5B8&quot;]
-    Style(layout=layout, color_cycle=colors, global_trace=gta)
-end</code></pre>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;#E24A33&quot;</span><span class="p">,</span> <span class="s">&quot;#348ABD&quot;</span><span class="p">,</span> <span class="s">&quot;#988ED5&quot;</span><span class="p">,</span> <span class="s">&quot;#777777&quot;</span><span class="p">,</span> <span class="s">&quot;#FBC15E&quot;</span><span class="p">,</span>
+              <span class="s">&quot;#8EBA42&quot;</span><span class="p">,</span> <span class="s">&quot;#FFB5B8&quot;</span><span class="p">]</span>
+    <span class="n">Style</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span> <span class="n">color_cycle</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">global_trace</span><span class="o">=</span><span class="n">gta</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
 
 
 <p>When displayed in the REPL we see the following:</p>
-<pre class="codehilite"><code>Style with:
+<div class="codehilite"><pre><span></span>Style with:
   - color_cycle: String[&quot;#E24A33&quot;,&quot;#348ABD&quot;,&quot;#988ED5&quot;,&quot;#777777&quot;,&quot;#FBC15E&quot;,&quot;#8EBA42&quot;,&quot;#FFB5B8&quot;]
   - layout with fields font, margin, paper_bgcolor, plot_bgcolor, titlefont, xaxis, and yaxis
-  - global_trace: PlotlyAttribute with field marker</code></pre>
+  - global_trace: PlotlyAttribute with field marker
+</pre></div>
 
 
 <p>Notice that we didn't have to define the <code>trace</code> field. When building new
@@ -486,17 +489,19 @@ actually use in your style.</p>
 style. Suppose that I liked the <code>ggplot</code> style, but wanted to make sure that
 the marker symbol on scatter traces was always a square. I could define the
 following style:</p>
-<pre class="codehilite"><code class="language-julia">square_ggplot = Style(ggplot,
-                      trace=Dict(:scatter =&gt; attr(marker_symbol=&quot;square&quot;)))</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">square_ggplot</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="n">ggplot</span><span class="p">,</span>
+                      <span class="n">trace</span><span class="o">=</span><span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">scatter</span> <span class="o">=&gt;</span> <span class="n">attr</span><span class="p">(</span><span class="n">marker_symbol</span><span class="o">=</span><span class="s">&quot;square&quot;</span><span class="p">)))</span>
+</pre></div>
 
 
 <p>When displayed in the REPL we see the following:</p>
-<pre class="codehilite"><code>Style with:
+<div class="codehilite"><pre><span></span>Style with:
   - color_cycle: String[&quot;#E24A33&quot;,&quot;#348ABD&quot;,&quot;#988ED5&quot;,&quot;#777777&quot;,&quot;#FBC15E&quot;,&quot;#8EBA42&quot;,&quot;#FFB5B8&quot;]
   - layout with fields font, margin, paper_bgcolor, plot_bgcolor, titlefont, xaxis, and yaxis
   - global_trace: PlotlyAttribute with field marker
   - trace:
-    - scatter: PlotlyAttribute with field marker</code></pre>
+    - scatter: PlotlyAttribute with field marker
+</pre></div>
 
 
 <p>Notice that all the information for <code>color_cycle</code>, <code>layout</code> and <code>global_trace</code>
@@ -508,12 +513,14 @@ another section for the <code>trace</code> field as it is no longer empty.</p>
 title to be large, say at a level of 20. We might want to apply this
 transformation to multiple existing styles. One way we could achieve this is by
 defining</p>
-<pre class="codehilite"><code class="language-julia">big_title = Style(layout=Layout(titlefont_size=20))</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">big_title</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">titlefont_size</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span>
+</pre></div>
 
 
 <p>and then composing <code>big_title</code> with an existing <code>Style</code> (e.g. <code>ggplot</code> from
 above) by calling</p>
-<pre class="codehilite"><code class="language-julia">big_ggplot = Style(ggplot, big_title)</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">big_ggplot</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="n">ggplot</span><span class="p">,</span> <span class="n">big_title</span><span class="p">)</span>
+</pre></div>
 
 
 <p>It is important that we put <code>big_title</code> <em>after</em> <code>ggplot</code> as the composing
@@ -525,8 +532,9 @@ can now reuse the <code>big_title</code> <code>Style</code> as many times as we'
 great, but doesn't actually show off the power of composing <code>Style</code>s.
 Composition becomes more powerful when you use more than two styles. Consider
 the following example:</p>
-<pre class="codehilite"><code class="language-julia">square = Style(trace=Dict(:scatter =&gt; attr(marker_symbol=&quot;square&quot;)))
-big_square_ggplot = Style(ggplot, square, big_title)</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="n">trace</span><span class="o">=</span><span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">scatter</span> <span class="o">=&gt;</span> <span class="n">attr</span><span class="p">(</span><span class="n">marker_symbol</span><span class="o">=</span><span class="s">&quot;square&quot;</span><span class="p">)))</span>
+<span class="n">big_square_ggplot</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="n">ggplot</span><span class="p">,</span> <span class="n">square</span><span class="p">,</span> <span class="n">big_title</span><span class="p">)</span>
+</pre></div>
 
 
 <p>Here the order of <code>square</code> and <code>big_title</code> was not important as they don't
@@ -561,17 +569,19 @@ again <code>s</code> is a symbol from <code>PlotlyJS.STYLES</code>.</p>
 <p>The best way to think about styles is that they will apply default values for
 attributes, only if the attribute is not already defined. For example, suppose
 we had the following style:</p>
-<pre class="codehilite"><code class="language-julia">goofy = Style(global_trace=attr(marker_color=&quot;red&quot;),
-              trace=Dict(:scatter =&gt; attr(mode=&quot;markers&quot;)))</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">goofy</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="n">global_trace</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">),</span>
+              <span class="n">trace</span><span class="o">=</span><span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">scatter</span> <span class="o">=&gt;</span> <span class="n">attr</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">)))</span>
+</pre></div>
 
 
 <p>two plots:</p>
-<pre class="codehilite"><code class="language-julia">p1 = plot(scatter(y=1:3, mode=&quot;lines&quot;, marker_symbol=&quot;square&quot;), style=goofy)
-p2 = plot(scatter(y=1:3, marker_color=&quot;green&quot;), style=goofy)</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">scatter</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;lines&quot;</span><span class="p">,</span> <span class="n">marker_symbol</span><span class="o">=</span><span class="s">&quot;square&quot;</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">goofy</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">scatter</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;green&quot;</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">goofy</span><span class="p">)</span>
+</pre></div>
 
 
 <p>If we inspect the json from these two plots we see:</p>
-<pre class="codehilite"><code>julia&gt; print(json(p1, 2))
+<div class="codehilite"><pre><span></span>julia&gt; print(json(p1, 2))
 {
   &quot;layout&quot;: {
     &quot;margin&quot;: {
@@ -622,7 +632,8 @@ julia&gt; print(json(p2, 2))
       &quot;mode&quot;: &quot;markers&quot;
     }
   ]
-}</code></pre>
+}
+</pre></div>
 
 
 <p>Notice that on p1:</p>

@@ -400,338 +400,348 @@
           
             <h1>Box plots</h1>
           
-          <pre class="codehilite"><code class="language-julia">function box1()
-    y0 = rand(50)
-    y1 = rand(50) + 1
-    trace1 = box(;y=y0)
-    trace2 = box(;y=y1)
-    data = [trace1, trace2]
-    plot(data)
-end
-box1()</code></pre>
+          <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">box1</span><span class="p">()</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">)</span>
+    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">y1</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">box1</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="ace50ed9-a2e2-4750-9661-2096aa9aa9f7" class="plotly-graph-div"></div>
+<div id="293c0eb2-5721-41fd-a294-742c97891adb" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('ace50ed9-a2e2-4750-9661-2096aa9aa9f7', [{"y":[0.060426625090516994,0.6013677943742117,0.13172184041293278,0.08650447087453528,0.9969842819992163,0.5763860850339175,0.016568086207558563,0.2196783580585191,0.0019119077644629279,0.5531829272106785,0.8282410247238292,0.5107210740423589,0.47691492235930766,0.6999299884686356,0.857189642062332,0.6854305103633433,0.5870129109326012,0.9205793985847441,0.5002000834886926,0.9003815791057663,0.3021326760601124,0.028764051076191288,0.7731557752884595,0.864933735603632,0.31579968680122295,0.6983405047035851,0.29606561288184574,0.06201848215686212,0.40523921156544307,0.47048559505723353,0.773340587679026,0.952101868567649,0.857237324548364,0.6591796230854514,0.29455154289685304,0.4301976312038618,0.3172109580169413,0.09674756707863841,0.40063144143312934,0.52635366477054,0.8934999088493645,0.634869981022562,0.12143153312955923,0.9725926793876196,0.3318635636786904,0.4180172159380986,0.6334568044208464,0.2988017357281558,0.2899005766481728,0.977144084639413],"type":"box"},{"y":[1.1055761047002324,1.4558772366893198,1.349208576131972,1.8051313258500865,1.5088530127580726,1.6853409912702257,1.5912612045790666,1.021611722036416,1.8741880038561487,1.3395809680912723,1.7396231066002812,1.1415979293038185,1.9577973530960484,1.719225079811841,1.824731030789313,1.863327098855761,1.285467918842751,1.6798292052461399,1.8668578024245612,1.113498975286309,1.7217642886282716,1.597889778762145,1.5230500314190063,1.1942669700323132,1.78731953496257,1.7794461756002602,1.1507820939287094,1.7060742011605516,1.9320143346938448,1.6650539395491173,1.8302431704385045,1.7365028864214342,1.420612566566626,1.9883222939625511,1.828577084615447,1.6801803104909727,1.103554403348525,1.1508212402703093,1.6068267681899155,1.133991632885207,1.2361055364570546,1.4417333758186166,1.8964321338234293,1.8907633594890383,1.42974118376686,1.061177975407756,1.2013906419212517,1.1199651454974393,1.2483043422098066,1.4530879046286926],"type":"box"}],
-               {"margin":{"r":0,"l":0,"b":0,"t":0}}, {showLink: false});
+    Plotly.newPlot('293c0eb2-5721-41fd-a294-742c97891adb', [{"y":[0.8378546111173095,0.9045417183603965,0.0652850112690131,0.39664169300385876,0.6789960553340111,0.2027850950536365,0.4043692275602706,0.2763825412339824,0.2891082646043781,0.8236571448032035,0.08429785614570173,0.6923020804375366,0.18872299281002025,0.11440707107118842,0.7253563182252416,0.6638716819768622,0.9337021469429378,0.9787778725847569,0.742349324284258,0.17676146997798803,0.6188255607194579,0.5933090103165637,0.4832483816300941,0.502834741251325,0.5834633082104814,0.4803601542313658,0.36675217346026545,0.9051613607774232,0.5597659482892263,0.5435766467701328,0.3048189719190755,0.7755482460991401,0.39106989486725485,0.6865809432174417,0.09638681893190881,0.7370037245378684,0.5454652219885179,0.5700573081939544,0.7446864693716488,0.05729095970356646,0.5155477173553709,0.8205227271707023,0.8933695285779089,0.9638034269972349,0.10320343441605151,0.8204395209500699,0.544290735351862,0.8809111968529151,0.4805809268264982,0.8607431400823069],"type":"box"},{"y":[1.6966934385791403,1.5449822348539335,1.1937000128928472,1.639383993205117,1.8694404315537199,1.4521615465367361,1.2698112751251613,1.6252622906716432,1.1331231924220082,1.6520099872852585,1.5616666316498804,1.793456223408747,1.0812063421053175,1.909798612197846,1.0467745940276099,1.632450916934484,1.5569470971387995,1.0589543529130354,1.8979581597777642,1.4651159011493173,1.7458837287326432,1.7433265531157407,1.6561225399107091,1.6144011745683653,1.3342159385754806,1.1941443049436744,1.8920113094646593,1.4508250339616264,1.6985320366309373,1.1166183457234953,1.4477929905614542,1.8836949558181213,1.5344907893507487,1.5866275945298467,1.350455451496265,1.5104170143539248,1.6517678763468946,1.757165615292242,1.8949952351889419,1.791194048012632,1.1753507859063088,1.6684195456444264,1.2442658906715756,1.009010222425946,1.2404809746496308,1.2587631171521978,1.6796123047770601,1.1228042565757639,1.8600818356733952,1.0633290623678058],"type":"box"}],
+               {"margin":{"l":50,"b":60,"r":50,"t":60}}, {showLink: false});
 
  </script>
 
-<pre class="codehilite"><code class="language-julia">function box2()
-    data = box(;y=[0, 1, 1, 2, 3, 5, 8, 13, 21],
-                boxpoints=&quot;all&quot;,
-                jitter=0.3,
-                pointpos=-1.8)
-    plot(data)
-end
-box2()</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">box2</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">],</span>
+                <span class="n">boxpoints</span><span class="o">=</span><span class="s">&quot;all&quot;</span><span class="p">,</span>
+                <span class="n">jitter</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                <span class="n">pointpos</span><span class="o">=-</span><span class="mf">1.8</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">box2</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="bf0171ff-6b61-4db8-8b42-0d9d67d8e192" class="plotly-graph-div"></div>
+<div id="550ff225-94c3-4c48-b6cb-27266142981e" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('bf0171ff-6b61-4db8-8b42-0d9d67d8e192', [{"y":[0,1,1,2,3,5,8,13,21],"type":"box","jitter":0.3,"pointpos":-1.8,"boxpoints":"all"}],
-               {"margin":{"r":0,"l":0,"b":0,"t":0}}, {showLink: false});
+    Plotly.newPlot('550ff225-94c3-4c48-b6cb-27266142981e', [{"boxpoints":"all","y":[0,1,1,2,3,5,8,13,21],"type":"box","jitter":0.3,"pointpos":-1.8}],
+               {"margin":{"l":50,"b":60,"r":50,"t":60}}, {showLink: false});
 
  </script>
 
-<pre class="codehilite"><code class="language-julia">function box3()
-    trace1 = box(;x=[1, 2, 3, 4, 4, 4, 8, 9, 10],
-                  name=&quot;Set 1&quot;)
-    trace2 = box(;x=[2, 3, 3, 3, 3, 5, 6, 6, 7],
-                  name=&quot;Set 2&quot;)
-    data = [trace1, trace2]
-    layout = Layout(;title=&quot;Horizontal Box Plot&quot;)
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">box3</span><span class="p">()</span>
+    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Set 1&quot;</span><span class="p">)</span>
+    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Set 2&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Horizontal Box Plot&quot;</span><span class="p">)</span>
 
-    plot(data, layout)
-end
-box3()</code></pre>
+    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">box3</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="49fdb84f-5c25-4dce-9373-a2c207ca5bd8" class="plotly-graph-div"></div>
+<div id="e8c69286-aec1-4fff-af9f-5ba033d0c8c3" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('49fdb84f-5c25-4dce-9373-a2c207ca5bd8', [{"name":"Set 1","type":"box","x":[1,2,3,4,4,4,8,9,10]},{"name":"Set 2","type":"box","x":[2,3,3,3,3,5,6,6,7]}],
-               {"title":"Horizontal Box Plot","margin":{"r":0,"l":0,"b":0,"t":0}}, {showLink: false});
+    Plotly.newPlot('e8c69286-aec1-4fff-af9f-5ba033d0c8c3', [{"type":"box","name":"Set 1","x":[1,2,3,4,4,4,8,9,10]},{"type":"box","name":"Set 2","x":[2,3,3,3,3,5,6,6,7]}],
+               {"margin":{"l":50,"b":60,"r":50,"t":60},"title":"Horizontal Box Plot"}, {showLink: false});
 
  </script>
 
-<pre class="codehilite"><code class="language-julia">function box4()
-    x0 = [&quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;,
-          &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;]
-    trace1 = box(;y=[0.2, 0.2, 0.6, 1.0, 0.5, 0.4, 0.2, 0.7, 0.9, 0.1, 0.5, 0.3],
-                  x=x0,
-                  name=&quot;kale&quot;,
-                  marker_color=&quot;#3D9970&quot;)
-    trace2 = box(;y=[0.6, 0.7, 0.3, 0.6, 0.0, 0.5, 0.7, 0.9, 0.5, 0.8, 0.7, 0.2],
-                  x=x0,
-                  name=&quot;radishes&quot;,
-                  marker_color=&quot;#FF4136&quot;)
-    trace3 = box(;y=[0.1, 0.3, 0.1, 0.9, 0.6, 0.6, 0.9, 1.0, 0.3, 0.6, 0.8, 0.5],
-                  x=x0,
-                  name=&quot;carrots&quot;,
-                  marker_color=&quot;#FF851B&quot;)
-    data = [trace1, trace2, trace3]
-    layout = Layout(;yaxis=attr(title=&quot;normalized moisture&quot;, zeroline=false),
-                    boxmode=&quot;group&quot;)
-    plot(data, layout)
-end
-box4()</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">box4</span><span class="p">()</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span>
+          <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">]</span>
+    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
+                  <span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;kale&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#3D9970&quot;</span><span class="p">)</span>
+    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+                  <span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;radishes&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#FF4136&quot;</span><span class="p">)</span>
+    <span class="n">trace3</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                  <span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;carrots&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#FF851B&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">]</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;normalized moisture&quot;</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="kc">false</span><span class="p">),</span>
+                    <span class="n">boxmode</span><span class="o">=</span><span class="s">&quot;group&quot;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">box4</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="83d417af-262b-4aa8-acb3-750f60857664" class="plotly-graph-div"></div>
+<div id="10b84d2d-b6ce-470a-a799-cec1ecc1b041" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('83d417af-262b-4aa8-acb3-750f60857664', [{"y":[0.2,0.2,0.6,1.0,0.5,0.4,0.2,0.7,0.9,0.1,0.5,0.3],"name":"kale","type":"box","x":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"],"marker":{"color":"#3D9970"}},{"y":[0.6,0.7,0.3,0.6,0.0,0.5,0.7,0.9,0.5,0.8,0.7,0.2],"name":"radishes","type":"box","x":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"],"marker":{"color":"#FF4136"}},{"y":[0.1,0.3,0.1,0.9,0.6,0.6,0.9,1.0,0.3,0.6,0.8,0.5],"name":"carrots","type":"box","x":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"],"marker":{"color":"#FF851B"}}],
-               {"yaxis":{"title":"normalized moisture","zeroline":false},"margin":{"r":0,"l":0,"b":0,"t":0},"boxmode":"group"}, {showLink: false});
+    Plotly.newPlot('10b84d2d-b6ce-470a-a799-cec1ecc1b041', [{"marker":{"color":"#3D9970"},"y":[0.2,0.2,0.6,1.0,0.5,0.4,0.2,0.7,0.9,0.1,0.5,0.3],"type":"box","name":"kale","x":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"]},{"marker":{"color":"#FF4136"},"y":[0.6,0.7,0.3,0.6,0.0,0.5,0.7,0.9,0.5,0.8,0.7,0.2],"type":"box","name":"radishes","x":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"]},{"marker":{"color":"#FF851B"},"y":[0.1,0.3,0.1,0.9,0.6,0.6,0.9,1.0,0.3,0.6,0.8,0.5],"type":"box","name":"carrots","x":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"]}],
+               {"boxmode":"group","margin":{"l":50,"b":60,"r":50,"t":60},"yaxis":{"zeroline":false,"title":"normalized moisture"}}, {showLink: false});
 
  </script>
 
-<pre class="codehilite"><code class="language-julia">function box5()
-    trace1 = box(;y=[0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5,
-                     7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5,
-                     12, 16, 20.90, 22.3, 23.25],
-                  name=&quot;All Points&quot;,
-                  jitter=0.3,
-                  pointpos=-1.8,
-                  marker_color=&quot;rgb(7, 40, 89)&quot;,
-                  boxpoints=&quot;all&quot;)
-    trace2 = box(;y=[0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5,
-                     7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5,
-                     12, 16, 20.90, 22.3, 23.25],
-                  name=&quot;Only Wiskers&quot;,
-                  marker_color=&quot;rgb(9, 56, 125)&quot;,
-                  boxpoints=false)
-    trace3 = box(;y=[0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5,
-                     7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5,
-                     12, 16, 20.90, 22.3, 23.25],
-                  name=&quot;Suspected Outlier&quot;,
-                  marker=attr(color=&quot;rgb(8, 8, 156)&quot;,
-                              outliercolor=&quot;rgba(219, 64, 82, 0.6)&quot;,
-                              line=attr(outliercolor=&quot;rgba(219, 64, 82, 1.0)&quot;,
-                                        outlierwidth=2)),
-                  boxpoints=&quot;suspectedoutliers&quot;)
-    trace4 = box(;y=[0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5,
-                     7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5,
-                     12, 16, 20.90, 22.3, 23.25],
-                  name=&quot;Wiskers and Outliers&quot;,
-                  marker_color=&quot;rgb(107, 174, 214)&quot;,
-                  boxpoints=&quot;Outliers&quot;)
-    data = [trace1, trace2, trace3, trace4]
-    layout = Layout(;title=&quot;Box Plot Styling Outliers&quot;)
-    plot(data, layout)
-end
-box5()</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">box5</span><span class="p">()</span>
+    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="mf">6.80</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span>
+                     <span class="mf">7.75</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.65</span><span class="p">,</span> <span class="mf">8.93</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span>
+                     <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">20.90</span><span class="p">,</span> <span class="mf">22.3</span><span class="p">,</span> <span class="mf">23.25</span><span class="p">],</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;All Points&quot;</span><span class="p">,</span>
+                  <span class="n">jitter</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+                  <span class="n">pointpos</span><span class="o">=-</span><span class="mf">1.8</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(7, 40, 89)&quot;</span><span class="p">,</span>
+                  <span class="n">boxpoints</span><span class="o">=</span><span class="s">&quot;all&quot;</span><span class="p">)</span>
+    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="mf">6.80</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span>
+                     <span class="mf">7.75</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.65</span><span class="p">,</span> <span class="mf">8.93</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span>
+                     <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">20.90</span><span class="p">,</span> <span class="mf">22.3</span><span class="p">,</span> <span class="mf">23.25</span><span class="p">],</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Only Wiskers&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(9, 56, 125)&quot;</span><span class="p">,</span>
+                  <span class="n">boxpoints</span><span class="o">=</span><span class="kc">false</span><span class="p">)</span>
+    <span class="n">trace3</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="mf">6.80</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span>
+                     <span class="mf">7.75</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.65</span><span class="p">,</span> <span class="mf">8.93</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span>
+                     <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">20.90</span><span class="p">,</span> <span class="mf">22.3</span><span class="p">,</span> <span class="mf">23.25</span><span class="p">],</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Suspected Outlier&quot;</span><span class="p">,</span>
+                  <span class="n">marker</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&quot;rgb(8, 8, 156)&quot;</span><span class="p">,</span>
+                              <span class="n">outliercolor</span><span class="o">=</span><span class="s">&quot;rgba(219, 64, 82, 0.6)&quot;</span><span class="p">,</span>
+                              <span class="n">line</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">outliercolor</span><span class="o">=</span><span class="s">&quot;rgba(219, 64, 82, 1.0)&quot;</span><span class="p">,</span>
+                                        <span class="n">outlierwidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
+                  <span class="n">boxpoints</span><span class="o">=</span><span class="s">&quot;suspectedoutliers&quot;</span><span class="p">)</span>
+    <span class="n">trace4</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="mf">6.80</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span>
+                     <span class="mf">7.75</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">8.65</span><span class="p">,</span> <span class="mf">8.93</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span>
+                     <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">20.90</span><span class="p">,</span> <span class="mf">22.3</span><span class="p">,</span> <span class="mf">23.25</span><span class="p">],</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Wiskers and Outliers&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(107, 174, 214)&quot;</span><span class="p">,</span>
+                  <span class="n">boxpoints</span><span class="o">=</span><span class="s">&quot;Outliers&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">,</span> <span class="n">trace4</span><span class="p">]</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Box Plot Styling Outliers&quot;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">box5</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="96780591-203a-4f4f-b487-c292705e7fbf" class="plotly-graph-div"></div>
+<div id="e9596da2-b34d-424d-bb36-b8eabd73a0c7" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('96780591-203a-4f4f-b487-c292705e7fbf', [{"y":[0.75,5.25,5.5,6.0,6.2,6.6,6.8,7.0,7.2,7.5,7.5,7.75,8.15,8.15,8.65,8.93,9.2,9.5,10.0,10.25,11.5,12.0,16.0,20.9,22.3,23.25],"name":"All Points","type":"box","jitter":0.3,"pointpos":-1.8,"boxpoints":"all","marker":{"color":"rgb(7, 40, 89)"}},{"y":[0.75,5.25,5.5,6.0,6.2,6.6,6.8,7.0,7.2,7.5,7.5,7.75,8.15,8.15,8.65,8.93,9.2,9.5,10.0,10.25,11.5,12.0,16.0,20.9,22.3,23.25],"name":"Only Wiskers","type":"box","boxpoints":false,"marker":{"color":"rgb(9, 56, 125)"}},{"y":[0.75,5.25,5.5,6.0,6.2,6.6,6.8,7.0,7.2,7.5,7.5,7.75,8.15,8.15,8.65,8.93,9.2,9.5,10.0,10.25,11.5,12.0,16.0,20.9,22.3,23.25],"name":"Suspected Outlier","type":"box","boxpoints":"suspectedoutliers","marker":{"line":{"outliercolor":"rgba(219, 64, 82, 1.0)","outlierwidth":2},"outliercolor":"rgba(219, 64, 82, 0.6)","color":"rgb(8, 8, 156)"}},{"y":[0.75,5.25,5.5,6.0,6.2,6.6,6.8,7.0,7.2,7.5,7.5,7.75,8.15,8.15,8.65,8.93,9.2,9.5,10.0,10.25,11.5,12.0,16.0,20.9,22.3,23.25],"name":"Wiskers and Outliers","type":"box","boxpoints":"Outliers","marker":{"color":"rgb(107, 174, 214)"}}],
-               {"title":"Box Plot Styling Outliers","margin":{"r":0,"l":0,"b":0,"t":0}}, {showLink: false});
+    Plotly.newPlot('e9596da2-b34d-424d-bb36-b8eabd73a0c7', [{"marker":{"color":"rgb(7, 40, 89)"},"boxpoints":"all","y":[0.75,5.25,5.5,6.0,6.2,6.6,6.8,7.0,7.2,7.5,7.5,7.75,8.15,8.15,8.65,8.93,9.2,9.5,10.0,10.25,11.5,12.0,16.0,20.9,22.3,23.25],"type":"box","name":"All Points","jitter":0.3,"pointpos":-1.8},{"boxpoints":false,"y":[0.75,5.25,5.5,6.0,6.2,6.6,6.8,7.0,7.2,7.5,7.5,7.75,8.15,8.15,8.65,8.93,9.2,9.5,10.0,10.25,11.5,12.0,16.0,20.9,22.3,23.25],"type":"box","name":"Only Wiskers","marker":{"color":"rgb(9, 56, 125)"}},{"boxpoints":"suspectedoutliers","y":[0.75,5.25,5.5,6.0,6.2,6.6,6.8,7.0,7.2,7.5,7.5,7.75,8.15,8.15,8.65,8.93,9.2,9.5,10.0,10.25,11.5,12.0,16.0,20.9,22.3,23.25],"type":"box","name":"Suspected Outlier","marker":{"color":"rgb(8, 8, 156)","line":{"outliercolor":"rgba(219, 64, 82, 1.0)","outlierwidth":2},"outliercolor":"rgba(219, 64, 82, 0.6)"}},{"boxpoints":"Outliers","y":[0.75,5.25,5.5,6.0,6.2,6.6,6.8,7.0,7.2,7.5,7.5,7.75,8.15,8.15,8.65,8.93,9.2,9.5,10.0,10.25,11.5,12.0,16.0,20.9,22.3,23.25],"type":"box","name":"Wiskers and Outliers","marker":{"color":"rgb(107, 174, 214)"}}],
+               {"margin":{"l":50,"b":60,"r":50,"t":60},"title":"Box Plot Styling Outliers"}, {showLink: false});
 
  </script>
 
-<pre class="codehilite"><code class="language-julia">function box6()
-    trace1 = box(;y=[2.37, 2.16, 4.82, 1.73, 1.04, 0.23, 1.32, 2.91, 0.11,
-                     4.51, 0.51, 3.75, 1.35, 2.98, 4.50, 0.18, 4.66, 1.30,
-                     2.06, 1.19],
-                  name=&quot;Only Mean&quot;,
-                  marker_color=&quot;rgb(8, 81, 156)&quot;,
-                  boxmean=true)
-    trace2 = box(;y=[2.37, 2.16, 4.82, 1.73, 1.04, 0.23, 1.32, 2.91, 0.11,
-                     4.51, 0.51, 3.75, 1.35, 2.98, 4.50, 0.18, 4.66, 1.30,
-                     2.06, 1.19],
-                  name=&quot;Mean and Standard Deviation&quot;,
-                  marker_color=&quot;rgb(10, 140, 208)&quot;,
-                  boxmean=&quot;sd&quot;)
-    data = [trace1, trace2]
-    layout = Layout(;title=&quot;Box Plot Styling Mean and Standard Deviation&quot;)
-    plot(data, layout)
-end
-box6()</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">box6</span><span class="p">()</span>
+    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.37</span><span class="p">,</span> <span class="mf">2.16</span><span class="p">,</span> <span class="mf">4.82</span><span class="p">,</span> <span class="mf">1.73</span><span class="p">,</span> <span class="mf">1.04</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">1.32</span><span class="p">,</span> <span class="mf">2.91</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">,</span>
+                     <span class="mf">4.51</span><span class="p">,</span> <span class="mf">0.51</span><span class="p">,</span> <span class="mf">3.75</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">,</span> <span class="mf">2.98</span><span class="p">,</span> <span class="mf">4.50</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mf">4.66</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span>
+                     <span class="mf">2.06</span><span class="p">,</span> <span class="mf">1.19</span><span class="p">],</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Only Mean&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(8, 81, 156)&quot;</span><span class="p">,</span>
+                  <span class="n">boxmean</span><span class="o">=</span><span class="kc">true</span><span class="p">)</span>
+    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mf">2.37</span><span class="p">,</span> <span class="mf">2.16</span><span class="p">,</span> <span class="mf">4.82</span><span class="p">,</span> <span class="mf">1.73</span><span class="p">,</span> <span class="mf">1.04</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">1.32</span><span class="p">,</span> <span class="mf">2.91</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">,</span>
+                     <span class="mf">4.51</span><span class="p">,</span> <span class="mf">0.51</span><span class="p">,</span> <span class="mf">3.75</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">,</span> <span class="mf">2.98</span><span class="p">,</span> <span class="mf">4.50</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mf">4.66</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span>
+                     <span class="mf">2.06</span><span class="p">,</span> <span class="mf">1.19</span><span class="p">],</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Mean and Standard Deviation&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(10, 140, 208)&quot;</span><span class="p">,</span>
+                  <span class="n">boxmean</span><span class="o">=</span><span class="s">&quot;sd&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Box Plot Styling Mean and Standard Deviation&quot;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">box6</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="cf3152e0-7e1e-40f2-8470-e9d04b1c8389" class="plotly-graph-div"></div>
+<div id="2b91e314-660c-4d5c-b98b-bdd88a977c7d" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('cf3152e0-7e1e-40f2-8470-e9d04b1c8389', [{"y":[2.37,2.16,4.82,1.73,1.04,0.23,1.32,2.91,0.11,4.51,0.51,3.75,1.35,2.98,4.5,0.18,4.66,1.3,2.06,1.19],"name":"Only Mean","type":"box","marker":{"color":"rgb(8, 81, 156)"},"boxmean":true},{"y":[2.37,2.16,4.82,1.73,1.04,0.23,1.32,2.91,0.11,4.51,0.51,3.75,1.35,2.98,4.5,0.18,4.66,1.3,2.06,1.19],"name":"Mean and Standard Deviation","type":"box","marker":{"color":"rgb(10, 140, 208)"},"boxmean":"sd"}],
-               {"title":"Box Plot Styling Mean and Standard Deviation","margin":{"r":0,"l":0,"b":0,"t":0}}, {showLink: false});
+    Plotly.newPlot('2b91e314-660c-4d5c-b98b-bdd88a977c7d', [{"boxmean":true,"y":[2.37,2.16,4.82,1.73,1.04,0.23,1.32,2.91,0.11,4.51,0.51,3.75,1.35,2.98,4.5,0.18,4.66,1.3,2.06,1.19],"type":"box","name":"Only Mean","marker":{"color":"rgb(8, 81, 156)"}},{"boxmean":"sd","y":[2.37,2.16,4.82,1.73,1.04,0.23,1.32,2.91,0.11,4.51,0.51,3.75,1.35,2.98,4.5,0.18,4.66,1.3,2.06,1.19],"type":"box","name":"Mean and Standard Deviation","marker":{"color":"rgb(10, 140, 208)"}}],
+               {"margin":{"l":50,"b":60,"r":50,"t":60},"title":"Box Plot Styling Mean and Standard Deviation"}, {showLink: false});
 
  </script>
 
-<pre class="codehilite"><code class="language-julia">function box7()
-    y0 = [&quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;, &quot;day 1&quot;,
-          &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;, &quot;day 2&quot;]
-    trace1 = box(;x=[0.2, 0.2, 0.6, 1.0, 0.5, 0.4, 0.2, 0.7, 0.9, 0.1, 0.5, 0.3],
-                  y=y0,
-                  name=&quot;kale&quot;,
-                  marker_color=&quot;#3D9970&quot;,
-                  boxmean=false,
-                  orientation=&quot;h&quot;)
-    trace2 = box(;x=[0.6, 0.7, 0.3, 0.6, 0.0, 0.5, 0.7, 0.9, 0.5, 0.8, 0.7, 0.2],
-                  y=y0,
-                  name=&quot;radishes&quot;,
-                  marker_color=&quot;#FF4136&quot;,
-                  boxmean=false,
-                  orientation=&quot;h&quot;)
-    trace3 = box(;x=[0.1, 0.3, 0.1, 0.9, 0.6, 0.6, 0.9, 1.0, 0.3, 0.6, 0.8, 0.5],
-                  y=y0,
-                  name=&quot;carrots&quot;,
-                  marker_color=&quot;#FF851B&quot;,
-                  boxmean=false,
-                  orientation=&quot;h&quot;)
-    data = [trace1, trace2, trace3]
-    layout = Layout(;title=&quot;Grouped Horizontal Box Plot&quot;,
-                     xaxis=attr(title=&quot;normalized moisture&quot;, zeroline=false),
-                     boxmode=&quot;group&quot;)
-    plot(data, layout)
-end
-box7()</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">box7</span><span class="p">()</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span> <span class="s">&quot;day 1&quot;</span><span class="p">,</span>
+          <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">,</span> <span class="s">&quot;day 2&quot;</span><span class="p">]</span>
+    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
+                  <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">,</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;kale&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#3D9970&quot;</span><span class="p">,</span>
+                  <span class="n">boxmean</span><span class="o">=</span><span class="kc">false</span><span class="p">,</span>
+                  <span class="n">orientation</span><span class="o">=</span><span class="s">&quot;h&quot;</span><span class="p">)</span>
+    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+                  <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">,</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;radishes&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#FF4136&quot;</span><span class="p">,</span>
+                  <span class="n">boxmean</span><span class="o">=</span><span class="kc">false</span><span class="p">,</span>
+                  <span class="n">orientation</span><span class="o">=</span><span class="s">&quot;h&quot;</span><span class="p">)</span>
+    <span class="n">trace3</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                  <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="p">,</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;carrots&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;#FF851B&quot;</span><span class="p">,</span>
+                  <span class="n">boxmean</span><span class="o">=</span><span class="kc">false</span><span class="p">,</span>
+                  <span class="n">orientation</span><span class="o">=</span><span class="s">&quot;h&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">trace3</span><span class="p">]</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Grouped Horizontal Box Plot&quot;</span><span class="p">,</span>
+                     <span class="n">xaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;normalized moisture&quot;</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="kc">false</span><span class="p">),</span>
+                     <span class="n">boxmode</span><span class="o">=</span><span class="s">&quot;group&quot;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">box7</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="fbb6da3b-ec07-4626-a5fe-e2a498667087" class="plotly-graph-div"></div>
+<div id="a74c2309-d6cd-4bb1-9e95-a7b2981d2afb" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('fbb6da3b-ec07-4626-a5fe-e2a498667087', [{"y":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"],"name":"kale","type":"box","orientation":"h","x":[0.2,0.2,0.6,1.0,0.5,0.4,0.2,0.7,0.9,0.1,0.5,0.3],"marker":{"color":"#3D9970"},"boxmean":false},{"y":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"],"name":"radishes","type":"box","orientation":"h","x":[0.6,0.7,0.3,0.6,0.0,0.5,0.7,0.9,0.5,0.8,0.7,0.2],"marker":{"color":"#FF4136"},"boxmean":false},{"y":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"],"name":"carrots","type":"box","orientation":"h","x":[0.1,0.3,0.1,0.9,0.6,0.6,0.9,1.0,0.3,0.6,0.8,0.5],"marker":{"color":"#FF851B"},"boxmean":false}],
-               {"xaxis":{"title":"normalized moisture","zeroline":false},"title":"Grouped Horizontal Box Plot","margin":{"r":0,"l":0,"b":0,"t":0},"boxmode":"group"}, {showLink: false});
+    Plotly.newPlot('a74c2309-d6cd-4bb1-9e95-a7b2981d2afb', [{"marker":{"color":"#3D9970"},"boxmean":false,"y":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"],"type":"box","name":"kale","orientation":"h","x":[0.2,0.2,0.6,1.0,0.5,0.4,0.2,0.7,0.9,0.1,0.5,0.3]},{"marker":{"color":"#FF4136"},"boxmean":false,"y":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"],"type":"box","name":"radishes","orientation":"h","x":[0.6,0.7,0.3,0.6,0.0,0.5,0.7,0.9,0.5,0.8,0.7,0.2]},{"marker":{"color":"#FF851B"},"boxmean":false,"y":["day 1","day 1","day 1","day 1","day 1","day 1","day 2","day 2","day 2","day 2","day 2","day 2"],"type":"box","name":"carrots","orientation":"h","x":[0.1,0.3,0.1,0.9,0.6,0.6,0.9,1.0,0.3,0.6,0.8,0.5]}],
+               {"xaxis":{"zeroline":false,"title":"normalized moisture"},"boxmode":"group","margin":{"l":50,"b":60,"r":50,"t":60},"title":"Grouped Horizontal Box Plot"}, {showLink: false});
 
  </script>
 
-<pre class="codehilite"><code class="language-julia">function box8()
-    trace1 = box(;y=[1, 2, 3, 4, 4, 4, 8, 9, 10],
-                  name=&quot;Sample A&quot;,
-                  marker_color=&quot;rgb(214, 12, 140)&quot;)
-    trace2 = box(;y=[2, 3, 3, 3, 3, 5, 6, 6, 7],
-                  name=&quot;Sample B&quot;,
-                  marker_color=&quot;rgb(0, 128, 128)&quot;)
-    data = [trace1, trace2]
-    layout = Layout(;title=&quot;Colored Box Plot&quot;)
-    plot(data, layout)
-end
-box8()</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">box8</span><span class="p">()</span>
+    <span class="n">trace1</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Sample A&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(214, 12, 140)&quot;</span><span class="p">)</span>
+    <span class="n">trace2</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s">&quot;Sample B&quot;</span><span class="p">,</span>
+                  <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;rgb(0, 128, 128)&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">]</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Colored Box Plot&quot;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">box8</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="a2d9e23b-dfb6-4f21-bef3-b4bfc8352277" class="plotly-graph-div"></div>
+<div id="581ace55-c93f-497c-9baa-09ea872b81e4" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('a2d9e23b-dfb6-4f21-bef3-b4bfc8352277', [{"y":[1,2,3,4,4,4,8,9,10],"name":"Sample A","type":"box","marker":{"color":"rgb(214, 12, 140)"}},{"y":[2,3,3,3,3,5,6,6,7],"name":"Sample B","type":"box","marker":{"color":"rgb(0, 128, 128)"}}],
-               {"title":"Colored Box Plot","margin":{"r":0,"l":0,"b":0,"t":0}}, {showLink: false});
+    Plotly.newPlot('581ace55-c93f-497c-9baa-09ea872b81e4', [{"y":[1,2,3,4,4,4,8,9,10],"type":"box","name":"Sample A","marker":{"color":"rgb(214, 12, 140)"}},{"y":[2,3,3,3,3,5,6,6,7],"type":"box","name":"Sample B","marker":{"color":"rgb(0, 128, 128)"}}],
+               {"margin":{"l":50,"b":60,"r":50,"t":60},"title":"Colored Box Plot"}, {showLink: false});
 
  </script>
 
-<pre class="codehilite"><code class="language-julia">function box9()
-    xData = [&quot;Carmelo&lt;br&gt;Anthony&quot;, &quot;Dwyane&lt;br&gt;Wade&quot;, &quot;Deron&lt;br&gt;Williams&quot;,
-             &quot;Brook&lt;br&gt;Lopez&quot;, &quot;Damian&lt;br&gt;Lillard&quot;, &quot;David&lt;br&gt;West&quot;,
-             &quot;Blake&lt;br&gt;Griffin&quot;, &quot;David&lt;br&gt;Lee&quot;, &quot;Demar&lt;br&gt;Derozan&quot;]
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">box9</span><span class="p">()</span>
+    <span class="n">xData</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Carmelo&lt;br&gt;Anthony&quot;</span><span class="p">,</span> <span class="s">&quot;Dwyane&lt;br&gt;Wade&quot;</span><span class="p">,</span> <span class="s">&quot;Deron&lt;br&gt;Williams&quot;</span><span class="p">,</span>
+             <span class="s">&quot;Brook&lt;br&gt;Lopez&quot;</span><span class="p">,</span> <span class="s">&quot;Damian&lt;br&gt;Lillard&quot;</span><span class="p">,</span> <span class="s">&quot;David&lt;br&gt;West&quot;</span><span class="p">,</span>
+             <span class="s">&quot;Blake&lt;br&gt;Griffin&quot;</span><span class="p">,</span> <span class="s">&quot;David&lt;br&gt;Lee&quot;</span><span class="p">,</span> <span class="s">&quot;Demar&lt;br&gt;Derozan&quot;</span><span class="p">]</span>
 
-    _getrandom(num, mul) = mul .* rand(num)
+    <span class="n">_getrandom</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">mul</span><span class="p">)</span> <span class="o">=</span> <span class="n">mul</span> <span class="o">.*</span> <span class="n">rand</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
 
-    yData = Array[
-            _getrandom(30, 10),
-            _getrandom(30, 20),
-            _getrandom(30, 25),
-            _getrandom(30, 40),
-            _getrandom(30, 45),
-            _getrandom(30, 30),
-            _getrandom(30, 20),
-            _getrandom(30, 15),
-            _getrandom(30, 43)
-        ]
-    colors = [&quot;rgba(93, 164, 214, 0.5)&quot;, &quot;rgba(255, 144, 14, 0.5)&quot;,
-              &quot;rgba(44, 160, 101, 0.5)&quot;, &quot;rgba(255, 65, 54, 0.5)&quot;,
-              &quot;rgba(207, 114, 255, 0.5)&quot;, &quot;rgba(127, 96, 0, 0.5)&quot;,
-              &quot;rgba(255, 140, 184, 0.5)&quot;, &quot;rgba(79, 90, 117, 0.5)&quot;,
-              &quot;rgba(222, 223, 0, 0.5)&quot;]
+    <span class="n">yData</span> <span class="o">=</span> <span class="kt">Array</span><span class="p">[</span>
+            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
+            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span>
+            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+            <span class="n">_getrandom</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">43</span><span class="p">)</span>
+        <span class="p">]</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;rgba(93, 164, 214, 0.5)&quot;</span><span class="p">,</span> <span class="s">&quot;rgba(255, 144, 14, 0.5)&quot;</span><span class="p">,</span>
+              <span class="s">&quot;rgba(44, 160, 101, 0.5)&quot;</span><span class="p">,</span> <span class="s">&quot;rgba(255, 65, 54, 0.5)&quot;</span><span class="p">,</span>
+              <span class="s">&quot;rgba(207, 114, 255, 0.5)&quot;</span><span class="p">,</span> <span class="s">&quot;rgba(127, 96, 0, 0.5)&quot;</span><span class="p">,</span>
+              <span class="s">&quot;rgba(255, 140, 184, 0.5)&quot;</span><span class="p">,</span> <span class="s">&quot;rgba(79, 90, 117, 0.5)&quot;</span><span class="p">,</span>
+              <span class="s">&quot;rgba(222, 223, 0, 0.5)&quot;</span><span class="p">]</span>
 
-    data = GenericTrace[]
-    for i in 1:length(xData)
-        trace = box(;y=yData[i],
-                     name=xData[i],
-                     boxpoints=&quot;all&quot;,
-                     jitter=0.5,
-                     whiskerwidth=0.2,
-                     fillcolor=&quot;cls&quot;,
-                     marker_size=2,
-                     line_width=1)
-        push!(data, trace)
-    end
+    <span class="n">data</span> <span class="o">=</span> <span class="n">GenericTrace</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">length</span><span class="p">(</span><span class="n">xData</span><span class="p">)</span>
+        <span class="n">trace</span> <span class="o">=</span> <span class="n">box</span><span class="p">(;</span><span class="n">y</span><span class="o">=</span><span class="n">yData</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                     <span class="n">name</span><span class="o">=</span><span class="n">xData</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                     <span class="n">boxpoints</span><span class="o">=</span><span class="s">&quot;all&quot;</span><span class="p">,</span>
+                     <span class="n">jitter</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                     <span class="n">whiskerwidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                     <span class="n">fillcolor</span><span class="o">=</span><span class="s">&quot;cls&quot;</span><span class="p">,</span>
+                     <span class="n">marker_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                     <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">push!</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">trace</span><span class="p">)</span>
+    <span class="k">end</span>
 
-    t = &quot;Points Scored by the Top 9 Scoring NBA Players in 2012&quot;
-    layout = Layout(;title=t,
-                     yaxis=attr(autorange=true, showgrid=true, zeroline=true,
-                                dtick=5, gridcolor=&quot;rgb(255, 255, 255)&quot;,
-                                gridwidth=1,
-                                zerolinecolor=&quot;rgb(255, 255, 255)&quot;,
-                                zerolinewidth=2),
-                     margin=attr(l=40, r=30, b=80, t=100),
-                     paper_bgcolor=&quot;rgb(243, 243, 243)&quot;,
-                     plot_bgcolor=&quot;rgb(243, 243, 243)&quot;,
-                     showlegend=false)
-    plot(data, layout)
-end
-box9()</code></pre>
+    <span class="n">t</span> <span class="o">=</span> <span class="s">&quot;Points Scored by the Top 9 Scoring NBA Players in 2012&quot;</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">title</span><span class="o">=</span><span class="n">t</span><span class="p">,</span>
+                     <span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">autorange</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span> <span class="n">showgrid</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="kc">true</span><span class="p">,</span>
+                                <span class="n">dtick</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
+                                <span class="n">gridwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                <span class="n">zerolinecolor</span><span class="o">=</span><span class="s">&quot;rgb(255, 255, 255)&quot;</span><span class="p">,</span>
+                                <span class="n">zerolinewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+                     <span class="n">margin</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+                     <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s">&quot;rgb(243, 243, 243)&quot;</span><span class="p">,</span>
+                     <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s">&quot;rgb(243, 243, 243)&quot;</span><span class="p">,</span>
+                     <span class="n">showlegend</span><span class="o">=</span><span class="kc">false</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">box9</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="d57760ab-45a6-4df7-bad0-2ae4e7c77dba" class="plotly-graph-div"></div>
+<div id="716b9e82-a614-423a-826c-a7028d5a9a2f" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('d57760ab-45a6-4df7-bad0-2ae4e7c77dba', [{"y":[1.629286842612574,8.533698662220743,2.9893422654501767,0.2664806402349962,4.879924501159034,0.12805138532917537,7.683798296673563,3.2098057211193454,3.6588350827650085,1.4613061550281148,5.854096934009023,2.0614890397864394,2.7243466057587984,3.4828497628289434,0.4717583414651383,4.655085903699659,0.98257511893594,3.727874600469925,4.21385853058079,2.6952227982046417,1.6363869006578624,9.237197057957607,0.524193280278531,8.798774415646339,6.709043063270741,0.37562153658386555,8.319181693530286,0.6656828120795732,7.133241694862278,6.793078130650205],"name":"Carmelo<br>Anthony","type":"box","fillcolor":"cls","line":{"width":1},"jitter":0.5,"whiskerwidth":0.2,"boxpoints":"all","marker":{"size":2}},{"y":[3.6617713335656044,17.9702402032165,16.100804700126382,16.637901290215318,3.6565307789385137,1.2224405515141834,8.267722294850767,17.8643673033428,6.796205230907955,4.172231653995273,14.411093836411947,6.570476975633728,18.707289556045907,8.833487452961982,12.857929367674181,11.084930723246904,4.114558326594087,9.15802302167803,16.76793695586187,1.4353181416588123,19.60486762409024,12.547293600805713,2.1946210499798102,4.332578659321991,5.228443860671526,3.650163651682301,3.1548191364921063,11.02769090494752,1.4056390252559403,6.833566347880753],"name":"Dwyane<br>Wade","type":"box","fillcolor":"cls","line":{"width":1},"jitter":0.5,"whiskerwidth":0.2,"boxpoints":"all","marker":{"size":2}},{"y":[7.514388178247727,8.211944227356327,19.810703149772362,11.270308588709177,5.491930545769819,9.309635068646543,23.791134981839697,9.461506422348403,8.417810211020067,19.015742181163713,6.8332432380034005,8.72155982318819,13.266029833422355,19.97610131428616,16.27665231093978,18.125402221077998,23.550334411226707,4.3346019846804476,14.226926325188533,18.22096468404667,4.135840896911397,21.45096366738697,7.33300967399067,18.82133617970474,0.7861548009729935,16.054762437450737,15.72583980489955,2.782283307537192,23.157438817863436,18.622828916829427],"name":"Deron<br>Williams","type":"box","fillcolor":"cls","line":{"width":1},"jitter":0.5,"whiskerwidth":0.2,"boxpoints":"all","marker":{"size":2}},{"y":[10.872925261438677,5.250427429108946,15.1876779186592,18.880693655164052,27.459855201451234,7.776880784785343,18.398617247793165,12.912306862164282,21.51531985277267,6.154709822540134,34.31312707643169,33.77784995270031,33.179073264768306,18.99569685082767,4.03009581768778,10.114326191273095,38.72370492516837,3.8598465621295297,26.41439675623947,8.356704385488314,32.3579924980174,25.751840334463747,7.662375418574365,38.28675089374164,37.67204368244457,22.471687287047743,26.53049032041462,31.114574502899703,39.2617758081104,27.442052771581736],"name":"Brook<br>Lopez","type":"box","fillcolor":"cls","line":{"width":1},"jitter":0.5,"whiskerwidth":0.2,"boxpoints":"all","marker":{"size":2}},{"y":[1.7297835805667783,33.845287318520796,17.04579947186692,23.53642280656824,8.83809699769697,30.927390647823042,4.336695455699777,26.503194339725,12.57669992021474,19.285241902919477,34.8466630193056,44.801530467812434,10.834951809886,24.20255560186937,1.1188037771648363,33.024476691663594,43.45613141761433,43.91212212243281,23.3291771212661,30.789682954832173,1.0680635725885257,34.68629985887132,42.83469878672921,44.76431366957514,39.81199074098252,7.689080181212472,26.53129619438387,42.76604495567258,1.9338319433696982,28.14476218518591],"name":"Damian<br>Lillard","type":"box","fillcolor":"cls","line":{"width":1},"jitter":0.5,"whiskerwidth":0.2,"boxpoints":"all","marker":{"size":2}},{"y":[13.23254836151156,10.369435388468208,16.818112077035224,18.31072048886959,0.10947861095832012,26.474133587730986,16.139320698353355,4.460340442631161,10.194165403773068,5.214747419274504,3.991939499860915,1.6076619244306967,26.829767214372623,21.478134174880253,4.857464154134212,13.19664565168794,1.0955387482528223,20.460682976598587,11.98273694295326,6.43301783671423,3.355870785486348,24.499864815587895,12.088067201169697,14.531421709570356,6.356789443557977,1.2715483839671693,5.426145065980537,7.924782711725626,29.73710330774217,23.068520812989505],"name":"David<br>West","type":"box","fillcolor":"cls","line":{"width":1},"jitter":0.5,"whiskerwidth":0.2,"boxpoints":"all","marker":{"size":2}},{"y":[4.260513302150892,13.606962130680245,19.578742019914355,19.801516037194276,15.315160222186766,6.513720466899926,2.7024966395610805,3.5410704046198838,12.95892858483266,19.898612944924032,16.285730897842225,18.09733979435785,16.64607138867828,9.79162822904045,14.697262586183019,15.831463878065968,10.075748905732791,10.040855124248358,16.268502923394486,12.889517243748427,1.0387360119418743,4.901952198683683,0.43560543238809313,12.928820405981654,2.3758690950809846,15.902282106509972,18.57345619748036,0.6944813635571245,2.383621186745226,4.7001478167005395],"name":"Blake<br>Griffin","type":"box","fillcolor":"cls","line":{"width":1},"jitter":0.5,"whiskerwidth":0.2,"boxpoints":"all","marker":{"size":2}},{"y":[13.650772701460692,11.807706655037087,3.3334739749434728,12.52911940603205,5.58443891166908,5.283644438123019,3.261794775597122,10.712757021826262,12.410603326211785,13.019859705597533,10.477093738451,9.502618204808059,9.217322269649754,6.375186069690566,10.902529921385055,3.599142826673641,4.350990098587477,10.24312544468928,8.858522234662818,5.406466022182811,10.146706096192178,9.231975100193829,6.492186381685493,11.408140024637698,6.211723719064323,2.900700705787347,0.6610309764652167,10.48859805484231,12.45341584346427,14.497539674877652],"name":"David<br>Lee","type":"box","fillcolor":"cls","line":{"width":1},"jitter":0.5,"whiskerwidth":0.2,"boxpoints":"all","marker":{"size":2}},{"y":[14.110520673153855,34.62632395056351,4.9538201617829944,1.5410660793094124,28.483379719358606,33.8467974710292,18.991061668114984,39.91335650726041,40.113853132967314,19.078740963006894,19.519540832346326,18.698446812316448,3.2277290608610487,17.0179480670332,36.7149496643657,19.527653430502916,9.314975523777402,12.94570965106224,42.74871637246956,3.8857266552155565,31.628420219249648,21.16758071944592,17.61538028574662,18.86946286428448,31.8023171300034,29.83163973710057,26.18163284476142,8.176419280312167,16.19239668559834,19.846493601265895],"name":"Demar<br>Derozan","type":"box","fillcolor":"cls","line":{"width":1},"jitter":0.5,"whiskerwidth":0.2,"boxpoints":"all","marker":{"size":2}}],
-               {"yaxis":{"zerolinecolor":"rgb(255, 255, 255)","autorange":true,"zerolinewidth":2,"showgrid":true,"zeroline":true,"dtick":5,"gridcolor":"rgb(255, 255, 255)","gridwidth":1},"plot_bgcolor":"rgb(243, 243, 243)","showlegend":false,"paper_bgcolor":"rgb(243, 243, 243)","title":"Points Scored by the Top 9 Scoring NBA Players in 2012","margin":{"r":30,"l":40,"b":80,"t":100}}, {showLink: false});
+    Plotly.newPlot('716b9e82-a614-423a-826c-a7028d5a9a2f', [{"boxpoints":"all","fillcolor":"cls","line":{"width":1},"y":[2.5957805088306185,8.312340511491723,4.236071168991384,0.5581744678018552,2.7811540972396376,9.673855215179687,8.921875757369765,9.959957223897629,0.3375202676703437,0.061799854374786634,3.019364163046032,5.0337069690272855,1.6613538053046262,0.4475913784234553,1.2560360839819285,1.7307610927318784,4.040993204576946,0.04818266455446141,7.173199208810443,3.3267665093858834,7.307864326150892,9.322755675041602,8.924789042074812,6.333338308367673,5.663624234826237,5.46905358607315,1.5352983323176805,9.314250467390204,1.7706362193312497,2.9736511550986533],"type":"box","name":"Carmelo<br>Anthony","jitter":0.5,"whiskerwidth":0.2,"marker":{"size":2}},{"boxpoints":"all","fillcolor":"cls","line":{"width":1},"y":[13.403496094778795,16.984640199142568,18.675885812406825,10.19896000148615,0.9719564601231445,14.612248323848984,1.3985999516207626,19.81169252981735,18.909456320400672,13.288699047766709,14.976747645014727,7.47769754191665,10.996728008639858,1.7121679676221202,13.657996309708045,12.058166674354695,8.219422921116806,3.4431282702783106,18.211332502736425,18.837853333141553,14.76327904783647,10.395364911132962,14.425938507105398,5.310906572018865,17.5186784757579,6.944861711111101,0.1293445398738191,7.988716295517051,17.197498929949113,5.065209875625762],"type":"box","name":"Dwyane<br>Wade","jitter":0.5,"whiskerwidth":0.2,"marker":{"size":2}},{"boxpoints":"all","fillcolor":"cls","line":{"width":1},"y":[2.290445917077272,22.660324692540367,10.985182234430646,8.039528217718466,0.9247680166554972,11.926684100079548,9.291149174891395,9.33926112993641,11.098162757691815,4.6528812636344785,10.186204015587592,14.507030589044302,11.402971089836944,3.3825842933166985,24.809592486243815,1.0112445297485284,23.32278358805595,1.154799887041058,21.0249701128958,4.34395260364338,12.892667267851166,0.025201932573309938,15.684592463842561,20.59013526152775,6.771785099988525,23.86496356818027,16.580018046111288,12.97646213021496,17.635161544685907,9.571652595929624],"type":"box","name":"Deron<br>Williams","jitter":0.5,"whiskerwidth":0.2,"marker":{"size":2}},{"boxpoints":"all","fillcolor":"cls","line":{"width":1},"y":[31.37230888779787,23.660812278947986,8.503075612659474,19.86684870653346,15.120841210152518,21.244711146567976,33.43617943613942,22.141491494360437,37.81790410850856,29.86585411624621,12.039852412494003,17.67388245849591,24.172471277347398,8.991717740100373,8.494793702946941,4.9121493563550445,14.328310495472314,18.174182110459512,18.702183097046934,20.78146708503322,14.274845414501858,30.831753660184845,12.810628797104888,21.376626567413084,33.1402073127779,30.116934607794565,19.84828119842355,36.44406328124678,8.314621195140948,37.26448562001729],"type":"box","name":"Brook<br>Lopez","jitter":0.5,"whiskerwidth":0.2,"marker":{"size":2}},{"boxpoints":"all","fillcolor":"cls","line":{"width":1},"y":[33.951843898504215,19.40050518891963,35.47420991148139,7.0324594690224345,10.859886806479565,8.049770270330352,41.3128589444411,17.99660751819723,30.325991589475493,37.00041390058278,40.51458333968382,44.165260653342315,15.175933930416877,25.0941800772339,6.896926095569025,1.1030059074609422,27.143659665224945,41.92062717662145,29.088962280991943,39.604548022703646,43.55667847371746,19.229183434672144,11.540524872846577,44.75357965416069,36.80709727482371,43.8581873519467,41.70541115266419,3.377079481286034,0.2366182260284877,32.75775271472196],"type":"box","name":"Damian<br>Lillard","jitter":0.5,"whiskerwidth":0.2,"marker":{"size":2}},{"boxpoints":"all","fillcolor":"cls","line":{"width":1},"y":[8.38798719677772,11.469354558258601,28.90755230767035,26.059379221410836,14.271860658108595,22.05497777743422,13.34577239868388,26.04372636280172,28.196149862421546,26.494419719776094,23.072096621470948,16.47658215994375,8.96967564313563,8.437334803401672,19.22361875037335,4.885572790563022,21.316681620816887,26.090777093625327,9.186526043536745,20.290313337681077,12.187065194964777,18.525195849713214,9.283964436030502,22.244117720728273,10.977386780116884,17.511917496740786,14.28650940509258,13.840092311158838,9.92097122522802,17.525829416779754],"type":"box","name":"David<br>West","jitter":0.5,"whiskerwidth":0.2,"marker":{"size":2}},{"boxpoints":"all","fillcolor":"cls","line":{"width":1},"y":[19.891036876029744,4.6718533078730795,7.436890882759313,17.208301019244505,11.268675436755785,19.848214850418415,0.7961586005358301,16.14417744935341,14.88684484581007,9.165730365444613,2.125121475822076,17.438020649164162,3.375398727912593,1.2823746740914466,2.0515580024667424,17.475320976350076,11.162193891983527,5.93105976107283,16.979749518751582,5.220062318338585,13.992630103583043,4.111782708956304,18.10758864060385,5.037913989757237,3.2881170925185055,0.8757773925149159,3.641737815519197,11.21759199963929,10.576713358504488,14.383138406249145],"type":"box","name":"Blake<br>Griffin","jitter":0.5,"whiskerwidth":0.2,"marker":{"size":2}},{"boxpoints":"all","fillcolor":"cls","line":{"width":1},"y":[8.234165693581401,4.232263312672173,11.095796894204389,11.29610139181405,5.510818516911732,13.370707929601625,8.377187067256735,2.147543033353281,3.270100381089287,3.426863940104765,8.4778554879416,11.192783198267996,9.970515044099933,3.2688357061934803,7.374080155093963,9.976888376766388,11.644689392336327,10.884270659977814,1.756885256567261,9.913537299443945,3.511790064638002,11.939135819255107,5.776462028863271,13.649939582621759,11.571980320581456,10.838287696541135,3.3841712604004712,3.868342394076425,4.3475262109257,10.66363549205837],"type":"box","name":"David<br>Lee","jitter":0.5,"whiskerwidth":0.2,"marker":{"size":2}},{"boxpoints":"all","fillcolor":"cls","line":{"width":1},"y":[5.98133178933072,0.5761669462842933,24.79505383410876,3.1134435891221495,18.304263835001628,3.8780701870423337,20.305890489491333,13.121776482369699,12.813670597637342,31.588734104503864,25.342523452043498,16.55914221557057,39.61265393180537,28.238202325359463,35.82057740479465,39.94244509509641,38.39173045289931,23.859132637130184,3.6374584599114943,16.592878412550498,15.010770660221269,15.899931024583728,5.008388016393331,19.437704995375245,36.2723271981587,5.097626749162721,6.647847717970596,41.4772537705692,6.503521436889223,29.685710478619434],"type":"box","name":"Demar<br>Derozan","jitter":0.5,"whiskerwidth":0.2,"marker":{"size":2}}],
+               {"showlegend":false,"paper_bgcolor":"rgb(243, 243, 243)","margin":{"l":50,"b":60,"r":50,"t":60},"title":"Points Scored by the Top 9 Scoring NBA Players in 2012","yaxis":{"showgrid":true,"gridcolor":"rgb(255, 255, 255)","dtick":5,"zeroline":true,"gridwidth":1,"zerolinewidth":2,"zerolinecolor":"rgb(255, 255, 255)","autorange":true},"plot_bgcolor":"rgb(243, 243, 243)"}, {showLink: false});
 
  </script>
 
-<pre class="codehilite"><code class="language-julia">function box10()
-    n_box = 30
-    colors = [&quot;hsl($i, 50%, 50%)&quot; for i in linspace(0, 360, n_box)]
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">box10</span><span class="p">()</span>
+    <span class="n">n_box</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;hsl(</span><span class="si">$i</span><span class="s">, 50%, 50%)&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="n">n_box</span><span class="p">)]</span>
 
-    gen_y_data(i) =
-        3.5*sin(pi*i/n_box) + i/n_box + (1.5+0.5*cos(pi*i/n_box)).*rand(10)
+    <span class="n">gen_y_data</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span>
+        <span class="mf">3.5</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="nb">pi</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="n">n_box</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span><span class="o">/</span><span class="n">n_box</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.5</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="nb">pi</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="n">n_box</span><span class="p">))</span><span class="o">.*</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 
-    ys = Array[gen_y_data(i) for i in 1:n_box]
+    <span class="n">ys</span> <span class="o">=</span> <span class="kt">Array</span><span class="p">[</span><span class="n">gen_y_data</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">n_box</span><span class="p">]</span>
 
-    # Create Traces
-    data = GenericTrace[box(y=y, marker_color=mc) for (y, mc) in zip(ys, colors)]
+    <span class="c"># Create Traces</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">GenericTrace</span><span class="p">[</span><span class="n">box</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="n">mc</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">mc</span><span class="p">)</span> <span class="kp">in</span> <span class="n">zip</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">colors</span><span class="p">)]</span>
 
-    #Format the layout
-    layout = Layout(;xaxis=attr(;showgrid=false, zeroline=false,
-                                 tickangle=60, showticklabels=true),
-                     yaxis=attr(;zeroline=false, gridcolor=&quot;white&quot;),
-                     paper_bgcolor=&quot;rgb(233, 233, 233)&quot;,
-                     plot_bgcolor=&quot;rgb(233, 233, 233)&quot;,
-                     showlegend=true)
-    plot(data, layout)
-end
-box10()</code></pre>
+    <span class="c">#Format the layout</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(;</span><span class="n">xaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(;</span><span class="n">showgrid</span><span class="o">=</span><span class="kc">false</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="kc">false</span><span class="p">,</span>
+                                 <span class="n">tickangle</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">showticklabels</span><span class="o">=</span><span class="kc">true</span><span class="p">),</span>
+                     <span class="n">yaxis</span><span class="o">=</span><span class="n">attr</span><span class="p">(;</span><span class="n">zeroline</span><span class="o">=</span><span class="kc">false</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s">&quot;white&quot;</span><span class="p">),</span>
+                     <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s">&quot;rgb(233, 233, 233)&quot;</span><span class="p">,</span>
+                     <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s">&quot;rgb(233, 233, 233)&quot;</span><span class="p">,</span>
+                     <span class="n">showlegend</span><span class="o">=</span><span class="kc">true</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">box10</span><span class="p">()</span>
+</pre></div>
 
 
-<div id="62396325-361f-4ad1-93b1-8b4dd48f4490" class="plotly-graph-div"></div>
+<div id="9f3dc67a-0a94-41d8-86b8-f03d9262e02c" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('62396325-361f-4ad1-93b1-8b4dd48f4490', [{"y":[1.4805271162242344,1.070051041440649,1.362471870246206,1.5265918897121684,1.3462579787663245,1.0674038187166979,0.489501689401916,1.669522608499741,1.7735121474117246,0.9767237184863866],"type":"box","marker":{"color":"hsl(0.0, 50%, 50%)"}},{"y":[2.0601062176758056,2.47266991511306,1.7500875688947697,1.3756644438323797,2.2143027431523707,1.4166209270642351,2.55421272003925,2.197982449860141,2.0628992612201773,1.1232937163062273],"type":"box","marker":{"color":"hsl(12.413793103448276, 50%, 50%)"}},{"y":[1.8564455040456564,1.8546578889650474,1.9813295449961585,1.7771214405036386,1.6349357319997242,3.112809062058152,3.1364327881792358,2.600801786568188,1.9180458831587224,2.761748457462421],"type":"box","marker":{"color":"hsl(24.82758620689655, 50%, 50%)"}},{"y":[3.300867111573818,2.7626461809011547,2.4050137065256583,2.704040869081928,3.2579889800035247,3.2138180362428597,1.9296569918266524,2.569161391244699,2.2463792563184075,1.9312232846328459],"type":"box","marker":{"color":"hsl(37.241379310344826, 50%, 50%)"}},{"y":[2.6178794390711366,3.5085471446552754,3.0981753860449284,2.1043897383568337,3.807104619863461,2.1928787729092893,2.1961066648102183,2.921186391931261,2.5029565430254896,2.3881010264699896],"type":"box","marker":{"color":"hsl(49.6551724137931, 50%, 50%)"}},{"y":[2.9946881563611685,4.008249020150984,3.9171882196284704,2.5516379420235293,3.296250916159115,2.444899661883895,2.9856580372722483,3.0279583400326273,3.3173579664408566,3.006357653019462],"type":"box","marker":{"color":"hsl(62.06896551724138, 50%, 50%)"}},{"y":[4.173849486030039,2.825774292362964,2.833498649491505,3.9183778108628173,2.63331538225268,3.7181567536721607,4.031094560742731,3.905394458549316,4.3998369720630155,2.8585775872141728],"type":"box","marker":{"color":"hsl(74.48275862068965, 50%, 50%)"}},{"y":[3.154535847916214,4.61414971732578,3.993279866186458,4.577752013041337,4.531065740796033,3.192855704565023,3.0665878094416428,3.147008294737649,4.645406586219359,3.8659859024815613],"type":"box","marker":{"color":"hsl(86.89655172413794, 50%, 50%)"}},{"y":[3.7579630202358905,4.923086025660328,4.059759744943114,4.10073364883671,4.251089719915185,4.26790462348827,3.5930026977679637,3.502505154427659,4.140761676241641,3.6879674589124436],"type":"box","marker":{"color":"hsl(99.3103448275862, 50%, 50%)"}},{"y":[4.244471268742588,4.312075316566239,3.7590868526709076,4.822485633063641,4.588182849750133,4.948944196670405,3.8582651961051684,5.0571939888142685,3.715628740835222,4.106371975999599],"type":"box","marker":{"color":"hsl(111.72413793103448, 50%, 50%)"}},{"y":[3.8942218607562937,3.956979522733901,4.038676631472967,4.603445350040286,3.8958409113072308,4.222451646393853,4.551805791898202,4.654627053905323,4.0942425097236645,4.762813030955126],"type":"box","marker":{"color":"hsl(124.13793103448276, 50%, 50%)"}},{"y":[5.288287709015326,5.148259562326651,4.956263779217293,3.8548709806591908,4.903246422595333,4.419568444971162,4.002352680094523,4.740047429371317,4.101563984696901,4.873865182952359],"type":"box","marker":{"color":"hsl(136.55172413793105, 50%, 50%)"}},{"y":[4.213434571661948,4.458806525004308,5.37781380966584,4.562342988927057,4.389414693861336,3.9449109463288874,5.2438401042910066,5.015395288092956,4.424016447731483,4.455348781609211],"type":"box","marker":{"color":"hsl(148.9655172413793, 50%, 50%)"}},{"y":[4.308518878868455,4.034282741054347,4.7853005408566345,4.738410706875631,4.829238825099413,4.082902897028459,5.032972917934914,4.283890583418175,4.098691027894764,4.325106689403111],"type":"box","marker":{"color":"hsl(161.3793103448276, 50%, 50%)"}},{"y":[4.899311751841415,5.106960458864834,4.619195748306205,4.463542667150427,4.8660204385878405,4.435006149060868,4.0968601401496585,5.4477863074834225,4.443980523147767,4.9718378067606945],"type":"box","marker":{"color":"hsl(173.79310344827587, 50%, 50%)"}},{"y":[4.055978770791636,5.382331439469073,4.726551084067646,4.667420128725855,4.925567120973396,4.984021485806678,4.616652268690402,5.142727812700024,4.800703607871072,5.120922376216141],"type":"box","marker":{"color":"hsl(186.20689655172413, 50%, 50%)"}},{"y":[4.060446315149392,4.2120175022327135,4.5130100804626805,4.908476688936252,5.067544845580644,4.578318445616749,5.074986207590227,5.058210086730872,4.914646564734036,4.4665630884252385],"type":"box","marker":{"color":"hsl(198.6206896551724, 50%, 50%)"}},{"y":[4.9828493564828005,4.9449385401262145,4.940662647890626,4.39247865731709,4.380710510194123,4.9948030932412575,5.105319757625412,4.490497339268297,4.564433989810135,5.211906370991425],"type":"box","marker":{"color":"hsl(211.0344827586207, 50%, 50%)"}},{"y":[3.9741845257516406,4.985180372263086,5.119224127906458,4.7885372042067464,4.104527585182483,3.9101170068672024,5.115563543219211,4.752201429664473,4.434003624884742,4.375275363432533],"type":"box","marker":{"color":"hsl(223.44827586206895, 50%, 50%)"}},{"y":[4.58999596121555,4.424397328939859,4.006018207089605,4.5356174702879555,3.8111166205489964,4.0876931268035435,4.556578569234709,4.936189800577447,3.969722667121823,3.831059473705689],"type":"box","marker":{"color":"hsl(235.86206896551724, 50%, 50%)"}},{"y":[4.5913022614679795,4.721603047382026,4.689151244611603,3.548588465674283,4.050473976127629,3.8481513081932444,4.5478143798709265,3.888867141547472,3.7999655664682876,4.266344848449265],"type":"box","marker":{"color":"hsl(248.27586206896552, 50%, 50%)"}},{"y":[3.8594052638609675,4.0050158343266355,4.111458992063129,3.8848239163115323,3.806490056932382,3.9231939672395955,4.228113484326093,3.3553328484633274,3.6868166062152508,4.423530594232993],"type":"box","marker":{"color":"hsl(260.6896551724138, 50%, 50%)"}},{"y":[3.605632356118491,3.197181467715069,3.32570530090889,4.232263720350481,3.684379004444286,3.8003390992256643,3.452163679357982,3.3036613397510104,4.032964738699033,3.3036081124034538],"type":"box","marker":{"color":"hsl(273.1034482758621, 50%, 50%)"}},{"y":[3.5304100627766477,3.824913843877218,3.170255442765087,3.665939629858765,3.7961383141725236,3.122566301558643,3.797254978575947,2.9745413254596786,3.7749239380062756,3.766319385430411],"type":"box","marker":{"color":"hsl(285.51724137931035, 50%, 50%)"}},{"y":[3.375551624916261,3.3802309816408673,2.8696493832447243,3.0489456786110742,3.4129776317973786,3.236878581456803,3.0864460112881584,3.3662468162909507,2.6005980954290426,3.0527739138521106],"type":"box","marker":{"color":"hsl(297.9310344827586, 50%, 50%)"}},{"y":[2.7676347964919223,2.647518828886083,2.61422663373266,3.06846188445232,2.980973948752526,3.026849409264969,2.706043423095349,2.596201956033433,3.0104063789289275,2.4006122647114183],"type":"box","marker":{"color":"hsl(310.3448275862069, 50%, 50%)"}},{"y":[1.9986064055461443,2.075615281815164,2.4549184834681066,2.5316696064806647,2.8419642372890737,2.10029840530683,2.0254587258830945,2.9471158775351536,2.2127809893346235,2.322210866188365],"type":"box","marker":{"color":"hsl(322.7586206896552, 50%, 50%)"}},{"y":[2.525133809661976,2.1346639181022193,2.0386535886757686,2.324862183806474,2.047181976429912,1.7153728873908671,2.483771132237673,1.7519596478186394,1.800755549327039,2.143031691675426],"type":"box","marker":{"color":"hsl(335.17241379310343, 50%, 50%)"}},{"y":[2.0629429506777965,1.9199729963820111,2.248301785654462,1.8885479846989899,1.855127463028332,2.308011176598191,2.181973732607631,1.931945641941025,1.4864201908195076,1.9318042577370917],"type":"box","marker":{"color":"hsl(347.58620689655174, 50%, 50%)"}},{"y":[1.6923357813024078,1.439832381569399,1.2569384580437846,1.1421848578836455,1.6087984201353476,1.5146665121882317,1.2349091049771161,1.350413612654345,1.6477458885975165,1.429564841451298],"type":"box","marker":{"color":"hsl(360.0, 50%, 50%)"}}],
-               {"yaxis":{"zeroline":false,"gridcolor":"white"},"plot_bgcolor":"rgb(233, 233, 233)","showlegend":true,"xaxis":{"showgrid":false,"zeroline":false,"tickangle":60,"showticklabels":true},"paper_bgcolor":"rgb(233, 233, 233)","margin":{"r":30,"l":40,"b":80,"t":100}}, {showLink: false});
+    Plotly.newPlot('9f3dc67a-0a94-41d8-86b8-f03d9262e02c', [{"y":[0.9468008108769402,1.1604800733896847,1.5688045279119707,1.3089659185869655,0.9628488377388411,0.9270782316853687,0.8479031323892136,0.4668249349117368,2.2771860641693875,1.9463657393184524],"type":"box","marker":{"color":"hsl(0.0, 50%, 50%)"}},{"y":[1.0538653341050774,2.4970784164642437,2.387265278835744,2.1885226219138767,2.0293306333176067,1.288119690102087,0.9966645814780731,1.7912977739331324,1.0544026609955548,2.4540420533703573],"type":"box","marker":{"color":"hsl(12.413793103448276, 50%, 50%)"}},{"y":[2.1753479418821993,1.4742477150489486,2.5924951520964212,2.8912716168179484,2.0317261669324953,2.321572081408074,2.7026051885883,2.0975531818847424,2.743176968329091,1.7698598312235796],"type":"box","marker":{"color":"hsl(24.82758620689655, 50%, 50%)"}},{"y":[3.095982828922481,1.6399581944033663,2.3624655430782386,2.1673707464538454,2.987148847421363,3.414302714966718,3.0948572988277148,2.1919097555493448,2.685106324175197,1.9304113668354503],"type":"box","marker":{"color":"hsl(37.241379310344826, 50%, 50%)"}},{"y":[3.273877243275307,3.289174732366509,3.6803710613968006,2.145700049375843,2.5287925830467786,3.7647572941561096,3.8006967107026104,2.875754279698017,1.9347129644055685,3.0617664860437994],"type":"box","marker":{"color":"hsl(49.6551724137931, 50%, 50%)"}},{"y":[2.28178901339589,2.3306273751244455,3.4627633042380572,2.4112891229644036,2.369083055771367,2.9216077136553786,2.765329505915095,4.105445289461024,3.8297289801773973,2.874730434002468],"type":"box","marker":{"color":"hsl(62.06896551724138, 50%, 50%)"}},{"y":[3.655414295773016,2.9259639059704075,3.288618781219142,4.275635126378894,2.820053450464444,3.587171175994353,2.920843370365872,3.238919633231881,2.930977426576006,4.370074244687009],"type":"box","marker":{"color":"hsl(74.48275862068965, 50%, 50%)"}},{"y":[3.3470070963974634,3.547913626643575,3.8917665799237824,3.9199306934589266,4.11177130468919,3.608919988920999,4.439008356893862,3.5636996702564443,4.430395344887745,4.672797544606265],"type":"box","marker":{"color":"hsl(86.89655172413794, 50%, 50%)"}},{"y":[3.1405773776359016,3.3425083503986412,3.3019419031384367,3.3451026604334797,4.680604496645153,3.5595108985410326,3.672003454064275,4.6674547155945465,4.91167582534519,3.764757290796255],"type":"box","marker":{"color":"hsl(99.3103448275862, 50%, 50%)"}},{"y":[4.968301079220747,4.59485275382511,3.751164207839046,3.8893332132131726,3.488962628817056,3.6875125965154067,4.279810164265229,4.333249434313827,3.7185871608345877,4.297284416251499],"type":"box","marker":{"color":"hsl(111.72413793103448, 50%, 50%)"}},{"y":[3.8464043375727655,3.8402067719516895,5.236241733211275,3.7212979755169746,4.697293286967486,4.242670081505783,4.827091631019315,4.528002750710705,3.92976539043487,4.850528199148946],"type":"box","marker":{"color":"hsl(124.13793103448276, 50%, 50%)"}},{"y":[4.916627413443354,4.899115702639588,4.07424711916382,3.770542899836413,4.030526919917461,4.511570179787308,4.866545350641102,3.913567325932633,5.28603665078522,4.578428072114463],"type":"box","marker":{"color":"hsl(136.55172413793105, 50%, 50%)"}},{"y":[4.4898623315533595,4.620205406605841,4.031885463470324,4.126502171555133,4.629449658996852,4.97491841802695,4.31286896431542,5.421880782454045,5.300111666200576,5.147240791250772],"type":"box","marker":{"color":"hsl(148.9655172413793, 50%, 50%)"}},{"y":[4.644855002349457,5.484441494152315,4.722997817749128,4.0210488802288396,4.556182832882013,4.642043004889796,4.747603697651268,5.031449147481684,5.470280743641899,4.819301822123739],"type":"box","marker":{"color":"hsl(161.3793103448276, 50%, 50%)"}},{"y":[4.317626215024931,5.352505026699802,5.499245354459305,5.473502968931326,4.164720099494199,4.805609698722535,5.01876582949793,4.938595422239961,4.815083034293226,4.516743673387855],"type":"box","marker":{"color":"hsl(173.79310344827587, 50%, 50%)"}},{"y":[5.3218618986280735,4.555623618532425,4.017882098713654,4.565532893979384,5.047926263353516,4.252753797793596,4.153395468807209,4.7431054011976075,5.016091530272806,4.265599916392274],"type":"box","marker":{"color":"hsl(186.20689655172413, 50%, 50%)"}},{"y":[4.611295915659288,4.5737611254062465,5.325560307297577,5.342212286706073,4.385102131017256,4.612003736589873,4.312139270312146,4.745863009031549,5.092731013604508,5.084636192082156],"type":"box","marker":{"color":"hsl(198.6206896551724, 50%, 50%)"}},{"y":[4.972414036407246,4.919349401936966,4.289981646656577,5.20773757651471,3.962502878024532,3.9942918900320117,5.027566761969187,4.198742367787511,3.980669122956661,4.069667306841826],"type":"box","marker":{"color":"hsl(211.0344827586207, 50%, 50%)"}},{"y":[4.990112489639621,4.101031550705759,4.781959494920185,4.235819088052551,4.526941466356349,4.452326658984556,4.1793719349925365,4.926391508248834,3.9720493008203333,4.816722134859573],"type":"box","marker":{"color":"hsl(223.44827586206895, 50%, 50%)"}},{"y":[3.845181159524096,4.746653625818454,4.2923078849651395,4.803288814598812,4.932121062939501,4.151096666065055,4.4042933547856515,3.829990625448694,4.4950698809588925,3.97854741151007],"type":"box","marker":{"color":"hsl(235.86206896551724, 50%, 50%)"}},{"y":[4.686054054668368,3.5878689586053274,4.116171087809026,3.9035973019531887,3.69641288528929,4.068823488508361,4.349410882023578,4.069365875432656,4.015281470571794,4.392064025770665],"type":"box","marker":{"color":"hsl(248.27586206896552, 50%, 50%)"}},{"y":[3.656157585810455,3.843266515535932,3.407783665608829,3.6110312498952575,3.9254663076857748,4.214847465502627,4.2071630316789275,4.0599735521015825,4.49335303303668,3.72193061441376],"type":"box","marker":{"color":"hsl(260.6896551724138, 50%, 50%)"}},{"y":[3.7501609172816943,3.343571512693985,3.8290462185332625,4.165627074903282,4.218583553278327,3.616454078746412,3.3808661063526184,3.464360536255625,3.119949828366407,4.092441257163143],"type":"box","marker":{"color":"hsl(273.1034482758621, 50%, 50%)"}},{"y":[3.3608387407422002,3.915418542102292,3.6254709683202027,3.3845735133159787,3.614620169794057,3.9005562186297458,3.849158565487221,3.223855828789125,3.8788473094780396,3.525723121634722],"type":"box","marker":{"color":"hsl(285.51724137931035, 50%, 50%)"}},{"y":[3.5686613529856146,2.7620755687386795,3.5751583519057704,3.181612941003295,3.1612329771520935,3.01057136645928,2.835995322375678,2.9243722794498432,2.8203222478432735,2.9397331076421316],"type":"box","marker":{"color":"hsl(297.9310344827586, 50%, 50%)"}},{"y":[2.921003086649189,2.820861149948302,3.1217817486376678,2.3072743104716156,2.848189665320814,2.2971617749456654,2.3971838111850583,2.9227040787406544,2.6026970779492413,2.394995396583961],"type":"box","marker":{"color":"hsl(310.3448275862069, 50%, 50%)"}},{"y":[2.025162984830132,1.990702509408993,2.6174367606027276,2.8895729297056674,2.604167040673489,2.6183442309824114,2.7720450446271268,2.989343440550254,2.6189897316830058,2.4112258070429227],"type":"box","marker":{"color":"hsl(322.7586206896552, 50%, 50%)"}},{"y":[2.5411652706113164,2.484086008635566,2.480465291332634,2.467044037887115,2.1803638305764625,2.16946228780662,2.2537965034283047,2.4855645678309584,1.943067873966812,2.4041220225891795],"type":"box","marker":{"color":"hsl(335.17241379310343, 50%, 50%)"}},{"y":[1.6266483759003831,2.2890963853599726,2.315945325191134,2.1410249813013325,1.9708139879782132,1.8318674151128351,2.223577095473549,1.7919228062232848,1.5294608311387754,2.2117698088306086],"type":"box","marker":{"color":"hsl(347.58620689655174, 50%, 50%)"}},{"y":[1.0315650875873394,1.9474056963229505,1.001550068335142,1.2235146845843508,1.086108842975879,1.2974184294811213,1.4192199486462107,1.010983294758583,1.729452497339886,1.1410689703993024],"type":"box","marker":{"color":"hsl(360.0, 50%, 50%)"}}],
+               {"showlegend":true,"xaxis":{"showgrid":false,"tickangle":60,"showticklabels":true,"zeroline":false},"paper_bgcolor":"rgb(233, 233, 233)","margin":{"l":50,"b":60,"r":50,"t":60},"yaxis":{"gridcolor":"white","zeroline":false},"plot_bgcolor":"rgb(233, 233, 233)"}, {showLink: false});
 
  </script>
           <aside class="copyright" role="note">

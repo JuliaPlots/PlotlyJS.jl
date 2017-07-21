@@ -447,11 +447,12 @@ to open one of the files in that directory and add a new 0 argument function
 that constructs and returns a <code>SyncPlot</code> object (this is the output of the
 <code>plot</code> function).</p>
 <p>For example, if we wanted to add an example of a scatter plot of the sin function we could add the following function definition inside the <code>examples/line_scatter.jl</code> file:</p>
-<pre class="codehilite"><code class="language-julia">function sin_scatter()
-    x = linspace(0, 2*pi, 50)
-    y = sin(x)
-    plot(scatter(x=x, y=y, marker_symbol=&quot;line-nw&quot;, mode=&quot;markers+symbols&quot;))
-end</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">sin_scatter</span><span class="p">()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">marker_symbol</span><span class="o">=</span><span class="s">&quot;line-nw&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers+symbols&quot;</span><span class="p">))</span>
+<span class="k">end</span>
+</pre></div>
 
 
 <p>The next step is to have Julia re-build the markdown (<code>.md</code>) files in

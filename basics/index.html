@@ -414,7 +414,8 @@
           
           <h2 id="basics">Basics<a class="headerlink" href="#basics" title="Permanent link">¶</a></h2>
 <p><a href="https://plot.ly/javascript">plotly.js</a> figures are constructed by calling the function:</p>
-<pre class="codehilite"><code class="language-js">Plotly.newPlot(graphdiv, data, layout)</code></pre>
+<div class="codehilite"><pre><span></span><span class="nx">Plotly</span><span class="p">.</span><span class="nx">newPlot</span><span class="p">(</span><span class="nx">graphdiv</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">layout</span><span class="p">)</span>
+</pre></div>
 
 
 <p>where</p>
@@ -434,23 +435,24 @@ containing a version of that reference page.</p>
 <h2 id="julia-types">Julia types<a class="headerlink" href="#julia-types" title="Permanent link">¶</a></h2>
 <p>There are three core types for representing a visualization (not counting the
 two abstract types):</p>
-<pre class="codehilite"><code class="language-julia">abstract AbstractTrace
-abstract AbstractLayout
+<div class="codehilite"><pre><span></span><span class="k">abstract</span> <span class="n">AbstractTrace</span>
+<span class="k">abstract</span> <span class="n">AbstractLayout</span>
 
-type GenericTrace{T&lt;:Associative{Symbol,Any}} &lt;: AbstractTrace
-    kind::ASCIIString
-    fields::T
-end
+<span class="k">type</span> <span class="n">GenericTrace</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="kt">Associative</span><span class="p">{</span><span class="kt">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractTrace</span>
+    <span class="n">kind</span><span class="o">::</span><span class="kt">ASCIIString</span>
+    <span class="n">fields</span><span class="o">::</span><span class="n">T</span>
+<span class="k">end</span>
 
-type Layout{T&lt;:Associative{Symbol,Any}} &lt;: AbstractLayout
-    fields::T
-end
+<span class="k">type</span> <span class="n">Layout</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="kt">Associative</span><span class="p">{</span><span class="kt">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractLayout</span>
+    <span class="n">fields</span><span class="o">::</span><span class="n">T</span>
+<span class="k">end</span>
 
-type Plot{TT&lt;:AbstractTrace}
-    data::Vector{TT}
-    layout::AbstractLayout
-    divid::Base.Random.UUID
-end</code></pre>
+<span class="k">type</span> <span class="n">Plot</span><span class="p">{</span><span class="n">TT</span><span class="o">&lt;:</span><span class="n">AbstractTrace</span><span class="p">}</span>
+    <span class="n">data</span><span class="o">::</span><span class="kt">Vector</span><span class="p">{</span><span class="n">TT</span><span class="p">}</span>
+    <span class="n">layout</span><span class="o">::</span><span class="n">AbstractLayout</span>
+    <span class="n">divid</span><span class="o">::</span><span class="n">Base</span><span class="o">.</span><span class="n">Random</span><span class="o">.</span><span class="n">UUID</span>
+<span class="k">end</span>
+</pre></div>
 
 
 <p>The fields of the <code>Plot</code> type map 1-1 to the arguments to the <code>Plotly.newplot</code>
