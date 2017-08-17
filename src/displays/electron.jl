@@ -7,7 +7,7 @@ type ElectronDisplay <: AbstractPlotlyDisplay
     w::Nullable{Any}
 end
 
-@compat const ElectronPlot = SyncPlot{ElectronDisplay}
+const ElectronPlot = SyncPlot{ElectronDisplay}
 
 ElectronDisplay(divid::Base.Random.UUID) = ElectronDisplay(divid, Nullable())
 ElectronDisplay(p::Plot) = ElectronDisplay(p.divid)
