@@ -56,7 +56,7 @@ end
 kind(::AbstractPlotlyAttribute) = "PlotlyAttribute"
 
 # TODO: maybe loosen some day
-@compat const _Scalar = Union{Base.Dates.Date,Number,AbstractString,Symbol}
+const _Scalar = Union{Base.Dates.Date,Number,AbstractString,Symbol}
 
 # ------ #
 # Shapes #
@@ -145,8 +145,8 @@ hline(y, fields::Associative=Dict{Symbol,Any}(); kwargs...) =
 # Implementation of getindex and setindex! #
 # ---------------------------------------- #
 
-@compat const HasFields = Union{GenericTrace,Layout,Shape,PlotlyAttribute}
-@compat const _LikeAssociative = Union{PlotlyAttribute,Associative}
+const HasFields = Union{GenericTrace,Layout,Shape,PlotlyAttribute}
+const _LikeAssociative = Union{PlotlyAttribute,Associative}
 
 #= NOTE: Generate this list with the following code
 using JSON, PlotlyJS
@@ -352,5 +352,5 @@ function _describe(x::HasFields)
     end
 end
 
-@compat Base.show(io::IO, ::MIME"text/plain", g::HasFields) =
+Base.show(io::IO, ::MIME"text/plain", g::HasFields) =
     println(io, _describe(g))

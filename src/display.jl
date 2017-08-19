@@ -31,7 +31,7 @@ function stringmime(::MIME"text/html", p::Plot, js::Symbol=js_default[])
     elseif js == :remote
         script_txt = "<script src=\"$(_js_cdn_path)\"></script>"
     elseif js == :embed
-        script_txt = "<script>$(@compat readstring(_js_path))</script>"
+        script_txt = "<script>$(readstring(_js_path))</script>"
     else
         msg = """
         Unknown value for argument js: $js.
@@ -53,17 +53,17 @@ function stringmime(::MIME"text/html", p::Plot, js::Symbol=js_default[])
 
 end
 
-@compat Base.show(io::IO, ::MIME"text/html", p::Plot, js::Symbol=js_default[]) =
+Base.show(io::IO, ::MIME"text/html", p::Plot, js::Symbol=js_default[]) =
     print(io, stringmime(MIME"text/html"(), p, js))
 
-@compat function Base.show(io::IO, ::MIME"text/plain", p::Plot)
+function Base.show(io::IO, ::MIME"text/plain", p::Plot)
     println(io, """
     data: $(json(map(_describe, p.data), 2))
     layout: "$(_describe(p.layout))"
     """)
 end
 
-Base.show(io::IO, p::Plot) = @compat show(io, MIME("text/plain"), p)
+Base.show(io::IO, p::Plot) = show(io, MIME("text/plain"), p)
 
 # ----------------------------------------- #
 # SyncPlot -- sync Plot object with display #
@@ -112,7 +112,7 @@ for f in (:extendtraces!, :prependtraces!)
     end
 end
 
-@compat Base.show(io::IO, ::MIME"text/html", sp::SyncPlot, js::Symbol=js_default[]) =
+Base.show(io::IO, ::MIME"text/html", sp::SyncPlot, js::Symbol=js_default[]) =
     print(io, stringmime(MIME"text/html"(), sp.plot, js))
 
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
