@@ -104,4 +104,4 @@ function JSON.parse(::Type{Plot}, str::AbstractString)
 end
 
 JSON.parsefile(::Type{Plot}, fn) =
-    open(fn, "r") do f; JSON.parse(Plot, readall(f)) end
+    open(fn, "r") do f; JSON.parse(Plot, readstring(f)) end
