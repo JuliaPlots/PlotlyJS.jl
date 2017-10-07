@@ -5,7 +5,7 @@ JSON.lower(a::HasFields) = a.fields
 
 function _apply_style_axis!(p::Plot, ax, force::Bool=false)
     if haskey(p.style.layout.fields, Symbol(ax, "axis")) || force
-        ax_names = Compat.Iterators.filter(
+        ax_names = Iterators.filter(
             _x-> startswith(string(_x), "$(ax)axis"),
             keys(p.layout.fields)
         )

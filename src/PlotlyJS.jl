@@ -2,13 +2,15 @@ __precompile__()
 
 module PlotlyJS
 
-using Compat; import Compat: String, readstring, view
-using Compat.Iterators
+using Base.Iterators
 using JSON
 using Blink
 using Colors
 using DocStringExtensions
 using DataFrames
+using Rsvg: handle_new_from_data
+using Cairo: CairoPDFSurface
+import Rsvg, Cairo
 
 import Base: ==
 

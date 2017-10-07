@@ -1,6 +1,5 @@
 module PlotlyJSTest
 using TestSetExtensions
-using Compat
 
 using Base.Test
 

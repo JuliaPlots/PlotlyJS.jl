@@ -133,26 +133,6 @@ function savefig(p::ElectronPlot, fn::AbstractString; js::Symbol=js_default[])
         return p
     end
 
-    # now we need to use librsvg/Cairo to finish
-    try
-        # use using and import just one thing because import doesn't appear
-        # to precompile. Then import so we can get the module name too??
-        # this all feels strange to me, but by trial and error I found that
-        # this works
-        @eval using Rsvg: handle_new_from_data
-        @eval using Cairo: CairoPDFSurface
-        @eval import Rsvg, Cairo
-    catch e
-        if isa(e, ArgumentError)
-            msg = string("You need to install the Rsvg package use this",
-                         " routine for file type $suf\n",
-                         "Try insalling with `Pkg.add(\"Rsvg\")`")
-            error(msg)
-        else
-            rethrow(e)
-        end
-    end
-
     if suf == "pdf"
         r = Rsvg.handle_new_from_data(raw_svg)
         cs = Cairo.CairoPDFSurface(fn, size(p.plot)...)
@@ -214,22 +194,6 @@ const _mimeformats =  Dict("application/eps"         => "eps",
                            "application/postscript"  => "ps",
                            # "image/svg+xml"           => "svg"
 )
-
-# TODO: replace ElectronPlot with SyncPlot once I figure out how to get
-#       img_data from within IJulia
-for (mime, fmt) in _mimeformats
-    @eval function Base.show(io::IO, ::MIME{Symbol($mime)}, p::ElectronPlot)
-        @eval import ImageMagick
-
-        # construct a magic wand and read the image data from png
-        wand = ImageMagick.MagickWand()
-        ImageMagick.readimage(wand, base64decode(png_data(p)))
-        ImageMagick.setimageformat(wand, $fmt)
-        ImageMagick.writeimage(wand, io)
-
-    end
-end
-
 
 for func in [:png_data, :jpeg_data, :wepb_data, :svg_data,
              :_img_data, :savefig, :savefig_cairosvg, :savefig_imagemagick]
