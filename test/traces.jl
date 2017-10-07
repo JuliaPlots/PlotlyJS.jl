@@ -1,5 +1,5 @@
 
-gt = M.GenericTrace("scatter"; x=1:10, y=sin(1:10))
+gt = M.GenericTrace("scatter"; x=1:10, y=sin.(1:10))
 
 @testset "test constructors" begin
     @test sort(collect(keys(gt.fields))) == [:type, :x, :y]
@@ -219,7 +219,7 @@ end
 
 @testset "testing underscore constructor" begin
     # now test underscore constructor and see if it matches gt
-    gt2 = M.scatter(;x=1:10, y=sin(1:10),
+    gt2 = M.scatter(;x=1:10, y=sin.(1:10),
                      marker_colorbar_tickfont_family="Webdings42",
                      marker_line_color="magenta",
                      line_color="magenta",

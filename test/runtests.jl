@@ -8,7 +8,7 @@ using PlotlyJS
 const M = PlotlyJS
 
 try
-    @testset DottedTestSet "PlotlyJS Tests" begin
+    @testset ExtendedTestSet "PlotlyJS Tests" begin
         @includetests ARGS
     end
 catch

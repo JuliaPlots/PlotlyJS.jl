@@ -126,7 +126,7 @@ To do this in a simple and reliable way we introduce the concept of a
 ```julia
 abstract AbstractPlotlyDisplay
 
-immutable SyncPlot{TD<:AbstractPlotlyDisplay}
+struct SyncPlot{TD<:AbstractPlotlyDisplay}
     plot::Plot
     view::TD
 end

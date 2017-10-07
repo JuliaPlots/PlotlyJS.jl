@@ -2,7 +2,7 @@ Starting with v0.4.0, PlotlyJS.jl now has support for styles. A style is
 defined as an instance of the following type:
 
 ```julia
-immutable Style
+struct Style
     color_cycle::Vector
     layout::Layout
     global_trace::PlotlyAttribute
