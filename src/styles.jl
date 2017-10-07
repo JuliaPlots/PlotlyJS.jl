@@ -48,7 +48,7 @@ function Style(base::Style; color_cycle=[], layout=Layout(),
     Style(base, new_style)
 end
 
-@compat function Base.show(io::IO, ::MIME"text/plain", s::Style)
+function Base.show(io::IO, ::MIME"text/plain", s::Style)
     println(io, "Style with:")
 
     if !isempty(s.color_cycle)

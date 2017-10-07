@@ -5,7 +5,7 @@ using Compat
 using Base.Test
 
 using PlotlyJS
-@compat const M = PlotlyJS
+const M = PlotlyJS
 
 try
     @testset DottedTestSet "PlotlyJS Tests" begin
