@@ -4,7 +4,8 @@
 
 prep_kwarg(pair::Union{Pair,Tuple}) =
     (Symbol(replace(string(pair[1]), "_", ".")), pair[2])
-prep_kwargs(pairs::Union{Associative,Vector}) = Dict(map(prep_kwarg, pairs))
+prep_kwargs(pairs::AbstractVector) = Dict(map(prep_kwarg, pairs))
+prep_kwargs(pairs::Associative) = Dict(prep_kwarg((k, v)) for (k, v) in pairs)
 
 """
 `size(::PlotlyJS.Plot)`
