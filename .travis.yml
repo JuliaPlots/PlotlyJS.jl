@@ -8,12 +8,6 @@ julia:
 matrix:
   allow_failures:
     - julia: nightly
-addons:
-    apt:
-        packages:
-            - xvfb
-            - xauth
-            - libgtk-3-0
 notifications:
   email: false
 # uncomment the following lines to override the default test script
