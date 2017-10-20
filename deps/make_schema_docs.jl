@@ -97,7 +97,7 @@ function doc_html!(buf::IO, parent::Symbol, name::Symbol, sa::SchemaAttribute)
     print(buf,"<div class=\"panel")
     !isnull(sa.children) && print(buf, " panel-info")
     print(buf, "\">")
-    print(buf, """\
+    print(buf, """
      <div class="panel-heading">
        <h5 class="panel-title">
          <a data-toggle="collapse" data-parent="""
@@ -150,7 +150,7 @@ end
 
 function doc_html!(buf::IO, data_parent::Symbol, name::Symbol, ts::TraceSchema)
     id = "$(data_parent)_$(name)"
-    print(buf, """\
+    print(buf, """
     <div class="panel panel-default">
      <div class="panel-heading">
       <h4 class="panel-title">
