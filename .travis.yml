@@ -3,15 +3,20 @@ language: julia
 os:
   - linux
 julia:
-  - 0.5
   - 0.6
   - nightly
 matrix:
   allow_failures:
     - julia: nightly
+addons:
+    apt:
+        packages:
+            - xvfb
+            - xauth
+            - libgtk-3-0
 notifications:
   email: false
 # uncomment the following lines to override the default test script
 script:
  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
- - julia -e 'Pkg.clone(pwd()); Pkg.build("PlotlyJS"); Pkg.test("PlotlyJS"; coverage=true)'
+ - xvfb-run julia -e 'Pkg.clone(pwd()); Pkg.build("PlotlyJS"); Pkg.test("PlotlyJS"; coverage=true)'
