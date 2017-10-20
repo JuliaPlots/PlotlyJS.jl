@@ -29,6 +29,7 @@ function SchemaAttribute(d::Associative)
         end
         kids = Dict{Symbol,SchemaAttribute}()
         for (a_k, v) in d
+            isa(v, Associative) || continue
             kids[a_k] = SchemaAttribute(v)
         end
         children = Nullable{Dict{Symbol,SchemaAttribute}}(kids)
@@ -61,6 +62,7 @@ function TraceSchema(nm::Symbol, d::Associative, attrs_key=:attributes)
     _attrs = filter!((k, v) -> k != :uid && k != :type, d[attrs_key])
     attrs = Dict{Symbol,SchemaAttribute}()
     for (k, v) in _attrs
+        isa(v, Associative) || continue
         attrs[k] = SchemaAttribute(v)
     end
     desc = get(d, :description, "")
@@ -95,7 +97,7 @@ function doc_html!(buf::IO, parent::Symbol, name::Symbol, sa::SchemaAttribute)
     print(buf,"<div class=\"panel")
     !isnull(sa.children) && print(buf, " panel-info")
     print(buf, "\">")
-    print(buf, """\
+    print(buf, """
      <div class="panel-heading">
        <h5 class="panel-title">
          <a data-toggle="collapse" data-parent="""
@@ -148,7 +150,7 @@ end
 
 function doc_html!(buf::IO, data_parent::Symbol, name::Symbol, ts::TraceSchema)
     id = "$(data_parent)_$(name)"
-    print(buf, """\
+    print(buf, """
     <div class="panel panel-default">
      <div class="panel-heading">
       <h4 class="panel-title">
