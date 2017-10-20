@@ -8,9 +8,6 @@ using Blink
 using Colors
 using DocStringExtensions
 using DataFrames
-using Rsvg: handle_new_from_data
-using Cairo: CairoPDFSurface
-import Rsvg, Cairo
 
 import Base: ==
 
@@ -126,6 +123,44 @@ export
 
     # styles
     use_style!, style, Style
+
+
+## borrowed from Compose.jl
+function isinstalled(pkg, ge=v"0.0.0-")
+    try
+        # Pkg.installed might throw an error,
+        # we need to account for it to be able to precompile
+        ver = Pkg.installed(pkg)
+        ver == nothing && try
+            # Assume the version is new enough if the package is in LOAD_PATH
+            ex = Expr(:import, Symbol(pkg))
+            @eval $ex
+            return true
+        catch
+            return false
+        end
+        return ver >= ge
+    catch
+        return false
+    end
+end
+
+@static if isinstalled("Cairo") && isinstalled("Rsvg")
+    include("savefig_cairo.jl")
+else
+    function _savefig_cairo(x...)
+        lib_fn = joinpath(Base.LOAD_CACHE_PATH[1], "PlotlyJS.ji")
+        msg = """
+        Cairo and Rsvg need to be installed in order to save in this format
+
+        Use `Pkg.add("Rsvg")` to install both of them.
+
+        You then need to delete $(lib_fn) and restart your Julia session
+        """
+        error(msg)
+    end
+end
+
 
 function __init__()
     # --------------------------------------------- #

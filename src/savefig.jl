@@ -133,26 +133,8 @@ function savefig(p::ElectronPlot, fn::AbstractString; js::Symbol=js_default[])
         return p
     end
 
-    if suf == "pdf"
-        r = Rsvg.handle_new_from_data(raw_svg)
-        cs = Cairo.CairoPDFSurface(fn, size(p.plot)...)
-        ctx = Cairo.CairoContext(cs)
-        Rsvg.handle_render_cairo(ctx, r)
-        Cairo.show_page(ctx)
-        Cairo.finish(cs)
-    elseif suf == "png"
-        r = Rsvg.handle_new_from_data(raw_svg)
-        cs = Cairo.CairoImageSurface(size(p.plot)...,Cairo.FORMAT_ARGB32)
-        ctx = Cairo.CairoContext(cs)
-        Rsvg.handle_render_cairo(ctx, r)
-        Cairo.write_to_png(cs, fn)
-    elseif suf == "eps"
-        r = Rsvg.handle_new_from_data(raw_svg)
-        cs = Cairo.CairoEPSSurface(fn, size(p.plot)...)
-        ctx = Cairo.CairoContext(cs)
-        Rsvg.handle_render_cairo(ctx, r)
-        Cairo.show_page(ctx)
-        Cairo.finish(cs)
+    if suf in ["pdf", "png", "eps"]
+        _savefig_cairo(p.plot, raw_svg, fn, suf)
     else
         error("Only html, svg, png, pdf, eps output supported")
     end
