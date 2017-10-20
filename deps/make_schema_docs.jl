@@ -76,8 +76,9 @@ struct Schema
     layout::TraceSchema
 
     function Schema()
-        schema = _symbol_dict(JSON.parsefile(joinpath(dirname(@__FILE__),
-                                                      "plotschema.json")))
+        _path = joinpath(dirname(@__FILE__), "plotschema.json")
+        schema = _symbol_dict(JSON.parse(readstring(_path)))
+
         traces = Dict{Symbol,TraceSchema}()
         for (k, v) in schema[:schema][:traces]
             traces[k] = TraceSchema(k, v)
