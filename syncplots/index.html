@@ -523,7 +523,7 @@ This means that we can't view the actual plotly figure the data represents.</p>
 <code>SyncPlot</code>, which is defined as:</p>
 <div class="codehilite"><pre><span></span><span class="k">abstract</span> <span class="n">AbstractPlotlyDisplay</span>
 
-<span class="k">immutable</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">TD</span><span class="o">&lt;:</span><span class="n">AbstractPlotlyDisplay</span><span class="p">}</span>
+<span class="n">struct</span> <span class="n">SyncPlot</span><span class="p">{</span><span class="n">TD</span><span class="o">&lt;:</span><span class="n">AbstractPlotlyDisplay</span><span class="p">}</span>
     <span class="n">plot</span><span class="o">::</span><span class="n">Plot</span>
     <span class="n">view</span><span class="o">::</span><span class="n">TD</span>
 <span class="k">end</span>

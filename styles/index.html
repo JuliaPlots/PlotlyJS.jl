@@ -230,6 +230,12 @@
         <ul>
           
             <li class="anchor">
+              <a title="Cyclers" href="#cyclers">
+                Cyclers
+              </a>
+            </li>
+          
+            <li class="anchor">
               <a title="Defining Styles" href="#defining-styles">
                 Defining Styles
               </a>
@@ -426,8 +432,7 @@
           
           <p>Starting with v0.4.0, PlotlyJS.jl now has support for styles. A style is
 defined as an instance of the following type:</p>
-<div class="codehilite"><pre><span></span><span class="k">immutable</span> <span class="n">Style</span>
-    <span class="n">color_cycle</span><span class="o">::</span><span class="kt">Vector</span>
+<div class="codehilite"><pre><span></span><span class="n">struct</span> <span class="n">Style</span>
     <span class="n">layout</span><span class="o">::</span><span class="n">Layout</span>
     <span class="n">global_trace</span><span class="o">::</span><span class="n">PlotlyAttribute</span>
     <span class="n">trace</span><span class="o">::</span><span class="kt">Dict</span><span class="p">{</span><span class="kt">Symbol</span><span class="p">,</span><span class="n">PlotlyAttribute</span><span class="p">}</span>
@@ -437,14 +442,43 @@ defined as an instance of the following type:</p>
 
 <p>Let's go over the fields one by one:</p>
 <ul>
-<li><code>color_cycle</code>: A vector of color-like objects that defines a sequence of
-colors to be applied to the <code>marker.color</code> attribute of a trace</li>
 <li><code>layout</code>: A <code>Layout</code> object defining style attributes for the layout</li>
 <li><code>global_trace</code>: A <code>PlotlyAttribute</code> (created with the <code>attr</code> function) that
 contains trace attributes to be applied to traces of all types</li>
 <li><code>trace</code>: A dictionary mapping trace types into attributes to be applied to
 that type of trace</li>
 </ul>
+<h2 id="cyclers"><code>Cycler</code>s<a class="headerlink" href="#cyclers" title="Permanent link">¶</a></h2>
+<p>Starting with v0.7.1, PlotlyJS.jl has a new type called <code>Cycler</code> that can be
+used to set style properties that should be cycled through for each trace.</p>
+<p>For example, to have all traces alternate between being colored green and red,
+I could define:</p>
+<div class="codehilite"><pre><span></span><span class="n">mystyle</span> <span class="o">=</span> <span class="n">Style</span><span class="p">(</span><span class="n">global_trace</span><span class="o">=</span><span class="n">attr</span><span class="p">(</span><span class="n">marker_color</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;green&quot;</span><span class="p">,</span> <span class="s">&quot;red&quot;</span><span class="p">]))</span>
+</pre></div>
+
+
+<p>If I were then to define a plot</p>
+<div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">mystyle</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The first and third plots would be green, while the second would be red.</p>
+<p>As usual, if the <code>marker_color</code> attribute on a trace was already set, then
+it will not be altered. For example:</p>
+<div class="codehilite"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">scatter</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span>
+        <span class="n">scatter</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">marker_color</span><span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">),</span>
+        <span class="n">scatter</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span>
+        <span class="n">scatter</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">)),</span>
+    <span class="p">],</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">mystyle</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>Then the first and fourth traces would be red, the second black, and the third
+green.</p>
 <h2 id="defining-styles">Defining <code>Style</code>s<a class="headerlink" href="#defining-styles" title="Permanent link">¶</a></h2>
 <p>There are 3 ways to define a <code>Style</code>:</p>
 <h3 id="1-styles-from-scratch">1. <code>Style</code>s from scratch<a class="headerlink" href="#1-styles-from-scratch" title="Permanent link">¶</a></h3>
