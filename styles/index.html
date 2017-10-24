@@ -498,18 +498,20 @@ how the <code>ggplot</code> style is defined (as of time of writing):</p>
                     <span class="n">yaxis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
                     <span class="n">titlefont_size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 
-    <span class="n">gta</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span><span class="n">marker_line_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker_line_color</span><span class="o">=</span><span class="s">&quot;#348ABD&quot;</span><span class="p">)</span>
-
-    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;#E24A33&quot;</span><span class="p">,</span> <span class="s">&quot;#348ABD&quot;</span><span class="p">,</span> <span class="s">&quot;#988ED5&quot;</span><span class="p">,</span> <span class="s">&quot;#777777&quot;</span><span class="p">,</span> <span class="s">&quot;#FBC15E&quot;</span><span class="p">,</span>
-              <span class="s">&quot;#8EBA42&quot;</span><span class="p">,</span> <span class="s">&quot;#FFB5B8&quot;</span><span class="p">]</span>
-    <span class="n">Style</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span> <span class="n">color_cycle</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">global_trace</span><span class="o">=</span><span class="n">gta</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s">&quot;#E24A33&quot;</span><span class="p">,</span> <span class="s">&quot;#348ABD&quot;</span><span class="p">,</span> <span class="s">&quot;#988ED5&quot;</span><span class="p">,</span> <span class="s">&quot;#777777&quot;</span><span class="p">,</span> <span class="s">&quot;#FBC15E&quot;</span><span class="p">,</span>
+        <span class="s">&quot;#8EBA42&quot;</span><span class="p">,</span> <span class="s">&quot;#FFB5B8&quot;</span>
+    <span class="p">]</span>
+    <span class="n">gta</span> <span class="o">=</span> <span class="n">attr</span><span class="p">(</span>
+        <span class="n">marker_line_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker_line_color</span><span class="o">=</span><span class="s">&quot;#348ABD&quot;</span><span class="p">,</span> <span class="n">marker_color</span><span class="o">=</span><span class="n">colors</span>
+    <span class="p">)</span>
+    <span class="n">Style</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span> <span class="n">global_trace</span><span class="o">=</span><span class="n">gta</span><span class="p">)</span>
 <span class="k">end</span>
 </pre></div>
 
 
 <p>When displayed in the REPL we see the following:</p>
 <div class="codehilite"><pre><span></span>Style with:
-  - color_cycle: String[&quot;#E24A33&quot;,&quot;#348ABD&quot;,&quot;#988ED5&quot;,&quot;#777777&quot;,&quot;#FBC15E&quot;,&quot;#8EBA42&quot;,&quot;#FFB5B8&quot;]
   - layout with fields font, margin, paper_bgcolor, plot_bgcolor, titlefont, xaxis, and yaxis
   - global_trace: PlotlyAttribute with field marker
 </pre></div>
@@ -530,7 +532,6 @@ following style:</p>
 
 <p>When displayed in the REPL we see the following:</p>
 <div class="codehilite"><pre><span></span>Style with:
-  - color_cycle: String[&quot;#E24A33&quot;,&quot;#348ABD&quot;,&quot;#988ED5&quot;,&quot;#777777&quot;,&quot;#FBC15E&quot;,&quot;#8EBA42&quot;,&quot;#FFB5B8&quot;]
   - layout with fields font, margin, paper_bgcolor, plot_bgcolor, titlefont, xaxis, and yaxis
   - global_trace: PlotlyAttribute with field marker
   - trace:
