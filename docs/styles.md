@@ -79,11 +79,14 @@ ggplot = let
                     yaxis=axis,
                     titlefont_size=14)
 
-    gta = attr(marker_line_width=0.5, marker_line_color="#348ABD")
-
-    colors = ["#E24A33", "#348ABD", "#988ED5", "#777777", "#FBC15E",
-              "#8EBA42", "#FFB5B8"]
-    Style(layout=layout, color_cycle=colors, global_trace=gta)
+    colors = [
+        "#E24A33", "#348ABD", "#988ED5", "#777777", "#FBC15E",
+        "#8EBA42", "#FFB5B8"
+    ]
+    gta = attr(
+        marker_line_width=0.5, marker_line_color="#348ABD", marker_color=colors
+    )
+    Style(layout=layout, global_trace=gta)
 end
 ```
 
@@ -91,7 +94,6 @@ When displayed in the REPL we see the following:
 
 ```
 Style with:
-  - color_cycle: String["#E24A33","#348ABD","#988ED5","#777777","#FBC15E","#8EBA42","#FFB5B8"]
   - layout with fields font, margin, paper_bgcolor, plot_bgcolor, titlefont, xaxis, and yaxis
   - global_trace: PlotlyAttribute with field marker
 ```
@@ -116,7 +118,6 @@ When displayed in the REPL we see the following:
 
 ```
 Style with:
-  - color_cycle: String["#E24A33","#348ABD","#988ED5","#777777","#FBC15E","#8EBA42","#FFB5B8"]
   - layout with fields font, margin, paper_bgcolor, plot_bgcolor, titlefont, xaxis, and yaxis
   - global_trace: PlotlyAttribute with field marker
   - trace:
