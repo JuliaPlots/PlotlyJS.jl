@@ -8,21 +8,47 @@ Note that the following styles used values from the matplotlib style library
 
 =#
 
+struct Cycler
+    vals::Vector
+end
+
+Base.isempty(c::Cycler) = isempty(c.vals)
+Base.length(c::Cycler) = length(c.vals˚)
+Cycler(t::Tuple) = Cycler(collect(t))
+Cycler(x::Union{String,Number,Date,Symbol}) = Cycler([x])
+
+function Base.getindex(c::Cycler, ix::Int)
+    ix < 1 && error("index must be positive")
+    n = length(c.vals)
+    _i = rem(ix, n)
+    c.vals[ifelse(_i > 0, _i, n)]
+end
+
 struct Style
-    color_cycle::Vector
     layout::Layout
     global_trace::PlotlyAttribute
     trace::Dict{Symbol,PlotlyAttribute}
 end
 
-function Style(;color_cycle=[], layout=Layout(), global_trace=attr(),
-                trace=Dict{Symbol,PlotlyAttribute}())
-    Style(color_cycle, layout, global_trace, trace)
+function Style(;
+        color_cycle=[],
+        layout=Layout(), global_trace=attr(),
+        trace=Dict{Symbol,PlotlyAttribute}(),
+    )
+    if !isempty(color_cycle)
+        msg = """
+        `color_cycle` argument deprecated. Set the `marker_color` attrbute
+        on `global_trace` instead using a Cycler like this:
+
+        Style(global_trace=attr(marker_color=Cycler($(color_cycle))))
+        """
+        global_trace[:marker_color] = Cycler(color_cycle)
+        warn(msg)
+    end
+    Style(layout, global_trace, trace)
 end
 
 function Style(ps1::Style, ps2::Style)
-    cs = isempty(ps2.color_cycle) ? ps1.color_cycle: ps2.color_cycle
-
     la = deepcopy(ps1.layout)
     for (k, v) in ps2.layout.fields
         la[k] = v
@@ -37,37 +63,39 @@ function Style(ps1::Style, ps2::Style)
         ta[k] = ta_k
     end
 
-    Style(color_cycle=cs, layout=la, global_trace=gta, trace=ta)
+    Style(layout=la, global_trace=gta, trace=ta)
 end
 
 Style(pss::Style...) = foldl(Style, pss[1], pss[2:end])
 
-function Style(base::Style; color_cycle=[], layout=Layout(),
-               global_trace=attr(), trace=Dict{Symbol,PlotlyAttribute}())
-    new_style = Style(color_cycle, layout, global_trace, trace)
+function Style(base::Style;
+        color_cycle=[], layout=Layout(),
+        global_trace=attr(), trace=Dict{Symbol,PlotlyAttribute}()
+    )
+    new_style = Style(
+        color_cycle=color_cycle, layout=layout, global_trace=global_trace,
+        trace=trace
+    )
     Style(base, new_style)
 end
 
 function Base.show(io::IO, ::MIME"text/plain", s::Style)
+    ctx = IOContext(io, limit=true)
     println(io, "Style with:")
 
-    if !isempty(s.color_cycle)
-        println(io, "  - color_cycle: ", s.color_cycle)
-    end
-
     if !isempty(s.layout)
-        print(io, "  - "); show(io, MIME"text/plain"(), s.layout)
+        print(io, "  - "); show(ctx, MIME"text/plain"(), s.layout)
     end
 
     if !isempty(s.global_trace)
         print(io, "  - global_trace: ")
-        show(io, MIME"text/plain"(), s.global_trace)
+        show(ctx, MIME"text/plain"(), s.global_trace)
     end
 
     if !isempty(s.trace)
         println(io, "  - trace: ")
         for (k, v) in s.trace
-            print(io, "    - ", k, ": "); show(io, MIME"text/plain"(), v)
+            print(io, "    - ", k, ": "); show(ctx, MIME"text/plain"(), v)
         end
     end
 end
@@ -93,7 +121,8 @@ function ggplot_style()
 
     colors = ["#E24A33", "#348ABD", "#988ED5", "#777777", "#FBC15E",
               "#8EBA42", "#FFB5B8"]
-    Style(layout=layout, color_cycle=colors, global_trace=gta)
+    gta[:marker_color] = Cycler(colors)
+    Style(layout=layout, global_trace=gta)
 end
 
 function fivethirtyeight_style()
@@ -112,7 +141,8 @@ function fivethirtyeight_style()
                     titlefont_size=14)
     colors = ["#008fd5", "#fc4f30", "#e5ae38", "#6d904f",
               "#8b8b8b", "#810f7c"]
-    Style(layout=layout, color_cycle=colors, trace=ta)
+    gta = attr(marker_color=colors)
+    Style(layout=layout, trace=ta, global_trace=gta)
 end
 
 function seaborn_style()
@@ -135,7 +165,8 @@ function seaborn_style()
                                 bgcolor="white", bordercolor="white"),
                     titlefont_size=14)
     colors = ["#4C72B0", "#55A868", "#C44E52", "#8172B2", "#CCB974", "#64B5CD"]
-    Style(color_cycle=colors, trace=ta, layout=layout)
+    gta = attr(marker_color=colors)
+    Style(trace=ta, layout=layout, global_trace=gta)
 end
 
 # This theme was taken from here:
@@ -162,8 +193,8 @@ function gadfly_dark_style()
                     titlefont_size=14,
                     margin=attr(l=40, r=10, t=10, b=30))
 
-
-    Style(color_cycle=color_cycle, layout=layout)
+    gta = attr(marker_color=color_cycle)
+    Style(layout=layout, global_trace=gta)
 end
 
 function tomorrow_night_eighties_style()
@@ -195,8 +226,8 @@ function tomorrow_night_eighties_style()
                     titlefont_size=14,
                     margin=attr(l=65, r=65, t=65, b=65))
 
-
-    Style(color_cycle=color_cycle, layout=layout)
+    gta = attr(marker_color=color_cycle)
+    Style(layout=layout, global_trace=gta)
 end
 
 function style(sty::Symbol)
@@ -209,8 +240,10 @@ function style(sty::Symbol)
     error("Uknown style $sty")
 end
 
-const STYLES = [:default, :ggplot, :fivethirtyeight, :seaborn, :gadfly_dark,
-                :tomorrow_night_eighties]
+const STYLES = [
+    :default, :ggplot, :fivethirtyeight, :seaborn, :gadfly_dark,
+    :tomorrow_night_eighties
+]
 
 function _default_style()
     env = Symbol(get(ENV, "PLOTLYJS_STYLE", ""))

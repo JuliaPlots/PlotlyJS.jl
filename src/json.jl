@@ -34,18 +34,26 @@ function _maybe_set_attr!(hf::HasFields, k1::Symbol, v::Associative)
     end
 end
 
-function JSON.lower(p::Plot)
-    # apply color cycle
-    if !isempty(p.style.color_cycle)
-        n = length(p.style.color_cycle)
-        ix = 1
-        for t in p.data
-            haskey(t["marker"], :color) && continue
-            t["marker.color"] = p.style.color_cycle[ix]
-            ix = ix == n ? 1 : ix + 1
+function _maybe_set_attr!(p::Plot, k1::Symbol, v::Associative)
+    for (k2, v2) in v
+        _maybe_set_attr!(p, Symbol(k1, "_", k2), v2)
+    end
+end
+
+function _maybe_set_attr!(p::Plot, k::Symbol, v)
+    foreach(t -> _maybe_set_attr!(t, k, v), p.data)
+end
+
+function _maybe_set_attr!(p::Plot, k::Symbol, v::Cycler)
+    ix = 0
+    for t in p.data
+        if t[k] == Dict()  # was empty
+            t[k] = v[ix+=1]
         end
     end
+end
 
+function JSON.lower(p::Plot)
     _is3d = any(_x -> contains(string(_x[:type]), "3d"), p.data)
 
     # apply layout attrs
@@ -67,9 +75,7 @@ function JSON.lower(p::Plot)
     # apply global trace attrs
     if !isempty(p.style.global_trace)
         for (k, v) in p.style.global_trace.fields
-            for t in p.data
-                _maybe_set_attr!(t, k, v)
-            end
+            _maybe_set_attr!(p, k, v)
         end
     end
 
@@ -78,7 +84,7 @@ function JSON.lower(p::Plot)
         for t in p.data
             t_type = Symbol(get(t, :type, :scatter))
             for (k, v) in get(p.style.trace, t_type, Dict())
-                _maybe_set_attr!(t, k, v)
+                _maybe_set_attr!(p, k, v)
             end
         end
     end

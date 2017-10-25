@@ -122,7 +122,7 @@ export
     init_notebook,
 
     # styles
-    use_style!, style, Style
+    use_style!, style, Style, Cycler
 
 
 ## borrowed from Compose.jl

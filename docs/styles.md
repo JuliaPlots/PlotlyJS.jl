@@ -3,7 +3,6 @@ defined as an instance of the following type:
 
 ```julia
 struct Style
-    color_cycle::Vector
     layout::Layout
     global_trace::PlotlyAttribute
     trace::Dict{Symbol,PlotlyAttribute}
@@ -12,13 +11,49 @@ end
 
 Let's go over the fields one by one:
 
-- `color_cycle`: A vector of color-like objects that defines a sequence of
-colors to be applied to the `marker.color` attribute of a trace
 - `layout`: A `Layout` object defining style attributes for the layout
 - `global_trace`: A `PlotlyAttribute` (created with the `attr` function) that
 contains trace attributes to be applied to traces of all types
 - `trace`: A dictionary mapping trace types into attributes to be applied to
 that type of trace
+
+## `Cycler`s
+
+Starting with v0.7.1, PlotlyJS.jl has a new type called `Cycler` that can be
+used to set style properties that should be cycled through for each trace.
+
+For example, to have all traces alternate between being colored green and red,
+I could define:
+
+```julia
+mystyle = Style(global_trace=attr(marker_color=["green", "red"]))
+```
+
+If I were then to define a plot
+
+```julia
+p = plot(rand(10, 3), style=mystyle)
+```
+
+The first and third plots would be green, while the second would be red.
+
+As usual, if the `marker_color` attribute on a trace was already set, then
+it will not be altered. For example:
+
+```julia
+p = plot(
+    [
+        scatter(y=rand(4)),
+        scatter(y=rand(4), marker_color="black"),
+        scatter(y=rand(4)),
+        scatter(y=rand(4)),
+    ],
+    style=mystyle
+)
+```
+
+Then the first and fourth traces would be red, the second black, and the third
+green.
 
 ## Defining `Style`s
 
@@ -44,11 +79,14 @@ ggplot = let
                     yaxis=axis,
                     titlefont_size=14)
 
-    gta = attr(marker_line_width=0.5, marker_line_color="#348ABD")
-
-    colors = ["#E24A33", "#348ABD", "#988ED5", "#777777", "#FBC15E",
-              "#8EBA42", "#FFB5B8"]
-    Style(layout=layout, color_cycle=colors, global_trace=gta)
+    colors = [
+        "#E24A33", "#348ABD", "#988ED5", "#777777", "#FBC15E",
+        "#8EBA42", "#FFB5B8"
+    ]
+    gta = attr(
+        marker_line_width=0.5, marker_line_color="#348ABD", marker_color=colors
+    )
+    Style(layout=layout, global_trace=gta)
 end
 ```
 
@@ -56,7 +94,6 @@ When displayed in the REPL we see the following:
 
 ```
 Style with:
-  - color_cycle: String["#E24A33","#348ABD","#988ED5","#777777","#FBC15E","#8EBA42","#FFB5B8"]
   - layout with fields font, margin, paper_bgcolor, plot_bgcolor, titlefont, xaxis, and yaxis
   - global_trace: PlotlyAttribute with field marker
 ```
@@ -81,7 +118,6 @@ When displayed in the REPL we see the following:
 
 ```
 Style with:
-  - color_cycle: String["#E24A33","#348ABD","#988ED5","#777777","#FBC15E","#8EBA42","#FFB5B8"]
   - layout with fields font, margin, paper_bgcolor, plot_bgcolor, titlefont, xaxis, and yaxis
   - global_trace: PlotlyAttribute with field marker
   - trace:
