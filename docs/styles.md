@@ -79,10 +79,10 @@ ggplot = let
                     yaxis=axis,
                     titlefont_size=14)
 
-    colors = [
+    colors = Cycler([
         "#E24A33", "#348ABD", "#988ED5", "#777777", "#FBC15E",
         "#8EBA42", "#FFB5B8"
-    ]
+    ])
     gta = attr(
         marker_line_width=0.5, marker_line_color="#348ABD", marker_color=colors
     )
