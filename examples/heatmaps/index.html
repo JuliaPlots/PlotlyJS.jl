@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     
       
-        <title>Area - PlotlyJS.jl</title>
+        <title>Heatmaps - PlotlyJS.jl</title>
       
       
       
@@ -101,7 +101,7 @@
             
           </span>
         
-        Area
+        Heatmaps
       </div>
     </div>
     
@@ -257,16 +257,9 @@
       
         
   <li>
-    <a class="current" title="Area" href="./">
+    <a class="" title="Area" href="../area/">
       Area
     </a>
-    
-      
-      
-        <ul>
-          
-        </ul>
-      
     
   </li>
 
@@ -309,9 +302,16 @@
       
         
   <li>
-    <a class="" title="Heatmaps" href="../heatmaps/">
+    <a class="current" title="Heatmaps" href="./">
       Heatmaps
     </a>
+    
+      
+      
+        <ul>
+          
+        </ul>
+      
     
   </li>
 
@@ -407,75 +407,44 @@
       <article class="article">
         <div class="wrapper">
           
-            <h1>Area</h1>
+            <h1>Heatmaps</h1>
           
-          <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">area1</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozeroy&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">])</span>
+          <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">heatmap1</span><span class="p">()</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">heatmap</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span> <span class="mi">20</span> <span class="mi">30</span><span class="p">;</span> <span class="mi">20</span> <span class="mi">1</span> <span class="mi">60</span><span class="p">;</span> <span class="mi">30</span> <span class="mi">60</span> <span class="mi">1</span><span class="p">]))</span>
 <span class="k">end</span>
-<span class="n">area1</span><span class="p">()</span>
+<span class="n">heatmap1</span><span class="p">()</span>
 </pre></div>
 
 
-<div id="04571644-da2d-41e5-b2b5-c8dad0ed1cf6" class="plotly-graph-div"></div>
+<div id="499a9ed6-5fe4-402c-8d18-7cf8ef313fd1" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('04571644-da2d-41e5-b2b5-c8dad0ed1cf6', [{"y":[0,2,3,5],"type":"scatter","fill":"tozeroy","x":[1,2,3,4]},{"y":[3,5,1,7],"type":"scatter","fill":"tonexty","x":[1,2,3,4]}],
+    Plotly.newPlot('499a9ed6-5fe4-402c-8d18-7cf8ef313fd1', [{"type":"heatmap","z":[[1,20,30],[20,1,60],[30,60,1]]}],
                {"margin":{"l":50,"b":60,"r":50,"t":60}}, {showLink: false});
 
  </script>
 
-<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">area2</span><span class="p">()</span>
-    <span class="k">function</span> <span class="n">_stacked_area!</span><span class="p">(</span><span class="n">traces</span><span class="p">)</span>
-        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tr</span><span class="p">)</span> <span class="kp">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">traces</span><span class="p">[</span><span class="mi">2</span><span class="o">:</span><span class="k">end</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">min</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">traces</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&quot;y&quot;</span><span class="p">]),</span> <span class="n">length</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="s">&quot;y&quot;</span><span class="p">]))</span>
-                <span class="n">tr</span><span class="p">[</span><span class="s">&quot;y&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">traces</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&quot;y&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
-            <span class="k">end</span>
-        <span class="k">end</span>
-        <span class="n">traces</span>
-    <span class="k">end</span>
-
-    <span class="n">traces</span> <span class="o">=</span> <span class="p">[</span><span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozeroy&quot;</span><span class="p">),</span>
-              <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">),</span>
-              <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">)]</span>
-    <span class="n">_stacked_area!</span><span class="p">(</span><span class="n">traces</span><span class="p">)</span>
-
-    <span class="n">plot</span><span class="p">(</span><span class="n">traces</span><span class="p">,</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;stacked and filled line chart&quot;</span><span class="p">))</span>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">heatmap2</span><span class="p">()</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">heatmap</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Monday&quot;</span><span class="p">,</span> <span class="s">&quot;Tuesday&quot;</span><span class="p">,</span> <span class="s">&quot;Wednesday&quot;</span><span class="p">,</span> <span class="s">&quot;Thursday&quot;</span><span class="p">,</span> <span class="s">&quot;Friday&quot;</span><span class="p">],</span>
+        <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Morning&quot;</span><span class="p">,</span> <span class="s">&quot;Afternoon&quot;</span><span class="p">,</span> <span class="s">&quot;Evening&quot;</span><span class="p">],</span>
+        <span class="n">z</span><span class="o">=</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
 <span class="k">end</span>
-<span class="n">area2</span><span class="p">()</span>
+<span class="n">heatmap2</span><span class="p">()</span>
 </pre></div>
 
 
-<div id="894e0454-cad0-4732-a909-252eaf8ba257" class="plotly-graph-div"></div>
+<div id="3957269a-7045-41f4-b352-70b9fd046eea" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('894e0454-cad0-4732-a909-252eaf8ba257', [{"y":[2,1,4],"type":"scatter","fill":"tozeroy","x":[1,2,3]},{"y":[3,2,6],"type":"scatter","fill":"tonexty","x":[1,2,3]},{"y":[6,2,8],"type":"scatter","fill":"tonexty","x":[1,2,3]}],
-               {"margin":{"l":50,"b":60,"r":50,"t":60},"title":"stacked and filled line chart"}, {showLink: false});
-
- </script>
-
-<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">area3</span><span class="p">()</span>
-    <span class="n">trace1</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tozeroy&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">)</span>
-    <span class="n">trace2</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(;</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="s">&quot;tonexty&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">([</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">],</span>
-         <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Overlaid Chart Without Boundary Lines&quot;</span><span class="p">))</span>
-<span class="k">end</span>
-<span class="n">area3</span><span class="p">()</span>
-</pre></div>
-
-
-<div id="95d6a35a-97c5-4657-8e19-6f551e14f0d0" class="plotly-graph-div"></div>
-
-<script>
-    window.PLOTLYENV=window.PLOTLYENV || {};
-    window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('95d6a35a-97c5-4657-8e19-6f551e14f0d0', [{"mode":"none","y":[0,2,3,5],"type":"scatter","fill":"tozeroy","x":[1,2,3,4]},{"mode":"none","y":[3,5,1,7],"type":"scatter","fill":"tonexty","x":[1,2,3,4]}],
-               {"margin":{"l":50,"b":60,"r":50,"t":60},"title":"Overlaid Chart Without Boundary Lines"}, {showLink: false});
+    Plotly.newPlot('3957269a-7045-41f4-b352-70b9fd046eea', [{"y":["Morning","Afternoon","Evening"],"type":"heatmap","z":[[3,10,17,18,6],[15,23,10,26,3],[14,8,1,17,26]],"x":["Monday","Tuesday","Wednesday","Thursday","Friday"]}],
+               {"margin":{"l":50,"b":60,"r":50,"t":60}}, {showLink: false});
 
  </script>
           <aside class="copyright" role="note">
@@ -496,7 +465,7 @@
   <nav class="pagination" aria-label="Footer">
     <div class="previous">
       
-        <a href="../3d/" title="3d">
+        <a href="../finance/" title="Finance">
           <span class="direction">
             Previous
           </span>
@@ -506,7 +475,7 @@
             </div>
             <div class="stretch">
               <div class="title">
-                3d
+                Finance
               </div>
             </div>
           </div>
@@ -515,14 +484,14 @@
     </div>
     <div class="next">
       
-        <a href="../box_plots/" title="Box plots">
+        <a href="../histograms/" title="Histograms">
           <span class="direction">
             Next
           </span>
           <div class="page">
             <div class="stretch">
               <div class="title">
-                Box plots
+                Histograms
               </div>
             </div>
             <div class="button button-next" role="button" aria-label="Next">

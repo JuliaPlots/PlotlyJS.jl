@@ -88,6 +88,12 @@
     </url>
         
     <url>
+     <loc>/examples/heatmaps/</loc>
+     <lastmod>2017-10-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>/examples/histograms/</loc>
      <lastmod>2017-10-26</lastmod>
      <changefreq>daily</changefreq>
