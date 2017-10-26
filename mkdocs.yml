@@ -39,7 +39,7 @@ markdown_extensions:
 google_analytics: ['UA-36732392-3', 'auto']
 
 extra:
-  version: '0.6.0'
+  version: '0.7.1'
   author:
     github: 'sglyon'
 extra_css: [css/github.css]
