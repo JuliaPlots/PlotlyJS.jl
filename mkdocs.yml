@@ -21,6 +21,7 @@ pages:
     - examples/bar.md
     - examples/contour.md
     - examples/finance.md
+    - examples/heatmaps.md
     - examples/histograms.md
     - examples/line_scatter.md
     - examples/time_series.md
