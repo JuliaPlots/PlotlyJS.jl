@@ -1,6 +1,7 @@
 # ----------------------- #
 # Display-esque functions #
 # ----------------------- #
+Base.istextmime(::MIME"application/vnd.plotly.v1+json") = true
 
 function html_body(p::Plot)
     """
@@ -114,6 +115,10 @@ end
 
 Base.show(io::IO, ::MIME"text/html", sp::SyncPlot, js::Symbol=js_default[]) =
     print(io, stringmime(MIME"text/html"(), sp.plot, js))
+
+function Base.show(io::IO, ::MIME"application/vnd.plotly.v1+json", p::Union{Plot,SyncPlot})
+    JSON.print(io, p)
+end
 
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
 Base.size(sp::SyncPlot) = size(sp.plot)

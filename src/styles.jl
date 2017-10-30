@@ -24,6 +24,10 @@ function Base.getindex(c::Cycler, ix::Int)
     c.vals[ifelse(_i > 0, _i, n)]
 end
 
+function Base.getindex(c::Cycler, ixs::AbstractVector{<:Integer})
+    [c[i] for i in ixs]
+end
+
 struct Style
     layout::Layout
     global_trace::PlotlyAttribute
