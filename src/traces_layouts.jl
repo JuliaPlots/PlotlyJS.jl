@@ -202,7 +202,7 @@ Base.isempty(hf::HasFields) = isempty(hf.fields)
 
 function Base.get(hf::HasFields, k::Symbol, default)
     out = getindex(hf, k)
-    isempty(out) ? default : out
+    (out == Dict()) ? default : out
 end
 
 Base.start(hf::HasFields) = start(hf.fields)
@@ -335,6 +335,46 @@ function Base.getindex(gt::HasFields, k1::Symbol, k2::Symbol,
     d2 = get(d1, k2, Dict())
     d3 = get(d2, k3, Dict())
     get(d3, k4, Dict())
+end
+
+# Now to the pop! methods
+function Base.pop!(gt::HasFields, key::String)
+    if in(Symbol(key), _UNDERSCORE_ATTRS)
+        pop!(gt.fields, Symbol(key))
+    else
+        pop!(gt, map(Symbol, split(key, ['.', '_']))...)
+    end
+end
+
+Base.pop!(gt::HasFields, keys::String...) =
+    pop!(gt, map(Symbol, keys)...)
+
+function Base.pop!(gt::HasFields, key::Symbol)
+    if contains(string(key), "_")
+        if !in(key, _UNDERSCORE_ATTRS)
+            return pop!(gt, string(key))
+        end
+    end
+    pop!(gt.fields, key, Dict())
+end
+
+function Base.pop!(gt::HasFields, k1::Symbol, k2::Symbol)
+    d1 = get(gt.fields, k1, Dict())
+    pop!(d1, k2, Dict())
+end
+
+function Base.pop!(gt::HasFields, k1::Symbol, k2::Symbol, k3::Symbol)
+    d1 = get(gt.fields, k1, Dict())
+    d2 = get(d1, k2, Dict())
+    pop!(d2, k3, Dict())
+end
+
+function Base.pop!(gt::HasFields, k1::Symbol, k2::Symbol,
+                       k3::Symbol, k4::Symbol)
+    d1 = get(gt.fields, k1, Dict())
+    d2 = get(d1, k2, Dict())
+    d3 = get(d2, k3, Dict())
+    pop!(d3, k4, Dict())
 end
 
 # Function used to have meaningful display of traces and layouts
