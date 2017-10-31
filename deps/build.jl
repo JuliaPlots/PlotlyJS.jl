@@ -4,3 +4,4 @@ cd(dirname(@__FILE__)) do
 end
 
 include("make_schema_docs.jl")
+include("find_attr_groups.jl")
