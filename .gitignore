@@ -9,3 +9,4 @@ site/
 deps/plotly-latest.min.js
 deps/plotschema.json
 deps/schema.html
+deps/*.csv
