@@ -16,19 +16,19 @@ columns (say `N`). Then `N` traces are constructed, where the `i`th column of
 `x` is paired with the `i`th column of `y`.
 """
 function Plot{T<:_Scalar}(x::AbstractVector{T}, y::AbstractVector, l::Layout=Layout();
-              kind="scatter", style::Style=DEFAULT_STYLE[1], kwargs...)
+              kind="scatter", style::Style=CURRENT_STYLE[], kwargs...)
     Plot(GenericTrace(x, y; kind=kind, kwargs...), l, style=style)
 end
 
 function Plot{T<:_Scalar}(x::AbstractVector{T}, y::AbstractMatrix, l::Layout=Layout();
-              style::Style=DEFAULT_STYLE[1], kwargs...)
+              style::Style=CURRENT_STYLE[], kwargs...)
     traces = GenericTrace[GenericTrace(x, view(y, :, i); kwargs...)
                           for i in 1:size(y, 2)]
     Plot(traces, l, style=style)
 end
 
 function Plot{T<:AbstractVector}(x::AbstractVector{T}, y::AbstractMatrix, l::Layout=Layout();
-              style::Style=DEFAULT_STYLE[1], kwargs...)
+              style::Style=CURRENT_STYLE[], kwargs...)
     size(x, 1) == size(y, 2) || error("x and y must have same number of cols")
 
     traces = GenericTrace[GenericTrace(x[i], view(y, :, i); kwargs...)
@@ -37,7 +37,7 @@ function Plot{T<:AbstractVector}(x::AbstractVector{T}, y::AbstractMatrix, l::Lay
 end
 
 function Plot(x::AbstractMatrix, y::AbstractMatrix, l::Layout=Layout();
-              style::Style=DEFAULT_STYLE[1], kwargs...)
+              style::Style=CURRENT_STYLE[], kwargs...)
     if size(x, 2) == 1
         # use method above
         Plot(view(x, :, 1), y, l; style=style, kwargs...)
@@ -67,7 +67,7 @@ Construct a plot of `f` from `x0` to `x1`, using the layout `l`. All
 keyword arguments are applied to the constructed trace.
 """
 function Plot(f::Function, x0::Number, x1::Number, l::Layout=Layout();
-              style::Style=DEFAULT_STYLE[1],
+              style::Style=CURRENT_STYLE[],
               kwargs...)
     x = linspace(x0, x1, 50)
     y = [f(_) for _ in x]
@@ -82,7 +82,7 @@ constructed traces.
 """
 function Plot(fs::AbstractVector{Function}, x0::Number, x1::Number,
               l::Layout=Layout();
-              style::Style=DEFAULT_STYLE[1],
+              style::Style=CURRENT_STYLE[],
               kwargs...)
     x = linspace(x0, x1, 50)
     traces = GenericTrace[GenericTrace(x, map(f, x); name=Symbol(f), kwargs...)

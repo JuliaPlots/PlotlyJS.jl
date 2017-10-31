@@ -240,7 +240,7 @@ function style(sty::Symbol)
     sty == :seaborn ? seaborn_style() :
     sty == :gadfly_dark ? gadfly_dark_style() :
     sty == :tomorrow_night_eighties ? tomorrow_night_eighties_style() :
-    sty == :default ? _default_style() :
+    sty == :default ? DEFAULT_STYLE[] :
     error("Uknown style $sty")
 end
 
@@ -249,13 +249,9 @@ const STYLES = [
     :tomorrow_night_eighties
 ]
 
-function _default_style()
-    env = Symbol(get(ENV, "PLOTLYJS_STYLE", ""))
-
-    env in STYLES ? style(env) :
-    Juno.isactive() ? style(:gadfly_dark) : Style()
-end
-
-reset_style!() = DEFAULT_STYLE[1] = _default_style()
-use_style!(sty::Symbol) = DEFAULT_STYLE[1] = style(sty)
-use_style!(s::Style) = DEFAULT_STYLE[1] = s
+# NOTE: DEFAULT_STYLE is reset in __init__() based on environmetn vars
+const DEFAULT_STYLE = Ref{Style}(Style())
+const CURRENT_STYLE = Ref{Style}(DEFAULT_STYLE[])
+reset_style!() = CURRENT_STYLE[] = DEFAULT_STYLE[]
+use_style!(sty::Symbol) = CURRENT_STYLE[] = style(sty)
+use_style!(s::Style) = CURRENT_STYLE[] = s

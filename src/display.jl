@@ -128,9 +128,12 @@ Base.copy(sp::SyncPlot) = fork(sp)  # defined by each SyncPlot{TD}
 # Display frontends #
 # ----------------- #
 
-include("displays/juno.jl")
+@require Juno include("displays/juno.jl")
 include("displays/electron.jl")
 include("displays/ijulia.jl")
+
+# default to electron display (will get over-written when Requires.jl picks up IJulia code)
+SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay(p))
 
 # methods to convert from one frontend to another
 let

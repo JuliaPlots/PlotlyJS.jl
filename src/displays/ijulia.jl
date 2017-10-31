@@ -10,10 +10,11 @@ end
 
 const JupyterPlot = SyncPlot{JupyterDisplay}
 
-JupyterDisplay(p::Plot) = begin
-    _ijulia_eval_comm[] = Comm(:plotlyjs_eval)
+function JupyterDisplay(p::Plot)
+    # _ijulia_eval_comm[] = IJulia.CommManager.Comm(:plotlyjs_eval)
     JupyterDisplay(p.divid, false, Condition())
 end
+
 JupyterPlot(p::Plot) = JupyterPlot(p, JupyterDisplay(p))
 
 fork(jp::JupyterPlot) = JupyterPlot(fork(jp.plot))
@@ -160,3 +161,31 @@ extendtraces!(jd::JupyterDisplay, update::Associative=Dict(),
 prependtraces!(jd::JupyterDisplay, update::Associative=Dict(),
                indices::Vector{Int}=[1], maxpoints=-1;) =
     _call_plotlyjs(jd, "prependTraces", update, indices-1, maxpoints)
+
+
+# --------------------------------------------- #
+# Code to run once when the notebook starts up! #
+# --------------------------------------------- #
+
+@require IJulia begin
+    init_notebook()
+
+    # set up the comms we will use to send js messages to be executed
+    global const _ijulia_eval_comm = Ref(IJulia.CommManager.Comm(:plotlyjs_eval))
+    global const _ijulia_return_comms = ObjectIdDict()
+
+    function IJulia.display_dict(p::JupyterPlot)
+        if p.view.displayed
+            Dict()
+        else
+            p.view.displayed = true
+            Dict("text/html" => html_body(p),
+                 "application/vnd.plotly.v1+json" => json(p))
+        end
+    end
+
+    SyncPlot(p::Plot) = SyncPlot(p, JupyterDisplay(p))
+
+    IJulia.display_dict(p::Plot) =
+        Dict("text/plain" => sprint(show, "text/plain", p))
+end

@@ -48,7 +48,7 @@ all other keyword arguments. This means all keyword arguments are passed
 applied to all traces
 """
 function Plot(df::AbstractDataFrame, l::Layout=Layout(); group=nothing,
-              style::Style=DEFAULT_STYLE[1], kwargs...)
+              style::Style=CURRENT_STYLE[], kwargs...)
     if group != nothing
         # the user passed a group argument, we actually have to do something...
         if isa(group, Symbol) && haskey(df, group)
@@ -72,7 +72,7 @@ Construct a plot from `df`, passing the provided values of x and y as keyword
 arguments. See docstring for other method for more information.
 """
 function Plot(d::AbstractDataFrame, x::Symbol, y::Symbol, l::Layout=Layout();
-              style::Style=DEFAULT_STYLE[1], kwargs...)
+              style::Style=CURRENT_STYLE[], kwargs...)
     Plot(d, l; x=x, y=y, style=style, kwargs...)
 end
 
@@ -82,7 +82,7 @@ Construct a plot from `df`, passing the provided value y as a keyword argument.
 See docstring for other method for more information.
 """
 function Plot(d::AbstractDataFrame, y::Symbol, l::Layout=Layout();
-              style::Style=DEFAULT_STYLE[1], kwargs...)
+              style::Style=CURRENT_STYLE[], kwargs...)
     Plot(d, l; y=y, style=style, kwargs...)
 end
 
