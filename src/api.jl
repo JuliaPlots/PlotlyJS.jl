@@ -17,10 +17,12 @@ Base.size(p::Plot) = (get(p.layout.fields, :width, 800),
                       get(p.layout.fields, :height, 450))
 
 for t in  [
-    :area, :bar, :box, :candlestick, :choropleth, :contour, :heatmap,
-    :heatmapgl, :histogram, :histogram2d, :histogram2dcontour, :mesh3d, :ohlc,
-    :pie, :parcoords,  :pointcloud, :scatter, :scatter3d, :scattergeo,
-    :scattergl, :scattermapbox, :scatterternary, :surface
+     :area, :bar, :box, :candlestick, :carpet, :choropleth, :contour,
+     :contourcarpet, :heatmap, :heatmapgl, :histogram, :histogram2d,
+     :histogram2dcontour, :mesh3d, :ohlc, :parcoords, :pie,
+     :pointcloud, :sankey, :scatter, :scatter3d, :scattercarpet,
+     :scattergeo, :scattergl, :scattermapbox, :scatterternary,
+     :surface, :table
     ]
     str_t = string(t)
     code = quote
