@@ -276,6 +276,13 @@ val = Layout(font_family="Helvetica")
 
 =#
 function Base.setindex!(gt::HasFields, val::_LikeAssociative, key::Symbol)
+    if contains(string(key), "_")
+
+        if !in(key, _UNDERSCORE_ATTRS)
+            return setindex!(gt, val, string(key))
+        end
+    end
+    
     for (k, v) in val
         setindex!(gt, v, key, k)
     end

@@ -289,3 +289,12 @@ end
     @test p["type"] == "path"
     @test p["path"] == _path
 end
+
+@testset "test setting nested attr" begin
+    l = Layout()
+    times20 = attr(name="Times", size=20)
+    l[:xaxis_titlefont] = times20
+    @test isa(l[:xaxis], Dict)
+    @test l[:xaxis][:titlefont][:name] == "Times"
+    @test l[:xaxis][:titlefont][:size] == 20
+end
