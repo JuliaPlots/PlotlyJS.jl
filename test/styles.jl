@@ -5,7 +5,9 @@
     @test cycl[1] == :a
     @test cycl[5] == :b
     @test cycl[3:7] == [:c, :a, :b, :c, :a]
-    @test_throws Exception cycl[0]
+    @test cycl[0] == :c
+    @test cycl[-1] == :b
+    @test cycl[-2:1] == [:a, :b, :c, :a]
 end
 
 ps1 = M.Style(layout=M.Layout(font_size=10))

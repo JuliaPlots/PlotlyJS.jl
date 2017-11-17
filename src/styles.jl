@@ -17,11 +17,10 @@ Base.length(c::Cycler) = length(c.vals)
 Cycler(t::Tuple) = Cycler(collect(t))
 Cycler(x::Union{String,Number,Date,Symbol}) = Cycler([x])
 
-function Base.getindex(c::Cycler, ix::Int)
-    ix < 1 && error("index must be positive")
+function Base.getindex(c::Cycler, ix::Integer)
     n = length(c.vals)
-    _i = rem(ix, n)
-    c.vals[ifelse(_i > 0, _i, n)]
+    @inbounds v = c.vals[mod1(ix, n)]
+    v
 end
 
 function Base.getindex(c::Cycler, ixs::AbstractVector{<:Integer})
