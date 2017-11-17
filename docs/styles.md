@@ -191,7 +191,7 @@ There are a few built in styles that come with PlotlyJS.jl. More will be added
 over time. To see which styles are currently built in look at the unexported
 `PlotlyJS.STYLES` variable.
 
-To obtain a built in style use the method `Style(s::Symbol)`, where `s` is one
+To obtain a built in style use the method `style(s::Symbol)`, where `s` is one
 of the symbols in `PlotlyJS.STYLES`.
 
 To use a built in style globally use the method `use_style!(s::Symbol)`, where
