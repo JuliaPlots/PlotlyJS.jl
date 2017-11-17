@@ -13,7 +13,7 @@ struct Cycler
 end
 
 Base.isempty(c::Cycler) = isempty(c.vals)
-Base.length(c::Cycler) = length(c.vals˚)
+Base.length(c::Cycler) = length(c.vals)
 Cycler(t::Tuple) = Cycler(collect(t))
 Cycler(x::Union{String,Number,Date,Symbol}) = Cycler([x])
 

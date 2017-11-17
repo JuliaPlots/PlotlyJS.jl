@@ -1,3 +1,13 @@
+@testset "Cycler" begin
+    cycl = Cycler([:a, :b, :c])
+    @test length(cycl) == 3
+    @test !isempty(cycl)
+    @test cycl[1] == :a
+    @test cycl[5] == :b
+    @test cycl[3:7] == [:c, :a, :b, :c, :a]
+    @test_throws Exception cycl[0]
+end
+
 ps1 = M.Style(layout=M.Layout(font_size=10))
 ps2 = M.Style(layout=M.Layout(font_family="Helvetica"))
 
