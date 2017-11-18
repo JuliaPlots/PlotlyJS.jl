@@ -2,12 +2,13 @@ __precompile__()
 
 module PlotlyJS
 
+
 using Base.Iterators
 using JSON
 using Blink
 using Colors
 using DocStringExtensions
-using DataFrames
+using Requires
 
 import Base: ==
 
@@ -56,20 +57,21 @@ include("subplots.jl")
 include("api.jl")
 include("savefig.jl")
 include("convenience_api.jl")
+@require DataFrames include("dataframes_api.jl")
 include("recession_bands.jl")
 
 # Set some defaults for constructing `Plot`s
-function Plot(;style::Style=DEFAULT_STYLE[1])
+function Plot(;style::Style=CURRENT_STYLE[])
     Plot(GenericTrace{Dict{Symbol,Any}}[], Layout(), Base.Random.uuid4(), style)
 end
 
 function Plot{T<:AbstractTrace}(data::AbstractVector{T}, layout=Layout();
-                                style::Style=DEFAULT_STYLE[1])
+                                style::Style=CURRENT_STYLE[])
     Plot(data, layout, Base.Random.uuid4(), style)
 end
 
 function Plot(data::AbstractTrace, layout=Layout();
-              style::Style=DEFAULT_STYLE[1])
+              style::Style=CURRENT_STYLE[])
     Plot([data], layout; style=style)
 end
 
@@ -162,50 +164,18 @@ else
 end
 
 
-function __init__()
-    # --------------------------------------------- #
-    # Code to run once when the notebook starts up! #
-    # --------------------------------------------- #
+
+@init begin
     if !isfile(_js_path)
         info("plotly.js javascript libary not found -- downloading now")
         include(joinpath(dirname(_js_path), "build.jl"))
     end
 
-    if _isijulia()
-
-        init_notebook()
-
-        @eval begin
-            import IJulia
-            import IJulia.CommManager: Comm, send_comm
-        end
-
-        # set up the comms we will use to send js messages to be executed
-        global const _ijulia_eval_comm = Ref(Comm(:plotlyjs_eval))
-        global const _ijulia_return_comms = ObjectIdDict()
-
-        @eval begin
-            function IJulia.display_dict(p::JupyterPlot)
-                if p.view.displayed
-                    Dict()
-                else
-                    p.view.displayed = true
-                    Dict("text/html" => html_body(p),
-                         "application/vnd.plotly.v1+json" => json(p))
-                end
-            end
-
-            SyncPlot(p::Plot) = SyncPlot(p, JupyterDisplay(p))
-
-            IJulia.display_dict(p::Plot) =
-                Dict("text/plain" => sprint(show, "text/plain", p))
-
-        end
-    else
-        @eval SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay(p))
+    env_style = Symbol(get(ENV, "PLOTLYJS_STYLE", ""))
+    if env_style in STYLES
+        global DEFAULT_STYLE
+        DEFAULT_STYLE[] = Style(env_style)
     end
-
-    global const DEFAULT_STYLE = [_default_style()]
 
 end
 

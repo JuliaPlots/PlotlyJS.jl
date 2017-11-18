@@ -48,7 +48,7 @@ function Base.isready(ed::ElectronDisplay)
 end
 
 # helper method to obtain a Blink window, given some options
-get_window(opts::Dict) = Juno.isactive() ? Juno.Atom.blinkplot() : Window(opts)
+get_window(opts::Dict) = Window(opts)
 
 """
 Initialize a Blink window for displaying the a plot. This will return an

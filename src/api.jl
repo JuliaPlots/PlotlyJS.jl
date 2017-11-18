@@ -16,19 +16,20 @@ Return the size of the plot in pixels. Obtained from the `layout.width` and
 Base.size(p::Plot) = (get(p.layout.fields, :width, 800),
                       get(p.layout.fields, :height, 450))
 
-for t in  [
+const _TRACE_TYPES = [
      :area, :bar, :box, :candlestick, :carpet, :choropleth, :contour,
      :contourcarpet, :heatmap, :heatmapgl, :histogram, :histogram2d,
      :histogram2dcontour, :mesh3d, :ohlc, :parcoords, :pie,
      :pointcloud, :sankey, :scatter, :scatter3d, :scattercarpet,
      :scattergeo, :scattergl, :scattermapbox, :scatterternary,
      :surface, :table
-    ]
+]
+
+for t in _TRACE_TYPES
     str_t = string(t)
     code = quote
         $t(;kwargs...) = GenericTrace($str_t; kwargs...)
         $t(d::Associative; kwargs...) = GenericTrace($str_t, _symbol_dict(d); kwargs...)
-        $t(df::AbstractDataFrame; kwargs...) = GenericTrace(df; kind=$(str_t), kwargs...)
     end
     eval(code)
     eval(Expr(:export, t))
