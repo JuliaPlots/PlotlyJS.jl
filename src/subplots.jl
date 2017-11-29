@@ -18,29 +18,25 @@ end
 function gen_layout(nr, nc, subplot_titles::Bool=false)
     w, h, dx, dy = subplot_size(nr, nc, subplot_titles)
 
-    x = 0.0  # start from left
-    y = 1.0  # start from top
-
     out = Layout()
+
+    x = 0.0  # start from left
     for col in 1:nc
 
-        y = 1.0 # reset y as we start a new col
+        y = 1.0  # start from top
         for row in 1:nr
-            subplot = sub2ind((nc, nr), col, row)
+            subplot = sub2ind((nr, nc), row, col)
 
-            out["xaxis$subplot"] = Dict{Any,Any}(:domain=>[x, x+w],
-                                                 :anchor=> "y$subplot")
-            out["yaxis$subplot"] = Dict{Any,Any}(:domain=>[y-h, y],
-                                                 :anchor=> "x$subplot")
+            out["xaxis$subplot"] = Dict{Any,Any}(:domain=>[x, x+w], :anchor=> "y$subplot")
+            out["yaxis$subplot"] = Dict{Any,Any}(:domain=>[y-h, y], :anchor=> "x$subplot")
 
-            y -= nr == 1 ? 0.0 : h + dy
-         end
+            y -= h + dy
+        end
 
-         x += nc == 1 ? 0.0 : w + dx
+        x += w + dx
     end
 
     out
-
 end
 
 function handle_titles!(big_layout, sub_layout, ix::Int)
