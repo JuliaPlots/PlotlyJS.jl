@@ -4,7 +4,7 @@ Given the number of rows and columns, return an NTuple{4,Float64} containing
 width and height of each subplot and `vspace` and `hspace` are the vertical
 and horizonal spacing between subplots, respectively.
 """
-function sizes(nr::Int, nc::Int, subplot_titles::Bool=false)
+function subplot_size(nr::Int, nc::Int, subplot_titles::Bool=false)
     # NOTE: the logic of this function was mostly borrowed from plotly.py
     dx = 0.2 / nc
     dy = subplot_titles ? 0.55 / nr : 0.3 / nr
@@ -16,7 +16,7 @@ function sizes(nr::Int, nc::Int, subplot_titles::Bool=false)
 end
 
 function gen_layout(nr, nc, subplot_titles::Bool=false)
-    w, h, dx, dy = sizes(nr, nc, subplot_titles)
+    w, h, dx, dy = subplot_size(nr, nc, subplot_titles)
 
     x = 0.0  # start from left
     y = 1.0  # start from top
