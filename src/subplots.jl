@@ -42,7 +42,7 @@ end
 hastitle(layout::Layout) = haskey(layout.fields, "title") || haskey(layout.fields, :title)
 hastitle(plot::Plot) = hastitle(plot.layout)
 
-function handle_titles!(big_layout, sub_layout, ix::Int)
+function add_subplot_annotation!(big_layout::Layout, sub_layout::Layout, ix::Integer)
     hastitle(sub_layout) || return big_layout
 
     # check for symbol or string
@@ -77,7 +77,7 @@ function _cat(nr::Int, nc::Int, ps::Plot...)
             trace["yaxis"] = "y$ix"
         end
 
-        handle_titles!(layout, copied_plots[ix].layout, ix)
+        add_subplot_annotation!(layout, copied_plots[ix].layout, ix)
         layout["xaxis$ix"] = merge(copied_plots[ix].layout["xaxis"], layout["xaxis$ix"])
         layout["yaxis$ix"] = merge(copied_plots[ix].layout["yaxis"], layout["yaxis$ix"])
     end
