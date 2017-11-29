@@ -64,44 +64,26 @@ function add_subplot_annotation!(big_layout::Layout, sub_layout::Layout, ix::Int
     big_layout
 end
 
-function _cat(nr::Int, nc::Int, ps::Plot...)
-    copied_plots = Plot[copy(p) for p in ps]
-    subplot_titles = any(hastitle, ps)
-    layout = subplots_layout(nr, nc, subplot_titles)
+function arrange(layout::Layout, subplots::AbstractVector{<:Plot})
+    copied_subplots = Plot[copy(p) for p in subplots]
 
-    for col in 1:nc, row in 1:nr
-        ix = sub2ind((nc, nr), col, row)
-
-        for trace in copied_plots[ix].data
+    for (ix, plot) in enumerate(copied_subplots)
+        for trace in plot.data
             trace["xaxis"] = "x$ix"
             trace["yaxis"] = "y$ix"
         end
 
-        add_subplot_annotation!(layout, copied_plots[ix].layout, ix)
-        layout["xaxis$ix"] = merge(copied_plots[ix].layout["xaxis"], layout["xaxis$ix"])
-        layout["yaxis$ix"] = merge(copied_plots[ix].layout["yaxis"], layout["yaxis$ix"])
+        add_subplot_annotation!(layout, plot.layout, ix)
+        layout["xaxis$ix"] = merge(plot.layout["xaxis"], layout["xaxis$ix"])
+        layout["yaxis$ix"] = merge(plot.layout["yaxis"], layout["yaxis$ix"])
     end
 
-    Plot(vcat([p.data for p in copied_plots]...), layout)
+    Plot(vcat([p.data for p in copied_subplots]...), layout)
 end
 
-Base.hcat(ps::Plot...) = _cat(1, length(ps), ps...)
-Base.vcat(ps::Plot...) = _cat(length(ps), 1,  ps...)
-Base.vect(ps::Plot...) = vcat(ps...)
+arrange(layout::Layout, subplots::AbstractVector{<:SyncPlot}) =
+    arrange(layout, [sp.plot for sp in subplots])
+arrange(layout::Layout, subplots::Union{Plot, SyncPlot}...) = arrange(layout, [subplots...])
 
-function Base.hvcat(rows::Tuple{Vararg{Int}}, ps::Plot...)
-    nr = length(rows)
-    nc = rows[1]
-
-    for (i, c) in enumerate(rows[2:end])
-        c == nc || error("Saw $c columns in row $(i+1), expected $nc")
-    end
-    _cat(nr, nc, ps...)
-end
-
-# methods on syncplot
-Base.hcat{TP<:SyncPlot}(sps::TP...) = TP(hcat([sp.plot for sp in sps]...))
-Base.vcat{TP<:SyncPlot}(sps::TP...) = TP(vcat([sp.plot for sp in sps]...))
-Base.vect{TP<:SyncPlot}(sps::TP...) = vcat(sps...)
-Base.hvcat{TP<:SyncPlot}(rows::Tuple{Vararg{Int}}, sps::TP...) =
-    TP(hvcat(rows, [sp.plot for sp in sps]...))
+arrange(subplots::AbstractVector{<:Union{Plot, SyncPlot}}) = arrange(subplots_layout(length(subplots), 1, any(hastitle, subplots)), vec(subplots))
+arrange(subplots::AbstractMatrix{<:Union{Plot, SyncPlot}}) = arrange(subplots_layout(size(subplots)..., any(hastitle, subplots)), vec(subplots))

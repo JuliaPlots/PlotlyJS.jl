@@ -124,7 +124,10 @@ export
     init_notebook,
 
     # styles
-    use_style!, style, Style, Cycler
+    use_style!, style, Style, Cycler,
+
+    # subplots
+    arrange
 
 
 ## borrowed from Compose.jl
