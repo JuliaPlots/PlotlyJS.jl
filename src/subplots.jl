@@ -1,6 +1,6 @@
 """
 Given the number of rows and columns, return an NTuple{4,Float64} containing
-`(width, height, vspace, hspace)`, where `width` and `height` are the
+`(width, height, hspace, vspace)`, where `width` and `height` are the
 width and height of each subplot and `vspace` and `hspace` are the vertical
 and horizonal spacing between subplots, respectively.
 """
@@ -12,11 +12,11 @@ function sizes(nr::Int, nc::Int, subplot_titles::Bool=false)
     height = (1. - dy * (nr - 1)) / nr
     vspace = nr == 1 ? 0.0 : (1 - height*nr)/(nr-1)
     hspace = nc == 1 ? 0.0 : (1 - width*nc)/(nc-1)
-    width, height, vspace, hspace
+    width, height, hspace, vspace
 end
 
 function gen_layout(nr, nc, subplot_titles::Bool=false)
-    w, h, dy, dx = sizes(nr, nc, subplot_titles)
+    w, h, dx, dy = sizes(nr, nc, subplot_titles)
 
     x = 0.0  # start from left
     y = 1.0  # start from top
