@@ -39,18 +39,19 @@ function subplots_layout(nr, nc, subplot_titles::Bool=false)
     out
 end
 
+hastitle(layout::Layout) = haskey(layout.fields, "title") || haskey(layout.fields, :title)
+hastitle(plot::Plot) = hastitle(plot.layout)
+
 function handle_titles!(big_layout, sub_layout, ix::Int)
-    # don't worry about it if the sub_layout doesn't have a title
-    if !haskey(sub_layout.fields, "title") && !haskey(sub_layout.fields, :title)
-        return big_layout
-    end
+    hastitle(sub_layout) || return big_layout
 
     # check for symbol or string
-    nm = haskey(sub_layout.fields, "title") ? "title" : :title
+    subtitle = pop!(sub_layout.fields, haskey(sub_layout.fields, "title") ? "title" : :title)
 
+    # add text annotation with the subplot title
     ann = Dict{Any,Any}(:font => Dict{Any,Any}(:size => 16),
                         :showarrow => false,
-                        :text => pop!(sub_layout.fields, nm),
+                        :text => subtitle,
                         :x => mean(big_layout["xaxis$(ix).domain"]),
                         :xanchor => "center",
                         :xref => "paper",
@@ -65,8 +66,7 @@ end
 
 function _cat(nr::Int, nc::Int, ps::Plot...)
     copied_plots = Plot[copy(p) for p in ps]
-    subplot_titles = any(map(x -> haskey(x.layout.fields, :title) ||
-                                  haskey(x.layout.fields, "title"), ps))
+    subplot_titles = any(hastitle, ps)
     layout = subplots_layout(nr, nc, subplot_titles)
 
     for col in 1:nc, row in 1:nr
