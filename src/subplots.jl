@@ -15,7 +15,7 @@ function subplot_size(nr::Int, nc::Int, subplot_titles::Bool=false)
     width, height, hspace, vspace
 end
 
-function gen_layout(nr, nc, subplot_titles::Bool=false)
+function subplots_layout(nr, nc, subplot_titles::Bool=false)
     w, h, dx, dy = subplot_size(nr, nc, subplot_titles)
 
     out = Layout()
@@ -67,7 +67,7 @@ function _cat(nr::Int, nc::Int, ps::Plot...)
     copied_plots = Plot[copy(p) for p in ps]
     subplot_titles = any(map(x -> haskey(x.layout.fields, :title) ||
                                   haskey(x.layout.fields, "title"), ps))
-    layout = gen_layout(nr, nc, subplot_titles)
+    layout = subplots_layout(nr, nc, subplot_titles)
 
     for col in 1:nc, row in 1:nr
         ix = sub2ind((nc, nr), col, row)
