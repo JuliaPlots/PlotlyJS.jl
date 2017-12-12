@@ -1,3 +1,5 @@
+import DataFrames.AbstractDataFrame
+
 """
 $(SIGNATURES)
 Build a trace of kind `kind`, using the columns of `df` where possible. In
