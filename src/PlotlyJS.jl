@@ -163,6 +163,7 @@ else
     end
 end
 
+
 @init begin
     if !isfile(_js_path)
         info("plotly.js javascript libary not found -- downloading now")
