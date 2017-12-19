@@ -67,6 +67,17 @@ function handle_titles!(big_layout, sub_layout, ix::Int)
     big_layout
 end
 
+# plots are 3d if any of their traces have a 3d type. This should flow down
+# the methods as ordered here
+_is3d(p::SyncPlot) = _is3d(p.plot)
+_is3d(p::Plot) = any(_is3d, p.data)
+_is3d(t::GenericTrace) = _is3d(t[:type])
+_is3d(t::Symbol) = _is3d(string(t))
+_is3d(s::AbstractString) = s in ["surface", "mesh3d", "scatter3d"]
+
+# else (maybe if trace didn't have a :type field set)
+_is3d(x::Any)= false
+
 function _cat(nr::Int, nc::Int, ps::Plot...)
     copied_plots = Plot[copy(p) for p in ps]
     subplot_titles = any(map(x -> haskey(x.layout.fields, :title) ||
@@ -75,15 +86,26 @@ function _cat(nr::Int, nc::Int, ps::Plot...)
 
     for col in 1:nc, row in 1:nr
         ix = sub2ind((nc, nr), col, row)
-
-        for trace in copied_plots[ix].data
-            trace["xaxis"] = "x$ix"
-            trace["yaxis"] = "y$ix"
-        end
-
         handle_titles!(layout, copied_plots[ix].layout, ix)
         layout["xaxis$ix"] = merge(copied_plots[ix].layout["xaxis"], layout["xaxis$ix"])
         layout["yaxis$ix"] = merge(copied_plots[ix].layout["yaxis"], layout["yaxis$ix"])
+
+        if _is3d(copied_plots[ix])
+            # need to move (x|y)axis$ix into scene$ix here
+            layout["scene$ix"] = attr(
+                xaxis=pop!(layout, "xaxis$(ix)"),
+                yaxis=pop!(layout, "yaxis$(ix)")
+            )
+            for trace in copied_plots[ix].data
+                trace["scene"] = "scene$ix"
+            end
+        else
+            for trace in copied_plots[ix].data
+                trace["xaxis"] = "x$ix"
+                trace["yaxis"] = "y$ix"
+            end
+        end
+
     end
 
     Plot(vcat([p.data for p in copied_plots]...), layout)
