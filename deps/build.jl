@@ -5,3 +5,4 @@ end
 
 include("make_schema_docs.jl")
 include("find_attr_groups.jl")
+AttrGroups.main()
