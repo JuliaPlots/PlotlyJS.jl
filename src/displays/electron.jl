@@ -62,6 +62,13 @@ function get_window(ed::ElectronDisplay; kwargs...)
         w = get(ed.w)
     else
         w = get_window(Dict(kwargs))
+        for it in 1:200  # wait up to 2 seconds...
+            if it == 100
+                error("Couldn't set up js comm with Blink")
+            end
+            @js(w, 1+1) == 2 && break
+            sleep(0.01)
+        end
         ed.w = w
         # load the js here
         Blink.load!(w, _js_path)
