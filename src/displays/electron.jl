@@ -63,7 +63,7 @@ function get_window(ed::ElectronDisplay; kwargs...)
     else
         w = get_window(Dict(kwargs))
         for it in 1:200  # wait up to 2 seconds...
-            if it == 100
+            if it == 200
                 error("Couldn't set up js comm with Blink")
             end
             @js(w, 1+1) == 2 && break
