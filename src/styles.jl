@@ -240,7 +240,7 @@ function style(sty::Symbol)
     sty == :gadfly_dark ? gadfly_dark_style() :
     sty == :tomorrow_night_eighties ? tomorrow_night_eighties_style() :
     sty == :default ? DEFAULT_STYLE[] :
-    error("Uknown style $sty")
+    error("Unknown style $sty")
 end
 
 const STYLES = [
@@ -248,7 +248,7 @@ const STYLES = [
     :tomorrow_night_eighties
 ]
 
-# NOTE: DEFAULT_STYLE is reset in __init__() based on environmetn vars
+# NOTE: DEFAULT_STYLE is reset in __init__() based on environment vars
 const DEFAULT_STYLE = Ref{Style}(Style())
 const CURRENT_STYLE = Ref{Style}(DEFAULT_STYLE[])
 reset_style!() = CURRENT_STYLE[] = DEFAULT_STYLE[]
