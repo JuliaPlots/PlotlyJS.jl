@@ -19,7 +19,7 @@ end
 function SchemaAttribute(d::Associative)
     role = pop!(d, :role, "")
 
-    if role == "object" || any(_->isa(_, Associative), values(d))
+    if role == "object" || any(_x->isa(_x, Associative), values(d))
         # description and valtype ire empty, but children is not
         _desc = pop!(d, :description, "")
         desc = isempty(_desc) ? Nullable{MD}() : Nullable{MD}(MD(_desc))
