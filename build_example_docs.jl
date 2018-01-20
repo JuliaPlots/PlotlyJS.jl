@@ -3,16 +3,11 @@ This file takes the code from each file in the examples folder and
 creates a markdown file of the same name as the julia file then
 puts each example from the julia file into a code block and adds
 a short html div below with the interactive output.
-
-Notes:
-
-  * Assumes that the plot to be placed in html file is named `p`
-  *
 =#
 using PlotlyJS
 using Distributions, Quandl, RDatasets  # used in examples
 
-doc_style = Style(Style(layout=Layout(margin=attr(t=60, b=60, l=50, r=50))))
+doc_style = Style(layout=Layout(margin=attr(t=60, b=60, l=50, r=50)))
 
 # Read all file names in
 this_dir = dirname(@__FILE__)
@@ -38,7 +33,7 @@ use_style!(doc_style)
 # Walk through each example in a file and get the markdown from `single_example`
 function single_file(filename::String)
     # Open a file to write to
-    outfile = open(joinpath(this_dir, "examples", filename[1:end-3]*".md"), "w")
+    open(joinpath(this_dir, "examples", filename[1:end-3]*".md"), "w") do outfile
 
     # Read lines from a files
     fulltext = open(readstring, joinpath(this_dir, "..", "examples", filename), "r")
@@ -70,9 +65,9 @@ function single_file(filename::String)
         println(outfile, "```julia\n$func_block\n$(fun_name)()\n```\n\n\n$html_block\n\n")
         l = end_l
     end
-    close(outfile)
+    end  # do outfile
 
     return nothing
 end
 
-map(single_file, all_julia_files)
+main() = map(single_file, all_julia_files)

@@ -303,8 +303,8 @@
       
         
   <li>
-    <a class="" title="Box plots" href="../examples/box_plots/">
-      Box plots
+    <a class="" title="Bar" href="../examples/bar/">
+      Bar
     </a>
     
   </li>
@@ -312,8 +312,8 @@
       
         
   <li>
-    <a class="" title="Bar" href="../examples/bar/">
-      Bar
+    <a class="" title="Box plots" href="../examples/box_plots/">
+      Box plots
     </a>
     
   </li>
@@ -366,15 +366,6 @@
       
         
   <li>
-    <a class="" title="Time series" href="../examples/time_series/">
-      Time series
-    </a>
-    
-  </li>
-
-      
-        
-  <li>
     <a class="" title="Maps" href="../examples/maps/">
       Maps
     </a>
@@ -384,8 +375,8 @@
       
         
   <li>
-    <a class="" title="Ternary" href="../examples/ternary/">
-      Ternary
+    <a class="" title="Shapes" href="../examples/shapes/">
+      Shapes
     </a>
     
   </li>
@@ -402,8 +393,35 @@
       
         
   <li>
-    <a class="" title="Shapes" href="../examples/shapes/">
-      Shapes
+    <a class="" title="Tables" href="../examples/tables/">
+      Tables
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Ternary" href="../examples/ternary/">
+      Ternary
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Time series" href="../examples/time_series/">
+      Time series
+    </a>
+    
+  </li>
+
+      
+        
+  <li>
+    <a class="" title="Violin" href="../examples/violin/">
+      Violin
     </a>
     
   </li>
@@ -605,7 +623,7 @@ after subplots are created (e.g. <code>p = [p1 p2]; p.style=ggplot</code>, where
 <p>There are a few built in styles that come with PlotlyJS.jl. More will be added
 over time. To see which styles are currently built in look at the unexported
 <code>PlotlyJS.STYLES</code> variable.</p>
-<p>To obtain a built in style use the method <code>Style(s::Symbol)</code>, where <code>s</code> is one
+<p>To obtain a built in style use the method <code>style(s::Symbol)</code>, where <code>s</code> is one
 of the symbols in <code>PlotlyJS.STYLES</code>.</p>
 <p>To use a built in style globally use the method <code>use_style!(s::Symbol)</code>, where
 again <code>s</code> is a symbol from <code>PlotlyJS.STYLES</code>.</p>
