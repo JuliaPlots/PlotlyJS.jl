@@ -169,6 +169,7 @@ prependtraces!(jd::JupyterDisplay, update::Associative=Dict(),
 
 @require IJulia begin
     init_notebook()
+    using IJulia.send_comm  # needed for _call_js above to work
 
     # set up the comms we will use to send js messages to be executed
     global const _ijulia_eval_comm = Ref(IJulia.CommManager.Comm(:plotlyjs_eval))
