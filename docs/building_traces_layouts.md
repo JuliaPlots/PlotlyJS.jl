@@ -397,3 +397,15 @@ the column names, so the value for the `marker_color` keyword argument remained
 The DataFrame interface becomes more useful when constructing whole plots. See
 the [convenience methods](syncplots.md#convenience-methods) section of the
 documentation for more information.
+
+!!! note
+    New in version 0.9.0
+
+As of version 0.9.0, when using the DataFrame API you are allowed to pass a
+function as the value for a keyword argument. When the each trace is
+constructed, the value will be replaced by calling the function on whatever
+DataFrame is being used. When used in conjunction with the `group` argument,
+this allows you to _compute_ group specific trace attributes on the fly.
+
+See the docstring for `GenericTrace` and the `violin_side_by_side` example on
+the [violin example page](examples/violin.md) more details.

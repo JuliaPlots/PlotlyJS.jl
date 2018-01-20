@@ -24,6 +24,23 @@ Build a trace of kind `kind`, using the columns of `df` where possible. In
 particular for all keyword arguments, if the value of the keyword argument is a
 Symbol and matches one of the column names of `df`, replace the value of the
 keyword argument with the column of `df`
+
+If `group` is passed and is a Symbol that is one of the column names of `df`,
+then call `by(df, group)` and construct one trace per SubDataFrame, passing
+all other keyword arguments. This means all keyword arguments are passed
+applied to all traces
+
+Also, when using this routine you can pass a function as a value for any
+keyword argument. This function will be replaced by calling the function on the
+DataFrame. For example, if I were to pass `name=(df) -> "Wage (average =
+$(mean(df[:X1])))"` then the `name` attribute on the trace would be replaced by
+the  `Wage (average = XX)`, where `XX` is the average of the `X1` column in the
+DataFrame.
+
+The ability to pass functions as values for keyword arguments is particularly
+useful when using the `group` keyword arugment, as the function will be applied
+to each SubDataFrame. In the example above, the name attribute would set a
+different mean for each group.
 """
 function GenericTrace(df::AbstractDataFrame; group=nothing, kind="scatter", kwargs...)
     d = Dict{Symbol,Any}(kwargs)
