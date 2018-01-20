@@ -19,7 +19,7 @@ end
 function SchemaAttribute(d::Associative)
     role = pop!(d, :role, "")
 
-    if role == "object" || any(_->isa(_, Associative), values(d))
+    if role == "object" || any(_x->isa(_x, Associative), values(d))
         # description and valtype ire empty, but children is not
         _desc = pop!(d, :description, "")
         desc = isempty(_desc) ? Nullable{MD}() : Nullable{MD}(MD(_desc))
@@ -190,8 +190,11 @@ function doc_html!(buf::IO, s::Schema)
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+      <script>
+      window.jQuery = window.\$;
+      </script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>""")
 

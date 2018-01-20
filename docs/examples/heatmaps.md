@@ -6,12 +6,12 @@ heatmap1()
 ```
 
 
-<div id="499a9ed6-5fe4-402c-8d18-7cf8ef313fd1" class="plotly-graph-div"></div>
+<div id="6c209b5c-3937-4957-a69a-7045c1f40caa" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('499a9ed6-5fe4-402c-8d18-7cf8ef313fd1', [{"type":"heatmap","z":[[1,20,30],[20,1,60],[30,60,1]]}],
+    Plotly.newPlot('6c209b5c-3937-4957-a69a-7045c1f40caa', [{"type":"heatmap","z":[[1,20,30],[20,1,60],[30,60,1]]}],
                {"margin":{"l":50,"b":60,"r":50,"t":60}}, {showLink: false});
 
  </script>
@@ -31,12 +31,12 @@ heatmap2()
 ```
 
 
-<div id="3957269a-7045-41f4-b352-70b9fd046eea" class="plotly-graph-div"></div>
+<div id="6d72a03b-d897-4853-a206-13a14bee92ed" class="plotly-graph-div"></div>
 
 <script>
     window.PLOTLYENV=window.PLOTLYENV || {};
     window.PLOTLYENV.BASE_URL="https://plot.ly";
-    Plotly.newPlot('3957269a-7045-41f4-b352-70b9fd046eea', [{"y":["Morning","Afternoon","Evening"],"type":"heatmap","z":[[3,10,17,18,6],[15,23,10,26,3],[14,8,1,17,26]],"x":["Monday","Tuesday","Wednesday","Thursday","Friday"]}],
+    Plotly.newPlot('6d72a03b-d897-4853-a206-13a14bee92ed', [{"y":["Morning","Afternoon","Evening"],"type":"heatmap","z":[[17,9,17,11,23],[7,21,15,22,5],[26,20,10,24,13]],"x":["Monday","Tuesday","Wednesday","Thursday","Friday"]}],
                {"margin":{"l":50,"b":60,"r":50,"t":60}}, {showLink: false});
 
  </script>
