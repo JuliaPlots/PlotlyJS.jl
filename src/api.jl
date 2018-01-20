@@ -21,8 +21,8 @@ const _TRACE_TYPES = [
      :contourcarpet, :heatmap, :heatmapgl, :histogram, :histogram2d,
      :histogram2dcontour, :mesh3d, :ohlc, :parcoords, :pie,
      :pointcloud, :sankey, :scatter, :scatter3d, :scattercarpet,
-     :scattergeo, :scattergl, :scattermapbox, :scatterternary,
-     :surface, :table
+     :scattergeo, :scattergl, :scattermapbox, :scatterpolar, :scatterpolargl,
+     :scatterternary, :surface, :table, :violin
 ]
 
 for t in _TRACE_TYPES
