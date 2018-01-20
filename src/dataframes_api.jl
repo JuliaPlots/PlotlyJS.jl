@@ -33,7 +33,7 @@ applied to all traces
 Also, when using this routine you can pass a function as a value for any
 keyword argument. This function will be replaced by calling the function on the
 DataFrame. For example, if I were to pass `name=(df) -> "Wage (average =
-$(mean(df[:X1])))"` then the `name` attribute on the trace would be replaced by
+\$(mean(df[:X1])))"` then the `name` attribute on the trace would be replaced by
 the  `Wage (average = XX)`, where `XX` is the average of the `X1` column in the
 DataFrame.
 
