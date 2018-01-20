@@ -124,25 +124,35 @@ function display_blink(p::ElectronPlot; show=true, resize::Bool=_autoresize[1],)
     done = done_var(p)
     svg = svg_var(p)
 
+    save_svg_func = """
+    function reset_svg() {
+        $(svg) = undefined;
+        $(done) = false;
+    }
+    function save_svg(gd){
+         $(done) = true;
+         Plotly.toImage(gd, {"format": "svg"}).then(function(img_data) {
+             var svg_data = img_data.replace(/^data:image\\/svg\\+xml,/, "");
+             $(svg) = decodeURIComponent(svg_data);
+          });
+    };
+    """
+
     if !resize
         code = """
         <script>
-        (function(){
-        var gd = Plotly.d3.select("body")
-            .append("div")
-            .attr("id", "$(p.plot.divid)")
-            .node();
-        var plot_json = $(json(p.plot));
-        var data = plot_json.data;
-        var layout = plot_json.layout;
-        Plotly.newPlot(gd, data, layout).then(function(gd) {
-                 $(done) = true;
-                 return Plotly.toImage(gd, {"format": "svg"});
-            }).then(function(data) {
-                var svg_data = data.replace(/^data:image\\/svg\\+xml,/, "");
-                $(svg) = decodeURIComponent(svg_data);
-             });
-         })();
+        $(save_svg_func)
+        gd = (function(){
+            var gd = Plotly.d3.select("body")
+                .append("div")
+                .attr("id", "$(p.plot.divid)")
+                .node();
+            var plot_json = $(json(p.plot));
+            var data = plot_json.data;
+            var layout = plot_json.layout;
+            Plotly.newPlot(gd, data, layout).then(save_svg);
+            return gd;
+        })();
         </script>
         """
         @js(w, Blink.fill("body", $code))
@@ -158,7 +168,8 @@ function display_blink(p::ElectronPlot; show=true, resize::Bool=_autoresize[1],)
         =#
         magic = """
         <script>
-        (function() {
+        $(save_svg_func)
+        gd = (function() {
             var WIDTH_IN_PERCENT_OF_PARENT = 100
             var HEIGHT_IN_PERCENT_OF_PARENT = 100;
             var gd = Plotly.d3.select('body')
@@ -173,21 +184,12 @@ function display_blink(p::ElectronPlot; show=true, resize::Bool=_autoresize[1],)
             var plot_json = $(json(p.plot));
             var data = plot_json.data;
             var layout = plot_json.layout;
-            Plotly.newPlot(gd, data, layout).then(function(gd) {
-                     $(done) = true;
-                     var img_data = Plotly.toImage(gd, {"format": "svg"});
-                     delete gd.layout.width
-                     delete gd.layout.height
-                     return img_data
-                }).then(function(img_data) {
-                    var svg_data = img_data.replace(/^data:image\\/svg\\+xml,/, "");
-                    $(svg) = decodeURIComponent(svg_data);
-                 });
+            Plotly.newPlot(gd, data, layout).then(save_svg);
             window.onresize = function() {
                 Plotly.Plots.resize(gd);
                 };
-            }
-        )();
+            return gd;
+        })();
         </script>
         """
         @js(w, Blink.fill("body", $magic))
@@ -244,50 +246,65 @@ Blink.js(p::ElectronPlot, code::JSString; callback=true) =
     Blink.js(p.view, code; callback=callback)
 
 # Methods from javascript API (docstrings found in api.jl)
-relayout!(p::ElectronDisplay, update::Associative=Dict(); kwargs...) =
-    @js_ p Plotly.relayout(this, $(merge(update, prep_kwargs(kwargs))))
+function relayout!(p::ElectronDisplay, update::Associative=Dict(); kwargs...)
+    @js_ p begin reset_svg(); Plotly.relayout(this, $(merge(update, prep_kwargs(kwargs)))).then(save_svg) end
+end
 
-restyle!(p::ElectronDisplay, ind::Int, update::Associative=Dict(); kwargs...) =
-    @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))), $(ind-1))
+function restyle!(p::ElectronDisplay, ind::Int, update::Associative=Dict(); kwargs...)
+    @js_ p begin reset_svg(); Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))), $(ind-1)).then(save_svg) end
+end
 
-restyle!(p::ElectronDisplay, inds::AbstractVector{Int}, update::Associative=Dict(); kwargs...) =
-    @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))), $(inds-1))
+function restyle!(p::ElectronDisplay, inds::AbstractVector{Int}, update::Associative=Dict(); kwargs...)
+    @js_ p begin reset_svg(); Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))), $(inds-1)).then(save_svg) end
+end
 
-restyle!(p::ElectronDisplay, update=Dict(); kwargs...) =
-    @js_ p Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))))
+function restyle!(p::ElectronDisplay, update=Dict(); kwargs...)
+    @js_ p begin reset_svg(); Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs)))).then(save_svg) end
+end
 
-addtraces!(p::ElectronDisplay, traces::AbstractTrace...) =
-    @js_ p Plotly.addTraces(this, $traces)
+function addtraces!(p::ElectronDisplay, traces::AbstractTrace...)
+    @js_ p begin reset_svg(); Plotly.addTraces(this, $traces).then(save_svg) end
+end
 
-addtraces!(p::ElectronDisplay, where::Int, traces::AbstractTrace...) =
-    @js_ p Plotly.addTraces(this, $traces, $(where-1))
+function addtraces!(p::ElectronDisplay, where::Int, traces::AbstractTrace...)
+    @js_ p begin reset_svg(); Plotly.addTraces(this, $traces, $(where-1)).then(save_svg) end
+end
 
-deletetraces!(p::ElectronDisplay, traces::Int...) =
-    @js_ p Plotly.deleteTraces(this, $(collect(traces)-1))
+function deletetraces!(p::ElectronDisplay, traces::Int...)
+    @js_ p begin reset_svg(); Plotly.deleteTraces(this, $(collect(traces)-1)).then(save_svg) end
+end
 
-movetraces!(p::ElectronDisplay, to_end::Int...) =
-    @js_ p Plotly.moveTraces(this, $(collect(to_end)-1))
+function movetraces!(p::ElectronDisplay, to_end::Int...)
+    @js_ p begin reset_svg(); Plotly.moveTraces(this, $(collect(to_end)-1)).then(save_svg) end
+end
 
-movetraces!(p::ElectronDisplay, src::AbstractVector{Int}, dest::AbstractVector{Int}) =
-    @js_ p Plotly.moveTraces(this, $(src-1), $(dest-1))
+function movetraces!(p::ElectronDisplay, src::AbstractVector{Int}, dest::AbstractVector{Int})
+    @js_ p begin reset_svg(); Plotly.moveTraces(this, $(src-1), $(dest-1)).then(save_svg) end
+end
 
-redraw!(p::ElectronDisplay) =
-    @js_ p Plotly.redraw(this)
+function redraw!(p::ElectronDisplay)
+    @js_ p begin reset_svg(); Plotly.redraw(this).then(save_svg) end
+end
 
-purge!(p::ElectronDisplay) =
-    @js_ p Plotly.purge(this)
+function purge!(p::ElectronDisplay)
+    @js_ p begin reset_svg(); Plotly.purge(this).then(save_svg) end
+end
 
-to_image(p::ElectronDisplay; kwargs...) =
+function to_image(p::ElectronDisplay; kwargs...)
     @js p Plotly.toImage(this, $(Dict(kwargs)))
+end
 
-download_image(p::ElectronDisplay; kwargs...) =
+function download_image(p::ElectronDisplay; kwargs...)
     @js p Plotly.downloadImage(this, $(Dict(kwargs)))
+end
 
 # unexported (by plotly.js) api methods
-extendtraces!(ed::ElectronDisplay, update::Associative=Dict(),
-              indices::Vector{Int}=[1], maxpoints=-1;) =
-    @js_ ed Plotly.extendTraces(this, $(prep_kwargs(update)), $(indices-1), $maxpoints)
+function extendtraces!(ed::ElectronDisplay, update::Associative=Dict(),
+              indices::Vector{Int}=[1], maxpoints=-1;)
+    @js_ ed begin reset_svg(); Plotly.extendTraces(this, $(prep_kwargs(update)), $(indices-1), $maxpoints).then(save_svg) end
+end
 
-prependtraces!(ed::ElectronDisplay, update::Associative=Dict(),
-               indices::Vector{Int}=[1], maxpoints=-1;) =
-    @js_ ed Plotly.prependTraces(this, $(prep_kwargs(update)), $(indices-1), $maxpoints)
+function prependtraces!(ed::ElectronDisplay, update::Associative=Dict(),
+               indices::Vector{Int}=[1], maxpoints=-1;)
+    @js_ ed begin reset_svg(); Plotly.prependTraces(this, $(prep_kwargs(update)), $(indices-1), $maxpoints).then(save_svg) end
+end
