@@ -825,8 +825,76 @@ documentation for more information.</p>
 <p class="admonition-title">Note</p>
 <p>New in version 0.9.0</p>
 </div>
-<p>As of version 0.9.0, when using the DataFrame API you are allowed to pass a
-function as the value for a keyword argument. When the each trace is
+<p>As of version 0.9.0, you can construct groups of traces using the DataFrame
+api. This is best understood by example, so let's see it in action:</p>
+<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="k">using</span> <span class="n">RDatasets</span>
+
+<span class="gp">julia&gt;</span> <span class="n">iris</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">(</span><span class="s">&quot;datasets&quot;</span><span class="p">,</span> <span class="s">&quot;iris&quot;</span><span class="p">);</span>
+
+<span class="gp">julia&gt;</span> <span class="n">unique</span><span class="p">(</span><span class="n">iris</span><span class="p">[</span><span class="o">:</span><span class="n">Species</span><span class="p">])</span>
+<span class="go">3-element DataArrays.DataArray{String,1}:</span>
+<span class="go"> &quot;setosa&quot;</span>
+<span class="go"> &quot;versicolor&quot;</span>
+<span class="go"> &quot;virginica&quot;</span>
+
+<span class="gp">julia&gt;</span> <span class="n">traces</span> <span class="o">=</span> <span class="n">scatter</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span> <span class="n">group</span><span class="o">=:</span><span class="n">Species</span><span class="p">,</span> <span class="n">x</span><span class="o">=:</span><span class="n">SepalLength</span><span class="p">,</span> <span class="n">y</span><span class="o">=:</span><span class="n">SepalWidth</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;markers&quot;</span><span class="p">,</span> <span class="n">marker_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="go">3-element Array{PlotlyJS.GenericTrace,1}:</span>
+<span class="go"> PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:x, [5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9  …  5.0, 4.5, 4.4, 5.0, 5.1, 4.8, 5.1, 4.6, 5.3, 5.0]),Pair{Symbol,Any}(:mode, &quot;markers&quot;),Pair{Symbol,Any}(:y, [3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1  …  3.5, 2.3, 3.2, 3.5, 3.8, 3.0, 3.8, 3.2, 3.7, 3.3]),Pair{Symbol,Any}(:type, &quot;scatter&quot;),Pair{Symbol,Any}(:name, &quot;setosa&quot;),Pair{Symbol,Any}(:marker, Dict{Any,Any}(Pair{Any,Any}(:size, 8)))))</span>
+<span class="go"> PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:x, [7.0, 6.4, 6.9, 5.5, 6.5, 5.7, 6.3, 4.9, 6.6, 5.2  …  5.5, 6.1, 5.8, 5.0, 5.6, 5.7, 5.7, 6.2, 5.1, 5.7]),Pair{Symbol,Any}(:mode, &quot;markers&quot;),Pair{Symbol,Any}(:y, [3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7  …  2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9, 2.5, 2.8]),Pair{Symbol,Any}(:type, &quot;scatter&quot;),Pair{Symbol,Any}(:name, &quot;versicolor&quot;),Pair{Symbol,Any}(:marker, Dict{Any,Any}(Pair{Any,Any}(:size, 8)))))</span>
+<span class="go"> PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:x, [6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, 6.7, 7.2  …  6.7, 6.9, 5.8, 6.8, 6.7, 6.7, 6.3, 6.5, 6.2, 5.9]),Pair{Symbol,Any}(:mode, &quot;markers&quot;),Pair{Symbol,Any}(:y, [3.3, 2.7, 3.0, 2.9, 3.0, 3.0, 2.5, 2.9, 2.5, 3.6  …  3.1, 3.1, 2.7, 3.2, 3.3, 3.0, 2.5, 3.0, 3.4, 3.0]),Pair{Symbol,Any}(:type, &quot;scatter&quot;),Pair{Symbol,Any}(:name, &quot;virginica&quot;),Pair{Symbol,Any}(:marker, Dict{Any,Any}(Pair{Any,Any}(:size, 8)))))</span>
+
+<span class="gp">julia&gt;</span> <span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="o">:</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="kp">in</span> <span class="n">traces</span><span class="p">]</span>
+<span class="go">3-element Array{String,1}:</span>
+<span class="go"> &quot;setosa&quot;</span>
+<span class="go"> &quot;versicolor&quot;</span>
+<span class="go"> &quot;virginica&quot;</span>
+</pre></div>
+
+
+<p>Notice how there are three <code>Species</code> in the <code>iris</code> DataFrame, and when passing
+<code>group=:Species</code> to <code>scatter</code> we obtained three traces.</p>
+<p>We can pass a <code>Vector{Symbol}</code> as group, to split the data on the value in more
+than one column:</p>
+<div class="codehilite"><pre><span></span><span class="gp">julia&gt;</span> <span class="n">tips</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">(</span><span class="s">&quot;reshape2&quot;</span><span class="p">,</span> <span class="s">&quot;tips&quot;</span><span class="p">);</span>
+
+<span class="gp">julia&gt;</span> <span class="n">unique</span><span class="p">(</span><span class="n">tips</span><span class="p">[</span><span class="o">:</span><span class="n">Sex</span><span class="p">])</span>
+<span class="go">2-element DataArrays.DataArray{String,1}:</span>
+<span class="go"> &quot;Female&quot;</span>
+<span class="go"> &quot;Male&quot;</span>
+
+<span class="gp">julia&gt;</span> <span class="n">unique</span><span class="p">(</span><span class="n">tips</span><span class="p">[</span><span class="o">:</span><span class="n">Day</span><span class="p">])</span>
+<span class="go">4-element DataArrays.DataArray{String,1}:</span>
+<span class="go"> &quot;Sun&quot;</span>
+<span class="go"> &quot;Sat&quot;</span>
+<span class="go"> &quot;Thur&quot;</span>
+<span class="go"> &quot;Fri&quot;</span>
+
+<span class="gp">julia&gt;</span> <span class="n">traces</span> <span class="o">=</span> <span class="n">violin</span><span class="p">(</span><span class="n">tips</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="p">[</span><span class="o">:</span><span class="n">Sex</span><span class="p">,</span> <span class="o">:</span><span class="n">Day</span><span class="p">],</span> <span class="n">x</span><span class="o">=:</span><span class="n">TotalBill</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s">&quot;h&quot;</span><span class="p">)</span>
+<span class="go">8-element Array{PlotlyJS.GenericTrace,1}:</span>
+<span class="go">  PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:type, &quot;violin&quot;),Pair{Symbol,Any}(:name, &quot;(Female, Fri)&quot;),Pair{Symbol,Any}(:orientation, &quot;h&quot;),Pair{Symbol,Any}(:x, [5.75, 16.32, 22.75, 11.35, 15.38, 13.42, 15.98, 16.27, 10.09])))</span>
+<span class="go">  PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:type, &quot;violin&quot;),Pair{Symbol,Any}(:name, &quot;(Female, Sat)&quot;),Pair{Symbol,Any}(:orientation, &quot;h&quot;),Pair{Symbol,Any}(:x, [20.29, 15.77, 19.65, 15.06, 20.69, 16.93, 26.41, 16.45, 3.07, 17.07  …  10.59, 10.63, 12.76, 13.27, 28.17, 12.9, 30.14, 22.12, 35.83, 27.18])))</span>
+<span class="go">  PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:type, &quot;violin&quot;),Pair{Symbol,Any}(:name, &quot;(Female, Sun)&quot;),Pair{Symbol,Any}(:orientation, &quot;h&quot;),Pair{Symbol,Any}(:x, [16.99, 24.59, 35.26, 14.83, 10.33, 16.97, 10.29, 34.81, 25.71, 17.31, 29.85, 25.0, 13.39, 16.21, 17.51, 9.6, 20.9, 18.15])))</span>
+<span class="go">  PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:type, &quot;violin&quot;),Pair{Symbol,Any}(:name, &quot;(Female, Thur)&quot;),Pair{Symbol,Any}(:orientation, &quot;h&quot;),Pair{Symbol,Any}(:x, [10.07, 34.83, 10.65, 12.43, 24.08, 13.42, 12.48, 29.8, 14.52, 11.38  …  18.64, 11.87, 19.81, 43.11, 13.0, 12.74, 13.0, 16.4, 16.47, 18.78])))</span>
+<span class="go">  PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:type, &quot;violin&quot;),Pair{Symbol,Any}(:name, &quot;(Male, Fri)&quot;),Pair{Symbol,Any}(:orientation, &quot;h&quot;),Pair{Symbol,Any}(:x, [28.97, 22.49, 40.17, 27.28, 12.03, 21.01, 12.46, 12.16, 8.58, 13.42])))</span>
+<span class="go">  PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:type, &quot;violin&quot;),Pair{Symbol,Any}(:name, &quot;(Male, Sat)&quot;),Pair{Symbol,Any}(:orientation, &quot;h&quot;),Pair{Symbol,Any}(:x, [20.65, 17.92, 39.42, 19.82, 17.81, 13.37, 12.69, 21.7, 9.55, 18.35  …  15.69, 11.61, 10.77, 15.53, 10.07, 12.6, 32.83, 29.03, 22.67, 17.82])))</span>
+<span class="go">  PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:type, &quot;violin&quot;),Pair{Symbol,Any}(:name, &quot;(Male, Sun)&quot;),Pair{Symbol,Any}(:orientation, &quot;h&quot;),Pair{Symbol,Any}(:x, [10.34, 21.01, 23.68, 25.29, 8.77, 26.88, 15.04, 14.78, 10.27, 15.42  …  34.63, 34.65, 23.33, 45.35, 23.17, 40.55, 20.69, 30.46, 23.1, 15.69])))</span>
+<span class="go">  PlotlyJS.GenericTrace{Dict{Symbol,Any}}(Dict{Symbol,Any}(Pair{Symbol,Any}(:type, &quot;violin&quot;),Pair{Symbol,Any}(:name, &quot;(Male, Thur)&quot;),Pair{Symbol,Any}(:orientation, &quot;h&quot;),Pair{Symbol,Any}(:x, [27.2, 22.76, 17.29, 19.44, 16.66, 32.68, 15.98, 13.03, 18.28, 24.71  …  9.78, 7.51, 28.44, 15.48, 16.58, 7.56, 10.34, 13.51, 18.71, 20.53])))</span>
+
+<span class="gp">julia&gt;</span> <span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="o">:</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="kp">in</span> <span class="n">traces</span><span class="p">]</span>
+<span class="go">8-element Array{String,1}:</span>
+<span class="go"> &quot;(Female, Fri)&quot;</span>
+<span class="go"> &quot;(Female, Sat)&quot;</span>
+<span class="go"> &quot;(Female, Sun)&quot;</span>
+<span class="go"> &quot;(Female, Thur)&quot;</span>
+<span class="go"> &quot;(Male, Fri)&quot;</span>
+<span class="go"> &quot;(Male, Sat)&quot;</span>
+<span class="go"> &quot;(Male, Sun)&quot;</span>
+<span class="go"> &quot;(Male, Thur)&quot;</span>
+</pre></div>
+
+
+<p>Also new in version 0.9.0, when using the DataFrame API you are allowed to pass
+a function as the value for a keyword argument. When the each trace is
 constructed, the value will be replaced by calling the function on whatever
 DataFrame is being used. When used in conjunction with the <code>group</code> argument,
 this allows you to <em>compute</em> group specific trace attributes on the fly.</p>
