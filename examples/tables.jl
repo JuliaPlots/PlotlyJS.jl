@@ -69,12 +69,11 @@ end
 
 
 function table3()
-    # TODO: this is broken...
-    # nm = tempname()
-    # url = "https://raw.githubusercontent.com/plotly/datasets/master/Mining-BTC-180.csv"
-    # download(url, nm)
-    # df = readtable(nm)
-    # rm(nm)
+    nm = tempname()
+    url = "https://raw.githubusercontent.com/plotly/datasets/master/Mining-BTC-180.csv"
+    download(url, nm)
+    df = readtable(nm)
+    rm(nm)
 
     data = Array(df)
 
@@ -97,5 +96,9 @@ function table3()
         )
     )
 
-    plot(trace, Layout(title="Bitcoin mining stats for 180 days"))
+    layout = Layout(
+        title="Bitcoin mining stats for 180 days",
+        width=1200
+    )
+    plot(trace, layout)
 end
