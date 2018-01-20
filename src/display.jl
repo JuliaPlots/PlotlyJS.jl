@@ -133,7 +133,12 @@ include("displays/electron.jl")
 include("displays/ijulia.jl")
 
 # default to electron display (will get over-written when Requires.jl picks up IJulia code)
-SyncPlot(p::Plot) = SyncPlot(p, ElectronDisplay(p))
+const DEFAULT_DISPLAY = Ref{Type{<:AbstractPlotlyDisplay}}(ElectronDisplay)
+
+function set_display!(x::Type{T}) where T <: AbstractPlotlyDisplay
+    DEFAULT_DISPLAY[] = x
+end
+SyncPlot(p::Plot) = SyncPlot(p, DEFAULT_DISPLAY[](p))
 
 # methods to convert from one frontend to another
 let

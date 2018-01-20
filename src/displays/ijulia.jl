@@ -183,8 +183,7 @@ prependtraces!(jd::JupyterDisplay, update::Associative=Dict(),
                  "application/vnd.plotly.v1+json" => JSON.lower(p))
         end
     end
-
-    SyncPlot(p::Plot) = SyncPlot(p, JupyterDisplay(p))
+    set_display!(JupyterDisplay)
 
     IJulia.display_dict(p::Plot) =
         Dict("text/plain" => sprint(show, "text/plain", p))
