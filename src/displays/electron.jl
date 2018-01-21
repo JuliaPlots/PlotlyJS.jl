@@ -262,6 +262,18 @@ function restyle!(p::ElectronDisplay, update=Dict(); kwargs...)
     @js_ p begin reset_svg(); Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs)))).then(save_svg) end
 end
 
+function update!(p::ElectronDisplay, ind::Int, update::Associative=Dict(); layout::Layout=Layout(), kwargs...)
+    @js_ p begin reset_svg(); Plotly.update(this, $(merge(update, prep_kwargs(kwargs))), $(layout), $(ind-1)).then(save_svg) end
+end
+
+function update!(p::ElectronDisplay, inds::AbstractVector{Int}, update::Associative=Dict(); layout::Layout=Layout(), kwargs...)
+    @js_ p begin reset_svg(); Plotly.update(this, $(merge(update, prep_kwargs(kwargs))), $(layout), $(inds-1)).then(save_svg) end
+end
+
+function update!(p::ElectronDisplay, update=Dict(); layout::Layout=Layout(), kwargs...)
+    @js_ p begin reset_svg(); Plotly.update(this, $(merge(update, prep_kwargs(kwargs))), $(layout)).then(save_svg) end
+end
+
 function addtraces!(p::ElectronDisplay, traces::AbstractTrace...)
     @js_ p begin reset_svg(); Plotly.addTraces(this, $traces).then(save_svg) end
 end

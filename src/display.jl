@@ -77,14 +77,17 @@ end
 plot(args...; kwargs...) = SyncPlot(Plot(args...; kwargs...))
 
 ## API methods for SyncPlot
-for f in [:restyle!, :relayout!, :addtraces!, :deletetraces!, :movetraces!,
-          :redraw!, :extendtraces!, :prependtraces!, :purge!, :to_image,
-          :download_image]
+for f in [:restyle!, :relayout!, :update!, :addtraces!, :deletetraces!,
+          :movetraces!, :redraw!, :extendtraces!, :prependtraces!, :purge!,
+          :to_image, :download_image]
     @eval function $(f)(sp::SyncPlot, args...; kwargs...)
         $(f)(sp.plot, args...; kwargs...)
         $(f)(sp.view, args...; kwargs...)
     end
 
+    if string(f)[end] != '!'
+        continue
+    end
     no_!_method = Symbol(string(f)[1:end-1])
     @eval function $(no_!_method)(sp::SyncPlot, args...; kwargs...)
         sp2 = fork(sp)
