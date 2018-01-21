@@ -1,6 +1,6 @@
-using Rsvg: handle_new_from_data
-using Cairo: CairoPDFSurface
 import Cairo, Rsvg
+using Rsvg.handle_new_from_data
+using Cairo.CairoPDFSurface
 
 function _savefig_cairo(
         p::Plot, raw_svg::AbstractString, fn::AbstractString,

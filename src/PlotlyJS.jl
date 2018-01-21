@@ -147,22 +147,16 @@ function isinstalled(pkg, ge=v"0.0.0-")
     end
 end
 
-@static if isinstalled("Cairo") && isinstalled("Rsvg")
-    include("savefig_cairo.jl")
-else
-    function _savefig_cairo(x...)
-        lib_fn = joinpath(Base.LOAD_CACHE_PATH[1], "PlotlyJS.ji")
-        msg = """
-        Cairo and Rsvg need to be installed in order to save in this format
+@require Rsvg include("savefig_cairo.jl")
 
-        Use `Pkg.add("Rsvg")` to install both of them.
-
-        You then need to delete $(lib_fn) and restart your Julia session
-        """
-        error(msg)
-    end
+function _savefig_cairo(x...)
+    msg = """
+    Rsvg.jl must be loaded in order to save in this format. Please ensure
+    that Rsvg is installed, then call `using Rsvg` before trying your command
+    again
+    """
+    error(msg)
 end
-
 
 @init begin
     if !isfile(_js_path)
