@@ -17,7 +17,7 @@ end
 
 JupyterPlot(p::Plot) = JupyterPlot(p, JupyterDisplay(p))
 
-fork(jp::JupyterPlot) = JupyterPlot(fork(jp.plot))
+PlotlyBase.fork(jp::JupyterPlot) = JupyterPlot(fork(jp.plot))
 
 const _jupyter_js_loaded = [false]
 js_loaded(::JupyterDisplay) = _jupyter_js_loaded[1]

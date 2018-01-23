@@ -15,7 +15,7 @@ Media.render(::Juno.PlotPane, plot::SyncPlot) = display_blink(plot)
 end
 
 if !haskey(ENV, "PLOTLYJS_STYLE")
-    DEFAULT_STYLE[] = style(:gadfly_dark)
+    PlotlyBase.DEFAULT_STYLE[] = style(:gadfly_dark)
 end
 
 get_window(opts::Dict) = Juno.isactive() ? Juno.Atom.blinkplot() : Window(opts)

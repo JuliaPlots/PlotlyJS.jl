@@ -13,7 +13,7 @@ ElectronDisplay(divid::Base.Random.UUID) = ElectronDisplay(divid, Nullable())
 ElectronDisplay(p::Plot) = ElectronDisplay(p.divid)
 ElectronPlot(p::Plot) = ElectronPlot(p, ElectronDisplay(p.divid))
 
-fork(jp::ElectronPlot) = ElectronPlot(fork(jp.plot), ElectronDisplay())
+PlotlyBase.fork(jp::ElectronPlot) = ElectronPlot(fork(jp.plot), ElectronDisplay())
 
 # define some core methods on the display
 
@@ -62,16 +62,10 @@ function get_window(ed::ElectronDisplay; kwargs...)
         w = get(ed.w)
     else
         w = get_window(Dict(kwargs))
-        for it in 1:200  # wait up to 2 seconds...
-            if it == 200
-                error("Couldn't set up js comm with Blink")
-            end
-            @js(w, 1+1) == 2 && break
-            sleep(0.01)
-        end
+        wait(w.content)  # wait for window to be ready to accept messages
         ed.w = w
         # load the js here
-        Blink.load!(w, _js_path)
+        Blink.loadjs!(w, "/pkg/PlotlyJS/plotly-latest.min.js")
         Blink.loadjs!(w, _mathjax_cdn_path)
         Blink.js(w, :($(done_var(ed)) = false))
         Blink.js(w, :($(svg_var(ed)) = undefined))
