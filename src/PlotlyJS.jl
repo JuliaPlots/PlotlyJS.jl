@@ -15,12 +15,11 @@ import PlotlyBase:
     extendtraces, prependtraces, prep_kwargs, sizes
 
 using Blink
-using DocStringExtensions
 using Requires
 
 # globals for this package
 const _js_path = joinpath(dirname(dirname(@__FILE__)),
-                          "deps", "plotly-latest.min.js")
+                          "assets", "plotly-latest.min.js")
 const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
 const _mathjax_cdn_path =
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG"
@@ -28,8 +27,6 @@ const _mathjax_cdn_path =
 const _autoresize = [true]
 autoresize(b::Bool) = (_autoresize[1] = b; b)
 autoresize() = _autoresize[1]
-
-_isijulia() = isdefined(Main, :IJulia) && Main.IJulia.inited
 
 abstract type AbstractPlotlyDisplay end
 
@@ -45,12 +42,14 @@ function docs()
         error(msg)
     end
     w = Blink.Window()
+    wait(w.content)
     for f in [
-        "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
         "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js",
+        "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
         "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         ]
         Blink.load!(w.content, f)
+        wait(w.content)
     end
     Blink.content!(w, "html", open(readstring, schema_path), fade=false)
 end
