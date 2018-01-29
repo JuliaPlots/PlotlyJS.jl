@@ -9,9 +9,9 @@ using Base.Iterators
 
 # need to import some functions because methods are meta-generated
 import PlotlyBase:
-    restyle!, relayout!, addtraces!, deletetraces!, movetraces!, redraw!,
-    extendtraces!, prependtraces!, purge!, to_image, download_image,
-    restyle, relayout, addtraces, deletetraces, movetraces, redraw,
+    restyle!, relayout!, update!, addtraces!, deletetraces!, movetraces!,
+    redraw!, extendtraces!, prependtraces!, purge!, to_image, download_image,
+    restyle, relayout, update, addtraces, deletetraces, movetraces, redraw,
     extendtraces, prependtraces, prep_kwargs, sizes, savefig
 
 using Blink

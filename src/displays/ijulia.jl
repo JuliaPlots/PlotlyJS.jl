@@ -122,6 +122,27 @@ end
 restyle!(jd::JupyterDisplay, update::Associative=Dict(); kwargs...) =
     _call_plotlyjs(jd, "restyle", merge(update, prep_kwargs(kwargs)))
 
+function update!(
+        jd::JupyterDisplay, ind::Int, update::Associative=Dict();
+        layout::Layout=Layout(), kwargs...
+    )
+    _call_plotlyjs(jd, "update", merge(update, prep_kwargs(kwargs)), layout, ind-1)
+end
+
+function update!(
+        jd::JupyterDisplay, inds::AbstractVector{Int},
+        update::Associative=Dict(); layout::Layout=Layout(), kwargs...
+    )
+    _call_plotlyjs(jd, "update", merge(update, prep_kwargs(kwargs)), layout, inds-1)
+end
+
+function update!(
+        jd::JupyterDisplay, update::Associative=Dict();
+        layout::Layout=Layout(),  kwargs...
+    )
+    _call_plotlyjs(jd, "update", merge(update, prep_kwargs(kwargs)), layout)
+end
+
 addtraces!(jd::JupyterDisplay, traces::AbstractTrace...) =
     _call_plotlyjs(jd, "addTraces", traces)
 
