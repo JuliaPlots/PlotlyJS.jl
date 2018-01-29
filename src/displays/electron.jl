@@ -62,7 +62,7 @@ function get_window(ed::ElectronDisplay; kwargs...)
         w = get(ed.w)
     else
         w = get_window(Dict(kwargs))
-        wait(w.content)  # wait for window to be ready to accept messages
+        isa(w, Blink.Window) && wait(w.content)  # wait for window to be ready to accept messages
         ed.w = w
         # load the js here
         Blink.loadjs!(w, "/pkg/PlotlyJS/plotly-latest.min.js")
