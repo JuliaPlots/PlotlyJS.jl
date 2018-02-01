@@ -57,15 +57,6 @@ end
 Base.show(io::IO, ::MIME"text/html", p::Plot, js::Symbol=js_default[]) =
     print(io, stringmime(MIME"text/html"(), p, js))
 
-function Base.show(io::IO, ::MIME"text/plain", p::Plot)
-    println(io, """
-    data: $(json(map(_describe, p.data), 2))
-    layout: "$(_describe(p.layout))"
-    """)
-end
-
-Base.show(io::IO, p::Plot) = show(io, MIME("text/plain"), p)
-
 # ----------------------------------------- #
 # SyncPlot -- sync Plot object with display #
 # ----------------------------------------- #

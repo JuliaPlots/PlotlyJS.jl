@@ -1,7 +1,6 @@
 julia 0.6
 JSON 0.7
 Blink 0.3.3
-Colors
-LaTeXStrings
 DocStringExtensions
 Requires
+PlotlyBase

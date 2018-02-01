@@ -1,5 +1,6 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
+sudo: required 
 os:
   - linux
 julia:
@@ -8,6 +9,12 @@ julia:
 matrix:
   allow_failures:
     - julia: nightly
+addons:
+    apt:
+        packages:
+            - xvfb
+            - xauth
+            - libgtk-3-0
 notifications:
   email: false
 # uncomment the following lines to override the default test script

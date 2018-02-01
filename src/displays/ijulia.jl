@@ -17,7 +17,7 @@ end
 
 JupyterPlot(p::Plot) = JupyterPlot(p, JupyterDisplay(p))
 
-fork(jp::JupyterPlot) = JupyterPlot(fork(jp.plot))
+PlotlyBase.fork(jp::JupyterPlot) = JupyterPlot(fork(jp.plot))
 
 const _jupyter_js_loaded = [false]
 js_loaded(::JupyterDisplay) = _jupyter_js_loaded[1]
@@ -38,36 +38,29 @@ function html_body(p::JupyterPlot)
 end
 
 function init_notebook(force=false)
-    # TODO: figure out a way to ask the notebook if the js is currently loaded
-    #       and active.
+    # borrowed from https://github.com/plotly/plotly.py/blob/2594076e29584ede2d09f2aa40a8a195b3f3fc66/plotly/offline/offline.py#L64-L71
+    # and https://github.com/JuliaLang/Interact.jl/blob/cc5f4cfd34687000bc6bc70f0513eaded1a7c950/src/IJulia/setup.jl#L15
+    if !js_loaded(JupyterDisplay) || force
+        _ijulia_js = readstring(joinpath(dirname(@__FILE__), "ijulia.js"))
 
+        # three script tags for loading ijulia setup, and plotly
+        display("text/html", """
+        <script charset="utf-8" type='text/javascript'>
+            $(_ijulia_js)
+        </script>
 
-    # if we're in IJulia call setup the notebook js interop
-    if _isijulia()
-        # borrowed from https://github.com/plotly/plotly.py/blob/2594076e29584ede2d09f2aa40a8a195b3f3fc66/plotly/offline/offline.py#L64-L71
-        # and https://github.com/JuliaLang/Interact.jl/blob/cc5f4cfd34687000bc6bc70f0513eaded1a7c950/src/IJulia/setup.jl#L15
-        if !js_loaded(JupyterDisplay) || force
-            _ijulia_js = readstring(joinpath(dirname(@__FILE__), "ijulia.js"))
-
-            # three script tags for loading ijulia setup, and plotly
-            display("text/html", """
-            <script charset="utf-8" type='text/javascript'>
-                $(_ijulia_js)
-            </script>
-
-             <script charset="utf-8" type='text/javascript'>
-                 define('plotly', function(require, exports, module) {
-                     $(open(readstring, _js_path, "r"))
-                 });
-                 require(['plotly'], function(Plotly) {
-                     window.Plotly = Plotly;
-                 });
-             </script>
-             <p>Plotly javascript loaded.</p>
-             <p>To load again call <pre>init_notebook(true)</pre></p>
-             """)
-            _jupyter_js_loaded[1] = true
-        end
+        <script charset="utf-8" type='text/javascript'>
+            define('plotly', function(require, exports, module) {
+                $(open(readstring, _js_path, "r"))
+            });
+            require(['plotly'], function(Plotly) {
+                window.Plotly = Plotly;
+            });
+        </script>
+        <p>Plotly javascript loaded.</p>
+        <p>To load again call <pre>init_notebook(true)</pre></p>
+        """)
+        _jupyter_js_loaded[1] = true
     end
 end
 
@@ -128,6 +121,27 @@ end
 
 restyle!(jd::JupyterDisplay, update::Associative=Dict(); kwargs...) =
     _call_plotlyjs(jd, "restyle", merge(update, prep_kwargs(kwargs)))
+
+function update!(
+        jd::JupyterDisplay, ind::Int, update::Associative=Dict();
+        layout::Layout=Layout(), kwargs...
+    )
+    _call_plotlyjs(jd, "update", merge(update, prep_kwargs(kwargs)), layout, ind-1)
+end
+
+function update!(
+        jd::JupyterDisplay, inds::AbstractVector{Int},
+        update::Associative=Dict(); layout::Layout=Layout(), kwargs...
+    )
+    _call_plotlyjs(jd, "update", merge(update, prep_kwargs(kwargs)), layout, inds-1)
+end
+
+function update!(
+        jd::JupyterDisplay, update::Associative=Dict();
+        layout::Layout=Layout(),  kwargs...
+    )
+    _call_plotlyjs(jd, "update", merge(update, prep_kwargs(kwargs)), layout)
+end
 
 addtraces!(jd::JupyterDisplay, traces::AbstractTrace...) =
     _call_plotlyjs(jd, "addTraces", traces)
