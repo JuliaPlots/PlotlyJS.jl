@@ -293,7 +293,7 @@ function redraw!(p::ElectronDisplay)
 end
 
 function purge!(p::ElectronDisplay)
-    @js_ p begin reset_svg(); Plotly.purge(this).then(save_svg) end
+    @js_ p begin reset_svg(); Plotly.purge(this) end
 end
 
 function to_image(p::ElectronDisplay; kwargs...)

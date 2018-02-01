@@ -12,7 +12,7 @@ import PlotlyBase:
     restyle!, relayout!, update!, addtraces!, deletetraces!, movetraces!,
     redraw!, extendtraces!, prependtraces!, purge!, to_image, download_image,
     restyle, relayout, update, addtraces, deletetraces, movetraces, redraw,
-    extendtraces, prependtraces, prep_kwargs, sizes, savefig
+    extendtraces, prependtraces, prep_kwargs, sizes, savefig, _tovec
 
 using Blink
 using Requires
