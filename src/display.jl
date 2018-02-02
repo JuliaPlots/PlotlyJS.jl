@@ -1,8 +1,6 @@
 # ----------------------- #
 # Display-esque functions #
 # ----------------------- #
-Base.istextmime(::MIME"application/vnd.plotly.v1+json") = true
-
 function html_body(p::Plot)
     """
     <div id="$(p.divid)" class="plotly-graph-div"></div>
