@@ -28,11 +28,19 @@ function html_body(p::JupyterPlot)
     <div id="$(p.view.divid)" class="plotly-graph-div"></div>
 
     <script>
-        window.PLOTLYENV=window.PLOTLYENV || {};
-        window.PLOTLYENV.BASE_URL="https://plot.ly";
-        require(['plotly'], function(Plotly) {
+        if (window.Plotly == undefined) {
+            requirejs.config({
+              paths: {
+                'plotly2': ['https://cdn.plot.ly/plotly-latest.min']
+              },
+            });
+            require(['plotly2'], function(Plotly) {
+                $(script_content(p.plot))
+            });
+        } else {
             $(script_content(p.plot))
-        });
+        }
+
      </script>
     """
 end
