@@ -24,23 +24,44 @@ js_loaded(::JupyterDisplay) = _jupyter_js_loaded[1]
 js_loaded(::Type{JupyterDisplay}) = _jupyter_js_loaded[1]
 
 function html_body(p::JupyterPlot)
+    lowered = JSON.lower(p.plot)
+    suffix = split(string(p.plot.divid, "-"), "-")[1]
+    unpack_json = """
+    var data_$(suffix) = $(lowered[:data]);
+    var layout_$(suffix) = $(lowered[:layout]);
+    """
+
+    plot_code = """
+    Plotly.newPlot('$(p.plot.divid)',
+        data_$(suffix), layout_$(suffix),
+        {showLink: false}
+    );
+    """
+
     """
     <div id="$(p.view.divid)" class="plotly-graph-div"></div>
 
     <script>
-        if (window.Plotly == undefined) {
-            requirejs.config({
-              paths: {
-                'plotly2': ['https://cdn.plot.ly/plotly-latest.min']
-              },
-            });
-            require(['plotly2'], function(Plotly) {
-                $(script_content(p.plot))
-            });
-        } else {
-            $(script_content(p.plot))
-        }
-
+        (function() {
+            $(unpack_json)
+            if (!requirejs.specified('plotly')) {
+              requirejs.config({
+                paths: {
+                  'plotly_cdn': ['https://cdn.plot.ly/plotly-latest.min']
+                },
+              });
+              require(['plotly_cdn'], function(Plotly) {
+                $(plot_code)
+              });
+            } else {
+              require(['plotly'], function(Plotly) {
+                $(plot_code)
+                if (window.Plotly == undefined) {
+                    window.Plotly = Plotly;
+                }
+              });
+            }
+        })();
      </script>
     """
 end
