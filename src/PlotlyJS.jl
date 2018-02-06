@@ -82,7 +82,7 @@ end
 @init begin
     if !isfile(_js_path)
         info("plotly.js javascript libary not found -- downloading now")
-        include(joinpath(_pkg_path, "deps", "build.jl"))
+        include(joinpath(_pkg_root, "deps", "build.jl"))
     end
 end
 
