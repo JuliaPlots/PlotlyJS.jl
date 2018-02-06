@@ -46,8 +46,20 @@ function html_body(p::JupyterPlot)
 end
 
 function init_notebook(force=false)
+    if !(isdefined(Main, :IJulia) && Main.IJulia.inited())
+        return
+    end
     # borrowed from https://github.com/plotly/plotly.py/blob/2594076e29584ede2d09f2aa40a8a195b3f3fc66/plotly/offline/offline.py#L64-L71
     # and https://github.com/JuliaLang/Interact.jl/blob/cc5f4cfd34687000bc6bc70f0513eaded1a7c950/src/IJulia/setup.jl#L15
+    if force
+        extra_text = """
+        <p>Plotly javascript loaded.</p>
+        <p>To load again call <pre>init_notebook(true)</pre></p>
+        """
+    else
+        extra_text = ""
+    end
+
     if !js_loaded(JupyterDisplay) || force
         _ijulia_js = readstring(joinpath(dirname(@__FILE__), "ijulia.js"))
 
@@ -65,8 +77,7 @@ function init_notebook(force=false)
                 window.Plotly = Plotly;
             });
         </script>
-        <p>Plotly javascript loaded.</p>
-        <p>To load again call <pre>init_notebook(true)</pre></p>
+        $(extra_text)
         """)
         _jupyter_js_loaded[1] = true
     end
