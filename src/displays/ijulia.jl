@@ -27,8 +27,8 @@ function html_body(p::JupyterPlot)
     lowered = JSON.lower(p.plot)
     suffix = split(string(p.plot.divid, "-"), "-")[1]
     unpack_json = """
-    var data_$(suffix) = $(lowered[:data]);
-    var layout_$(suffix) = $(lowered[:layout]);
+    var data_$(suffix) = $(json(lowered[:data]));
+    var layout_$(suffix) = $(json(lowered[:layout]));
     """
 
     plot_code = """
