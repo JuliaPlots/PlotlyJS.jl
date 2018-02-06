@@ -72,7 +72,7 @@ function init_notebook(force=false)
     end
     # borrowed from https://github.com/plotly/plotly.py/blob/2594076e29584ede2d09f2aa40a8a195b3f3fc66/plotly/offline/offline.py#L64-L71
     # and https://github.com/JuliaLang/Interact.jl/blob/cc5f4cfd34687000bc6bc70f0513eaded1a7c950/src/IJulia/setup.jl#L15
-    if force
+    if !force
         extra_text = """
         <p>Plotly javascript loaded.</p>
         <p>To load again call <pre>init_notebook(true)</pre></p>
