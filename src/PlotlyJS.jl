@@ -18,8 +18,8 @@ using Blink
 using Requires
 
 # globals for this package
-const _js_path = joinpath(dirname(dirname(@__FILE__)),
-                          "assets", "plotly-latest.min.js")
+const _pkg_root = dirname(dirname(@__FILE__))
+const _js_path = joinpath(_pkg_root, "assets", "plotly-latest.min.js")
 const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
 const _mathjax_cdn_path =
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG"
@@ -82,7 +82,7 @@ end
 @init begin
     if !isfile(_js_path)
         info("plotly.js javascript libary not found -- downloading now")
-        include(joinpath(dirname(_js_path), "build.jl"))
+        include(joinpath(_pkg_path, "deps", "build.jl"))
     end
 end
 
