@@ -46,7 +46,7 @@ function html_body(p::JupyterPlot)
 end
 
 function init_notebook(force=false)
-    if !(isdefined(Main, :IJulia) && Main.IJulia.inited())
+    if !(isdefined(Main, :IJulia) && Main.IJulia.inited)
         return
     end
     # borrowed from https://github.com/plotly/plotly.py/blob/2594076e29584ede2d09f2aa40a8a195b3f3fc66/plotly/offline/offline.py#L64-L71
