@@ -239,7 +239,4 @@ prependtraces!(jd::JupyterDisplay, update::Associative=Dict(),
         end
     end
     set_display!(JupyterDisplay)
-
-    IJulia.display_dict(p::Plot) =
-        Dict("text/plain" => sprint(show, "text/plain", p))
 end
