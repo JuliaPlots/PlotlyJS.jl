@@ -3,4 +3,4 @@ JSON 0.7
 Blink 0.3.3
 DocStringExtensions
 Requires
-PlotlyBase
+PlotlyBase 0.1.2
