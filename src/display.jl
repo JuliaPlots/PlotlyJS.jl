@@ -121,6 +121,7 @@ Base.copy(sp::SyncPlot) = fork(sp)  # defined by each SyncPlot{TD}
 # ----------------- #
 
 @require Juno include("displays/juno.jl")
+@require WebIO include("displays/webio.jl")
 include("displays/electron.jl")
 include("displays/ijulia.jl")
 
