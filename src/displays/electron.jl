@@ -2,6 +2,8 @@
 # Blink setup #
 # ----------- #
 
+import WebIO: JSString
+
 mutable struct ElectronDisplay <: AbstractPlotlyDisplay
     divid::Base.Random.UUID
     w::Nullable{Any}
