@@ -15,6 +15,7 @@ import PlotlyBase:
     extendtraces, prependtraces, prep_kwargs, sizes, savefig, _tovec
 
 using Blink
+using Blink.JSString
 using Requires
 
 # globals for this package
