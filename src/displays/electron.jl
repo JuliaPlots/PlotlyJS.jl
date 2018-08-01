@@ -9,6 +9,7 @@ end
 
 const ElectronPlot = SyncPlot{ElectronDisplay}
 
+ElectronDisplay() = ElectronDisplay(Base.Random.uuid4(), Nullable())
 ElectronDisplay(divid::Base.Random.UUID) = ElectronDisplay(divid, Nullable())
 ElectronDisplay(p::Plot) = ElectronDisplay(p.divid)
 ElectronPlot(p::Plot) = ElectronPlot(p, ElectronDisplay(p.divid))
