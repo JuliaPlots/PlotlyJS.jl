@@ -9,13 +9,13 @@ A `Plot` instance will have a vector of `trace`s. These should each be a subtype
 PlotlyJS.jl defines one such subtype:
 
 ```julia
-type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
+type GenericTrace{T<:AbstractDict{Symbol,Any}} <: AbstractTrace
     kind::ASCIIString
     fields::T
 end
 ```
 
-The `kind` field specifies the type of trace and the `fields` is an Associative object that maps trace attributes to their values.
+The `kind` field specifies the type of trace and the `fields` is an AbstractDict object that maps trace attributes to their values.
 
 Let's consider an example. Suppose we would like to build the following JSON
 object:
@@ -239,7 +239,7 @@ julia> println(JSON.json(t1, 2))
 The `Layout` type is defined as
 
 ```julia
-type Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
+type Layout{T<:AbstractDict{Symbol,Any}} <: AbstractLayout
     fields::T
 end
 ```

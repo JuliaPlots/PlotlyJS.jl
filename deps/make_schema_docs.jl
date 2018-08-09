@@ -1,11 +1,12 @@
 module PlotlyJSSchemaDocsGenerator
 
-using Base.Markdown: MD
+using Markdown: MD
 using JSON
+using Compat: AbstractDict
 
 # methods to re-construct a plot from JSON
 _symbol_dict(x) = x
-_symbol_dict(d::Associative) =
+_symbol_dict(d::AbstractDict) =
     Dict{Symbol,Any}([(Symbol(k), _symbol_dict(v)) for (k, v) in d])
 
 struct SchemaAttribute
@@ -16,10 +17,10 @@ struct SchemaAttribute
     children::Nullable{Dict{Symbol,SchemaAttribute}}
 end
 
-function SchemaAttribute(d::Associative)
+function SchemaAttribute(d::AbstractDict)
     role = pop!(d, :role, "")
 
-    if role == "object" || any(_x->isa(_x, Associative), values(d))
+    if role == "object" || any(_x->isa(_x, AbstractDict), values(d))
         # description and valtype ire empty, but children is not
         _desc = pop!(d, :description, "")
         desc = isempty(_desc) ? Nullable{MD}() : Nullable{MD}(MD(_desc))
@@ -29,7 +30,7 @@ function SchemaAttribute(d::Associative)
         end
         kids = Dict{Symbol,SchemaAttribute}()
         for (a_k, v) in d
-            isa(v, Associative) || continue
+            isa(v, AbstractDict) || continue
             kids[a_k] = SchemaAttribute(v)
         end
         children = Nullable{Dict{Symbol,SchemaAttribute}}(kids)
@@ -58,11 +59,11 @@ struct TraceSchema
     attributes::Dict{Symbol,SchemaAttribute}
 end
 
-function TraceSchema(nm::Symbol, d::Associative, attrs_key=:attributes)
+function TraceSchema(nm::Symbol, d::AbstractDict, attrs_key=:attributes)
     _attrs = filter!((k, v) -> k != :uid && k != :type, d[attrs_key])
     attrs = Dict{Symbol,SchemaAttribute}()
     for (k, v) in _attrs
-        isa(v, Associative) || continue
+        isa(v, AbstractDict) || continue
         attrs[k] = SchemaAttribute(v)
     end
     desc = get(d, :description, "")

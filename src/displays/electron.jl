@@ -241,15 +241,15 @@ Blink.js(p::ElectronPlot, code::JSString; callback=true) =
     Blink.js(p.view, code; callback=callback)
 
 # Methods from javascript API (docstrings found in api.jl)
-function relayout!(p::ElectronDisplay, update::Associative=Dict(); kwargs...)
+function relayout!(p::ElectronDisplay, update::AbstractDict=Dict(); kwargs...)
     @js_ p begin reset_svg(); Plotly.relayout(this, $(merge(update, prep_kwargs(kwargs)))).then(save_svg) end
 end
 
-function restyle!(p::ElectronDisplay, ind::Int, update::Associative=Dict(); kwargs...)
+function restyle!(p::ElectronDisplay, ind::Int, update::AbstractDict=Dict(); kwargs...)
     @js_ p begin reset_svg(); Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))), $(ind-1)).then(save_svg) end
 end
 
-function restyle!(p::ElectronDisplay, inds::AbstractVector{Int}, update::Associative=Dict(); kwargs...)
+function restyle!(p::ElectronDisplay, inds::AbstractVector{Int}, update::AbstractDict=Dict(); kwargs...)
     @js_ p begin reset_svg(); Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs))), $(inds-1)).then(save_svg) end
 end
 
@@ -257,11 +257,11 @@ function restyle!(p::ElectronDisplay, update=Dict(); kwargs...)
     @js_ p begin reset_svg(); Plotly.restyle(this, $(merge(update, prep_kwargs(kwargs)))).then(save_svg) end
 end
 
-function update!(p::ElectronDisplay, ind::Int, update::Associative=Dict(); layout::Layout=Layout(), kwargs...)
+function update!(p::ElectronDisplay, ind::Int, update::AbstractDict=Dict(); layout::Layout=Layout(), kwargs...)
     @js_ p begin reset_svg(); Plotly.update(this, $(merge(update, prep_kwargs(kwargs))), $(layout), $(ind-1)).then(save_svg) end
 end
 
-function update!(p::ElectronDisplay, inds::AbstractVector{Int}, update::Associative=Dict(); layout::Layout=Layout(), kwargs...)
+function update!(p::ElectronDisplay, inds::AbstractVector{Int}, update::AbstractDict=Dict(); layout::Layout=Layout(), kwargs...)
     @js_ p begin reset_svg(); Plotly.update(this, $(merge(update, prep_kwargs(kwargs))), $(layout), $(inds-1)).then(save_svg) end
 end
 
@@ -306,12 +306,12 @@ function download_image(p::ElectronDisplay; kwargs...)
 end
 
 # unexported (by plotly.js) api methods
-function extendtraces!(ed::ElectronDisplay, update::Associative=Dict(),
+function extendtraces!(ed::ElectronDisplay, update::AbstractDict=Dict(),
               indices::Vector{Int}=[1], maxpoints=-1;)
     @js_ ed begin reset_svg(); Plotly.extendTraces(this, $(prep_kwargs(update)), $(indices-1), $maxpoints).then(save_svg) end
 end
 
-function prependtraces!(ed::ElectronDisplay, update::Associative=Dict(),
+function prependtraces!(ed::ElectronDisplay, update::AbstractDict=Dict(),
                indices::Vector{Int}=[1], maxpoints=-1;)
     @js_ ed begin reset_svg(); Plotly.prependTraces(this, $(prep_kwargs(update)), $(indices-1), $maxpoints).then(save_svg) end
 end

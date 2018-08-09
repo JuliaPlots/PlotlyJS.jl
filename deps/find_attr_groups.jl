@@ -1,9 +1,10 @@
 module AttrGroups
 
 using JSON
+using Compat: AbstractDict
 
 _symbol_dict(x) = x
-_symbol_dict(d::Associative) =
+_symbol_dict(d::AbstractDict) =
     Dict{Symbol,Any}([(Symbol(k), _symbol_dict(v)) for (k, v) in d])
 
 function main()
@@ -11,7 +12,7 @@ function main()
     data = _symbol_dict(JSON.parsefile(joinpath(@__DIR__, "plotschema.json")))
 
     nms = Set{Symbol}()
-    function add_to_names!(d::Associative)
+    function add_to_names!(d::AbstractDict)
         map(add_to_names!, keys(d))
         map(add_to_names!, values(d))
         nothing

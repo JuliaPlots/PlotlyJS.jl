@@ -98,7 +98,7 @@ for f in (:extendtraces!, :prependtraces!)
             ($f)(p, [ind], maxpoints; update...)
         end
 
-        function $(f)(p::AbstractPlotlyDisplay, update::Associative, ind::Int,
+        function $(f)(p::AbstractPlotlyDisplay, update::AbstractDict, ind::Int,
                       maxpoints=-1)
             ($f)(p, update, [ind], maxpoints)
         end

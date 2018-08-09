@@ -6,6 +6,7 @@ using Reexport
 @reexport using PlotlyBase
 using JSON
 using Base.Iterators
+using Compat: AbstractDict
 
 # need to import some functions because methods are meta-generated
 import PlotlyBase:
