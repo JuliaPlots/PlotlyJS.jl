@@ -4,7 +4,7 @@ sudo: required
 os:
   - linux
 julia:
-  - 0.6
+  - 0.7
   - nightly
 matrix:
   allow_failures:
@@ -20,4 +20,4 @@ notifications:
 # uncomment the following lines to override the default test script
 script:
  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
- - xvfb-run julia -e 'Pkg.clone(pwd()); Pkg.build("PlotlyJS"); Pkg.test("PlotlyJS"; coverage=true)'
+ - xvfb-run julia -e 'using Pkg; clone(pwd()); build("PlotlyJS"); test("PlotlyJS"; coverage=true)'
