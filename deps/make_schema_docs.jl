@@ -1,5 +1,6 @@
 module PlotlyJSSchemaDocsGenerator
 
+import Markdown
 using Markdown: MD
 using JSON
 using Compat: AbstractDict
@@ -23,32 +24,27 @@ function SchemaAttribute(d::AbstractDict)
     if role == "object" || any(_x->isa(_x, AbstractDict), values(d))
         # description and valtype ire empty, but children is not
         _desc = pop!(d, :description, "")
-        desc = isempty(_desc) ? Union{MD, Nothing}() : Union{MD, Nothing}(MD(_desc))
-        valtype = Union{String, Nothing}()
-        filter!(d) do k, v
-            !(k in (:_deprecated, :tracerefminus)) && !(startswith(string(k), "_"))
+        desc = isempty(_desc) ? nothing : MD(_desc)
+        valtype = nothing
+        filter!(d) do p
+            !(p[1] in (:_deprecated, :tracerefminus)) && !(startswith(string(p[1]), "_"))
         end
         kids = Dict{Symbol,SchemaAttribute}()
         for (a_k, v) in d
             isa(v, AbstractDict) || continue
             kids[a_k] = SchemaAttribute(v)
         end
-        children = Union{Dict{Symbol,SchemaAttribute, Nothing}}(kids)
+        children = Dict{Symbol,SchemaAttribute}(kids)
     else
-        valtype = Union{String, Nothing}(get(d, :valType, Union{String, Nothing}()))
-        desc = Union{MD, Nothing}(
-            MD.parse(get(d, :description, ""))
-        )
+        valtype = get(d, :valType, nothing)
+        desc = Markdown.parse(get(d, :description, ""))
 
         # children is none
-        children = Union{Dict{Symbol,SchemaAttribute, Nothing}}()
+        children = nothing
     end
 
-    flags = valtype == "flaglist" ? Union{Vector{Any, Nothing}}(d["flags"]) :
-                                    Union{Vector{Any, Nothing}}()
-
-    vals = valtype == "enumerated" ? Union{Vector{Any, Nothing}}(d["values"]) :
-                                       Union{Vector{Any, Nothing}}()
+    flags = valtype == "flaglist" ? d[:flags] : nothing
+    vals = valtype == "enumerated" ? d[:values] : nothing
 
     SchemaAttribute(desc, valtype, flags, vals, children)
 end
@@ -60,15 +56,14 @@ struct TraceSchema
 end
 
 function TraceSchema(nm::Symbol, d::AbstractDict, attrs_key=:attributes)
-    _attrs = filter!((k, v) -> k != :uid && k != :type, d[attrs_key])
+    _attrs = filter!(p -> p[1] != :uid && p[1] != :type, d[attrs_key])
     attrs = Dict{Symbol,SchemaAttribute}()
     for (k, v) in _attrs
         isa(v, AbstractDict) || continue
         attrs[k] = SchemaAttribute(v)
     end
     desc = get(d, :description, "")
-    description = isempty(desc) ? Union{MD, Nothing}(MD()) :
-                                  Union{MD, Nothing}(MD.parse(desc))
+    description = isempty(desc) ? MD() : Markdown.parse(desc)
     TraceSchema(nm, description, attrs)
 end
 
@@ -122,7 +117,7 @@ function doc_html!(buf::IO, parent::Symbol, name::Symbol, sa::SchemaAttribute)
      end
 
      if sa.description !== nothing
-         println(buf, MD.html(get(sa.description)))
+         println(buf, Markdown.html(sa.description))
      end
 
      if sa.children !== nothing
@@ -132,7 +127,7 @@ function doc_html!(buf::IO, parent::Symbol, name::Symbol, sa::SchemaAttribute)
          println(buf, new_parent, "_attributes", "\">")
 
          # recursively add in children, if any
-         kids = get(sa.children)
+         kids = sa.children
          for kid_name in sort!(collect(keys(kids)))
              doc_html!(buf, new_parent, kid_name, kids[kid_name])
          end
@@ -164,7 +159,7 @@ function doc_html!(buf::IO, data_parent::Symbol, name::Symbol, ts::TraceSchema)
     println(buf, "<div id=\"", id, "\" class=\"panel-collapse collapse\">")
     println(buf, "<div class=\"panel-body\">")
     if ts.description !== nothing
-        println(buf, MD.html(get(ts.description)))
+        println(buf, Markdown.html(ts.description))
     end
 
     print(buf, "<div class=\"panel-group\" id=\"", name, "_attributes", "\">")
