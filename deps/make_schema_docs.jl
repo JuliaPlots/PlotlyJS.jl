@@ -10,11 +10,11 @@ _symbol_dict(d::AbstractDict) =
     Dict{Symbol,Any}([(Symbol(k), _symbol_dict(v)) for (k, v) in d])
 
 struct SchemaAttribute
-    description::Nullable{MD}
-    valtype::Nullable{String}
-    flags::Nullable{Vector{Any}}
-    vals::Nullable{Vector{Any}}
-    children::Nullable{Dict{Symbol,SchemaAttribute}}
+    description::Union{MD, Nothing}
+    valtype::Union{String, Nothing}
+    flags::Union{Vector{Any}, Nothing}
+    vals::Union{Vector{Any}, Nothing}
+    children::Union{Dict{Symbol,SchemaAttribute}, Nothing}
 end
 
 function SchemaAttribute(d::AbstractDict)
@@ -23,8 +23,8 @@ function SchemaAttribute(d::AbstractDict)
     if role == "object" || any(_x->isa(_x, AbstractDict), values(d))
         # description and valtype ire empty, but children is not
         _desc = pop!(d, :description, "")
-        desc = isempty(_desc) ? Nullable{MD}() : Nullable{MD}(MD(_desc))
-        valtype = Nullable{String}()
+        desc = isempty(_desc) ? Union{MD, Nothing}() : Union{MD, Nothing}(MD(_desc))
+        valtype = Union{String, Nothing}()
         filter!(d) do k, v
             !(k in (:_deprecated, :tracerefminus)) && !(startswith(string(k), "_"))
         end
@@ -33,29 +33,29 @@ function SchemaAttribute(d::AbstractDict)
             isa(v, AbstractDict) || continue
             kids[a_k] = SchemaAttribute(v)
         end
-        children = Nullable{Dict{Symbol,SchemaAttribute}}(kids)
+        children = Union{Dict{Symbol,SchemaAttribute, Nothing}}(kids)
     else
-        valtype = Nullable{String}(get(d, :valType, Nullable{String}()))
-        desc = Nullable{MD}(
-            Base.Markdown.parse(get(d, :description, ""))
+        valtype = Union{String, Nothing}(get(d, :valType, Union{String, Nothing}()))
+        desc = Union{MD, Nothing}(
+            MD.parse(get(d, :description, ""))
         )
 
         # children is none
-        children = Nullable{Dict{Symbol,SchemaAttribute}}()
+        children = Union{Dict{Symbol,SchemaAttribute, Nothing}}()
     end
 
-    flags = valtype == "flaglist" ? Nullable{Vector{Any}}(d["flags"]) :
-                                    Nullable{Vector{Any}}()
+    flags = valtype == "flaglist" ? Union{Vector{Any, Nothing}}(d["flags"]) :
+                                    Union{Vector{Any, Nothing}}()
 
-    vals = valtype == "enumerated" ? Nullable{Vector{Any}}(d["values"]) :
-                                       Nullable{Vector{Any}}()
+    vals = valtype == "enumerated" ? Union{Vector{Any, Nothing}}(d["values"]) :
+                                       Union{Vector{Any, Nothing}}()
 
     SchemaAttribute(desc, valtype, flags, vals, children)
 end
 
 struct TraceSchema
     name::Symbol
-    description::Nullable{MD}
+    description::Union{MD, Nothing}
     attributes::Dict{Symbol,SchemaAttribute}
 end
 
@@ -67,8 +67,8 @@ function TraceSchema(nm::Symbol, d::AbstractDict, attrs_key=:attributes)
         attrs[k] = SchemaAttribute(v)
     end
     desc = get(d, :description, "")
-    description = isempty(desc) ? Nullable{MD}(MD()) :
-                                  Nullable{MD}(Base.Markdown.parse(desc))
+    description = isempty(desc) ? Union{MD, Nothing}(MD()) :
+                                  Union{MD, Nothing}(MD.parse(desc))
     TraceSchema(nm, description, attrs)
 end
 
@@ -78,7 +78,7 @@ struct Schema
 
     function Schema()
         _path = joinpath(dirname(@__FILE__), "plotschema.json")
-        schema = _symbol_dict(JSON.parse(readstring(_path)))
+        schema = _symbol_dict(JSON.parse(read(_path, String)))
 
         traces = Dict{Symbol,TraceSchema}()
         for (k, v) in schema[:schema][:traces]
@@ -97,7 +97,7 @@ function doc_html!(buf::IO, parent::Symbol, name::Symbol, sa::SchemaAttribute)
     data_parent = "$(parent)_attributes"
     id = "$(parent)_$(name)"
     print(buf,"<div class=\"panel")
-    !isnull(sa.children) && print(buf, " panel-info")
+    sa.children !== nothing && print(buf, " panel-info")
     print(buf, "\">")
     print(buf, """
      <div class="panel-heading">
@@ -114,18 +114,18 @@ function doc_html!(buf::IO, parent::Symbol, name::Symbol, sa::SchemaAttribute)
      println(buf, " <div id=\"", id, "\" class=\"panel-collapse collapse\">")
 
      # if we have a description or children, we need a panel-body
-     has_body = !isnull(sa.description) || !isnull(sa.description)
+     has_body = sa.description !== nothing || sa.description !== nothing
 
      # add in description if we have one
      if has_body
          print(buf, "  <div class=\"panel-body\">")
      end
 
-     if !isnull(sa.description)
-         println(buf, Base.Markdown.html(get(sa.description)))
+     if sa.description !== nothing
+         println(buf, MD.html(get(sa.description)))
      end
 
-     if !isnull(sa.children)
+     if sa.children !== nothing
          new_parent = Symbol(string(parent), "_", string(name))
          # need to add panel-group
          print(buf, "<div class=\"panel-group\" id=\"")
@@ -163,8 +163,8 @@ function doc_html!(buf::IO, data_parent::Symbol, name::Symbol, ts::TraceSchema)
 
     println(buf, "<div id=\"", id, "\" class=\"panel-collapse collapse\">")
     println(buf, "<div class=\"panel-body\">")
-    if !isnull(ts.description)
-        println(buf, Base.Markdown.html(get(ts.description)))
+    if ts.description !== nothing
+        println(buf, MD.html(get(ts.description)))
     end
 
     print(buf, "<div class=\"panel-group\" id=\"", name, "_attributes", "\">")

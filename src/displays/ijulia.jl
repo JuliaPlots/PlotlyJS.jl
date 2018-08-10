@@ -82,7 +82,7 @@ function init_notebook(force=false)
     end
 
     if !js_loaded(JupyterDisplay) || force
-        _ijulia_js = readstring(joinpath(dirname(@__FILE__), "ijulia.js"))
+        _ijulia_js = read(joinpath(dirname(@__FILE__), "ijulia.js"), String)
 
         # three script tags for loading ijulia setup, and plotly
         display("text/html", """
@@ -92,7 +92,7 @@ function init_notebook(force=false)
 
         <script charset="utf-8" type='text/javascript'>
             define('plotly', function(require, exports, module) {
-                $(open(readstring, _js_path, "r"))
+                $(open(f->read(f, String), _js_path, "r"))
             });
             require(['plotly'], function(Plotly) {
                 window.Plotly = Plotly;
