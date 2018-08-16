@@ -3,7 +3,7 @@
 # ---------------------- #
 
 mutable struct JupyterDisplay <: AbstractPlotlyDisplay
-    divid::Base.Random.UUID
+    divid::UUIDs.UUID
     displayed::Bool
     cond::Condition  # for getting data back from js
 end
