@@ -3,14 +3,14 @@
 # ----------- #
 
 mutable struct ElectronDisplay <: AbstractPlotlyDisplay
-    divid::Base.Random.UUID
+    divid::UUIDs.UUID
     w
 end
 
 const ElectronPlot = SyncPlot{ElectronDisplay}
 
-ElectronDisplay() = ElectronDisplay(Base.Random.uuid4(), nothing)
-ElectronDisplay(divid::Base.Random.UUID) = ElectronDisplay(divid, nothing)
+ElectronDisplay() = ElectronDisplay(UUIDs.uuid4(), nothing)
+ElectronDisplay(divid::UUIDs.UUID) = ElectronDisplay(divid, nothing)
 ElectronDisplay(p::Plot) = ElectronDisplay(p.divid)
 ElectronPlot(p::Plot) = ElectronPlot(p, ElectronDisplay(p.divid))
 
