@@ -9,7 +9,7 @@ A `Plot` instance will have a vector of `trace`s. These should each be a subtype
 PlotlyJS.jl defines one such subtype:
 
 ```julia
-type GenericTrace{T<:AbstractDict{Symbol,Any}} <: AbstractTrace
+mutable struct GenericTrace{T<:AbstractDict{Symbol,Any}} <: AbstractTrace
     kind::ASCIIString
     fields::T
 end
@@ -239,7 +239,7 @@ julia> println(JSON.json(t1, 2))
 The `Layout` type is defined as
 
 ```julia
-type Layout{T<:AbstractDict{Symbol,Any}} <: AbstractLayout
+mutable struct Layout{T<:AbstractDict{Symbol,Any}} <: AbstractLayout
     fields::T
 end
 ```

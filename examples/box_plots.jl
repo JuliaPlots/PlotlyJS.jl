@@ -201,7 +201,7 @@ end
 
 function box10()
     n_box = 30
-    colors = ["hsl($i, 50%, 50%)" for i in linspace(0, 360, n_box)]
+    colors = ["hsl($i, 50%, 50%)" for i in range(0, stop=360, length=n_box)]
 
     gen_y_data(i) =
         3.5*sin(pi*i/n_box) + i/n_box + (1.5+0.5*cos(pi*i/n_box)).*rand(10)

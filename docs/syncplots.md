@@ -7,7 +7,7 @@ We'll also discuss how to integrate with various frontends
 Recall that the definition of the `Plot` object is
 
 ```julia
-type Plot{TT<:AbstractTrace}
+mutable struct Plot{TT<:AbstractTrace}
     data::Vector{TT}
     layout::AbstractLayout
     divid::Base.Random.UUID
@@ -124,7 +124,9 @@ To do this in a simple and reliable way we introduce the concept of a
 `SyncPlot`, which is defined as:
 
 ```julia
-abstract AbstractPlotlyDisplay
+abstract type AbstractPlotlyDisplay 
+
+end
 
 struct SyncPlot{TD<:AbstractPlotlyDisplay}
     plot::Plot
@@ -179,7 +181,7 @@ A convenient typealias has been defined for `SyncPlot`s with the
 `ElectronDisplay` frontend:
 
 ```julia
-typealias ElectronPlot SyncPlot{ElectronDisplay}
+const ElectronPlot = SyncPlot{ElectronDisplay}
 ```
 
 Please note that the Electron frontend also allows PlotlyJS.jl figures to be
@@ -201,7 +203,7 @@ for the plot as well as registering Julia functions as callbacks.
 A `SyncPlot` with a `JupyterDisplay` also has a typealias:
 
 ```julia
-typealias JupyterPlot SyncPlot{JupyterDisplay}
+const JupyterPlot = SyncPlot{JupyterDisplay}
 ```
 
 Please note that the `JupyterPlot` frontend also allows PlotlyJS.jl figures to

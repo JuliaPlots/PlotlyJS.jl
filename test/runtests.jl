@@ -1,7 +1,7 @@
 module PlotlyJSTest
 using TestSetExtensions
 
-using Base.Test
+using Test
 
 using PlotlyJS
 const M = PlotlyJS

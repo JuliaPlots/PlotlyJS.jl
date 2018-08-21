@@ -29,19 +29,22 @@ There are three core types for representing a visualization (not counting the
 two abstract types):
 
 ```julia
-abstract AbstractTrace
-abstract AbstractLayout
+abstract type AbstractTrace 
+end
+abstract type AbstractLayout 
 
-type GenericTrace{T<:AbstractDict{Symbol,Any}} <: AbstractTrace
+end
+
+mutable struct GenericTrace{T<:AbstractDict{Symbol,Any}} <: AbstractTrace
     kind::ASCIIString
     fields::T
 end
 
-type Layout{T<:AbstractDict{Symbol,Any}} <: AbstractLayout
+mutable struct Layout{T<:AbstractDict{Symbol,Any}} <: AbstractLayout
     fields::T
 end
 
-type Plot{TT<:AbstractTrace}
+mutable struct Plot{TT<:AbstractTrace}
     data::Vector{TT}
     layout::AbstractLayout
     divid::Base.Random.UUID

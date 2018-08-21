@@ -4,10 +4,10 @@ JSON.lower(sp::SyncPlot) = JSON.lower(sp.plot)
 PlotlyBase._is3d(p::SyncPlot) = _is3d(p.plot)
 
 # subplot methods on syncplot
-Base.hcat{TP<:SyncPlot}(sps::TP...) = TP(hcat([sp.plot for sp in sps]...))
-Base.vcat{TP<:SyncPlot}(sps::TP...) = TP(vcat([sp.plot for sp in sps]...))
-Base.vect{TP<:SyncPlot}(sps::TP...) = vcat(sps...)
-Base.hvcat{TP<:SyncPlot}(rows::Tuple{Vararg{Int}}, sps::TP...) =
+Base.hcat(sps::TP...) where {TP<:SyncPlot} = TP(hcat([sp.plot for sp in sps]...))
+Base.vcat(sps::TP...) where {TP<:SyncPlot} = TP(vcat([sp.plot for sp in sps]...))
+Base.vect(sps::TP...) where {TP<:SyncPlot} = vcat(sps...)
+Base.hvcat(rows::Tuple{Vararg{Int}}, sps::TP...) where {TP<:SyncPlot} =
     TP(hvcat(rows, [sp.plot for sp in sps]...))
 
 
