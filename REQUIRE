@@ -1,8 +1,7 @@
 julia 0.7
 JSON 0.7
-Blink 0.3.3
-DocStringExtensions
+Blink 0.8
 Requires
-PlotlyBase 0.1.2
+PlotlyBase 
 Reexport 0.2.0
 Compat 0.69

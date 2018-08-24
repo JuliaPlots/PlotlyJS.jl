@@ -215,29 +215,3 @@ extendtraces!(jd::JupyterDisplay, update::AbstractDict=Dict(),
 prependtraces!(jd::JupyterDisplay, update::AbstractDict=Dict(),
                indices::Vector{Int}=[1], maxpoints=-1;) =
     _call_plotlyjs(jd, "prependTraces", update, indices-1, maxpoints)
-
-
-# --------------------------------------------- #
-# Code to run once when the notebook starts up! #
-# --------------------------------------------- #
-
-@require IJulia begin
-    import IJulia
-    using IJulia.send_comm  # needed for _call_js above to work
-    global const _ijulia_eval_comm = Ref{IJulia.CommManager.Comm{:plotlyjs_eval}}()
-    if IJulia.inited
-        _ijulia_eval_comm[] = IJulia.CommManager.Comm(:plotlyjs_eval)
-    end
-    init_notebook()
-
-    function IJulia.display_dict(p::JupyterPlot)
-        if p.view.displayed
-            Dict()
-        else
-            p.view.displayed = true
-            Dict("text/html" => html_body(p),
-                 "application/vnd.plotly.v1+json" => JSON.lower(p))
-        end
-    end
-    set_display!(JupyterDisplay)
-end

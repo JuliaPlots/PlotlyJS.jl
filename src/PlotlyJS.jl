@@ -68,8 +68,6 @@ export
     # frontend methods
     init_notebook
 
-@require Rsvg include("savefig_cairo.jl")
-
 function _savefig_cairo(x...)
     msg = """
     Rsvg.jl must be loaded in order to save in this format. Please ensure
@@ -78,6 +76,34 @@ function _savefig_cairo(x...)
     """
     error(msg)
 end
+
+
+function __init__()
+    @require IJulia="7073ff75-c697-5162-941a-fcdaad2a7d2a" begin
+        import IJulia
+        using IJulia.send_comm  # needed for _call_js above to work
+        global const _ijulia_eval_comm = Ref{IJulia.CommManager.Comm{:plotlyjs_eval}}()
+        if IJulia.inited
+            _ijulia_eval_comm[] = IJulia.CommManager.Comm(:plotlyjs_eval)
+        end
+        init_notebook()
+
+        function IJulia.display_dict(p::JupyterPlot)
+            if p.view.displayed
+                Dict()
+            else
+                p.view.displayed = true
+                Dict("text/html" => html_body(p),
+                     "application/vnd.plotly.v1+json" => JSON.lower(p))
+            end
+        end
+        set_display!(JupyterDisplay)
+    end
+    @require Rsvg="c4c386cf-5103-5370-be45-f3a111cca3b8" include("savefig_cairo.jl")
+    @require Juno="e5e0dc1b-0480-54bc-9374-aad01c23163d" include("displays/juno.jl")
+    @require WebIO="0f1e0344-ec1d-5b48-a673-e5cf874b6c29"include("displays/webio.jl")
+end
+
 
 @init begin
     if !isfile(_js_path)
