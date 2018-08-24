@@ -3,7 +3,7 @@
 # ---------------------- #
 
 mutable struct JupyterDisplay <: AbstractPlotlyDisplay
-    divid::Base.Random.UUID
+    divid::UUIDs.UUID
     displayed::Bool
     cond::Condition  # for getting data back from js
 end
@@ -82,7 +82,7 @@ function init_notebook(force=false)
     end
 
     if !js_loaded(JupyterDisplay) || force
-        _ijulia_js = readstring(joinpath(dirname(@__FILE__), "ijulia.js"))
+        _ijulia_js = read(joinpath(dirname(@__FILE__), "ijulia.js"), String)
 
         # three script tags for loading ijulia setup, and plotly
         display("text/html", """
@@ -92,7 +92,7 @@ function init_notebook(force=false)
 
         <script charset="utf-8" type='text/javascript'>
             define('plotly', function(require, exports, module) {
-                $(open(readstring, _js_path, "r"))
+                $(open(f->read(f, String), _js_path, "r"))
             });
             require(['plotly'], function(Plotly) {
                 window.Plotly = Plotly;
@@ -148,22 +148,22 @@ end
 # Javascript API methods #
 # ---------------------- #
 
-relayout!(jd::JupyterDisplay, update::Associative=Dict(); kwargs...) =
+relayout!(jd::JupyterDisplay, update::AbstractDict=Dict(); kwargs...) =
     _call_plotlyjs(jd, "relayout", merge(update, prep_kwargs(kwargs)))
 
-restyle!(jd::JupyterDisplay, ind::Int, update::Associative=Dict(); kwargs...) =
+restyle!(jd::JupyterDisplay, ind::Int, update::AbstractDict=Dict(); kwargs...) =
     _call_plotlyjs(jd, "restyle", merge(update, prep_kwargs(kwargs)), ind-1)
 
 function restyle!(jd::JupyterDisplay, inds::AbstractVector{Int},
-                  update::Associative=Dict();  kwargs...)
+                  update::AbstractDict=Dict();  kwargs...)
     _call_plotlyjs(jd, "restyle", merge(update, prep_kwargs(kwargs)), inds-1)
 end
 
-restyle!(jd::JupyterDisplay, update::Associative=Dict(); kwargs...) =
+restyle!(jd::JupyterDisplay, update::AbstractDict=Dict(); kwargs...) =
     _call_plotlyjs(jd, "restyle", merge(update, prep_kwargs(kwargs)))
 
 function update!(
-        jd::JupyterDisplay, ind::Int, update::Associative=Dict();
+        jd::JupyterDisplay, ind::Int, update::AbstractDict=Dict();
         layout::Layout=Layout(), kwargs...
     )
     _call_plotlyjs(jd, "update", merge(update, prep_kwargs(kwargs)), layout, ind-1)
@@ -171,13 +171,13 @@ end
 
 function update!(
         jd::JupyterDisplay, inds::AbstractVector{Int},
-        update::Associative=Dict(); layout::Layout=Layout(), kwargs...
+        update::AbstractDict=Dict(); layout::Layout=Layout(), kwargs...
     )
     _call_plotlyjs(jd, "update", merge(update, prep_kwargs(kwargs)), layout, inds-1)
 end
 
 function update!(
-        jd::JupyterDisplay, update::Associative=Dict();
+        jd::JupyterDisplay, update::AbstractDict=Dict();
         layout::Layout=Layout(),  kwargs...
     )
     _call_plotlyjs(jd, "update", merge(update, prep_kwargs(kwargs)), layout)
@@ -208,11 +208,11 @@ download_image(jd::JupyterDisplay; kwargs...) =
     _call_plotlyjs(jd, "download_image", Dict(kwargs))
 
 # unexported (by plotly.js) api methods
-extendtraces!(jd::JupyterDisplay, update::Associative=Dict(),
+extendtraces!(jd::JupyterDisplay, update::AbstractDict=Dict(),
               indices::Vector{Int}=[1], maxpoints=-1;) =
     _call_plotlyjs(jd, "extendTraces", update, indices-1, maxpoints)
 
-prependtraces!(jd::JupyterDisplay, update::Associative=Dict(),
+prependtraces!(jd::JupyterDisplay, update::AbstractDict=Dict(),
                indices::Vector{Int}=[1], maxpoints=-1;) =
     _call_plotlyjs(jd, "prependTraces", update, indices-1, maxpoints)
 

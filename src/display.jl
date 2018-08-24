@@ -30,7 +30,7 @@ function stringmime(::MIME"text/html", p::Plot, js::Symbol=js_default[])
     elseif js == :remote
         script_txt = "<script src=\"$(_js_cdn_path)\"></script>"
     elseif js == :embed
-        script_txt = "<script>$(readstring(_js_path))</script>"
+        script_txt = "<script>$(read(_js_path, String))</script>"
     else
         msg = """
         Unknown value for argument js: $js.
@@ -98,7 +98,7 @@ for f in (:extendtraces!, :prependtraces!)
             ($f)(p, [ind], maxpoints; update...)
         end
 
-        function $(f)(p::AbstractPlotlyDisplay, update::Associative, ind::Int,
+        function $(f)(p::AbstractPlotlyDisplay, update::AbstractDict, ind::Int,
                       maxpoints=-1)
             ($f)(p, update, [ind], maxpoints)
         end
@@ -119,6 +119,8 @@ Base.copy(sp::SyncPlot) = fork(sp)  # defined by each SyncPlot{TD}
 # ----------------- #
 # Display frontends #
 # ----------------- #
+
+using Compat.UUIDs
 
 @require Juno include("displays/juno.jl")
 @require WebIO include("displays/webio.jl")

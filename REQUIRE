@@ -1,6 +1,8 @@
-julia 0.6
+julia 0.7
 JSON 0.7
 Blink 0.3.3
 DocStringExtensions
 Requires
 PlotlyBase 0.1.2
+Reexport 0.2.0
+Compat 0.69

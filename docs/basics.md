@@ -32,12 +32,12 @@ two abstract types):
 abstract AbstractTrace
 abstract AbstractLayout
 
-type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
+type GenericTrace{T<:AbstractDict{Symbol,Any}} <: AbstractTrace
     kind::ASCIIString
     fields::T
 end
 
-type Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
+type Layout{T<:AbstractDict{Symbol,Any}} <: AbstractLayout
     fields::T
 end
 

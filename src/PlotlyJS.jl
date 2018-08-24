@@ -6,6 +6,7 @@ using Reexport
 @reexport using PlotlyBase
 using JSON
 using Base.Iterators
+using Compat: AbstractDict
 
 # need to import some functions because methods are meta-generated
 import PlotlyBase:
@@ -52,7 +53,7 @@ function docs()
         Blink.load!(w.content, f)
         wait(w.content)
     end
-    Blink.content!(w, "html", open(readstring, schema_path), fade=false)
+    Blink.content!(w, "html", open(f->read(f, String), schema_path), fade=false)
 end
 
 export
