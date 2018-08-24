@@ -35,11 +35,11 @@ function main()
     _SRC_ATTRS = collect(filter(x -> endswith(string(x), "src"), nms))
 
     open(joinpath(@__DIR__, "src_attrs.csv"), "w") do f
-        writecsv(f, map(string, _SRC_ATTRS))
+        writedlm(f, map(string, _SRC_ATTRS))
     end
 
     open(joinpath(@__DIR__, "underscore_attrs.csv"), "w") do f
-        writecsv(f, map(string, _UNDERSCORE_ATTRS))
+        writedlm(f, map(string, _UNDERSCORE_ATTRS))
     end
 
     _UNDERSCORE_ATTRS, _SRC_ATTRS
