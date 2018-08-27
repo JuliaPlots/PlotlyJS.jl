@@ -81,7 +81,7 @@ function table3()
         columnwidth=[200, 500, 600, 600, 400, 400, 600, 600, 600],
         # columnorder=0:9,
         header=attr(
-            values=map(x-> replace(string(x), '_', '-'), names(df)),
+            values=map(x-> replace(string(x), '_' => '-'), names(df)),
             align="center",
             line=attr(width=1, color="rgb(50, 50, 50)"),
             fill_color=["rgb(235, 100, 230)"],
