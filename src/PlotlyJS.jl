@@ -56,35 +56,7 @@ function docs()
     Blink.content!(w, "html", open(f->read(f, String), schema_path), fade=false)
 end
 
-export
-
-    # core types
-    ElectronDisplay, JupyterDisplay, ElectronPlot, JupyterPlot,
-
-    # other methods
-    savefig, svg_data, png_data, jpeg_data, webp_data, autoresize,
-
-    # helper methods
-    plot, fork,
-
-    # frontend methods
-    init_notebook
-
-function _savefig_cairo(x...)
-    msg = """
-    Rsvg.jl must be loaded in order to save in this format. Please ensure
-    that Rsvg is installed, then call `using Rsvg` before trying your command
-    again
-    """
-    error(msg)
-end
-
-
-function __init__()
-    @require Rsvg="c4c386cf-5103-5370-be45-f3a111cca3b8" include("savefig_cairo.jl")
-    @require Juno="e5e0dc1b-0480-54bc-9374-aad01c23163d" include("displays/juno.jl")
-end
-
+export plot
 
 @init begin
     if !isfile(_js_path)

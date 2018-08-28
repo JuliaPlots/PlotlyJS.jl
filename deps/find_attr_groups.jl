@@ -12,8 +12,8 @@ function main()
 
     nms = Set{Symbol}()
     function add_to_names!(d::AbstractDict)
-        map(add_to_names!, keys(d))
-        map(add_to_names!, values(d))
+        foreach(add_to_names!, keys(d))
+        foreach(add_to_names!, values(d))
         nothing
     end
     add_to_names!(s::Symbol) = push!(nms, s)
