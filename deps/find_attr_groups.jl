@@ -1,6 +1,7 @@
 module AttrGroups
 
 using JSON
+using DelimitedFiles
 
 _symbol_dict(x) = x
 _symbol_dict(d::AbstractDict) =
@@ -26,7 +27,7 @@ function main()
 
     _UNDERSCORE_ATTRS = collect(
         filter(
-            x-> contains(string(x), "_") && !startswith(string(x), "_"),
+            x-> occursin(string(x), "_") && !startswith(string(x), "_"),
             nms
         )
     )
