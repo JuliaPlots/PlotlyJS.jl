@@ -1,7 +1,6 @@
 module AttrGroups
 
 using JSON
-using Compat: AbstractDict
 
 _symbol_dict(x) = x
 _symbol_dict(d::AbstractDict) =

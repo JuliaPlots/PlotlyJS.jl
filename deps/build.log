@@ -1,0 +1,41 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0 1332k    0   371    0     0    444      0  0:51:13 --:--:--  0:51:13   443100 1332k  100 1332k    0     0  1230k      0  0:00:01  0:00:01 --:--:-- 1231k
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 2726k  100 2726k    0     0  4869k      0 --:--:-- --:--:-- --:--:-- 4869k
+WARNING: importing deprecated binding Base.writecsv into AttrGroups.
+WARNING: Base.writecsv is deprecated: it has been moved to the standard library package `DelimitedFiles`.
+Add `using DelimitedFiles` to your imports.
+  likely near /Users/sglyon/.julia/dev/PlotlyJS/deps/build.jl:12
+WARNING: Base.writecsv is deprecated: it has been moved to the standard library package `DelimitedFiles`.
+Add `using DelimitedFiles` to your imports.
+  likely near /Users/sglyon/.julia/dev/PlotlyJS/deps/build.jl:12
+WARNING: Base.writecsv is deprecated: it has been moved to the standard library package `DelimitedFiles`.
+Add `using DelimitedFiles` to your imports.
+  likely near /Users/sglyon/.julia/dev/PlotlyJS/deps/build.jl:12
+WARNING: Base.writecsv is deprecated: it has been moved to the standard library package `DelimitedFiles`.
+Add `using DelimitedFiles` to your imports.
+  likely near /Users/sglyon/.julia/dev/PlotlyJS/deps/build.jl:12
+WARNING: Base.writecsv is deprecated: it has been moved to the standard library package `DelimitedFiles`.
+Add `using DelimitedFiles` to your imports.
+  likely near /Users/sglyon/.julia/dev/PlotlyJS/deps/build.jl:12
+in #open#298 at iostream.jl
+WARNING: Base.writecsv is deprecated: it has been moved to the standard library package `DelimitedFiles`.
+Add `using DelimitedFiles` to your imports.
+  likely near /Users/sglyon/.julia/dev/PlotlyJS/deps/build.jl:12
+in #open#298 at iostream.jl
+┌ Warning: Could not load Revise.
+└ @ Main ~/.julia/config/startup.jl:6
+┌ Warning: `map(f, s::AbstractSet)` is deprecated, use `Set((f(v) for v = s))` instead.
+│   caller = (::getfield(Main.AttrGroups, Symbol("#add_to_names!#7")){Set{Symbol}})(::Dict{Symbol,Any}) at find_attr_groups.jl:16
+└ @ Main.AttrGroups ~/.julia/dev/PlotlyJS/deps/find_attr_groups.jl:16
+┌ Warning: `contains(haystack, needle)` is deprecated, use `occursin(needle, haystack)` instead.
+│   caller = (::getfield(Main.AttrGroups, Symbol("##3#8")))(::Symbol) at find_attr_groups.jl:30
+└ @ Main.AttrGroups ~/.julia/dev/PlotlyJS/deps/find_attr_groups.jl:30
+┌ Warning: `writecsv(io, a; opts...)` is deprecated, use `writedlm(io, a, ','; opts...)` instead.
+│   caller = #5 at find_attr_groups.jl:38 [inlined]
+└ @ Core ~/.julia/dev/PlotlyJS/deps/find_attr_groups.jl:38
+┌ Warning: `writecsv(io, a; opts...)` is deprecated, use `writedlm(io, a, ','; opts...)` instead.
+│   caller = #6 at find_attr_groups.jl:42 [inlined]
+└ @ Core ~/.julia/dev/PlotlyJS/deps/find_attr_groups.jl:42
