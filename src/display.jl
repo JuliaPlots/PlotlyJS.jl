@@ -88,7 +88,7 @@ function SyncPlot(
     # setup scope
     deps = [
         "Plotly" => joinpath(@__DIR__, "..", "assets", "plotly-latest.min.js"),
-        joinpath(@__DIR__, "..", "assets", "plotly_webio_bundle.js")
+        joinpath(@__DIR__, "..", "assets", "plotly_webio.bundle.js")
     ]
     scope = Scope(imports=deps)
     scope.dom = dom"div"(id=string("plot-", p.divid), events=events)
