@@ -13,3 +13,4 @@ deps/schema.html
 deps/*.csv
 assets/node_modules/
 assets/package-lock.json
+deps/build.log
