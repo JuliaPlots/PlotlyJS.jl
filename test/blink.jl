@@ -6,14 +6,6 @@ w = Blink.Window()
 body!(w, p.scope)
 sleep(3.0)  # make sure we give time for svg to render
 
-# test that plotly loads
-@test length(p["svg"].val) > 0
-
-# test that we get back reasonable svg
-svg = p["svg"].val
-@test svg[1:4] == "<svg"
-@test svg[end-5:end] == "</svg>"
-
 # hook up testing observables
 on(p.scope["__gd_contents"]) do x end
 
@@ -114,27 +106,3 @@ end
         @test all(p.scope["__gd_contents"][][1]["y"][1:3] .== [3, 4, 5])
     end
 end
-
-# using Rsvg
-#
-# @testset "savefig" begin
-#     my_dir = tempdir()
-#     p = plot(rand(10, 4))
-#     display(p)
-#     sleep(4)  # give it _plently_ of time to render
-#     for extension in [".plotly.json", "json", "html", "svg", "pdf", "png", "eps"]
-#         fn = joinpath(my_dir, "out.$(extension)")
-#         @test begin
-#             savefig(p, fn)
-#             isfile(fn)
-#         end
-#     end
-#
-#     # also try method where we open non-visible window
-#     p = plot(rand(10, 4))
-#     for extension in [".plotly.json", "json", "html", "svg", "pdf", "png", "eps"]
-#         fn = joinpath(my_dir, "out.$(extension)")
-#         savefig(p, fn)
-#         @test isfile(fn)
-#     end
-# end
