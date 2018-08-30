@@ -4,7 +4,7 @@ using Reexport
 @reexport using PlotlyBase
 using JSON
 using Base.Iterators
-using REPL
+using REPL, Pkg
 
 # need to import some functions because methods are meta-generated
 import PlotlyBase:
@@ -18,6 +18,8 @@ using JSExpr
 using JSExpr: @var, @new
 using Blink
 using Requires
+
+export plot
 
 # globals for this package
 const _pkg_root = dirname(dirname(@__FILE__))
@@ -56,9 +58,34 @@ function docs()
     Blink.content!(w, "html", open(f->read(f, String), schema_path), fade=false)
 end
 
-export plot
+function PlotlyBase.savefig(p::SyncPlot, args...)
+    has_orca = haskey(Pkg.installed(), "ORCA")
+    if has_orca
+        error("Please call `using ORCA` to save figures")
+    end
 
-@init begin
+    if Base.isinteractive()
+        msg = "Saving figures requires the ORCA package."
+        msg *= " Would you like to install it? (Y/n) "
+        print(msg)
+        answer = readline()
+        if length(answer) == 0
+            answer = "y"
+        end
+        if lowercase(answer)[1] == 'y'
+            println("here!!")
+            println("Ok. Installing ORCA now...")
+            Pkg.add("ORCA")
+            info("Please call `using ORCA` and try saving your plot again")
+            return
+        end
+    end
+    msg = "Please install ORCA separately, then call `using ORCA` and try again"
+    error(msg)
+end
+
+function __init__()
+    @require ORCA="200b8544-ab2f-11e8-2d2a-470a6868b879" include("savefig_orca.jl")
     if !isfile(_js_path)
         info("plotly.js javascript libary not found -- downloading now")
         include(joinpath(_pkg_root, "deps", "build.jl"))

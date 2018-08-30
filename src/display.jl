@@ -1,29 +1,9 @@
 # ----------------------- #
 # Display-esque functions #
 # ----------------------- #
-function html_body(p::Plot)
-    """
-    <div id="$(p.divid)" class="plotly-graph-div"></div>
-
-    <script>
-        window.PLOTLYENV=window.PLOTLYENV || {};
-        window.PLOTLYENV.BASE_URL="https://plot.ly";
-        $(script_content(p))
-     </script>
-    """
-end
-
-function script_content(p::Plot)
-    lowered = JSON.lower(p)
-    """
-    Plotly.newPlot('$(p.divid)', $(json(lowered[:data])),
-                   $(json(lowered[:layout])), {showLink: false});
-    """
-end
-
 const js_default = Ref(:local)
 
-function stringmime(::MIME"text/html", p::Plot, js::Symbol=js_default[])
+function Base.show(io::IO, ::MIME"text/html", p::Plot, js::Symbol=js_default[])
 
     if js == :local
         script_txt = "<script src=\"$(_js_path)\"></script>"
@@ -39,7 +19,7 @@ function stringmime(::MIME"text/html", p::Plot, js::Symbol=js_default[])
         throw(ArgumentError(msg))
     end
 
-    """
+    print(io, """
     <html>
     <head>
          $script_txt
@@ -48,14 +28,14 @@ function stringmime(::MIME"text/html", p::Plot, js::Symbol=js_default[])
          $(html_body(p))
     </body>
     </html>
-    """
+    """)
 
 end
 
-Base.show(io::IO, ::MIME"text/html", p::Plot, js::Symbol=js_default[]) =
-    print(io, stringmime(MIME"text/html"(), p, js))
-
-
+# juno integration
+function Base.show(io::IO, ::MIME"application/juno+plotpane", p::Plot)
+    show(io, MIME"text/html", p, js=:local)
+end
 
 # ----------------------------------------- #
 # SyncPlot -- sync Plot object with display #
@@ -70,10 +50,13 @@ end
 Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
 
 WebIO.render(p::SyncPlot) = WebIO.render(p.scope)
-Base.show(io::IO, mm::MIME"text/plain", p::SyncPlot) = show(io, mm, p.plot)
-Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
-function Base.show(io::IO, mm::MIME"application/vnd.plotly.v1+json", p::SyncPlot)
-    show(io, mm, p.plot)
+for mime in [
+        "text/html", "text/plain", "application/juno+plotpane",
+        "application/vnd.plotly.v1+json"
+    ]
+    function Base.show(io::IO, m::MIME{Symbol(mime)}, p::SyncPlot, args...)
+        show(io, m, p.plot, args...)
+    end
 end
 
 function SyncPlot(
@@ -94,7 +77,6 @@ function SyncPlot(
     scope.dom = dom"div"(id=string("plot-", p.divid), events=events)
 
     # INPUT: Observables for plot events
-    scope["svg"] = Observable("")
     scope["hover"] = Observable(Dict())
     scope["selected"] = Observable(Dict())
     scope["click"] = Observable(Dict())
@@ -134,13 +116,7 @@ function SyncPlot(
         @var elem = this.plotElem
         @var Plotly = this.Plotly
         args.unshift(elem) # use div as first argument
-        Plotly[fn].apply(this, args).then(function(gd)
-            Plotly.toImage(elem, Dict("format" => "svg"))
-        end).then(function(data)
-            # TODO: make this optional
-            @var svg_data = data.replace("data:image/svg+xml,", "")
-            $(scope["svg"])[] = decodeURIComponent(svg_data)
-        end)
+        Plotly[fn].apply(this, args)
     end)
 
     onimport(scope, JSExpr.@js function (Plotly)
@@ -161,17 +137,10 @@ function SyncPlot(
 
         window.onresize = () -> Plotly.Plots.resize(gd)
 
-        function save_svg()
-            Plotly.toImage(gd, $(Dict("format" => "svg"))).then(function(data)
-                @var svg_data = data.replace("data:image/svg+xml,", "")
-                $(scope["svg"])[] = decodeURIComponent(svg_data)
-            end)
-        end
-
         # Draw plot in container
         Plotly.newPlot(
             gd, $(lowered[:data]), $(lowered[:layout]), $(options)
-        ).then(save_svg);
+        )
 
         # hook into plotly events
         gd.on("plotly_hover", function (data)
@@ -207,13 +176,9 @@ function SyncPlot(
         end)
     end)
 
-    # create no-op `on` callback for svg so it is _always_ sent
+    # create no-op `on` callback for image so it is _always_ sent
     # to us
-    on(scope["svg"]) do x end
-
-    # also do the same to image so it is ready to go
     on(scope["image"]) do x end
-
 
     SyncPlot(p, scope, events, options)
 end
@@ -234,8 +199,8 @@ function Base.display(::REPL.REPLDisplay, p::SyncPlot)
 end
 
 function send_command(scope, cmd, args...)
-    scope["_commands"][] = [cmd, args...]
     # The handler for _commands is set up when plot is constructed
+    scope["_commands"][] = [cmd, args...]
     nothing
 end
 
@@ -338,7 +303,7 @@ function download_image(plt::SyncPlot; kwargs...)
 end
 
 # unexported (by plotly.js) api methods
-function extendtraces!(plt::SyncPlot, update::AbstractDict=Dict(),
+function extendtraces!(plt::SyncPlot, update::AbstractDict,
               indices::AbstractVector{Int}=[1], maxpoints=-1;)
     extendtraces!(plt.plot, update, indices, maxpoints)
     send_command(
@@ -346,7 +311,7 @@ function extendtraces!(plt::SyncPlot, update::AbstractDict=Dict(),
     )
 end
 
-function prependtraces!(plt::SyncPlot, update::AbstractDict=Dict(),
+function prependtraces!(plt::SyncPlot, update::AbstractDict,
                indices::AbstractVector{Int}=[1], maxpoints=-1;)
     prependtraces!(plt.plot, update, indices, maxpoints)
     send_command(
