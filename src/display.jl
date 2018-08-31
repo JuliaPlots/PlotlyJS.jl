@@ -51,13 +51,15 @@ Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
 
 WebIO.render(p::SyncPlot) = WebIO.render(p.scope)
 for mime in [
-        "text/html", "text/plain", "application/juno+plotpane",
+        "text/plain", "application/juno+plotpane",
         "application/vnd.plotly.v1+json"
     ]
     function Base.show(io::IO, m::MIME{Symbol(mime)}, p::SyncPlot, args...)
         show(io, m, p.plot, args...)
     end
 end
+
+Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
 
 function SyncPlot(
         p::Plot;
