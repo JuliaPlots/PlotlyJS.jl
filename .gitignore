@@ -11,3 +11,6 @@ deps/plotly-latest.min.js
 deps/plotschema.json
 deps/schema.html
 deps/*.csv
+assets/node_modules/
+assets/package-lock.json
+deps/build.log

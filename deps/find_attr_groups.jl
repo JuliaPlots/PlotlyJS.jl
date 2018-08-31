@@ -1,7 +1,7 @@
 module AttrGroups
 
 using JSON
-using Compat: AbstractDict
+using DelimitedFiles
 
 _symbol_dict(x) = x
 _symbol_dict(d::AbstractDict) =
@@ -13,8 +13,8 @@ function main()
 
     nms = Set{Symbol}()
     function add_to_names!(d::AbstractDict)
-        map(add_to_names!, keys(d))
-        map(add_to_names!, values(d))
+        foreach(add_to_names!, keys(d))
+        foreach(add_to_names!, values(d))
         nothing
     end
     add_to_names!(s::Symbol) = push!(nms, s)
@@ -27,7 +27,7 @@ function main()
 
     _UNDERSCORE_ATTRS = collect(
         filter(
-            x-> contains(string(x), "_") && !startswith(string(x), "_"),
+            x-> occursin(string(x), "_") && !startswith(string(x), "_"),
             nms
         )
     )
