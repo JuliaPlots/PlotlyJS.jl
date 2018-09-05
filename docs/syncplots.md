@@ -120,97 +120,104 @@ This means that we can't view the actual plotly figure the data represents.
 
 To do that we need to link the `Plot` to one or more display frontends.
 
-To do this in a simple and reliable way we introduce the concept of a
-`SyncPlot`, which is defined as:
+To actually connect to the display frontends we use the
+[WebIO.jl](https://github.com/JuliaGizmos/WebIO.jl) package. Our interaction
+with WebIO is wrapped up in a type called `SyncPlot` that is defined as
+follows:
 
 ```julia
-abstract type AbstractPlotlyDisplay 
-
-end
-
-struct SyncPlot{TD<:AbstractPlotlyDisplay}
-    plot::Plot
-    view::TD
+mutable struct SyncPlot
+    plot::PlotlyBase.Plot
+    scope::Scope
+    events::Dict
+    options::Dict
 end
 ```
 
-As its name suggests, a `SyncPlot` will sync a plot with a frontend. To see the
-figure behind a `SyncPlot` named `p` you can simply call `display(p)`.
-The `display` of a `SyncPlot` follows the standard Julia mechanisms and
-`display` called automatically if you ask Julia to echo back a `SyncPlot` at
-the REPL or in a Jupyter notebook.
+As its name suggests, a `SyncPlot` will keep the Julia representation of the a
+plot (the `Plot` instance) in sync with a plot with a frontend.
 
 !!! note
     The `Plot` function will create a new `Plot` object and the `plot` function
-    will create a new `SyncPlot`. Which frontend is selected will depend on
-    context: if the Jupyter notebook is active the `JupyterDisplay` is chosen,
-    otherwise the `ElectronDisplay` will be used. The `plot` function simply
-    constructs a `Plot` object and picks a default display by wrapping the
-    `Plot`in a `SyncPlot`. All methods for `Plot` apply similarly to `plot`
+    will create a new `SyncPlot`. The `plot` function passes all arguments
+    (except the `options` keyword argument -- see below) to construct a `Plot`
+    and then sets up the display. All `Plot` methods are also defined for
+    `plot`
 
-As of the time of writing there are two supported frontends...
+By leveraging WebIO.jl we can render our figures anywhere WebIO can render. At
+time of writing this includes [Jupyter notebooks](http://jupyter.org/),
+[Jupyterlab](https://github.com/jupyterlab/jupyterlab),
+[Mux.jl](https://github.com/JuliaWeb/Mux.jl) web apps, the
+[Juno](http://junolab.org/) Julia environment inside the Atom text editor, and
+Electron windows from [Blink.jl](https://github.com/JunoLab/Blink.jl). Please
+see the [WebIO.jl readme]((https://github.com/JuliaGizmos/WebIO.jl)) for
+additional (and up to date!) information.
 
-### `ElectronPlot`
+When using PlotlyJS.jl at the Julia REPL a plot will automatically be displayed
+in an Electron window. This is a dedicated browser window we have full control
+over. To see a plot `p`, just type `p` by itself at the REPL and execute the
+line. Alternatively you can call `display(p)`.
 
-The first subtype of `AbstractPlotlyDisplay` is `ElectronDisplay`. This display
-will utilize [Blink.jl](https://github.com/JunoLab/Blink.jl) to create a
-dedicated display GUI for PlotlyJS using GitHub's
-[Electron](http://electron.atom.io).
-
-By hooking into Electron, we have full 2-way communication between Julia and
-javascript. We are able to evaluate arbitrary javascript expressions as if we
-were entering them at the browser's devtools javascript console. The output of
-evaluated expressions can be returned to Julia and re-constructed into Julia
-datatypes.
-
-This enables many features:
-
-- Updating attributes on a trace or the layout
-- Extending a trace by adding new attributes or appending to existing
-attributes
-- Asking plotly.js to return the raw svg data for the plot, so we can further
-process it and save to pdf, png, jpeg, or eps files
-- A steaming workflow where we can efficiently update portions of the plot
-- (_Not implemented yet_) using Julia functions as callbacks to
-[plotly.js events](https://plot.ly/javascript/#chart-events)
-
-This is the most feature complete frontend and is a key feature of this
-package.
-
-A convenient typealias has been defined for `SyncPlot`s with the
-`ElectronDisplay` frontend:
+In addition to being able to see our charts in many front-end environments,
+WebIO also provides a 2-way communication bridge between javascript and Julia.
+In fact, when a `SyncPlot` is constructed, we automatically get listeners for
+all [plotly.js javascript events](https://plot.ly/javascript/plotlyjs-events/).
+What's more is that we can hook up Julia functions as callbacks when those
+events are triggered. In the very contrived example below we have Julia print
+out details regarding points on a plot whenever a user hovers over them on the
+display:
 
 ```julia
-const ElectronPlot = SyncPlot{ElectronDisplay}
+using WebIO
+p = plot(rand(10, 4));
+display(p)  # usually optional
+
+on(p["hover"]) do data
+    println("\nYou hovered over", data)
+end
 ```
 
-Please note that the Electron frontend also allows PlotlyJS.jl figures to be
-displayed inside the Atom text editor when using the
-[atom-julia-client](https://github.com/JunoLab/atom-julia-client) environment.
-
-### `JupyerPlot`
-
-We also have `JupyterDisplay <: AbstractPlotlyDisplay`, which can be used to
-display PlotlyJS figures in Jupyter notebooks. Because the notebook is inside
-a running web browser we can make arbitrary calls to plotly.js, enabling many
-of the features above.
-
-However, communication within the notebook is only Julia -> javascript right
-now. This means that we have not implemented features that require Julia to
-receive a return value from javascript. This includes obtaining raw svg data
-for the plot as well as registering Julia functions as callbacks.
-
-A `SyncPlot` with a `JupyterDisplay` also has a typealias:
+In this next example, whenever we click on a point we change its marker symbol
+to a star and marker color to gold:
 
 ```julia
-const JupyterPlot = SyncPlot{JupyterDisplay}
+using WebIO
+colors = (fill("red", 10), fill("blue", 10))
+symbols = (fill("circle", 10), fill("circle", 10))
+ys = (rand(10), rand(10))
+p = plot(
+    [scatter(y=y, marker=attr(color=c, symbol=s, size=15), line_color=c[1])
+    for (y, c, s) in zip(ys, colors, symbols)]
+)
+display(p)  # usually optional
+
+on(p["click"]) do data
+    colors = (fill("red", 10), fill("blue", 10))
+    symbols = (fill("circle", 10), fill("circle", 10))
+    for point in data["points"]
+        colors[point["curveNumber"] + 1][point["pointIndex"] + 1] = "gold"
+        symbols[point["curveNumber"] + 1][point["pointIndex"] + 1] = "star"
+    end
+    restyle!(p, marker_color=colors, marker_symbol=symbols)
+end
 ```
 
-Please note that the `JupyterPlot` frontend also allows PlotlyJS.jl figures to
-be viewed inside the Atom text editor when using the
-[hydrogen](https://github.com/nteract/hydrogen) package and inside the [nteract
-notebook](https://nteract.io).
+While completely nonsensical, hopefully these examples show you that it is
+possible to build rich, interactive, web-based data visualization applications
+with business logic implemented entirely in Julia!.
 
-!!! note
-    2 way communication between javascript and Julia is possible in the
-    notebook, it just has not been implemented
+### Display configuration
+
+When calling `plot` the `options` keyword argument is given special treatment.
+It should be an instance of `AbstractDict` and its contents are passed as
+display options to the plotly.js library. For details on which options are
+supported, see the [plotly.js documentation on the
+subject](https://plot.ly/javascript/configuration-options/).
+
+As an example, if we were to execute the following code, we would see a static
+chart (no hover information or ability to zoom/pan) with 4 lines instead of an
+interactive one:
+
+```
+plot(rand(10, 4), options=Dict(:staticPlot => true))
+```
