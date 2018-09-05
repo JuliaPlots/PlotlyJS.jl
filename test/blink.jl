@@ -105,4 +105,21 @@ end
         @test length(p.scope["__gd_contents"][][1]["y"]) == 16
         @test all(p.scope["__gd_contents"][][1]["y"][1:3] .== [3, 4, 5])
     end
+
+    @testset "react" begin
+        new_trace = scatter(x=1:10, y=(1:10.0).^2, name="New trace")
+        new_trace2 = t()
+        new_l = Layout(yaxis_title="This is y")
+        react!(p, [new_trace, new_trace2], new_l)
+
+        update_data!()
+        @test length(p.scope["__gd_contents"][]) == 2
+        @test all(p.scope["__gd_contents"][][1]["x"] .== 1:10)
+        @test all(p.scope["__gd_contents"][][1]["y"] .== (1:10).^2)
+        @test p.scope["__gd_contents"][][1]["name"] == "New trace"
+
+        update_layout!()
+        @test p.scope["__gd_contents"][]["yaxis"]["title"] == "This is y"
+    end
+
 end

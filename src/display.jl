@@ -240,6 +240,11 @@ function relayout!(plt::SyncPlot, update::AbstractDict=Dict(); kwargs...)
     send_command(plt.scope, :relayout, merge(update, prep_kwargs(kwargs)))
 end
 
+function react!(plt::SyncPlot, data::AbstractVector{<:AbstractTrace}, layout::Layout)
+    react!(plt.plot, data, layout)
+    send_command(plt.scope, :react, data, layout)
+end
+
 function update!(
         plt::SyncPlot, ind::Union{Int,AbstractVector{Int}},
         update::AbstractDict=Dict();
@@ -332,7 +337,7 @@ function prependtraces!(plt::SyncPlot, update::AbstractDict,
 end
 
 for f in [:restyle, :relayout, :update, :addtraces, :deletetraces,
-          :movetraces, :redraw, :extendtraces, :prependtraces, :purge]
+          :movetraces, :redraw, :extendtraces, :prependtraces, :purge, :react]
     f! = Symbol(f, "!")
     @eval function $(f)(plt::SyncPlot, args...; kwargs...)
         out = SyncPlot(deepcopy(plt.plot))
