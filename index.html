@@ -434,10 +434,10 @@
           <h1 id="plotlyjs">PlotlyJS<a class="headerlink" href="#plotlyjs" title="Permanent link">¶</a></h1>
 <p>Welcome to the documentation for PlotlyJS.jl, a Julia interface to the
 <a href="https://plot.ly/javascript">plotly.js</a> visualization library.</p>
-<p>This package does not interact with the <a href="TODO: LINK">Plotly web API</a>, but
-rather leverages the underlying javascript library to construct plotly graphics
-using all local resources. This means you do not need a Plotly account or an
-internet connection to use this package.</p>
+<p>This package does not interact with the <a href="https://api.plot.ly/v2/">Plotly web
+API</a>, but rather leverages the underlying javascript
+library to construct plotly graphics using all local resources. This means you
+do not need a Plotly account or an internet connection to use this package.</p>
 <p>The goals of PlotlyJS.jl are:</p>
 <ol>
 <li>Make it convenient to construct and manipulate plotly visualizations</li>
@@ -445,31 +445,19 @@ internet connection to use this package.</p>
 plotly graphics to files</li>
 </ol>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h2>
-<p>To install PlotlyJS.jl enter the following at the Julia prompt:</p>
-<div class="codehilite"><pre><span></span>Pkg.add(&quot;PlotlyJS&quot;)
+<p>To install PlotlyJS.jl, open up a Julia REPL, press <code>]</code> to enter package mode and type:</p>
+<div class="codehilite"><pre><span></span>(v1.0) pkg&gt; add PlotlyJS
 </pre></div>
 
 
-<p>For existing users you can run <code>Pkg.update()</code> to get the latest release. If
-after doing this plots do not show up in your chosen frontend, please run
-<code>Pkg.build("PlotlyJS")</code> to tell Julia to download the latest release of the
-plotly.js javascript library.</p>
-<p>Note that you can also run <code>Pkg.build()</code> if you wish to update the javascript
-library by itself.</p>
-<h3 id="electron">Electron<a class="headerlink" href="#electron" title="Permanent link">¶</a></h3>
-<p>This will download an install PlotlyJS and all dependencies. If you have not
-previously used the Blink.jl package and would like to use the
-<a href="http://spencerlyon.com/PlotlyJS.jl/syncplots/#electronplot">Electron</a> display
-frontend from the REPL (recommended) you will need to enter evaluate the
-following code at the REPL:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">Blink</span>
-<span class="n">Blink</span><span class="o">.</span><span class="n">AtomShell</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
-</pre></div>
-
-
+<p>For existing users you can run <code>up</code> from the package manager REPL mode to get
+the latest release. If after doing this plots do not show up in your chosen
+frontend, please run <code>build PlotlyJS</code> (again from pkg REPL mode) to tell Julia
+to download the latest release of the plotly.js javascript library.</p>
 <h3 id="saving-figures">Saving figures<a class="headerlink" href="#saving-figures" title="Permanent link">¶</a></h3>
-<p>If you would like to be able to save plotly graphics to png or pdf formats you
-will need additional packages. Please see the documentation on <a href="http://spencerlyon.com/PlotlyJS.jl/manipulating_plots/#saving-figures">exporting
+<p>If you would like to save your figures to files in a format other than json and
+html, you will need to install the <a href="https://github.com/sglyon/ORCA.jl">ORCA.jl</a>
+pacakge. See <a href="http://spencerlyon.com/PlotlyJS.jl/manipulating_plots/#saving-figures">exporting
 figures</a>
 for more information.</p>
 <h3 id="plotsjl">Plots.jl<a class="headerlink" href="#plotsjl" title="Permanent link">¶</a></h3>

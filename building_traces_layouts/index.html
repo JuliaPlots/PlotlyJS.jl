@@ -457,14 +457,14 @@ will learn how to build these object in Julia.  </p>
 <h2 id="traces">Traces<a class="headerlink" href="#traces" title="Permanent link">¶</a></h2>
 <p>A <code>Plot</code> instance will have a vector of <code>trace</code>s. These should each be a subtype of <code>AbstractTrace</code>.</p>
 <p>PlotlyJS.jl defines one such subtype:</p>
-<div class="codehilite"><pre><span></span><span class="k">type</span> <span class="n">GenericTrace</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="kt">Associative</span><span class="p">{</span><span class="kt">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractTrace</span>
+<div class="codehilite"><pre><span></span><span class="n">mutable</span> <span class="n">struct</span> <span class="n">GenericTrace</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">AbstractDict</span><span class="p">{</span><span class="kt">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractTrace</span>
     <span class="n">kind</span><span class="o">::</span><span class="kt">ASCIIString</span>
     <span class="n">fields</span><span class="o">::</span><span class="n">T</span>
 <span class="k">end</span>
 </pre></div>
 
 
-<p>The <code>kind</code> field specifies the type of trace and the <code>fields</code> is an Associative object that maps trace attributes to their values.</p>
+<p>The <code>kind</code> field specifies the type of trace and the <code>fields</code> is an AbstractDict object that maps trace attributes to their values.</p>
 <p>Let's consider an example. Suppose we would like to build the following JSON
 object:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
@@ -673,7 +673,7 @@ attribute.</p>
 
 <h2 id="layouts">Layouts<a class="headerlink" href="#layouts" title="Permanent link">¶</a></h2>
 <p>The <code>Layout</code> type is defined as</p>
-<div class="codehilite"><pre><span></span><span class="k">type</span> <span class="n">Layout</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="kt">Associative</span><span class="p">{</span><span class="kt">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractLayout</span>
+<div class="codehilite"><pre><span></span><span class="n">mutable</span> <span class="n">struct</span> <span class="n">Layout</span><span class="p">{</span><span class="n">T</span><span class="o">&lt;:</span><span class="n">AbstractDict</span><span class="p">{</span><span class="kt">Symbol</span><span class="p">,</span><span class="kt">Any</span><span class="p">}}</span> <span class="o">&lt;:</span> <span class="n">AbstractLayout</span>
     <span class="n">fields</span><span class="o">::</span><span class="n">T</span>
 <span class="k">end</span>
 </pre></div>

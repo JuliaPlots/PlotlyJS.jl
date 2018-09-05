@@ -469,17 +469,17 @@ exposed to Julia and operate on both <code>Plot</code> and <code>SyncPlot</code>
 these functions has semantics that match the semantics of plotly.js</p>
 <p>In PlotlyJS.jl these functions are spelled:</p>
 <ul>
-<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotly-restyle"><code>restyle!</code></a>: edit attributes on one or more traces</li>
-<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotly-relayout"><code>relayout!</code></a>: edit attributes on the layout</li>
-<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotly-addtraces"><code>addtraces!</code></a>: add traces to a plot at specified indices</li>
-<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotly-deletetraces"><code>deletetraces!</code></a>: delete specific traces from a plot</li>
-<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotly-movetraces"><code>movetraces!</code></a>: reorder traces in a plot</li>
-<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotly-redraw"><code>redraw!</code></a>: for a redraw of an entire plot</li>
-</ul>
-<p>There are also the two unexported (but still callable) methods from plotly.js</p>
-<ul>
-<li><code>extendtraces!</code>: Extend specific attributes of one or more traces with more data by appending to the end of the attribute</li>
-<li><code>prependtraces!</code>: Prepend additional data to specific attributes on one or more traces</li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlyrestyle"><code>restyle!</code></a>: edit attributes on one or more traces</li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlyrelayout"><code>relayout!</code></a>: edit attributes on the layout</li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlyupdate"><code>update!</code></a>: combination of <code>restyle!</code> and <code>relayout!</code></li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlyreact"><code>react!</code></a>: In place updating of all traces and layout in plot. More efficient than constructing an entirely new plot from scratch, but has the same effect.</li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlyaddtraces"><code>addtraces!</code></a>: add traces to a plot at specified indices</li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlydeletetraces"><code>deletetraces!</code></a>: delete specific traces from a plot</li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlymovetraces"><code>movetraces!</code></a>: reorder traces in a plot</li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlyredraw"><code>redraw!</code></a>: for a redraw of an entire plot</li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlypurge"><code>purge!</code></a>: completely remove all data and layout from the chart</li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces"><code>extendtraces!</code></a>: Extend specific attributes of one or more traces with more data by appending to the end of the attribute</li>
+<li><a href="https://plot.ly/javascript/plotlyjs-function-reference/#plotlyprependtraces"><code>prependtraces!</code></a>: Prepend additional data to specific attributes on one or more traces</li>
 </ul>
 <p>When any of these routines is called on a <code>SyncPlot</code> the underlying <code>Plot</code>
 object (in the <code>plot</code> field on the <code>SyncPlot</code>) is updated and the plotly.js
@@ -491,9 +491,9 @@ plot, it keeps the Julia object and the display in sync.</p>
 consult the docstrings or (forthcoming) API documentation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Be especially careful when trying to use <code>restyle!</code> to set attributes that
-are arrays. The semantics are a bit subtle. Check the docstring for details
-and examples</p>
+<p>Be especially careful when trying to use <code>restyle!</code>, <code>extendtraces!</code>, and
+<code>prependtraces!</code> to set attributes that are arrays. The semantics are a bit
+subtle. Check the docstring for details and examples</p>
 </div>
 <h2 id="subplots">Subplots<a class="headerlink" href="#subplots" title="Permanent link">¶</a></h2>
 <p>A common task is to construct subpots, or plots with more than one set of axes.
@@ -563,58 +563,28 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
 </script>
 
 <h2 id="saving-figures">Saving figures<a class="headerlink" href="#saving-figures" title="Permanent link">¶</a></h2>
-<p>Right now saving figures to a file only works when using the <code>ElectronDisplay</code>
-frontend.</p>
-<p>The following syntaxes are currently supported without any other packages</p>
-<div class="codehilite"><pre><span></span><span class="c"># save to html. `js` is a keyword argument that specifies  how plotly.js can be</span>
-<span class="c"># included. Supported values are `:local`, `:remote`, `:embed`. See docstring</span>
-<span class="c"># for more details</span>
-<span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.html&quot;</span><span class="p">;</span> <span class="n">js</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">)</span>
-
-<span class="c"># save svg</span>
-<span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.svg&quot;</span><span class="p">)</span>
+<p>In order to save figures in other formats you must you need to have the
+<a href="https://github.com/sglyon/ORCA.jl">ORCA.jl</a> package installed and loaded. To
+install this, call <code>add ORCA</code> from the Julia package manager REPL mode (which
+you can enter by pressing <code>]</code> at the REPL). To load, call <code>using ORCA</code>.</p>
+<p>After loading you can also save figures in a variety of formats:</p>
+<div class="codehilite"><pre><span></span><span class="n">savefig</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="n">Plot</span><span class="p">,</span><span class="n">SyncPlot</span><span class="p">},</span> <span class="s">&quot;output_filename.pdf&quot;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="n">Plot</span><span class="p">,</span><span class="n">SyncPlot</span><span class="p">},</span> <span class="s">&quot;output_filename.html&quot;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="n">Plot</span><span class="p">,</span><span class="n">SyncPlot</span><span class="p">},</span> <span class="s">&quot;output_filename.json&quot;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="n">Plot</span><span class="p">,</span><span class="n">SyncPlot</span><span class="p">},</span> <span class="s">&quot;output_filename.png&quot;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="n">Plot</span><span class="p">,</span><span class="n">SyncPlot</span><span class="p">},</span> <span class="s">&quot;output_filename.eps&quot;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="n">Plot</span><span class="p">,</span><span class="n">SyncPlot</span><span class="p">},</span> <span class="s">&quot;output_filename.svg&quot;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="n">Plot</span><span class="p">,</span><span class="n">SyncPlot</span><span class="p">},</span> <span class="s">&quot;output_filename.jpeg&quot;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">Union</span><span class="p">{</span><span class="n">Plot</span><span class="p">,</span><span class="n">SyncPlot</span><span class="p">},</span> <span class="s">&quot;output_filename.webp&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Other routines are available for saving figures, but they require the
-independent installation of various Julia packages.</p>
-<h3 id="rsvg">Rsvg<a class="headerlink" href="#rsvg" title="Permanent link">¶</a></h3>
-<p>If you have installed <a href="https://github.com/lobingera/Rsvg.jl">Rsvg.jl</a><br />
-you can use the following routines:</p>
-<div class="codehilite"><pre><span></span><span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.pdf&quot;</span><span class="p">)</span>
-<span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.png&quot;</span><span class="p">)</span>
-<span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.eps&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Note that the pdf and eps (not png) export from this function this case will be
-a true vector image. This allows you to have infinitely zoomable quality. This
-is the recommended way to obtain a pdf of your plot, but comes with the extra
-step of installing Rsvg.jl via:</p>
-<div class="codehilite"><pre><span></span><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;Rsvg&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<h3 id="imagemagick">ImageMagick<a class="headerlink" href="#imagemagick" title="Permanent link">¶</a></h3>
-<p>If you have <a href="https://github.com/JuliaIO/ImageMagick.jl">ImageMagick.jl</a>
-properly installed in your Julia installation you can also do the following:</p>
-<div class="codehilite"><pre><span></span><span class="n">savefig_imagemagick</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.png&quot;</span><span class="p">)</span>
-<span class="n">savefig_imagemagick</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.pdf&quot;</span><span class="p">)</span>
-<span class="n">savefig_imagemagick</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.jpeg&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Please note that the maximum DPI resolution for any of these formats is 96.</p>
-<p>To get true vector quality pdf files, we recommend using the Rsvg backend.</p>
-<h3 id="cairosvg">cairosvg<a class="headerlink" href="#cairosvg" title="Permanent link">¶</a></h3>
-<p>There is one more routine you can use to save a figure to a file. This routine
-requires that you have properly installed the <a href="http://cairosvg.org">cairosvg</a>
-python package and that the <code>cairosvg</code> command is on your PATH.</p>
-<p>If <code>cairosvg</code> can be found, you can use the following routines:</p>
-<div class="codehilite"><pre><span></span><span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig_cairosvg</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.png&quot;</span><span class="p">)</span>
-<span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig_cairosvg</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.pdf&quot;</span><span class="p">)</span>
-<span class="n">PlotlyJS</span><span class="o">.</span><span class="n">savefig_cairosvg</span><span class="p">(</span><span class="n">sp</span><span class="o">::</span><span class="n">ElectronPlot</span><span class="p">,</span> <span class="s">&quot;output_filename.ps&quot;</span><span class="p">)</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also save the json for a figure by calling
+<code>savejson(p::Union{Plot,SyncPlot}, filename::String)</code>. This does not
+require the ORCA.jl package.</p>
+</div>
           <aside class="copyright" role="note">
             
               Copyright &copy; 2016 <a href="http://spencerlyon.com/">Spencer Lyon</a> &ndash;

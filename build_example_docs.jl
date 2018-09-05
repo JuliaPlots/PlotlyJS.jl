@@ -36,7 +36,7 @@ function single_file(filename::String)
     open(joinpath(this_dir, "examples", filename[1:end-3]*".md"), "w") do outfile
 
     # Read lines from a files
-    fulltext = open(readstring, joinpath(this_dir, "..", "examples", filename), "r")
+    fulltext = open(f->read(f, String), joinpath(this_dir, "..", "examples", filename), "r")
     all_lines = split(fulltext, "\n")
     l = 1
     regex = r"^function ([^_].+?)\("
