@@ -48,15 +48,7 @@ function docs()
     end
     w = Blink.Window()
     wait(w.content)
-    for f in [
-        "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js",
-        "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
-        "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        ]
-        Blink.load!(w.content, f)
-        wait(w.content)
-    end
-    Blink.content!(w, "html", open(f->read(f, String), schema_path), fade=false)
+    Blink.content!(w, "html", open(f->read(f, String), schema_path), fade=false, async=false)
 end
 
 function PlotlyBase.savefig(p::SyncPlot, args...)

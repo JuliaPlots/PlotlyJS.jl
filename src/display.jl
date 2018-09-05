@@ -53,7 +53,6 @@ end
 mutable struct SyncPlot
     plot::PlotlyBase.Plot
     scope::Scope
-    events::Dict
     options::Dict
 end
 
@@ -68,12 +67,12 @@ for mime in [
         show(io, m, p.plot, args...)
     end
 end
+PlotlyBase.savejson(sp::SyncPlot, fn::String) = PlotlyBase.savejson(sp.plot, fn)
 
 Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
 
 function SyncPlot(
         p::Plot;
-        events::AbstractDict=Dict(),
         options::AbstractDict=Dict("showLink"=> false),
         kwargs...
     )
@@ -86,7 +85,7 @@ function SyncPlot(
         joinpath(@__DIR__, "..", "assets", "plotly_webio.bundle.js")
     ]
     scope = Scope(imports=deps)
-    scope.dom = dom"div"(id=string("plot-", p.divid), events=events)
+    scope.dom = dom"div"(id=string("plot-", p.divid))
 
     # INPUT: Observables for plot events
     scope["hover"] = Observable(Dict())
@@ -192,17 +191,17 @@ function SyncPlot(
     # to us
     on(scope["image"]) do x end
 
-    SyncPlot(p, scope, events, options)
+    SyncPlot(p, scope, options)
 end
 
-function plot(args...; options=Dict(), events=Dict(), kwargs...)
-    SyncPlot(Plot(args...; kwargs...); options=options, events=events)
+function plot(args...; options=Dict(), kwargs...)
+    SyncPlot(Plot(args...; kwargs...); options=options)
 end
 
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
 Base.size(sp::SyncPlot) = size(sp.plot)
 function Base.copy(sp::SyncPlot)
-    SyncPlot(copy(sp.plot), events=copy(sp.events), options=copy(sp.options))
+    SyncPlot(copy(sp.plot), options=copy(sp.options))
 end
 
 function Base.display(::REPL.REPLDisplay, p::SyncPlot)
