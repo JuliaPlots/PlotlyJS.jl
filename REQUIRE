@@ -2,7 +2,7 @@ julia 0.7
 JSON 0.7
 Blink 0.8
 Requires
-PlotlyBase
+PlotlyBase 0.2.2
 Reexport 0.2.0
 Compat 0.69
 WebIO
