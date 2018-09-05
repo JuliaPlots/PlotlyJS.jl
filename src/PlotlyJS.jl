@@ -85,7 +85,7 @@ function PlotlyBase.savefig(p::SyncPlot, args...)
 end
 
 function __init__()
-    @require ORCA="200b8544-ab2f-11e8-2d2a-470a6868b879" include("savefig_orca.jl")
+    @require ORCA="47be7bcc-f1a6-5447-8b36-7eeeff7534fd" include("savefig_orca.jl")
     if !isfile(_js_path)
         info("plotly.js javascript libary not found -- downloading now")
         include(joinpath(_pkg_root, "deps", "build.jl"))
