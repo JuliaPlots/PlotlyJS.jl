@@ -77,7 +77,7 @@ function PlotlyBase.savefig(p::SyncPlot, args...)
             println("here!!")
             println("Ok. Installing ORCA now...")
             Pkg.add("ORCA")
-            info("Please call `using ORCA` and try saving your plot again")
+            @info("Please call `using ORCA` and try saving your plot again")
             return
         end
     end
@@ -88,7 +88,7 @@ end
 function __init__()
     @require ORCA="47be7bcc-f1a6-5447-8b36-7eeeff7534fd" include("savefig_orca.jl")
     if !isfile(_js_path)
-        info("plotly.js javascript libary not found -- downloading now")
+        @info("plotly.js javascript libary not found -- downloading now")
         include(joinpath(_pkg_root, "deps", "build.jl"))
     end
 end
