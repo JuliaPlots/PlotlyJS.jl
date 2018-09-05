@@ -34,7 +34,17 @@ end
 
 # juno integration
 function Base.show(io::IO, ::MIME"application/juno+plotpane", p::Plot)
-    show(io, MIME"text/html", p, js=:local)
+    content = """
+    <html>
+    <head>
+         <script src="file://$(_js_path)"></script>
+    </head>
+    <body>
+         $(html_body(p))
+    </body>
+    </html>
+    """
+    print(io, content)
 end
 
 # ----------------------------------------- #
