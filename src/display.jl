@@ -1,68 +1,3 @@
-# ----------------------- #
-# Display-esque functions #
-# ----------------------- #
-const js_default = Ref(:local)
-
-function savehtml(io::IO, p::Plot, js::Symbol=js_default[])
-
-    if js == :local
-        script_txt = "<script src=\"$(_js_path)\"></script>"
-    elseif js == :remote
-        script_txt = "<script src=\"$(_js_cdn_path)\"></script>"
-    elseif js == :embed
-        script_txt = "<script>$(read(_js_path, String))</script>"
-    else
-        msg = """
-        Unknown value for argument js: $js.
-        Possible choices are `:local`, `:remote`, `:embed`
-            """
-        throw(ArgumentError(msg))
-    end
-
-    print(io, """
-    <html>
-    <head>
-         $script_txt
-    </head>
-    <body>
-         $(html_body(p))
-    </body>
-    </html>
-    """)
-
-end
-
-function savehtml(p::Plot, fn::AbstractString, js::Symbol=js_default[])
-    open(fn, "w") do f
-        savehtml(f, p, js)
-    end
-end
-
-"""
-    savehtml(io::IO, p::Union{Plot,SyncPlot}, js::Symbol=js_default[])
-    savehtml(p::Union{Plot,SyncPlot}, fn::AbstractString, js::Symbol=js_default[])
-
-Save plot to standalone html file suitable for including in a website or
-opening in a browser
-
-Can either be written to an arbitrary IO stream, or saved to a file noted with
-a string `fn`.
-
-The `js` argument can be one of
-
-- `:local`: Reference the local plotly.js file included in this Julia package
-    Pros: small file size, offline viewing. Cons: Can't share with others or
-    move to different machine..
-- `:remote`: Reference plotly.js from a CDN. Pros small file size, move to
-    other machine. Cons: need internet access to fetch from CDN
-- `:embed`: Embed the entirety of your local copy of plotly.js in the
-    outputted file. Pros: offline viewing, move to other machine. Con: large
-    file size (adds about 2.7 MB)
-
-The default is `:local`
-"""
-savehtml
-
 # juno integration
 function Base.show(io::IO, ::MIME"application/juno+plotpane", p::Plot)
     content = """
@@ -91,18 +26,6 @@ end
 Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
 
 WebIO.render(p::SyncPlot) = WebIO.render(p.scope)
-for mime in [
-        "text/plain", "application/juno+plotpane",
-        "application/vnd.plotly.v1+json"
-    ]
-    function Base.show(io::IO, m::MIME{Symbol(mime)}, p::SyncPlot, args...)
-        show(io, m, p.plot, args...)
-    end
-end
-PlotlyBase.savejson(sp::SyncPlot, fn::String) = PlotlyBase.savejson(sp.plot, fn)
-savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[]) = savehtml(io, p.plot, js)
-savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) = savehtml(p.plot, fn, js)
-
 Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
 
 function SyncPlot(
@@ -408,3 +331,83 @@ for f in (:extendtraces!, :prependtraces!)
         end
     end
 end
+
+
+# ----------------------- #
+# Other display functions #
+# ----------------------- #
+
+const js_default = Ref(:local)
+
+function savehtml(io::IO, p::Plot, js::Symbol=js_default[])
+
+    if js == :local
+        script_txt = "<script src=\"$(_js_path)\"></script>"
+    elseif js == :remote
+        script_txt = "<script src=\"$(_js_cdn_path)\"></script>"
+    elseif js == :embed
+        script_txt = "<script>$(read(_js_path, String))</script>"
+    else
+        msg = """
+        Unknown value for argument js: $js.
+        Possible choices are `:local`, `:remote`, `:embed`
+            """
+        throw(ArgumentError(msg))
+    end
+
+    print(io, """
+    <html>
+    <head>
+         $script_txt
+    </head>
+    <body>
+         $(html_body(p))
+    </body>
+    </html>
+    """)
+
+end
+
+function savehtml(p::Plot, fn::AbstractString, js::Symbol=js_default[])
+    open(fn, "w") do f
+        savehtml(f, p, js)
+    end
+end
+
+"""
+    savehtml(io::IO, p::Union{Plot,SyncPlot}, js::Symbol=js_default[])
+    savehtml(p::Union{Plot,SyncPlot}, fn::AbstractString, js::Symbol=js_default[])
+
+Save plot to standalone html file suitable for including in a website or
+opening in a browser
+
+Can either be written to an arbitrary IO stream, or saved to a file noted with
+a string `fn`.
+
+The `js` argument can be one of
+
+- `:local`: Reference the local plotly.js file included in this Julia package
+    Pros: small file size, offline viewing. Cons: Can't share with others or
+    move to different machine..
+- `:remote`: Reference plotly.js from a CDN. Pros small file size, move to
+    other machine. Cons: need internet access to fetch from CDN
+- `:embed`: Embed the entirety of your local copy of plotly.js in the
+    outputted file. Pros: offline viewing, move to other machine. Con: large
+    file size (adds about 2.7 MB)
+
+The default is `:local`
+"""
+savehtml
+
+
+for mime in [
+        "text/plain", "application/juno+plotpane",
+        "application/vnd.plotly.v1+json"
+    ]
+    function Base.show(io::IO, m::MIME{Symbol(mime)}, p::SyncPlot, args...)
+        show(io, m, p.plot, args...)
+    end
+end
+PlotlyBase.savejson(sp::SyncPlot, fn::String) = PlotlyBase.savejson(sp.plot, fn)
+savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[]) = savehtml(io, p.plot, js)
+savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) = savehtml(p.plot, fn, js)
