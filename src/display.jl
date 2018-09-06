@@ -3,7 +3,7 @@
 # ----------------------- #
 const js_default = Ref(:local)
 
-function Base.show(io::IO, ::MIME"text/html", p::Plot, js::Symbol=js_default[])
+function savehtml(io::IO, p::Plot, js::Symbol=js_default[])
 
     if js == :local
         script_txt = "<script src=\"$(_js_path)\"></script>"
@@ -31,6 +31,37 @@ function Base.show(io::IO, ::MIME"text/html", p::Plot, js::Symbol=js_default[])
     """)
 
 end
+
+function savehtml(p::Plot, fn::AbstractString, js::Symbol=js_default[])
+    open(fn, "w") do f
+        savehtml(f, p, js)
+    end
+end
+
+"""
+    savehtml(io::IO, p::Union{Plot,SyncPlot}, js::Symbol=js_default[])
+    savehtml(p::Union{Plot,SyncPlot}, fn::AbstractString, js::Symbol=js_default[])
+
+Save plot to standalone html file suitable for including in a website or
+opening in a browser
+
+Can either be written to an arbitrary IO stream, or saved to a file noted with
+a string `fn`.
+
+The `js` argument can be one of
+
+- `:local`: Reference the local plotly.js file included in this Julia package
+    Pros: small file size, offline viewing. Cons: Can't share with others or
+    move to different machine..
+- `:remote`: Reference plotly.js from a CDN. Pros small file size, move to
+    other machine. Cons: need internet access to fetch from CDN
+- `:embed`: Embed the entirety of your local copy of plotly.js in the
+    outputted file. Pros: offline viewing, move to other machine. Con: large
+    file size (adds about 2.7 MB)
+
+The default is `:local`
+"""
+savehtml
 
 # juno integration
 function Base.show(io::IO, ::MIME"application/juno+plotpane", p::Plot)
@@ -69,6 +100,8 @@ for mime in [
     end
 end
 PlotlyBase.savejson(sp::SyncPlot, fn::String) = PlotlyBase.savejson(sp.plot, fn)
+savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[]) = savehtml(io, p, js)
+savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) = savehtml(io, fn, js)
 
 Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
 
