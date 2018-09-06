@@ -54,6 +54,7 @@ mutable struct SyncPlot
     plot::PlotlyBase.Plot
     scope::Scope
     options::Dict
+    window::Union{Nothing,Blink.Window}
 end
 
 Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
@@ -191,7 +192,7 @@ function SyncPlot(
     # to us
     on(scope["image"]) do x end
 
-    SyncPlot(p, scope, options)
+    SyncPlot(p, scope, options, nothing)
 end
 
 function plot(args...; options=Dict(), kwargs...)
@@ -205,8 +206,14 @@ function Base.copy(sp::SyncPlot)
 end
 
 function Base.display(::REPL.REPLDisplay, p::SyncPlot)
-    w = Blink.Window()
-    Blink.body!(w, p.scope)
+    p.window = Blink.Window()
+    Blink.body!(p.window, p.scope)
+end
+
+function Base.close(p::SyncPlot)
+    if p.window !== nothing && Blink.active(p.window)
+        close(p.window)
+    end
 end
 
 function send_command(scope, cmd, args...)
