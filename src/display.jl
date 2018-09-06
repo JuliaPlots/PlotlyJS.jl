@@ -100,8 +100,8 @@ for mime in [
     end
 end
 PlotlyBase.savejson(sp::SyncPlot, fn::String) = PlotlyBase.savejson(sp.plot, fn)
-savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[]) = savehtml(io, p, js)
-savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) = savehtml(io, fn, js)
+savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[]) = savehtml(io, p.plot, js)
+savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) = savehtml(p.plot, fn, js)
 
 Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
 
