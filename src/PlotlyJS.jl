@@ -3,7 +3,6 @@ module PlotlyJS
 using Reexport
 @reexport using PlotlyBase
 using JSON
-using Base.Iterators
 using REPL, Pkg
 
 # need to import some functions because methods are meta-generated
@@ -29,16 +28,9 @@ const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
 const _mathjax_cdn_path =
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG"
 
-const _autoresize = [true]
-autoresize(b::Bool) = (_autoresize[1] = b; b)
-autoresize() = _autoresize[1]
-
-abstract type AbstractPlotlyDisplay end
-
 # include the rest of the core parts of the package
 include("display.jl")
 include("util.jl")
-# include("savefig.jl")
 
 function docs()
     schema_path = joinpath(dirname(dirname(@__FILE__)), "deps", "schema.html")

@@ -157,9 +157,7 @@ end
 
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
 Base.size(sp::SyncPlot) = size(sp.plot)
-function Base.copy(sp::SyncPlot)
-    SyncPlot(copy(sp.plot), options=copy(sp.options))
-end
+Base.copy(sp::SyncPlot) = SyncPlot(copy(sp.plot), options=copy(sp.options))
 
 function Base.display(::REPL.REPLDisplay, p::SyncPlot)
     p.window = Blink.Window()
