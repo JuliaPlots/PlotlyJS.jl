@@ -28,6 +28,8 @@ const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
 const _mathjax_cdn_path =
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG"
 
+struct PlotlyJSDisplay <: AbstractDisplay end
+
 # include the rest of the core parts of the package
 include("display.jl")
 include("util.jl")
@@ -75,6 +77,7 @@ function __init__()
         @info("plotly.js javascript libary not found -- downloading now")
         include(joinpath(_pkg_root, "deps", "build.jl"))
     end
+    pushdisplay(PlotlyJSDisplay())
 end
 
 end # module

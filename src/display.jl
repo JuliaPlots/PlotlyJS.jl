@@ -159,13 +159,8 @@ end
 Base.size(sp::SyncPlot) = size(sp.plot)
 Base.copy(sp::SyncPlot) = SyncPlot(copy(sp.plot), options=copy(sp.options))
 
-function Base.display(::REPL.REPLDisplay, p::SyncPlot)
-    p.window = Blink.Window()
-    Blink.body!(p.window, p.scope)
-end
-
-Base.display(p::SyncPlot) = display_blink(p)
-
+Base.display(::PlotlyJSDisplay, p::SyncPlot) = display_blink(p::SyncPlot)
+    
 function display_blink(p::SyncPlot)
     p.window = Blink.Window()
     Blink.body!(p.window, p.scope)
