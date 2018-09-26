@@ -1,18 +1,3 @@
-# juno integration
-function Base.show(io::IO, ::MIME"application/juno+plotpane", p::Plot)
-    content = """
-    <html>
-    <head>
-         <script src="file://$(_js_path)"></script>
-    </head>
-    <body>
-         $(html_body(p))
-    </body>
-    </html>
-    """
-    print(io, content)
-end
-
 # ----------------------------------------- #
 # SyncPlot -- sync Plot object with display #
 # ----------------------------------------- #
@@ -27,6 +12,7 @@ Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
 
 WebIO.render(p::SyncPlot) = WebIO.render(p.scope)
 Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
+Base.show(io::IO, mm::MIME"application/juno+plotpane", p::SyncPlot) = show(io, mm, p.scope)
 
 function SyncPlot(
         p::Plot;
@@ -160,7 +146,7 @@ Base.size(sp::SyncPlot) = size(sp.plot)
 Base.copy(sp::SyncPlot) = SyncPlot(copy(sp.plot), options=copy(sp.options))
 
 Base.display(::PlotlyJSDisplay, p::SyncPlot) = display_blink(p::SyncPlot)
-    
+
 function display_blink(p::SyncPlot)
     p.window = Blink.Window()
     Blink.body!(p.window, p.scope)
@@ -400,14 +386,12 @@ The default is `:local`
 savehtml
 
 
-for mime in [
-        "text/plain", "application/juno+plotpane",
-        "application/vnd.plotly.v1+json"
-    ]
+for mime in ["text/plain", "application/vnd.plotly.v1+json"]
     function Base.show(io::IO, m::MIME{Symbol(mime)}, p::SyncPlot, args...)
         show(io, m, p.plot, args...)
     end
 end
+
 PlotlyBase.savejson(sp::SyncPlot, fn::String) = PlotlyBase.savejson(sp.plot, fn)
 savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[]) = savehtml(io, p.plot, js)
 savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) = savehtml(p.plot, fn, js)
