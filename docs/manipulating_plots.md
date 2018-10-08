@@ -20,17 +20,18 @@ these functions has semantics that match the semantics of plotly.js
 
 In PlotlyJS.jl these functions are spelled:
 
-- [`restyle!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-restyle): edit attributes on one or more traces
-- [`relayout!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-relayout): edit attributes on the layout
-- [`addtraces!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-addtraces): add traces to a plot at specified indices
-- [`deletetraces!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-deletetraces): delete specific traces from a plot
-- [`movetraces!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-movetraces): reorder traces in a plot
-- [`redraw!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotly-redraw): for a redraw of an entire plot
+- [`restyle!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlyrestyle): edit attributes on one or more traces
+- [`relayout!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlyrelayout): edit attributes on the layout
+- [`update!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlyupdate): combination of `restyle!` and `relayout!`
+- [`react!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlyreact): In place updating of all traces and layout in plot. More efficient than constructing an entirely new plot from scratch, but has the same effect.
+- [`addtraces!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlyaddtraces): add traces to a plot at specified indices
+- [`deletetraces!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlydeletetraces): delete specific traces from a plot
+- [`movetraces!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlymovetraces): reorder traces in a plot
+- [`redraw!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlyredraw): for a redraw of an entire plot
+- [`purge!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlypurge): completely remove all data and layout from the chart
+- [`extendtraces!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlyextendtraces): Extend specific attributes of one or more traces with more data by appending to the end of the attribute
+- [`prependtraces!`](https://plot.ly/javascript/plotlyjs-function-reference/#plotlyprependtraces): Prepend additional data to specific attributes on one or more traces
 
-There are also the two unexported (but still callable) methods from plotly.js
-
-- `extendtraces!`: Extend specific attributes of one or more traces with more data by appending to the end of the attribute
-- `prependtraces!`: Prepend additional data to specific attributes on one or more traces
 
 When any of these routines is called on a `SyncPlot` the underlying `Plot`
 object (in the `plot` field on the `SyncPlot`) is updated and the plotly.js
@@ -43,9 +44,9 @@ For more details on which methods are available for each of the above functions
 consult the docstrings or (forthcoming) API documentation.
 
 !!! note
-    Be especially careful when trying to use `restyle!` to set attributes that
-    are arrays. The semantics are a bit subtle. Check the docstring for details
-    and examples
+    Be especially careful when trying to use `restyle!`, `extendtraces!`, and
+    `prependtraces!` to set attributes that are arrays. The semantics are a bit
+    subtle. Check the docstring for details and examples
 
 ## Subplots
 
@@ -126,70 +127,26 @@ Plotly.plot(thediv, data,  layout, {showLink: false});
 
 ## Saving figures
 
-Right now saving figures to a file only works when using the `ElectronDisplay`
-frontend.
+In order to save figures in other formats you must you need to have the
+[ORCA.jl](https://github.com/sglyon/ORCA.jl) package installed and loaded. To
+install this, call `add ORCA` from the Julia package manager REPL mode (which
+you can enter by pressing `]` at the REPL). To load, call `using ORCA`.
 
-The following syntaxes are currently supported without any other packages
+After loading you can also save figures in a variety of formats:
 
-```julia
-
-# save to html. `js` is a keyword argument that specifies  how plotly.js can be
-# included. Supported values are `:local`, `:remote`, `:embed`. See docstring
-# for more details
-savefig(sp::ElectronPlot, "output_filename.html"; js::Symbol)
-
-# save svg
-savefig(sp::ElectronPlot, "output_filename.svg")
-```
-
-Other routines are available for saving figures, but they require the
-independent installation of various Julia packages.
-
-### Rsvg
-
-If you have installed [Rsvg.jl](https://github.com/lobingera/Rsvg.jl)
-you can use the following routines:
 
 ```julia
-PlotlyJS.savefig(sp::ElectronPlot, "output_filename.pdf")
-PlotlyJS.savefig(sp::ElectronPlot, "output_filename.png")
-PlotlyJS.savefig(sp::ElectronPlot, "output_filename.eps")
+savefig(p::Union{Plot,SyncPlot}, "output_filename.pdf")
+savefig(p::Union{Plot,SyncPlot}, "output_filename.html")
+savefig(p::Union{Plot,SyncPlot}, "output_filename.json")
+savefig(p::Union{Plot,SyncPlot}, "output_filename.png")
+savefig(p::Union{Plot,SyncPlot}, "output_filename.eps")
+savefig(p::Union{Plot,SyncPlot}, "output_filename.svg")
+savefig(p::Union{Plot,SyncPlot}, "output_filename.jpeg")
+savefig(p::Union{Plot,SyncPlot}, "output_filename.webp")
 ```
 
-Note that the pdf and eps (not png) export from this function this case will be
-a true vector image. This allows you to have infinitely zoomable quality. This
-is the recommended way to obtain a pdf of your plot, but comes with the extra
-step of installing Rsvg.jl via:
-
-```julia
-Pkg.add("Rsvg")
-```
-
-### ImageMagick
-
-If you have [ImageMagick.jl](https://github.com/JuliaIO/ImageMagick.jl)
-properly installed in your Julia installation you can also do the following:
-
-```julia
-savefig_imagemagick(sp::ElectronPlot, "output_filename.png")
-savefig_imagemagick(sp::ElectronPlot, "output_filename.pdf")
-savefig_imagemagick(sp::ElectronPlot, "output_filename.jpeg")
-```
-
-Please note that the maximum DPI resolution for any of these formats is 96.
-
-To get true vector quality pdf files, we recommend using the Rsvg backend.
-
-### cairosvg
-
-There is one more routine you can use to save a figure to a file. This routine
-requires that you have properly installed the [cairosvg](http://cairosvg.org)
-python package and that the `cairosvg` command is on your PATH.
-
-If `cairosvg` can be found, you can use the following routines:
-
-```julia
-PlotlyJS.savefig_cairosvg(sp::ElectronPlot, "output_filename.png")
-PlotlyJS.savefig_cairosvg(sp::ElectronPlot, "output_filename.pdf")
-PlotlyJS.savefig_cairosvg(sp::ElectronPlot, "output_filename.ps")
-```
+!!! note
+    You can also save the json for a figure by calling
+    `savejson(p::Union{Plot,SyncPlot}, filename::String)`. This does not
+    require the ORCA.jl package.

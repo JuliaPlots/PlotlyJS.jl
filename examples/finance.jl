@@ -9,16 +9,15 @@ function ohlc1()
 end
 
 function ohlc2()
-    @eval using Quandl
+    # uses Quandl.jl
 
     function get_ohlc(ticker; kwargs...)
         df = quandlget("WIKI/$(ticker)", format="DataFrame")
-        ohlc(open=df[:Open], high=df[:High], low=df[:Low], close=df[:Close]; kwargs...)
+        ohlc(df, x=:Date, open=:Open, high=:High, low=:Low, close=:Close; kwargs...)
     end
 
-    p1 = plot(get_ohlc("AAPL", name="Apple"))
-    p2 = plot(get_ohlc("GOOG", name="Google"))
-
+    p1 = plot(get_ohlc("AAPL", name="Apple"), Layout(title="Apple"))
+    p2 = plot(get_ohlc("GOOG", name="Google"), Layout(title="Google"))
 
     [p1 p2]
 end
@@ -32,16 +31,15 @@ function candlestick1()
 end
 
 function candlestick2()
-    @eval using Quandl
+    # uses Quandl.jl
 
     function get_candlestick(ticker; kwargs...)
         df = quandlget("WIKI/$(ticker)", format="DataFrame")
-        candlestick(open=df[:Open], high=df[:High], low=df[:Low], close=df[:Close]; kwargs...)
+        candlestick(df, x=:Date, open=:Open, high=:High, low=:Low, close=:Close; kwargs...)
     end
 
-    p1 = plot(get_candlestick("AAPL", name="Apple"))
-    p2 = plot(get_candlestick("GOOG", name="Google"))
-
+    p1 = plot(get_candlestick("AAPL", name="Apple"), Layout(title="Apple"))
+    p2 = plot(get_candlestick("GOOG", name="Google"), Layout(title="Google"))
 
     [p1 p2]
 end

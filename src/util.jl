@@ -1,20 +1,17 @@
-"""
-    trace_map(p::Plot, axis::Symbol=:x)
+PlotlyBase.trace_map(p::SyncPlot, axis) = trace_map(p.plot, axis)
+JSON.lower(sp::SyncPlot) = JSON.lower(sp.plot)
 
-Return an array of `length(p.data)` that maps each element of `p.data` into an
-integer for which number axis of kind `axis` that trace belogs to. `axis` can
-either be `x` or `y`. If `x` is given, return the integer for which x-axis the
-trace belongs to. Similar for `y`.
-"""
-function trace_map(p::Plot, axis=:x)
-    out = fill(1, length(p.data))
-    ax_key = axis == :x ? :xaxis : :yaxis
-    for (i, t) in enumerate(p.data)
-        if haskey(t, ax_key)
-            out[i] = parse(Int, t[ax_key][2:end])
-        end
-    end
-    out
+PlotlyBase._is3d(p::SyncPlot) = _is3d(p.plot)
+
+# subplot methods on syncplot
+Base.hcat(sps::SyncPlot...) = SyncPlot(hcat([sp.plot for sp in sps]...))
+Base.vcat(sps::SyncPlot...) = SyncPlot(vcat([sp.plot for sp in sps]...))
+Base.vect(sps::SyncPlot...) = vcat(sps...)
+Base.hvcat(rows::Tuple{Vararg{Int}}, sps::SyncPlot...) =
+    SyncPlot(hvcat(rows, [sp.plot for sp in sps]...))
+
+function PlotlyBase.add_recession_bands!(p::SyncPlot; kwargs...)
+    new_shapes = add_recession_bands!(p.plot; kwargs...)
+    relayout!(p, shapes=new_shapes)
+    new_shapes
 end
-
-trace_map(p::SyncPlot, axis=:x) = trace_map(p.plot, axis)

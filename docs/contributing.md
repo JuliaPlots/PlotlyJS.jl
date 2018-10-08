@@ -49,7 +49,7 @@ For example, if we wanted to add an example of a scatter plot of the sin functio
 
 ```julia
 function sin_scatter()
-    x = linspace(0, 2*pi, 50)
+    x = range(0, stop=2*pi, length=50)
     y = sin(x)
     plot(scatter(x=x, y=y, marker_symbol="line-nw", mode="markers+symbols"))
 end

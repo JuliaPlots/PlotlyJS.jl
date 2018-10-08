@@ -1,73 +1,68 @@
 module PlotlyJSSchemaDocsGenerator
 
-using Base.Markdown: MD
+import Markdown
+using Markdown: MD
 using JSON
 
 # methods to re-construct a plot from JSON
 _symbol_dict(x) = x
-_symbol_dict(d::Associative) =
+_symbol_dict(d::AbstractDict) =
     Dict{Symbol,Any}([(Symbol(k), _symbol_dict(v)) for (k, v) in d])
 
 struct SchemaAttribute
-    description::Nullable{MD}
-    valtype::Nullable{String}
-    flags::Nullable{Vector{Any}}
-    vals::Nullable{Vector{Any}}
-    children::Nullable{Dict{Symbol,SchemaAttribute}}
+    description::Union{MD, Nothing}
+    valtype::Union{String, Nothing}
+    flags::Union{Vector{Any}, Nothing}
+    vals::Union{Vector{Any}, Nothing}
+    children::Union{Dict{Symbol,SchemaAttribute}, Nothing}
 end
 
-function SchemaAttribute(d::Associative)
+function SchemaAttribute(d::AbstractDict)
     role = pop!(d, :role, "")
 
-    if role == "object" || any(_->isa(_, Associative), values(d))
+    if role == "object" || any(_x->isa(_x, AbstractDict), values(d))
         # description and valtype ire empty, but children is not
         _desc = pop!(d, :description, "")
-        desc = isempty(_desc) ? Nullable{MD}() : Nullable{MD}(MD(_desc))
-        valtype = Nullable{String}()
-        filter!(d) do k, v
-            !(k in (:_deprecated, :tracerefminus)) && !(startswith(string(k), "_"))
+        desc = isempty(_desc) ? nothing : MD(_desc)
+        valtype = nothing
+        filter!(d) do p
+            !(p[1] in (:_deprecated, :tracerefminus)) && !(startswith(string(p[1]), "_"))
         end
         kids = Dict{Symbol,SchemaAttribute}()
         for (a_k, v) in d
-            isa(v, Associative) || continue
+            isa(v, AbstractDict) || continue
             kids[a_k] = SchemaAttribute(v)
         end
-        children = Nullable{Dict{Symbol,SchemaAttribute}}(kids)
+        children = Dict{Symbol,SchemaAttribute}(kids)
     else
-        valtype = Nullable{String}(get(d, :valType, Nullable{String}()))
-        desc = Nullable{MD}(
-            Base.Markdown.parse(get(d, :description, ""))
-        )
+        valtype = get(d, :valType, nothing)
+        desc = Markdown.parse(get(d, :description, ""))
 
         # children is none
-        children = Nullable{Dict{Symbol,SchemaAttribute}}()
+        children = nothing
     end
 
-    flags = valtype == "flaglist" ? Nullable{Vector{Any}}(d["flags"]) :
-                                    Nullable{Vector{Any}}()
-
-    vals = valtype == "enumerated" ? Nullable{Vector{Any}}(d["values"]) :
-                                       Nullable{Vector{Any}}()
+    flags = valtype == "flaglist" ? d[:flags] : nothing
+    vals = valtype == "enumerated" ? d[:values] : nothing
 
     SchemaAttribute(desc, valtype, flags, vals, children)
 end
 
 struct TraceSchema
     name::Symbol
-    description::Nullable{MD}
+    description::Union{MD, Nothing}
     attributes::Dict{Symbol,SchemaAttribute}
 end
 
-function TraceSchema(nm::Symbol, d::Associative, attrs_key=:attributes)
-    _attrs = filter!((k, v) -> k != :uid && k != :type, d[attrs_key])
+function TraceSchema(nm::Symbol, d::AbstractDict, attrs_key=:attributes)
+    _attrs = filter!(p -> p[1] != :uid && p[1] != :type, d[attrs_key])
     attrs = Dict{Symbol,SchemaAttribute}()
     for (k, v) in _attrs
-        isa(v, Associative) || continue
+        isa(v, AbstractDict) || continue
         attrs[k] = SchemaAttribute(v)
     end
     desc = get(d, :description, "")
-    description = isempty(desc) ? Nullable{MD}(MD()) :
-                                  Nullable{MD}(Base.Markdown.parse(desc))
+    description = isempty(desc) ? MD() : Markdown.parse(desc)
     TraceSchema(nm, description, attrs)
 end
 
@@ -77,7 +72,7 @@ struct Schema
 
     function Schema()
         _path = joinpath(dirname(@__FILE__), "plotschema.json")
-        schema = _symbol_dict(JSON.parse(readstring(_path)))
+        schema = _symbol_dict(JSON.parse(read(_path, String)))
 
         traces = Dict{Symbol,TraceSchema}()
         for (k, v) in schema[:schema][:traces]
@@ -96,7 +91,7 @@ function doc_html!(buf::IO, parent::Symbol, name::Symbol, sa::SchemaAttribute)
     data_parent = "$(parent)_attributes"
     id = "$(parent)_$(name)"
     print(buf,"<div class=\"panel")
-    !isnull(sa.children) && print(buf, " panel-info")
+    sa.children !== nothing && print(buf, " panel-info")
     print(buf, "\">")
     print(buf, """
      <div class="panel-heading">
@@ -113,25 +108,25 @@ function doc_html!(buf::IO, parent::Symbol, name::Symbol, sa::SchemaAttribute)
      println(buf, " <div id=\"", id, "\" class=\"panel-collapse collapse\">")
 
      # if we have a description or children, we need a panel-body
-     has_body = !isnull(sa.description) || !isnull(sa.description)
+     has_body = sa.description !== nothing || sa.description !== nothing
 
      # add in description if we have one
      if has_body
          print(buf, "  <div class=\"panel-body\">")
      end
 
-     if !isnull(sa.description)
-         println(buf, Base.Markdown.html(get(sa.description)))
+     if sa.description !== nothing
+         println(buf, Markdown.html(sa.description))
      end
 
-     if !isnull(sa.children)
+     if sa.children !== nothing
          new_parent = Symbol(string(parent), "_", string(name))
          # need to add panel-group
          print(buf, "<div class=\"panel-group\" id=\"")
          println(buf, new_parent, "_attributes", "\">")
 
          # recursively add in children, if any
-         kids = get(sa.children)
+         kids = sa.children
          for kid_name in sort!(collect(keys(kids)))
              doc_html!(buf, new_parent, kid_name, kids[kid_name])
          end
@@ -162,8 +157,8 @@ function doc_html!(buf::IO, data_parent::Symbol, name::Symbol, ts::TraceSchema)
 
     println(buf, "<div id=\"", id, "\" class=\"panel-collapse collapse\">")
     println(buf, "<div class=\"panel-body\">")
-    if !isnull(ts.description)
-        println(buf, Base.Markdown.html(get(ts.description)))
+    if ts.description !== nothing
+        println(buf, Markdown.html(ts.description))
     end
 
     print(buf, "<div class=\"panel-group\" id=\"", name, "_attributes", "\">")
@@ -190,8 +185,11 @@ function doc_html!(buf::IO, s::Schema)
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+      <script>
+      window.jQuery = window.\$;
+      </script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>""")
 

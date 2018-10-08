@@ -1,5 +1,5 @@
 using PlotlyJS
-srand(42)
+Random.seed!(42)
 
 function heatmap1()
     plot(heatmap(z=[1 20 30; 20 1 60; 30 60 1]))

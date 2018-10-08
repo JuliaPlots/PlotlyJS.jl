@@ -234,7 +234,7 @@ function meshcube()
         i=[7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2],
         j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
         k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6],
-        intensity=linspace(0, 1, 8),
+        intensity=range(0, stop=1, length=8),
         colorscale=[
             [0, "rgb(255, 0, 255)"],
             [0.5, "rgb(0, 255, 0)"],

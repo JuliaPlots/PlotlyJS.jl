@@ -18,10 +18,10 @@ the `data` and `layout` arguments.
 
 For a complete list of traces and their attributes see the [plotly.js chart attribute reference][_plotlyref].
 
-As of version 0.6.0 of this package you can also view a local version of this
+<!-- As of version 0.6.0 of this package you can also view a local version of this
 page that is a bit easier to navigate by calling the `PlotlyJS.docs()` function
 from the Julia prompt. This will open an electron window with a local webpage
-containing a version of that reference page.
+containing a version of that reference page. -->
 
 ## Julia types
 
@@ -29,19 +29,19 @@ There are three core types for representing a visualization (not counting the
 two abstract types):
 
 ```julia
-abstract AbstractTrace
-abstract AbstractLayout
+abstract type AbstractTrace end
+abstract type AbstractLayout end
 
-type GenericTrace{T<:Associative{Symbol,Any}} <: AbstractTrace
+mutable struct GenericTrace{T<:AbstractDict{Symbol,Any}} <: AbstractTrace
     kind::ASCIIString
     fields::T
 end
 
-type Layout{T<:Associative{Symbol,Any}} <: AbstractLayout
+mutable struct Layout{T<:AbstractDict{Symbol,Any}} <: AbstractLayout
     fields::T
 end
 
-type Plot{TT<:AbstractTrace}
+mutable struct Plot{TT<:AbstractTrace}
     data::Vector{TT}
     layout::AbstractLayout
     divid::Base.Random.UUID

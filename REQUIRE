@@ -1,7 +1,9 @@
-julia 0.6
+julia 0.7
 JSON 0.7
-Blink 0.3.3
-Colors
-LaTeXStrings
-DocStringExtensions
+Blink 0.8
 Requires
+PlotlyBase 0.2.2
+Reexport 0.2.0
+Compat 0.69
+WebIO
+JSExpr

@@ -17,18 +17,20 @@ pages:
 - Examples:
     - examples/3d.md
     - examples/area.md
-    - examples/box_plots.md
     - examples/bar.md
+    - examples/box_plots.md
     - examples/contour.md
     - examples/finance.md
     - examples/heatmaps.md
     - examples/histograms.md
     - examples/line_scatter.md
-    - examples/time_series.md
     - examples/maps.md
-    - examples/ternary.md
-    - examples/subplots.md
     - examples/shapes.md
+    - examples/subplots.md
+    - examples/tables.md
+    - examples/ternary.md
+    - examples/time_series.md
+    - examples/violin.md
 
 markdown_extensions:
     - codehilite
@@ -39,7 +41,7 @@ markdown_extensions:
 google_analytics: ['UA-36732392-3', 'auto']
 
 extra:
-  version: '0.7.1'
+  version: '0.9.0'
   author:
     github: 'sglyon'
 extra_css: [css/github.css]
