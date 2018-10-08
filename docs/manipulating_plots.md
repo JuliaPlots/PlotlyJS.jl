@@ -3,7 +3,7 @@
 There are various methods defined on the `Plot` type. We will cover a few of
 them here, but consult the (forthcoming) API docs for more exhaustive coverage.
 
-## Julian functions
+## Julia functions
 
 `Plot` and `SyncPlot` both have implementations of common Julia methods:
 

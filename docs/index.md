@@ -34,7 +34,7 @@ to download the latest release of the plotly.js javascript library.
 
 If you would like to save your figures to files in a format other than json and
 html, you will need to install the [ORCA.jl](https://github.com/sglyon/ORCA.jl)
-pacakge. See [exporting
+package. See [exporting
 figures](http://spencerlyon.com/PlotlyJS.jl/manipulating_plots/#saving-figures)
 for more information.
 
