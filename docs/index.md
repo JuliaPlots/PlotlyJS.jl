@@ -41,6 +41,6 @@ for more information.
 ### Plots.jl
 
 If you would like to have a more exhaustive set of top-level functions for
-constructing plots, see the [Plots.jl](http://plots.readthedocs.io/en/latest/)
+constructing plots, see the [Plots.jl](https://docs.juliaplots.org/latest/)
 package. This package is the `plotlyjs` Plots.jl backend and is fully supported
 by Plots.
