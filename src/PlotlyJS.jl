@@ -77,7 +77,15 @@ function __init__()
         @info("plotly.js javascript libary not found -- downloading now")
         include(joinpath(_pkg_root, "deps", "build.jl"))
     end
-    pushdisplay(PlotlyJSDisplay())
+
+    insert!(Base.Multimedia.displays, findlast(x -> x isa Base.TextDisplay || x isa REPL.REPLDisplay, Base.Multimedia.displays) + 1, PlotlyJSDisplay())
+
+    atreplinit(i -> begin
+        while PlotlyJSDisplay() in Base.Multimedia.displays
+            popdisplay(PlotlyJSDisplay())
+        end
+        insert!(Base.Multimedia.displays, findlast(x -> x isa REPL.REPLDisplay, Base.Multimedia.displays) + 1, PlotlyJSDisplay())
+    end)
 end
 
 end # module
