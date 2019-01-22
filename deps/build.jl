@@ -12,7 +12,7 @@ function datadown(thepath, thefile, theurl)
         if isfile(filepath)
             @warn("Failed to update $thefile, but you already have it. Things might continue to work, but if you would like to make sure you have the latest version of $thefile, use may use your web-browser to download it from $theurl and place it in $_pkg_deps.")
         else
-            @info("Failed to download $thefile from $theurl. You may use your web-browser to download it from $theurl and place it in $_pkg_deps.")
+            error("Failed to download $thefile from $theurl. You may use your web-browser to download it from $theurl and place it in $_pkg_deps.")
         end
     end
 end

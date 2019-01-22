@@ -73,6 +73,12 @@ end
 
 function __init__()
     @require ORCA="47be7bcc-f1a6-5447-8b36-7eeeff7534fd" include("savefig_orca.jl")
+    
+    _build_log = joinpath(_pkg_root, "deps", "build.log")
+    if occursin("Warning:", read(_build_log, String))
+        @warn("Warnings were generated during the last build of PlotlyJS:  please check the build log at $_build_log")
+    end
+
     if !isfile(_js_path)
         @info("plotly.js javascript libary not found -- downloading now")
         include(joinpath(_pkg_root, "deps", "build.jl"))
