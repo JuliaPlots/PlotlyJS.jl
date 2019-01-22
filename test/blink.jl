@@ -43,15 +43,15 @@ end
     end
 
     @testset "relayout" begin
-        relayout!(p, title="This is a title")
+        relayout!(p, title_text="This is a title")
         update_layout!()
-        @test p.scope["__gd_contents"][]["title"] == "This is a title"
+        @test p.scope["__gd_contents"][]["title"]["text"] == "This is a title"
     end
 
     @testset "update" begin
-        update!(p, marker_size=10, layout=Layout(xaxis_title="This is x"))
+        update!(p, marker_size=10, layout=Layout(xaxis_title_text="This is x"))
         update_layout!()
-        @test p.scope["__gd_contents"][]["xaxis"]["title"] == "This is x"
+        @test p.scope["__gd_contents"][]["xaxis"]["title"]["text"] == "This is x"
 
         update_data!()
         for i in 1:4
@@ -109,7 +109,7 @@ end
     @testset "react" begin
         new_trace = scatter(x=1:10, y=(1:10.0).^2, name="New trace")
         new_trace2 = t()
-        new_l = Layout(yaxis_title="This is y")
+        new_l = Layout(yaxis_title_text="This is y")
         react!(p, [new_trace, new_trace2], new_l)
 
         update_data!()
@@ -119,7 +119,7 @@ end
         @test p.scope["__gd_contents"][][1]["name"] == "New trace"
 
         update_layout!()
-        @test p.scope["__gd_contents"][]["yaxis"]["title"] == "This is y"
+        @test p.scope["__gd_contents"][]["yaxis"]["title"]["text"] == "This is y"
     end
 
 end

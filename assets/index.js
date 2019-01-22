@@ -1,7 +1,7 @@
 import {contains, filter, has, isNil, type} from 'ramda';
 
 
-WebIO.CommandSets.Plotly = {
+WebIO.PlotlyCommands = {
   filterEventData: function(gd, eventData, event) {
     let filteredEventData;
     if (contains(event, ['click', 'hover', 'selected'])) {
