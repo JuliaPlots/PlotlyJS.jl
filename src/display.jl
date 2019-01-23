@@ -98,7 +98,7 @@ function SyncPlot(
 
         # hook into plotly events
         gd.on("plotly_hover", function (data)
-            @var filtered_data = WebIO.CommandSets.Plotly.filterEventData(gd, data, "hover");
+            @var filtered_data = WebIO.PlotlyCommands.filterEventData(gd, data, "hover");
             if !(filtered_data.isnil)
                 $(scope["hover"])[] = filtered_data.out
             end
@@ -107,7 +107,7 @@ function SyncPlot(
         gd.on("plotly_unhover", () -> $(scope["hover"])[] = Dict())
 
         gd.on("plotly_selected", function (data)
-            @var filtered_data = WebIO.CommandSets.Plotly.filterEventData(gd, data, "selected");
+            @var filtered_data = WebIO.PlotlyCommands.filterEventData(gd, data, "selected");
             if !(filtered_data.isnil)
                 $(scope["selected"])[] = filtered_data.out
             end
@@ -116,14 +116,14 @@ function SyncPlot(
         gd.on("plotly_deselect", () -> $(scope["selected"])[] = Dict())
 
         gd.on("plotly_relayout", function (data)
-            @var filtered_data = WebIO.CommandSets.Plotly.filterEventData(gd, data, "relayout");
+            @var filtered_data = WebIO.PlotlyCommands.filterEventData(gd, data, "relayout");
             if !(filtered_data.isnil)
                 $(scope["relayout"])[] = filtered_data.out
             end
         end)
 
         gd.on("plotly_click", function (data)
-            @var filtered_data = WebIO.CommandSets.Plotly.filterEventData(gd, data, "click");
+            @var filtered_data = WebIO.PlotlyCommands.filterEventData(gd, data, "click");
             if !(filtered_data.isnil)
                 $(scope["click"])[] = filtered_data.out
             end
