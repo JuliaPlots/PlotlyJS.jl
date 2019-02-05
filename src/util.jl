@@ -1,5 +1,5 @@
 PlotlyBase.trace_map(p::SyncPlot, axis) = trace_map(p.plot, axis)
-JSON.lower(sp::SyncPlot) = JSON.lower(sp.plot)
+JSON.lower(sp::SyncPlot) = sp.plot
 
 PlotlyBase._is3d(p::SyncPlot) = _is3d(p.plot)
 
