@@ -4,12 +4,6 @@
 
 [![Build Status](https://travis-ci.org/sglyon/PlotlyJS.jl.svg?branch=master)](https://travis-ci.org/sglyon/PlotlyJS.jl)
 
-#[![AppVeyor](https://ci.appveyor.com/api/projects/status/mue0n1yhlxq4ok8d/branch/master?svg=true)](https://ci.appveyor.com/project/sglyon/plotlyjs-jl/branch/master)
-#[![Coverage Status](https://img.shields.io/coveralls/sglyon/PlotlyJS.jl.svg)](https://coveralls.io/r/sglyon/PlotlyJS.jl)
-
-[![PlotlyJS](http://pkg.julialang.org/badges/PlotlyJS_0.5.svg)](http://pkg.julialang.org/?pkg=PlotlyJS)
-[![PlotlyJS](http://pkg.julialang.org/badges/PlotlyJS_0.6.svg)](http://pkg.julialang.org/?pkg=PlotlyJS)
-
 Julia interface to [plotly.js][_plotlyjs] visualization library.
 
 This package constructs plotly graphics using all local resources. To interact or save graphics to the Plotly cloud, use the  [`Plotly`](https://github.com/plotly/Plotly.jl) package.
