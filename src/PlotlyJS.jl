@@ -16,7 +16,7 @@ import PlotlyBase:
 using WebIO
 using JSExpr
 using JSExpr: @var, @new
-using Blink
+
 using Requires
 
 export plot
@@ -40,9 +40,7 @@ function docs()
         msg = "schema docs not built. Run `Pkg.build(\"PlotlyJS\")` to generate"
         error(msg)
     end
-    w = Blink.Window()
-    wait(w.content)
-    Blink.content!(w, "html", open(f->read(f, String), schema_path), fade=false, async=false)
+    launch(schema_path)
 end
 
 function PlotlyBase.savefig(p::SyncPlot, args...)
@@ -73,6 +71,7 @@ end
 
 function __init__()
     @require ORCA="47be7bcc-f1a6-5447-8b36-7eeeff7534fd" include("savefig_orca.jl")
+    @require Blink="ad839575-38b3-5650-b840-f874b8c74a25" include("blink.jl")
     
     _build_log = joinpath(_pkg_root, "deps", "build.log")
     if occursin("Warning:", read(_build_log, String))

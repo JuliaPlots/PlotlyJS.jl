@@ -15,3 +15,12 @@ function PlotlyBase.add_recession_bands!(p::SyncPlot; kwargs...)
     relayout!(p, shapes=new_shapes)
     new_shapes
 end
+
+# Browser Window (Borrowed from Blink.jl)
+@static if Sys.isapple()
+    launch(x) = run(`open $x`)
+elseif Sys.islinux()
+    launch(x) = run(`xdg-open $x`)
+elseif Sys.iswindows()
+    launch(x) = run(`cmd /C start $x`)
+end

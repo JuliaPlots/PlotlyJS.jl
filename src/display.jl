@@ -1,3 +1,5 @@
+struct Window{W} end
+
 # ----------------------------------------- #
 # SyncPlot -- sync Plot object with display #
 # ----------------------------------------- #
@@ -5,7 +7,7 @@ mutable struct SyncPlot
     plot::PlotlyBase.Plot
     scope::Scope
     options::Dict
-    window::Union{Nothing,Blink.Window}
+    window::Window
 end
 
 Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
@@ -138,7 +140,7 @@ function SyncPlot(
     # to us
     on(scope["image"]) do x end
 
-    SyncPlot(p, scope, options, nothing)
+    SyncPlot(p, scope, options, Window{Nothing}())
 end
 
 function plot(args...; options=Dict(), kwargs...)
@@ -148,19 +150,6 @@ end
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
 Base.size(sp::SyncPlot) = size(sp.plot)
 Base.copy(sp::SyncPlot) = SyncPlot(copy(sp.plot), options=copy(sp.options))
-
-Base.display(::PlotlyJSDisplay, p::SyncPlot) = display_blink(p::SyncPlot)
-
-function display_blink(p::SyncPlot)
-    p.window = Blink.Window()
-    Blink.body!(p.window, p.scope)
-end
-
-function Base.close(p::SyncPlot)
-    if p.window !== nothing && Blink.active(p.window)
-        close(p.window)
-    end
-end
 
 function send_command(scope, cmd, args...)
     # The handler for _commands is set up when plot is constructed
