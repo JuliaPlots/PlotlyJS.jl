@@ -1,5 +1,3 @@
-struct Window{W} end
-
 # ----------------------------------------- #
 # SyncPlot -- sync Plot object with display #
 # ----------------------------------------- #
@@ -7,7 +5,7 @@ mutable struct SyncPlot
     plot::PlotlyBase.Plot
     scope::Scope
     options::Dict
-    window::Window
+    window::Any
 end
 
 Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
@@ -140,7 +138,7 @@ function SyncPlot(
     # to us
     on(scope["image"]) do x end
 
-    SyncPlot(p, scope, options, Window{Nothing}())
+    SyncPlot(p, scope, options, nothing)
 end
 
 function plot(args...; options=Dict(), kwargs...)
