@@ -4,6 +4,7 @@ authors = ["Spencer Lyon"]
 version = "0.2.2+"
 
 [deps]
+DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 JSExpr = "97c1335a-c9c5-57fe-bc5d-ec35cebe8660"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
 Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
