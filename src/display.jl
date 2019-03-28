@@ -15,6 +15,7 @@ WebIO.render(p::SyncPlot) = WebIO.render(p.scope)
 if isdefined(WebIO, :render_internal)
     WebIO.render_internal(p::SyncPlot) = WebIO.render_internal(p.scope)
 end
+Base.show(io::IO, m::WebIO.WEBIO_NODE_MIME, p::SyncPlot) = Base.show(io, m, p.scope)
 Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
 Base.show(io::IO, mm::MIME"application/juno+plotpane", p::SyncPlot) = show(io, mm, p.scope)
 
