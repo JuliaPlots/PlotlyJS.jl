@@ -11,10 +11,6 @@ end
 Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
 
 WebIO.render(p::SyncPlot) = WebIO.render(p.scope)
-# WebIO 0.8.0+
-if isdefined(WebIO, :render_internal)
-    WebIO.render_internal(p::SyncPlot) = WebIO.render_internal(p.scope)
-end
 Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
 Base.show(io::IO, mm::MIME"application/juno+plotpane", p::SyncPlot) = show(io, mm, p.scope)
 
