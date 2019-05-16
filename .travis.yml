@@ -1,10 +1,11 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
-sudo: required 
+sudo: required
 os:
   - linux
 julia:
-  - 0.7
+  - 1.0
+  - 1.1
   - nightly
 matrix:
   allow_failures:
@@ -20,4 +21,4 @@ notifications:
 # uncomment the following lines to override the default test script
 script:
  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
- - xvfb-run julia -e 'using Pkg; Pkg.add(PackageSpec(url=pwd())); Pkg.build("PlotlyJS"); Pkg.test("PlotlyJS"; coverage=true)'
+ - xvfb-run julia -e 'using Pkg; Pkg.build(); Pkg.test(coverage=true)'
