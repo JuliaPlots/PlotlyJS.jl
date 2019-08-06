@@ -1,7 +1,6 @@
 import {contains, filter, has, isNil, type} from 'ramda';
 
-
-WebIO.PlotlyCommands = {
+export const PlotlyCommands = {
   filterEventData: function(gd, eventData, event) {
     let filteredEventData;
     if (contains(event, ['click', 'hover', 'selected'])) {
@@ -64,4 +63,8 @@ WebIO.PlotlyCommands = {
       isnil: isNil(filteredEventData)
     };
   }
+};
+
+export function init(WebIO) {
+  WebIO.PlotlyCommands = PlotlyCommands;
 }

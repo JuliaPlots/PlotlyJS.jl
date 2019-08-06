@@ -75,7 +75,9 @@ function SyncPlot(
         Plotly[fn].apply(this, args)
     end)
 
-    onimport(scope, JSExpr.@js function (Plotly)
+    onimport(scope, JSExpr.@js function (Plotly, PlotlyWebIO)
+        # Add the PlotlyCommands object to the WebIO JS instance
+        PlotlyWebIO.init(WebIO)
 
         # set up container element
         @var gd = this.dom.querySelector($id);
