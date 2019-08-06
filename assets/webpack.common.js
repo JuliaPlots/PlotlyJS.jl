@@ -10,6 +10,7 @@ module.exports = {
   ],
   output: {
     filename: 'plotly_webio.bundle.js',
-    path: path.resolve(__dirname)
+    path: path.resolve(__dirname),
+    libraryTarget: 'umd',
   }
 };
