@@ -14,7 +14,7 @@ Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
     return WebIO.render(plot.scope)
 end
 Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
-Base.show(io::IO, mm::MIME"application/juno+plotpane", p::SyncPlot) = show(io, mm, p.scope)
+Base.show(io::IO, mm::MIME"application/prs.juno.plotpane+html", p::SyncPlot) = show(io, mm, p.scope)
 
 function SyncPlot(
         p::Plot;
