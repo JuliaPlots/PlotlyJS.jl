@@ -45,7 +45,13 @@ function docs()
     Blink.content!(w, "html", open(f->read(f, String), schema_path), fade=false, async=false)
 end
 
-function PlotlyBase.savefig(p::SyncPlot, args...)
+function PlotlyBase.savefig(p::Union{Plot,SyncPlot}, fn::AbstractString, args...)
+    ext = split(fn, ".")[end]
+    if ext == "json"
+        return savejson(p, fn)
+    elseif ext == "html"
+        return savehtml(p, fn, args...)
+    end
     has_orca = haskey(Pkg.installed(), "ORCA")
     if has_orca
         error("Please call `using ORCA` to save figures")
@@ -73,7 +79,7 @@ end
 
 function __init__()
     @require ORCA="47be7bcc-f1a6-5447-8b36-7eeeff7534fd" include("savefig_orca.jl")
-    
+
     _build_log = joinpath(_pkg_root, "deps", "build.log")
     if occursin("Warning:", read(_build_log, String))
         @warn("Warnings were generated during the last build of PlotlyJS:  please check the build log at $_build_log")

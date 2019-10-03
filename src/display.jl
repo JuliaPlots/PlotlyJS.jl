@@ -329,7 +329,7 @@ end
 
 const js_default = Ref(:local)
 
-function savehtml(io::IO, p::Plot, js::Symbol=js_default[])
+function PlotlyBase.savehtml(io::IO, p::Plot, js::Symbol=js_default[])
 
     if js == :local
         script_txt = "<script src=\"$(_js_path)\"></script>"
@@ -351,22 +351,19 @@ function savehtml(io::IO, p::Plot, js::Symbol=js_default[])
          $script_txt
     </head>
     <body>
-         $(html_body(p))
+         $(PlotlyBase.html_body(p))
     </body>
     </html>
     """)
 
 end
 
-function savehtml(p::Plot, fn::AbstractString, js::Symbol=js_default[])
-    open(fn, "w") do f
-        savehtml(f, p, js)
-    end
-end
+PlotlyBase.savehtml(p::Plot, fn::AbstractString, js::Symbol=js_default[]) =
+    open(f -> savehtml(f, p, js), fn, "w")
 
 """
-    savehtml(io::IO, p::Union{Plot,SyncPlot}, js::Symbol=js_default[])
-    savehtml(p::Union{Plot,SyncPlot}, fn::AbstractString, js::Symbol=js_default[])
+    PlotlyBase.savehtml(io::IO, p::Union{Plot,SyncPlot}, js::Symbol=js_default[])
+    PlotlyBase.savehtml(p::Union{Plot,SyncPlot}, fn::AbstractString, js::Symbol=js_default[])
 
 Save plot to standalone html file suitable for including in a website or
 opening in a browser
@@ -387,7 +384,7 @@ The `js` argument can be one of
 
 The default is `:local`
 """
-savehtml
+PlotlyBase.savehtml
 
 
 for mime in ["text/plain", "application/vnd.plotly.v1+json"]
@@ -397,5 +394,5 @@ for mime in ["text/plain", "application/vnd.plotly.v1+json"]
 end
 
 PlotlyBase.savejson(sp::SyncPlot, fn::String) = PlotlyBase.savejson(sp.plot, fn)
-savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[]) = savehtml(io, p.plot, js)
-savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) = savehtml(p.plot, fn, js)
+PlotlyBase.savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[]) = savehtml(io, p.plot, js)
+PlotlyBase.savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) = savehtml(p.plot, fn, js)
