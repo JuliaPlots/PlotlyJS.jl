@@ -329,7 +329,7 @@ end
 
 const js_default = Ref(:local)
 
-function PlotlyBase.savehtml(io::IO, p::Plot, js::Symbol=js_default[])
+function PlotlyBase.savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[])
 
     if js == :local
         script_txt = "<script src=\"$(_js_path)\"></script>"
@@ -351,14 +351,14 @@ function PlotlyBase.savehtml(io::IO, p::Plot, js::Symbol=js_default[])
          $script_txt
     </head>
     <body>
-         $(PlotlyBase.html_body(p))
+         $(PlotlyBase.html_body(p.plot))
     </body>
     </html>
     """)
 
 end
 
-PlotlyBase.savehtml(p::Plot, fn::AbstractString, js::Symbol=js_default[]) =
+PlotlyBase.savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) =
     open(f -> savehtml(f, p, js), fn, "w")
 
 """
@@ -394,5 +394,3 @@ for mime in ["text/plain", "application/vnd.plotly.v1+json"]
 end
 
 PlotlyBase.savejson(sp::SyncPlot, fn::String) = PlotlyBase.savejson(sp.plot, fn)
-PlotlyBase.savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[]) = savehtml(io, p.plot, js)
-PlotlyBase.savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) = savehtml(p.plot, fn, js)
