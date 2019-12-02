@@ -1,0 +1,6 @@
+documentation:
+- "docs/**/*"
+CI:
+- "**/*.yml"
+testing:
+- test/*
