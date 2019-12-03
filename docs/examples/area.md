@@ -6,7 +6,7 @@ function area1()
 end
 area1()
 ```
-
+ 
 
 <div id="a122cf77-d769-43c6-853c-25629ec164f9" class="plotly-graph-div"></div>
 
