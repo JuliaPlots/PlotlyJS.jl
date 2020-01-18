@@ -23,6 +23,7 @@ Compat = "≥ 0.69.0"
 JSON = "≥ 0.7.0"
 PlotlyBase = "≥ 0.3.0"
 Reexport = "≥ 0.2.0"
+Requires = "1.0"
 WebIO = "≥ 0.8.6"
 julia = "≥ 0.7.0"
 
