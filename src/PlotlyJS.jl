@@ -14,6 +14,7 @@ import PlotlyBase:
     react, react!
 
 using WebIO
+using AssetRegistry
 using JSExpr
 using JSExpr: @var, @new
 using Blink
@@ -26,7 +27,7 @@ const _pkg_root = dirname(dirname(@__FILE__))
 const _js_path = joinpath(_pkg_root, "assets", "plotly-latest.min.js")
 const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
 const _mathjax_cdn_path =
-    "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG"
+    "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_SVG"
 
 struct PlotlyJSDisplay <: AbstractDisplay end
 

@@ -4,6 +4,7 @@ authors = ["Spencer Lyon <spencerlyon2@gmail.com>"]
 version = "0.13.1"
 
 [deps]
+AssetRegistry = "bf4720bc-e11a-5d0c-854e-bdca1663c893"
 Blink = "ad839575-38b3-5650-b840-f874b8c74a25"
 Compat = "34da2185-b29b-5c13-b0c7-acf172513d20"
 DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
