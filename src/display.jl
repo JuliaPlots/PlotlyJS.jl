@@ -201,7 +201,7 @@ function mathjax_path(p::SyncPlot)
         mathjax = p.plot.layout[:include][:mathjax]
     catch
         # if called from Plot's plotlyjs() backend, the extra_kwargs are passed literally, i.e `:include_mathjax`
-        mathjax = get(p.plot.layout, :include_mathjax, "")
+        mathjax = get(p.plot.layout.fields, :include_mathjax, "")
     end
     # convert "cdn" and "local" to the respective online or local mathjax paths
     return mathjax_path(mathjax)
