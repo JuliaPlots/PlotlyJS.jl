@@ -8,7 +8,7 @@ Julia interface to [plotly.js][_plotlyjs] visualization library.
 
 This package constructs plotly graphics using all local resources. To interact or save graphics to the Plotly cloud, use the  [`Plotly`](https://github.com/plotly/Plotly.jl) package.
 
-Check out the [docs](http://spencerlyon.com/PlotlyJS.jl/)!
+Check out the [docs](http://juliaplots.github.io/PlotlyJS.jl/)!
 
 
 
@@ -16,7 +16,7 @@ Check out the [docs](http://spencerlyon.com/PlotlyJS.jl/)!
 
 ## Installation
 
-If you intend to use the [Electron display](http://spencerlyon.com/PlotlyJS.jl/syncplots/#electronplot) or any of its features (recommended) you will need to enter the following at the Julia REPL:
+If you intend to use the [Electron display](http://juliaplots.github.io/PlotlyJS.jl/syncplots/#electronplot) or any of its features (recommended) you will need to enter the following at the Julia REPL:
 
 ```julia
 using Blink
