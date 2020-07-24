@@ -2,7 +2,7 @@ using PlotlyJS
 
 function box1()
     y0 = rand(50)
-    y1 = rand(50) + 1
+    y1 = rand(50) .+ 1
     trace1 = box(;y=y0)
     trace2 = box(;y=y1)
     data = [trace1, trace2]
