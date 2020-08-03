@@ -5,7 +5,7 @@ puts each example from the julia file into a code block and adds
 a short html div below with the interactive output.
 =#
 using PlotlyJS
-using Distributions, Quandl, RDatasets  # used in examples
+using Distributions, Random, Dates, DataFrames, RDatasets, Colors, LinearAlgebra # used in examples
 
 doc_style = Style(layout=Layout(margin=attr(t=60, b=60, l=50, r=50)))
 
@@ -32,6 +32,7 @@ use_style!(doc_style)
 
 # Walk through each example in a file and get the markdown from `single_example`
 function single_file(filename::String)
+    println("Creating docs for $filename")
     # Open a file to write to
     open(joinpath(this_dir, "examples", filename[1:end-3]*".md"), "w") do outfile
 
@@ -45,17 +46,17 @@ function single_file(filename::String)
     while true
         # Find next function name (break if none)
         l = findnext(x -> match(regex, x) != nothing, all_lines, l+1)
-        if l == 0
+        if l == 0 || isnothing(l)
             break
         end
+        fun_name = match(regex, all_lines[l])[1]
+        println("\tadding $fun_name")
+        
         # find corresponding end for this function
         end_l = findnext(x -> match(regex_end, x) != nothing, all_lines, l+1)
 
         # Pull out function text
         func_block = join(all_lines[l:end_l], "\n")
-        fun_name = match(regex, all_lines[l])[1]
-
-        println("adding $fun_name")
 
         # Get html block
         plt = eval(Expr(:call, Symbol(fun_name))).plot
@@ -71,3 +72,4 @@ function single_file(filename::String)
 end
 
 main() = map(single_file, all_julia_files)
+main()
