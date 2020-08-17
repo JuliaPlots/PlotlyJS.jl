@@ -33,7 +33,7 @@ If you will be using this package from within Jupyterlab, please also install th
 
 
 ```sh
-jupyter labextension install @jupyterlab/plotly-extension
+jupyter labextension install jupyterlab-plotly
 ```
 
 See the [jupyterlab extension documentation](https://jupyterlab.readthedocs.io/en/stable/user/extensions.html) for more details.
