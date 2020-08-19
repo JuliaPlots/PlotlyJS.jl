@@ -20,7 +20,7 @@ WebIO = "0f1e0344-ec1d-5b48-a673-e5cf874b6c29"
 [compat]
 Blink = "≥ 0.8.0"
 Compat = "≥ 0.69.0"
-JSExpr = "0.5"
+JSExpr = "0.5, 1.0"
 JSON = "≥ 0.7.0"
 PlotlyBase = "≥ 0.4.0"
 Reexport = "≥ 0.2.0"
