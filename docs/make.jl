@@ -144,3 +144,7 @@ makedocs(
 #=deploydocs(
     repo = "<repository url>"
 )=#
+
+deploydocs(
+    repo   = "github.com/JuliaPlots/PlotlyJS.jl.git",
+)
