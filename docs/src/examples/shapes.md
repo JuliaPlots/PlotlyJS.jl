@@ -1,5 +1,10 @@
-using PlotlyJS, Distributions
+# Shapes
 
+```@example shapes
+using PlotlyJS, Distributions
+```
+
+```@example shapes
 function house()
     trace1 = scatter()
     x0 = [2,   2,   5.5, 9,   9, 2,   5, 5, 6]
@@ -10,7 +15,10 @@ function house()
     plot([trace1],
          Layout(;shapes=shapes, xaxis_range=(1, 10), yaxis_range=(0, 10)))
 end
+house()
+```
 
+```@example shapes
 function house2()
     trace1 = scatter()
     _p = string("M 2 1 L 2 5.5 L 5.5 9.6 L 9 5.5 L 9 1 L 2 1 ",
@@ -19,7 +27,10 @@ function house2()
     plot([trace1],
          Layout(;shapes=[path(_p)], xaxis_range=(1, 10), yaxis_range=(0, 10)))
 end
+house2()
+```
 
+```@example shapes
 function clusters()
     x0 = rand(Normal(2, 0.45), 300)
     y0 = rand(Normal(2, 0.45), 300)
@@ -41,7 +52,10 @@ function clusters()
               for (x, y, c) in args]
     plot(data, Layout(;height=400, width=480, showlegend=false, shapes=shapes))
 end
+clusters()
+```
 
+```@example shapes
 function temperature()
     x = ["2015-02-01", "2015-02-02", "2015-02-03", "2015-02-04", "2015-02-05",
          "2015-02-06", "2015-02-07", "2015-02-08", "2015-02-09", "2015-02-10",
@@ -57,7 +71,10 @@ function temperature()
                   xref="x", yref="paper")
     plot(data, Layout(shapes=shapes, width=500, height=500))
 end
+temperature()
+```
 
+```@example shapes
 function vlines1()
     # one scalar argument produces one line. Need to wrap in an array because
     # layout.shapes should be an array
@@ -65,14 +82,20 @@ function vlines1()
     shapes = [vline(2)]
     plot([trace1], Layout(;shapes=shapes))
 end
+vlines1()
+```
 
+```@example shapes
 function vlines2()
     # one argument draws a vertical line up the entire plot
     trace1 = scatter(;x=1:10, y=(1:10).^2)
     shapes = vline([2, 6])
     plot([trace1], Layout(;shapes=shapes))
 end
+vlines2()
+```
 
+```@example shapes
 function vlines3()
     # yref paper makes the 2nd and 3rd arguments on a (0, 1) scale vertically
     # so 0.5 is 1/2 through the plot regardless of the values on y-axis
@@ -80,14 +103,20 @@ function vlines3()
     shapes = vline([2, 6], 0, 0.5; yref="paper")
     plot([trace1], Layout(;shapes=shapes))
 end
+vlines3()
+```
 
+```@example shapes
 function vlines4()
     # Whichever argument is a scalar is repeated
     trace1 = scatter(;x=1:10, y=(1:10).^2)
     shapes = vline([2, 6], 0, [0.5, 0.75]; yref="paper")
     plot([trace1], Layout(;shapes=shapes))
 end
+vlines4()
+```
 
+```@example shapes
 function vlines5()
     # we can also set arbitrary line attributes line color and dash
     trace1 = scatter(;x=1:10, y=(1:10).^2)
@@ -95,7 +124,10 @@ function vlines5()
                    line_color="green", line_dash="dashdot")
     plot([trace1], Layout(;shapes=shapes))
 end
+vlines5()
+```
 
+```@example shapes
 function hlines1()
     # one scalar argument produces one line. Need to wrap in an array because
     # layout.shapes should be an array
@@ -103,14 +135,20 @@ function hlines1()
     shapes = [hline(2)]
     plot([trace1], Layout(;shapes=shapes))
 end
+hlines1()
+```
 
+```@example shapes
 function hlines2()
     # one argument draws a horizontal line across the entire plot
     trace1 = scatter(;x=1:10, y=(1:10).^2)
     shapes = hline([25, 81])
     plot([trace1], Layout(;shapes=shapes))
 end
+hlines2()
+```
 
+```@example shapes
 function hlines3()
     # xref paper makes the 2nd and 3rd arguments on a (0, 1) scale horizontally
     # so 0.5 is 1/2 through the plot regardless of the values on x-axis
@@ -118,14 +156,20 @@ function hlines3()
     shapes = hline([25, 81], 0, 0.5; xref="paper")
     plot([trace1], Layout(;shapes=shapes))
 end
+hlines3()
+```
 
+```@example shapes
 function hlines4()
     # Whichever argument is a scalar is repeated
     trace1 = scatter(;x=1:10, y=(1:10).^2)
     shapes = hline([25, 81], 0, [0.5, 0.75]; xref="paper")
     plot([trace1], Layout(;shapes=shapes))
 end
+hlines4()
+```
 
+```@example shapes
 function hlines5()
     # we can also set arbitrary line attributes line color and dash
     trace1 = scatter(;x=1:10, y=(1:10).^2)
@@ -133,3 +177,6 @@ function hlines5()
                    line_color="green", line_dash="dashdot")
     plot([trace1], Layout(;shapes=shapes))
 end
+hlines5()
+```
+

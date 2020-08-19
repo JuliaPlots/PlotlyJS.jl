@@ -1,5 +1,10 @@
-using PlotlyJS, HTTP, CSV
+# Finance
 
+```@example finance
+using PlotlyJS, HTTP, CSV
+```
+
+```@example finance
 function ohlc1()
     t = ohlc(open=[33.0, 33.3, 33.5, 33.0, 34.1],
              high=[33.1, 33.3, 33.6, 33.2, 34.8],
@@ -7,7 +12,10 @@ function ohlc1()
              close=[33.0, 32.9, 33.3, 33.1, 33.1])
     plot(t)
 end
+ohlc1()
+```
 
+```@example finance
 function ohlc2()
     function get_ohlc(ticker; kwargs...)
         res = HTTP.get("https://www.quandl.com/api/v3/datasets/WIKI/$(ticker)/data.csv?start_date=2017-01-01")
@@ -20,7 +28,10 @@ function ohlc2()
 
     [p1 p2]
 end
+ohlc2()
+```
 
+```@example finance
 function candlestick1()
     t = candlestick(open=[33.0, 33.3, 33.5, 33.0, 34.1],
                     high=[33.1, 33.3, 33.6, 33.2, 34.8],
@@ -28,7 +39,10 @@ function candlestick1()
                     close=[33.0, 32.9, 33.3, 33.1, 33.1])
     plot(t)
 end
+candlestick1()
+```
 
+```@example finance
 function candlestick2()
     function get_candlestick(ticker; kwargs...)
         res = HTTP.get("https://www.quandl.com/api/v3/datasets/WIKI/$(ticker)/data.csv?start_date=2017-01-01")
@@ -41,3 +55,6 @@ function candlestick2()
 
     [p1 p2]
 end
+candlestick2()
+```
+

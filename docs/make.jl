@@ -1,19 +1,29 @@
-#=
-This file takes the code from each file in the examples folder and
-creates a markdown file of the same name as the julia file then
-puts each example from the julia file into a code block and adds
-a short html div below with the interactive output.
-=#
+using Documenter
 using PlotlyJS
+using PlotlyBase
+
+const THIS_DIR = dirname(@__FILE__)
 
 # used in examples
 using Distributions, HTTP, DataFrames, RDatasets, Colors, CSV, JSON
 using Random, Dates, LinearAlgebra, DelimitedFiles
 
+# to override display_dict below
+import Documenter.Utilities: display_dict, limitstringmime
+using Base64: stringmime
 
-const THIS_DIR = dirname(@__FILE__)
+function display_dict(p::PlotlyBase.Plot)
+    out = Dict{MIME,Any}()
+    # Always generate text/plain
+    out[MIME"text/plain"()] = limitstringmime(MIME"text/plain"(), p)
+    svg_m = MIME"image/svg+xml"()
+    out[svg_m] = stringmime(svg_m, p)
+    out
+end
 
+display_dict(p::PlotlyJS.SyncPlot) = display_dict(p.plot)
 
+## handle examples
 # Walk through each example in a file and get the markdown from `single_example`
 function single_example_file(filename::String)
     base_fn = split(filename, ".")[1]
@@ -72,7 +82,8 @@ function single_example_file(filename::String)
     return nothing
 end
 
-function main()
+function handle_examples()
+    @info "Updating examples!"
     # Read all file names in
     if length(ARGS) == 0
         all_file_names = readdir(joinpath(THIS_DIR, "..", "examples"))
@@ -83,3 +94,53 @@ function main()
 
     foreach(single_example_file, all_julia_files)
 end
+
+handle_examples()
+
+makedocs(
+    sitename = "PlotlyJS",
+    format = Documenter.HTML(
+        assets = [
+           asset("https://cdn.plot.ly/plotly-1.54.7.js")
+        ]
+    ),
+    modules = [PlotlyJS, PlotlyBase],
+    linkcheck=true,
+    pages = [
+        "Home" => "index.md",
+        "User Guide" => [
+            "Preliminaries" => "basics.md",
+            "Building Blocks" => "building_traces_layouts.md",
+            "Putting it together" => "syncplots.md",
+            "Working with plots" => "manipulating_plots.md",
+            "Styles" => "styles.md",
+            "Contributing" => "contributing.md",
+        ],
+        "Examples" => [
+            "3d" => "examples/3d.md",
+            "Area" => "examples/area.md",
+            "Bar" => "examples/bar.md",
+            "Box Plots" => "examples/box_plots.md",
+            "Contour" => "examples/contour.md",
+            "Financial Charts" => "examples/finance.md",
+            "Heatmaps" => "examples/heatmaps.md",
+            "Histograms" => "examples/histograms.md",
+            "Line and Scatter" => "examples/line_scatter.md",
+            "Maps" => "examples/maps.md",
+            "Shapes" => "examples/shapes.md",
+            "Subplots" => "examples/subplots.md",
+            "Tables" => "examples/tables.md",
+            "Ternary" => "examples/ternary.md",
+            "Time Series" => "examples/time_series.md",
+            "Violin" => "examples/violin.md",
+        ],
+        "API Docs" => "api.md"
+    ]
+)
+
+# Documenter can also automatically deploy documentation to gh-pages.
+# See "Hosting Documentation" and deploydocs() in the Documenter manual
+# for more information.
+#=deploydocs(
+    repo = "<repository url>"
+)=#

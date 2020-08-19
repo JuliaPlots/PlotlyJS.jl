@@ -1,5 +1,10 @@
-using PlotlyJS
+# Histograms
 
+```@example histograms
+using PlotlyJS
+```
+
+```@example histograms
 function two_hists()
     x0 = randn(500)
     x1 = x0 .+ 1
@@ -10,3 +15,6 @@ function two_hists()
     layout = Layout(barmode="overlay")
     plot(data, layout)
 end
+two_hists()
+```
+

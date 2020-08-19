@@ -1,7 +1,7 @@
 name = "PlotlyJS"
 uuid = "f0f68f2c-4968-5e81-91da-67840de0976a"
 authors = ["Spencer Lyon <spencerlyon2@gmail.com>"]
-version = "0.13.1"
+version = "0.14.0"
 
 [deps]
 Blink = "ad839575-38b3-5650-b840-f874b8c74a25"
@@ -22,7 +22,7 @@ Blink = "≥ 0.8.0"
 Compat = "≥ 0.69.0"
 JSExpr = "0.5"
 JSON = "≥ 0.7.0"
-PlotlyBase = "≥ 0.4.0"
+PlotlyBase = "0.4"
 Reexport = "≥ 0.2.0"
 Requires = "1.0"
 WebIO = "≥ 0.8.6"

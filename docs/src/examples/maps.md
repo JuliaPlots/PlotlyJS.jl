@@ -1,5 +1,10 @@
-using PlotlyJS, DataFrames, CSV
+# Maps
 
+```@example maps
+using PlotlyJS, DataFrames, CSV
+```
+
+```@example maps
 function maps1()
     marker = attr(size=[20, 30, 15, 10],
                   color=[10, 20, 40, 50],
@@ -16,7 +21,10 @@ function maps1()
                     margin=attr(l=0, r=0, t=10, b=0))
     plot(trace, layout)
 end
+maps1()
+```
 
+```@example maps
 function maps2()
     # read Data into dataframe
     nm = tempname()
@@ -44,3 +52,6 @@ function maps2()
     layout = Layout(;title="2014 US City Populations", showlegend=false, geo=geo)
     plot(trace, layout)
 end
+maps2()
+```
+

@@ -45,41 +45,22 @@ function docs()
     Blink.content!(w, "html", open(f->read(f, String), schema_path), fade=false, async=false)
 end
 
-function PlotlyBase.savefig(p::Union{Plot,SyncPlot}, fn::AbstractString, args...)
-    ext = split(fn, ".")[end]
-    if ext == "json"
-        return savejson(p, fn)
-    elseif ext == "html"
-        return savehtml(p, fn, args...)
-    end
-    has_orca = haskey(Pkg.installed(), "ORCA")
-    if has_orca
-        error("Please call `using ORCA` to save figures")
-    end
+PlotlyBase.savefig(p::SyncPlot, a...; k...) = savefig(p.plot, a...; k...)
+PlotlyBase.savefig(io::IO, p::SyncPlot, a...; k...) = savefig(io, p.plot, a...; k...)
 
-    if Base.isinteractive()
-        msg = "Saving figures requires the ORCA package."
-        msg *= " Would you like to install it? (Y/n) "
-        print(msg)
-        answer = readline()
-        if length(answer) == 0
-            answer = "y"
-        end
-        if lowercase(answer)[1] == 'y'
-            println("here!!")
-            println("Ok. Installing ORCA now...")
-            Pkg.add("ORCA")
-            @info("Please call `using ORCA` and try saving your plot again")
-            return
-        end
+for (mime, fmt) in PlotlyBase._KALEIDO_MIMES
+    @eval function Base.show(
+        io::IO, ::MIME{Symbol($mime)}, plt::SyncPlot,
+        width::Union{Nothing,Int}=nothing,
+        height::Union{Nothing,Int}=nothing,
+        scale::Union{Nothing,Real}=nothing,
+    )
+        savefig(io, plt.plot, format = $fmt)
     end
-    msg = "Please install ORCA separately, then call `using ORCA` and try again"
-    error(msg)
 end
 
-function __init__()
-    @require ORCA="47be7bcc-f1a6-5447-8b36-7eeeff7534fd" include("savefig_orca.jl")
 
+function __init__()
     _build_log = joinpath(_pkg_root, "deps", "build.log")
     if occursin("Warning:", read(_build_log, String))
         @warn("Warnings were generated during the last build of PlotlyJS:  please check the build log at $_build_log")

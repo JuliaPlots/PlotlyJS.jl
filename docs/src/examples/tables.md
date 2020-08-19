@@ -1,5 +1,10 @@
-using PlotlyJS, DataFrames, CSV
+# Tables
 
+```@example tables
+using PlotlyJS, DataFrames, CSV
+```
+
+```@example tables
 function table1()
     values = [
         "Salaries" 1200000 1300000 1300000 1400000
@@ -23,7 +28,10 @@ function table1()
     plot(trace)
 
 end
+table1()
+```
 
+```@example tables
 function table2()
     values = [
         "Salaries" 1200000 1300000 1300000 1400000
@@ -50,8 +58,10 @@ function table2()
     plot(trace)
 
 end
+table2()
+```
 
-
+```@example tables
 function table2a()
     p1 = table1()
     restyle!(p1,
@@ -65,8 +75,10 @@ function table2a()
     )
     p1
 end
+table2a()
+```
 
-
+```@example tables
 function table3()
     nm = tempname()
     url = "https://raw.githubusercontent.com/plotly/datasets/master/Mining-BTC-180.csv"
@@ -101,3 +113,6 @@ function table3()
     )
     plot(trace, layout)
 end
+table3()
+```
+
