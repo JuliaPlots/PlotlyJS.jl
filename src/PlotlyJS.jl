@@ -55,7 +55,7 @@ for (mime, fmt) in PlotlyBase._KALEIDO_MIMES
         height::Union{Nothing,Int}=nothing,
         scale::Union{Nothing,Real}=nothing,
     )
-        savefig(io, p.plot, format = $fmt)
+        savefig(io, plt.plot, format = $fmt)
     end
 end
 
