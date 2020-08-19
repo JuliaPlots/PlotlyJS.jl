@@ -21,7 +21,8 @@ function SyncPlot(
         options::AbstractDict=Dict("showLink"=> false),
         kwargs...
     )
-    lowered = JSON.lower(p)
+    obj = JSON.lower(p)
+    obj[:config] = options
     id = string("#plot-", p.divid)
 
     # setup scope
@@ -97,7 +98,7 @@ function SyncPlot(
 
         # Draw plot in container
         Plotly.newPlot(
-            gd, $(lowered[:data]), $(lowered[:layout]), $(options)
+            gd, $(obj)
         )
 
         # hook into plotly events
