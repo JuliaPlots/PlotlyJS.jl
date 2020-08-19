@@ -1,5 +1,10 @@
-using PlotlyJS, JSON
+# Ternary
 
+```@example ternary
+using PlotlyJS, JSON
+```
+
+```@example ternary
 function ternary_markers()
     function make_ax(title, tickangle)
         attr(title=title, titlefont_size=20, tickangle=tickangle,
@@ -45,7 +50,10 @@ function ternary_markers()
     )
     plot(t, layout)
 end
+ternary_markers()
+```
 
+```@example ternary
 function filled_ternary()
     function make_ax(title)
         attr(
@@ -105,3 +113,6 @@ function filled_ternary()
     )
     plot(traces, layout)
 end
+filled_ternary()
+```
+

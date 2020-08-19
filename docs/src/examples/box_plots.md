@@ -1,5 +1,10 @@
-using PlotlyJS
+# Box Plots
 
+```@example box_plots
+using PlotlyJS
+```
+
+```@example box_plots
 function box1()
     y0 = rand(50)
     y1 = rand(50) .+ 1
@@ -8,7 +13,10 @@ function box1()
     data = [trace1, trace2]
     plot(data)
 end
+box1()
+```
 
+```@example box_plots
 function box2()
     data = box(;y=[0, 1, 1, 2, 3, 5, 8, 13, 21],
                 boxpoints="all",
@@ -16,8 +24,10 @@ function box2()
                 pointpos=-1.8)
     plot(data)
 end
+box2()
+```
 
-
+```@example box_plots
 function box3()
     trace1 = box(;x=[1, 2, 3, 4, 4, 4, 8, 9, 10],
                   name="Set 1")
@@ -28,8 +38,10 @@ function box3()
 
     plot(data, layout)
 end
+box3()
+```
 
-
+```@example box_plots
 function box4()
     x0 = ["day 1", "day 1", "day 1", "day 1", "day 1", "day 1",
           "day 2", "day 2", "day 2", "day 2", "day 2", "day 2"]
@@ -50,8 +62,10 @@ function box4()
                     boxmode="group")
     plot(data, layout)
 end
+box4()
+```
 
-
+```@example box_plots
 function box5()
     trace1 = box(;y=[0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5,
                      7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5,
@@ -86,8 +100,10 @@ function box5()
     layout = Layout(;title="Box Plot Styling Outliers")
     plot(data, layout)
 end
+box5()
+```
 
-
+```@example box_plots
 function box6()
     trace1 = box(;y=[2.37, 2.16, 4.82, 1.73, 1.04, 0.23, 1.32, 2.91, 0.11,
                      4.51, 0.51, 3.75, 1.35, 2.98, 4.50, 0.18, 4.66, 1.30,
@@ -105,8 +121,10 @@ function box6()
     layout = Layout(;title="Box Plot Styling Mean and Standard Deviation")
     plot(data, layout)
 end
+box6()
+```
 
-
+```@example box_plots
 function box7()
     y0 = ["day 1", "day 1", "day 1", "day 1", "day 1", "day 1",
           "day 2", "day 2", "day 2", "day 2", "day 2", "day 2"]
@@ -134,8 +152,10 @@ function box7()
                      boxmode="group")
     plot(data, layout)
 end
+box7()
+```
 
-
+```@example box_plots
 function box8()
     trace1 = box(;y=[1, 2, 3, 4, 4, 4, 8, 9, 10],
                   name="Sample A",
@@ -147,7 +167,10 @@ function box8()
     layout = Layout(;title="Colored Box Plot")
     plot(data, layout)
 end
+box8()
+```
 
+```@example box_plots
 function box9()
     xData = ["Carmelo<br>Anthony", "Dwyane<br>Wade", "Deron<br>Williams",
              "Brook<br>Lopez", "Damian<br>Lillard", "David<br>West",
@@ -198,7 +221,10 @@ function box9()
                      showlegend=false)
     plot(data, layout)
 end
+box9()
+```
 
+```@example box_plots
 function box10()
     n_box = 30
     colors = ["hsl($i, 50%, 50%)" for i in range(0, stop=360, length=n_box)]
@@ -220,3 +246,6 @@ function box10()
                      showlegend=true)
     plot(data, layout)
 end
+box10()
+```
+

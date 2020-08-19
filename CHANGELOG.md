@@ -1,376 +1,664 @@
-# Change Log
+# Changelog
 
-## [v0.10.1](https://github.com/sglyon/PlotlyJS.jl/tree/v0.10.1) (2018-02-07)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.10.0...v0.10.1)
+## [Unreleased](https://github.com/JuliaPlots/PlotlyJS.jl/tree/HEAD)
 
-**Closed issues:**
-
-- Installation issue on local computer: plotly.js javascript libary not found - [\#176](https://github.com/sglyon/PlotlyJS.jl/issues/176)
-- Allow calling init\_notebook outside of jupyter [\#174](https://github.com/sglyon/PlotlyJS.jl/issues/174)
-- ERROR: LoadError: Cannot find Electron.  [\#172](https://github.com/sglyon/PlotlyJS.jl/issues/172)
-- Require DataFrames failed [\#169](https://github.com/sglyon/PlotlyJS.jl/issues/169)
-- Add violin trace [\#167](https://github.com/sglyon/PlotlyJS.jl/issues/167)
-- save to pdf [\#137](https://github.com/sglyon/PlotlyJS.jl/issues/137)
-
-## [v0.10.0](https://github.com/sglyon/PlotlyJS.jl/tree/v0.10.0) (2018-02-01)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.9.0...v0.10.0)
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.13.1...HEAD)
 
 **Closed issues:**
 
-- Blink Display error [\#170](https://github.com/sglyon/PlotlyJS.jl/issues/170)
+- Update jupyterlab instructions in readme [\#341](https://github.com/JuliaPlots/PlotlyJS.jl/issues/341)
+- Link to documentations leads to 404 [\#336](https://github.com/JuliaPlots/PlotlyJS.jl/issues/336)
+- Move to JuliaPlots [\#335](https://github.com/JuliaPlots/PlotlyJS.jl/issues/335)
+- How to customize download plot options? [\#326](https://github.com/JuliaPlots/PlotlyJS.jl/issues/326)
+- Problem for mesh3d intensity [\#324](https://github.com/JuliaPlots/PlotlyJS.jl/issues/324)
+- Multiple Spheres in same figure [\#323](https://github.com/JuliaPlots/PlotlyJS.jl/issues/323)
+- react! does not update plot [\#317](https://github.com/JuliaPlots/PlotlyJS.jl/issues/317)
+- failed process: Process\(`curl -s -S -g -L -f -o /tmp/jl\_G4ODCZ/packages/PlotlyJS/AhkM5/deps/plotschema.json 'https://api.plot.ly/v2/plot-schema?sha1'`, ProcessExited\(22\)\) \[22\] [\#316](https://github.com/JuliaPlots/PlotlyJS.jl/issues/316)
+- Neither showEditInChartStudio nor showSendToCloud configurations have any effect [\#313](https://github.com/JuliaPlots/PlotlyJS.jl/issues/313)
+- Release patched version [\#306](https://github.com/JuliaPlots/PlotlyJS.jl/issues/306)
+- react! eventually kills connection to Plotly [\#264](https://github.com/JuliaPlots/PlotlyJS.jl/issues/264)
+- hover attribute does not show x and y coordinates [\#195](https://github.com/JuliaPlots/PlotlyJS.jl/issues/195)
 
 **Merged pull requests:**
 
-- Sl/plotlybase [\#171](https://github.com/sglyon/PlotlyJS.jl/pull/171) ([sglyon](https://github.com/sglyon))
+- Update for Julia 1: Use dot broadcast [\#337](https://github.com/JuliaPlots/PlotlyJS.jl/pull/337) ([diegozea](https://github.com/diegozea))
+- Modify plot window dimensions on creation to fit plot contents [\#315](https://github.com/JuliaPlots/PlotlyJS.jl/pull/315) ([dsfenn](https://github.com/dsfenn))
+- Update line\_scatter.jl [\#310](https://github.com/JuliaPlots/PlotlyJS.jl/pull/310) ([bdeket](https://github.com/bdeket))
+- Install TagBot as a GitHub Action [\#309](https://github.com/JuliaPlots/PlotlyJS.jl/pull/309) ([JuliaTagBot](https://github.com/JuliaTagBot))
+- CompatHelper: add new compat entry for "Requires" at version "1.0" [\#308](https://github.com/JuliaPlots/PlotlyJS.jl/pull/308) ([github-actions[bot]](https://github.com/apps/github-actions))
+- CompatHelper: add new compat entry for "JSExpr" at version "1.0" [\#307](https://github.com/JuliaPlots/PlotlyJS.jl/pull/307) ([github-actions[bot]](https://github.com/apps/github-actions))
 
-## [v0.9.0](https://github.com/sglyon/PlotlyJS.jl/tree/v0.9.0) (2018-01-20)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.8.3...v0.9.0)
+## [v0.13.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.13.1) (2020-01-16)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.13.0...v0.13.1)
+
+**Closed issues:**
+
+- Usage of API functions, how does they work in Julia 1.2.0? [\#305](https://github.com/JuliaPlots/PlotlyJS.jl/issues/305)
+- Create new labels [\#303](https://github.com/JuliaPlots/PlotlyJS.jl/issues/303)
+- "options" keyword does not affect figure [\#300](https://github.com/JuliaPlots/PlotlyJS.jl/issues/300)
+- question: how to make this code more compact? [\#298](https://github.com/JuliaPlots/PlotlyJS.jl/issues/298)
+- shapes in subplots [\#297](https://github.com/JuliaPlots/PlotlyJS.jl/issues/297)
+- Precompilation conflicts [\#294](https://github.com/JuliaPlots/PlotlyJS.jl/issues/294)
+- color scale question [\#292](https://github.com/JuliaPlots/PlotlyJS.jl/issues/292)
+- Plots don't appear in Juno's plot-pane [\#269](https://github.com/JuliaPlots/PlotlyJS.jl/issues/269)
+
+**Merged pull requests:**
+
+- Add pull request labeler [\#301](https://github.com/JuliaPlots/PlotlyJS.jl/pull/301) ([abhishalya](https://github.com/abhishalya))
+- fix \#294 [\#299](https://github.com/JuliaPlots/PlotlyJS.jl/pull/299) ([MoonCoral](https://github.com/MoonCoral))
+
+## [v0.13.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.13.0) (2019-10-03)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.12.5...v0.13.0)
+
+**Closed issues:**
+
+- savefig fails for html format [\#293](https://github.com/JuliaPlots/PlotlyJS.jl/issues/293)
+- Plots on a remote jupyter notebook [\#291](https://github.com/JuliaPlots/PlotlyJS.jl/issues/291)
+- annotation [\#290](https://github.com/JuliaPlots/PlotlyJS.jl/issues/290)
+- axis attributes do not work for scatter3d [\#287](https://github.com/JuliaPlots/PlotlyJS.jl/issues/287)
+- No Output in Notebook \(Julia v1.0.2\) [\#255](https://github.com/JuliaPlots/PlotlyJS.jl/issues/255)
+
+**Merged pull requests:**
+
+- show plots in juno plotpane \(fix \#269\) [\#289](https://github.com/JuliaPlots/PlotlyJS.jl/pull/289) ([daschw](https://github.com/daschw))
+- Don't assume a global WebIO instance in JS code \(fix JupyterLab\). [\#288](https://github.com/JuliaPlots/PlotlyJS.jl/pull/288) ([travigd](https://github.com/travigd))
+
+## [v0.12.5](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.12.5) (2019-06-28)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.12.4...v0.12.5)
+
+**Closed issues:**
+
+- File save error（.eps） [\#284](https://github.com/JuliaPlots/PlotlyJS.jl/issues/284)
+- Plots don't display in Jupyter with WebIO v0.8.1 [\#278](https://github.com/JuliaPlots/PlotlyJS.jl/issues/278)
+
+**Merged pull requests:**
+
+- Update to latest WebIO. [\#285](https://github.com/JuliaPlots/PlotlyJS.jl/pull/285) ([travigd](https://github.com/travigd))
+
+## [v0.12.4](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.12.4) (2019-05-16)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.12.3...v0.12.4)
+
+**Closed issues:**
+
+- How to combine heatmap and scatter? [\#280](https://github.com/JuliaPlots/PlotlyJS.jl/issues/280)
+- Subplot layout editing issues [\#277](https://github.com/JuliaPlots/PlotlyJS.jl/issues/277)
+- Failed to Precompile Mux, Blink, PlotlyJS [\#275](https://github.com/JuliaPlots/PlotlyJS.jl/issues/275)
+- Julia : ERROR: KeyError: key "set\_facecolor" not found [\#270](https://github.com/JuliaPlots/PlotlyJS.jl/issues/270)
+- Missing support [\#265](https://github.com/JuliaPlots/PlotlyJS.jl/issues/265)
+- Cannot savefig to html on Julia 1.0.3 [\#263](https://github.com/JuliaPlots/PlotlyJS.jl/issues/263)
+- Selecting points no longer works [\#262](https://github.com/JuliaPlots/PlotlyJS.jl/issues/262)
+
+**Merged pull requests:**
+
+- Revert "Add fix for WebIO 0.8.0+." [\#279](https://github.com/JuliaPlots/PlotlyJS.jl/pull/279) ([sglyon](https://github.com/sglyon))
+- Broadcasting change in Julia 1.1 [\#274](https://github.com/JuliaPlots/PlotlyJS.jl/pull/274) ([jlperla](https://github.com/jlperla))
+- Add fix for WebIO 0.8.0+. [\#267](https://github.com/JuliaPlots/PlotlyJS.jl/pull/267) ([travigd](https://github.com/travigd))
+- Do not recursively call JSON.lower [\#266](https://github.com/JuliaPlots/PlotlyJS.jl/pull/266) ([TotalVerb](https://github.com/TotalVerb))
+- Check for data files before downloading them during build.  [\#237](https://github.com/JuliaPlots/PlotlyJS.jl/pull/237) ([jjstickel](https://github.com/jjstickel))
+
+## [v0.12.3](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.12.3) (2019-01-23)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.12.2...v0.12.3)
+
+**Closed issues:**
+
+- index.js and display.jl out of sync [\#261](https://github.com/JuliaPlots/PlotlyJS.jl/issues/261)
+- WebGL / Max Dataset Size/Data Point Quantity? [\#260](https://github.com/JuliaPlots/PlotlyJS.jl/issues/260)
+- Error when "using Blink" [\#259](https://github.com/JuliaPlots/PlotlyJS.jl/issues/259)
+
+## [v0.12.2](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.12.2) (2018-12-29)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.12.1...v0.12.2)
+
+**Closed issues:**
+
+- \_use\_remote not defined [\#257](https://github.com/JuliaPlots/PlotlyJS.jl/issues/257)
+- Subplots do not scale correctly when using plotlyjs\(\) with Plots.jl [\#256](https://github.com/JuliaPlots/PlotlyJS.jl/issues/256)
+- Blank plots [\#254](https://github.com/JuliaPlots/PlotlyJS.jl/issues/254)
+
+**Merged pull requests:**
+
+- Insert PlotlyJSDisplay just after REPL instead of pushing. [\#258](https://github.com/JuliaPlots/PlotlyJS.jl/pull/258) ([EricForgy](https://github.com/EricForgy))
+
+## [v0.12.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.12.1) (2018-12-03)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.12.0...v0.12.1)
+
+**Closed issues:**
+
+- Blink/Atom/Electron not connecting properly to PlotlyJS [\#253](https://github.com/JuliaPlots/PlotlyJS.jl/issues/253)
+- Transforms [\#252](https://github.com/JuliaPlots/PlotlyJS.jl/issues/252)
+
+## [v0.12.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.12.0) (2018-11-05)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.11.2...v0.12.0)
+
+**Closed issues:**
+
+- Styles not working as expected [\#249](https://github.com/JuliaPlots/PlotlyJS.jl/issues/249)
+- Issues with displaying plot in jupyter-lab [\#248](https://github.com/JuliaPlots/PlotlyJS.jl/issues/248)
+- Can't add PlotlyJS [\#246](https://github.com/JuliaPlots/PlotlyJS.jl/issues/246)
+- Blank plots [\#245](https://github.com/JuliaPlots/PlotlyJS.jl/issues/245)
+- seeming regression on Julia 0.7 [\#239](https://github.com/JuliaPlots/PlotlyJS.jl/issues/239)
+- Plotly examples do not work [\#236](https://github.com/JuliaPlots/PlotlyJS.jl/issues/236)
+- PlotlyJS plots not showing up in Juno/ijulia [\#235](https://github.com/JuliaPlots/PlotlyJS.jl/issues/235)
+- Layout: strange bug [\#234](https://github.com/JuliaPlots/PlotlyJS.jl/issues/234)
+- Juno compatibility [\#229](https://github.com/JuliaPlots/PlotlyJS.jl/issues/229)
+
+**Merged pull requests:**
+
+- Fix the link to the Plots.jl homepage in index.md [\#247](https://github.com/JuliaPlots/PlotlyJS.jl/pull/247) ([Kryohi](https://github.com/Kryohi))
+- Fixed a typo in the docs [\#241](https://github.com/JuliaPlots/PlotlyJS.jl/pull/241) ([ghuba](https://github.com/ghuba))
+
+## [v0.11.2](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.11.2) (2018-09-27)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.11.1...v0.11.2)
+
+**Closed issues:**
+
+- How to clear a figure without generating an error? [\#233](https://github.com/JuliaPlots/PlotlyJS.jl/issues/233)
+- JSString not defined  [\#232](https://github.com/JuliaPlots/PlotlyJS.jl/issues/232)
+- OSTYPE environmental variable in ORCA/deps/bin [\#228](https://github.com/JuliaPlots/PlotlyJS.jl/issues/228)
+- Cones and streamtubes [\#227](https://github.com/JuliaPlots/PlotlyJS.jl/issues/227)
+- ColorBrewer palettes not working in PlotlyJS v0.11.1 [\#225](https://github.com/JuliaPlots/PlotlyJS.jl/issues/225)
+- Dynamical plotting with extendtraces! in Julia 0.7 [\#223](https://github.com/JuliaPlots/PlotlyJS.jl/issues/223)
+- Plots integration still not working [\#222](https://github.com/JuliaPlots/PlotlyJS.jl/issues/222)
+- Feature request: Parallel Coordinates Plot [\#218](https://github.com/JuliaPlots/PlotlyJS.jl/issues/218)
+
+**Merged pull requests:**
+
+- use webio for Juno integration [\#231](https://github.com/JuliaPlots/PlotlyJS.jl/pull/231) ([pfitzseb](https://github.com/pfitzseb))
+- ENH: enables dynamical plotting when run in terminal or atom [\#224](https://github.com/JuliaPlots/PlotlyJS.jl/pull/224) ([kleskjr](https://github.com/kleskjr))
+
+## [v0.11.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.11.1) (2018-09-06)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.11.0...v0.11.1)
+
+**Closed issues:**
+
+- Can't close plot windows programmatically [\#220](https://github.com/JuliaPlots/PlotlyJS.jl/issues/220)
+- used to work;  doesn't now [\#219](https://github.com/JuliaPlots/PlotlyJS.jl/issues/219)
+- Error while building the package in Julia 0.7 [\#217](https://github.com/JuliaPlots/PlotlyJS.jl/issues/217)
+- Missing "Reexport" dependency [\#215](https://github.com/JuliaPlots/PlotlyJS.jl/issues/215)
+- Cannot display under Atom/Juno \(Julia v0.7.0\) [\#214](https://github.com/JuliaPlots/PlotlyJS.jl/issues/214)
+- Not sure if this warning is yours.... [\#196](https://github.com/JuliaPlots/PlotlyJS.jl/issues/196)
+
+## [v0.11.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.11.0) (2018-09-05)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.10.3...v0.11.0)
+
+**Implemented enhancements:**
+
+- Integrate with the display-backend stack [\#122](https://github.com/JuliaPlots/PlotlyJS.jl/issues/122)
+
+**Closed issues:**
+
+- Markdown not defined on master during build [\#212](https://github.com/JuliaPlots/PlotlyJS.jl/issues/212)
+- UndefVarError: plotattributes not defined [\#211](https://github.com/JuliaPlots/PlotlyJS.jl/issues/211)
+- Error building - Julia 1.0 [\#210](https://github.com/JuliaPlots/PlotlyJS.jl/issues/210)
+- Manual redraw! [\#209](https://github.com/JuliaPlots/PlotlyJS.jl/issues/209)
+- Fails to build or precompile on Julia 1.0.0 - Markdown not defined [\#207](https://github.com/JuliaPlots/PlotlyJS.jl/issues/207)
+- Failure on Linux, 0.7.0 [\#205](https://github.com/JuliaPlots/PlotlyJS.jl/issues/205)
+- Error building `PlotlyJS` on 1.0.0 [\#204](https://github.com/JuliaPlots/PlotlyJS.jl/issues/204)
+- PlotlyJS can't be built on Julia 0.7 [\#203](https://github.com/JuliaPlots/PlotlyJS.jl/issues/203)
+- Build failure of master \(v0.10.2\) on julia 1.0: `Markdown not defined` [\#202](https://github.com/JuliaPlots/PlotlyJS.jl/issues/202)
+- Failure to precompile under Julia v0.7.0: Date not defined [\#201](https://github.com/JuliaPlots/PlotlyJS.jl/issues/201)
+- Failure to Precompile: JSString not defined [\#198](https://github.com/JuliaPlots/PlotlyJS.jl/issues/198)
+- Failing to plot locally, Julia0.6.4 OSX [\#197](https://github.com/JuliaPlots/PlotlyJS.jl/issues/197)
+- savefig areaplot [\#192](https://github.com/JuliaPlots/PlotlyJS.jl/issues/192)
+- Add show for "application/vnd.plotly.v1+json" mime type [\#191](https://github.com/JuliaPlots/PlotlyJS.jl/issues/191)
+- displayModeBar = false [\#185](https://github.com/JuliaPlots/PlotlyJS.jl/issues/185)
+- Remove Blink dependency? [\#184](https://github.com/JuliaPlots/PlotlyJS.jl/issues/184)
+- savefig stacked in a while loop for saving a subplot from Plots.jl [\#180](https://github.com/JuliaPlots/PlotlyJS.jl/issues/180)
+- Build fails on julia-0.6.0 [\#179](https://github.com/JuliaPlots/PlotlyJS.jl/issues/179)
+- Ensuring Blink.AtomShell.install\(\) called [\#175](https://github.com/JuliaPlots/PlotlyJS.jl/issues/175)
+- Issue generating figures with a for loop  [\#165](https://github.com/JuliaPlots/PlotlyJS.jl/issues/165)
+- Module Options [\#108](https://github.com/JuliaPlots/PlotlyJS.jl/issues/108)
+- Hook into plotly events [\#27](https://github.com/JuliaPlots/PlotlyJS.jl/issues/27)
+
+**Merged pull requests:**
+
+- info -\> @info [\#216](https://github.com/JuliaPlots/PlotlyJS.jl/pull/216) ([cstjean](https://github.com/cstjean))
+- Import html\_body from PlotlyBase [\#213](https://github.com/JuliaPlots/PlotlyJS.jl/pull/213) ([cstjean](https://github.com/cstjean))
+- WIP: Sl/0.7 [\#208](https://github.com/JuliaPlots/PlotlyJS.jl/pull/208) ([sglyon](https://github.com/sglyon))
+- Fix deprecations [\#206](https://github.com/JuliaPlots/PlotlyJS.jl/pull/206) ([femtocleaner[bot]](https://github.com/apps/femtocleaner))
+- Fixes for Julia v0.7 [\#200](https://github.com/JuliaPlots/PlotlyJS.jl/pull/200) ([VPetukhov](https://github.com/VPetukhov))
+- webio integration [\#193](https://github.com/JuliaPlots/PlotlyJS.jl/pull/193) ([piever](https://github.com/piever))
+
+## [v0.10.3](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.10.3) (2018-06-23)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.10.2...v0.10.3)
+
+**Closed issues:**
+
+- Fail to plot scatter3d [\#190](https://github.com/JuliaPlots/PlotlyJS.jl/issues/190)
+- changes in scatter3d axis label specification? [\#189](https://github.com/JuliaPlots/PlotlyJS.jl/issues/189)
+- Unable to use `scatter` [\#188](https://github.com/JuliaPlots/PlotlyJS.jl/issues/188)
+- currently uninstallable on 0.6.2. [\#187](https://github.com/JuliaPlots/PlotlyJS.jl/issues/187)
+- Adding logo [\#186](https://github.com/JuliaPlots/PlotlyJS.jl/issues/186)
+
+## [v0.10.2](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.10.2) (2018-03-05)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.10.1...v0.10.2)
+
+**Closed issues:**
+
+- JupyterLab incompatibility [\#182](https://github.com/JuliaPlots/PlotlyJS.jl/issues/182)
+- Error requiring IJulia from PlotlyJS [\#181](https://github.com/JuliaPlots/PlotlyJS.jl/issues/181)
+
+**Merged pull requests:**
+
+- Fix paths in build.jl [\#183](https://github.com/JuliaPlots/PlotlyJS.jl/pull/183) ([EricForgy](https://github.com/EricForgy))
+
+## [v0.10.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.10.1) (2018-02-07)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.10.0...v0.10.1)
+
+**Closed issues:**
+
+- Installation issue on local computer: plotly.js javascript libary not found - [\#176](https://github.com/JuliaPlots/PlotlyJS.jl/issues/176)
+- Allow calling init\_notebook outside of jupyter [\#174](https://github.com/JuliaPlots/PlotlyJS.jl/issues/174)
+- ERROR: LoadError: Cannot find Electron.  [\#172](https://github.com/JuliaPlots/PlotlyJS.jl/issues/172)
+- Require DataFrames failed [\#169](https://github.com/JuliaPlots/PlotlyJS.jl/issues/169)
+- Add violin trace [\#167](https://github.com/JuliaPlots/PlotlyJS.jl/issues/167)
+- save to pdf [\#137](https://github.com/JuliaPlots/PlotlyJS.jl/issues/137)
+
+## [v0.10.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.10.0) (2018-02-01)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.9.0...v0.10.0)
+
+**Closed issues:**
+
+- Blink Display error [\#170](https://github.com/JuliaPlots/PlotlyJS.jl/issues/170)
+
+**Merged pull requests:**
+
+- Sl/plotlybase [\#171](https://github.com/JuliaPlots/PlotlyJS.jl/pull/171) ([sglyon](https://github.com/sglyon))
+
+## [v0.9.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.9.0) (2018-01-20)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.8.3...v0.9.0)
 
 **Fixed bugs:**
 
-- Race condition with Blink.jl v0.6.0 and onwards [\#162](https://github.com/sglyon/PlotlyJS.jl/issues/162)
+- Race condition with Blink.jl v0.6.0 and onwards [\#162](https://github.com/JuliaPlots/PlotlyJS.jl/issues/162)
 
 **Closed issues:**
 
-- Blink/ElectronDisplay [\#164](https://github.com/sglyon/PlotlyJS.jl/issues/164)
+- Blink/ElectronDisplay [\#164](https://github.com/JuliaPlots/PlotlyJS.jl/issues/164)
 
 **Merged pull requests:**
 
-- Violins [\#168](https://github.com/sglyon/PlotlyJS.jl/pull/168) ([sglyon](https://github.com/sglyon))
-- Fixed some typos [\#166](https://github.com/sglyon/PlotlyJS.jl/pull/166) ([ghuba](https://github.com/ghuba))
-- add subplot examples [\#163](https://github.com/sglyon/PlotlyJS.jl/pull/163) ([jbrea](https://github.com/jbrea))
+- Violins [\#168](https://github.com/JuliaPlots/PlotlyJS.jl/pull/168) ([sglyon](https://github.com/sglyon))
+- Fixed some typos [\#166](https://github.com/JuliaPlots/PlotlyJS.jl/pull/166) ([ghuba](https://github.com/ghuba))
+- add subplot examples [\#163](https://github.com/JuliaPlots/PlotlyJS.jl/pull/163) ([jbrea](https://github.com/jbrea))
 
-## [v0.8.3](https://github.com/sglyon/PlotlyJS.jl/tree/v0.8.3) (2018-01-11)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.8.2...v0.8.3)
+## [v0.8.3](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.8.3) (2018-01-11)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.8.2...v0.8.3)
 
 **Fixed bugs:**
 
-- `by` not defined [\#158](https://github.com/sglyon/PlotlyJS.jl/issues/158)
+- `by` not defined [\#158](https://github.com/JuliaPlots/PlotlyJS.jl/issues/158)
 
 **Closed issues:**
 
-- Subplots generated with comprehension don't show up in Electron in REPL [\#160](https://github.com/sglyon/PlotlyJS.jl/issues/160)
+- Subplots generated with comprehension don't show up in Electron in REPL [\#160](https://github.com/JuliaPlots/PlotlyJS.jl/issues/160)
 
-## [v0.8.2](https://github.com/sglyon/PlotlyJS.jl/tree/v0.8.2) (2018-01-06)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.8.1...v0.8.2)
+## [v0.8.2](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.8.2) (2018-01-06)
 
-## [v0.8.1](https://github.com/sglyon/PlotlyJS.jl/tree/v0.8.1) (2017-12-19)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.8.0...v0.8.1)
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.8.1...v0.8.2)
+
+## [v0.8.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.8.1) (2017-12-19)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.8.0...v0.8.1)
 
 **Fixed bugs:**
 
-- Do subplots work with surfaces? [\#156](https://github.com/sglyon/PlotlyJS.jl/issues/156)
+- Do subplots work with surfaces? [\#156](https://github.com/JuliaPlots/PlotlyJS.jl/issues/156)
 
 **Closed issues:**
 
-- apply "columnar" attributes to each series [\#154](https://github.com/sglyon/PlotlyJS.jl/issues/154)
-- Error tagging new release [\#153](https://github.com/sglyon/PlotlyJS.jl/issues/153)
-- DataFrames v0.11 [\#151](https://github.com/sglyon/PlotlyJS.jl/issues/151)
-- right side of plot is not using correct color [\#148](https://github.com/sglyon/PlotlyJS.jl/issues/148)
-- subplots throw away shape information [\#138](https://github.com/sglyon/PlotlyJS.jl/issues/138)
-- LoadError: Javascript error [\#116](https://github.com/sglyon/PlotlyJS.jl/issues/116)
-- RE: EOFError: read end of file [\#105](https://github.com/sglyon/PlotlyJS.jl/issues/105)
-- Giant memory leak. [\#102](https://github.com/sglyon/PlotlyJS.jl/issues/102)
-- histogram crashing when using PlotlyJS over ssh tunnel  [\#101](https://github.com/sglyon/PlotlyJS.jl/issues/101)
-- Generating ElectronPlot/ saving plots from Jupyter Notebook [\#88](https://github.com/sglyon/PlotlyJS.jl/issues/88)
-- Properties with underscores not handled correctly on trace creation [\#76](https://github.com/sglyon/PlotlyJS.jl/issues/76)
-- Wishlist [\#61](https://github.com/sglyon/PlotlyJS.jl/issues/61)
-- line labels and legends for subplots collect next to the first subplot [\#59](https://github.com/sglyon/PlotlyJS.jl/issues/59)
-- Save multiple plots to single html file \(no subplots\) [\#43](https://github.com/sglyon/PlotlyJS.jl/issues/43)
-- Add options for savefig [\#4](https://github.com/sglyon/PlotlyJS.jl/issues/4)
+- apply "columnar" attributes to each series [\#154](https://github.com/JuliaPlots/PlotlyJS.jl/issues/154)
+- Error tagging new release [\#153](https://github.com/JuliaPlots/PlotlyJS.jl/issues/153)
+- DataFrames v0.11 [\#151](https://github.com/JuliaPlots/PlotlyJS.jl/issues/151)
+- right side of plot is not using correct color [\#148](https://github.com/JuliaPlots/PlotlyJS.jl/issues/148)
+- subplots throw away shape information [\#138](https://github.com/JuliaPlots/PlotlyJS.jl/issues/138)
+- LoadError: Javascript error [\#116](https://github.com/JuliaPlots/PlotlyJS.jl/issues/116)
+- RE: EOFError: read end of file [\#105](https://github.com/JuliaPlots/PlotlyJS.jl/issues/105)
+- Giant memory leak. [\#102](https://github.com/JuliaPlots/PlotlyJS.jl/issues/102)
+- histogram crashing when using PlotlyJS over ssh tunnel  [\#101](https://github.com/JuliaPlots/PlotlyJS.jl/issues/101)
+- Generating ElectronPlot/ saving plots from Jupyter Notebook [\#88](https://github.com/JuliaPlots/PlotlyJS.jl/issues/88)
+- Properties with underscores not handled correctly on trace creation [\#76](https://github.com/JuliaPlots/PlotlyJS.jl/issues/76)
+- Wishlist [\#61](https://github.com/JuliaPlots/PlotlyJS.jl/issues/61)
+- line labels and legends for subplots collect next to the first subplot [\#59](https://github.com/JuliaPlots/PlotlyJS.jl/issues/59)
+- Save multiple plots to single html file \(no subplots\) [\#43](https://github.com/JuliaPlots/PlotlyJS.jl/issues/43)
+- Add options for savefig [\#4](https://github.com/JuliaPlots/PlotlyJS.jl/issues/4)
 
 **Merged pull requests:**
 
-- ENH: subplots with 3d works closes \#156 [\#157](https://github.com/sglyon/PlotlyJS.jl/pull/157) ([sglyon](https://github.com/sglyon))
+- ENH: subplots with 3d works closes \#156 [\#157](https://github.com/JuliaPlots/PlotlyJS.jl/pull/157) ([sglyon](https://github.com/sglyon))
 
-## [v0.8.0](https://github.com/sglyon/PlotlyJS.jl/tree/v0.8.0) (2017-12-12)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.7.1...v0.8.0)
+## [v0.8.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.8.0) (2017-12-12)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.7.1...v0.8.0)
 
 **Closed issues:**
 
-- Plot won't display in Atom or in Blink window [\#147](https://github.com/sglyon/PlotlyJS.jl/issues/147)
-- Advanced heatmap features help [\#146](https://github.com/sglyon/PlotlyJS.jl/issues/146)
-- "updatemenus" support [\#144](https://github.com/sglyon/PlotlyJS.jl/issues/144)
-- PlotlyJS \(as a Plots.jl backend\) now fails in Juno \(Atom\) on Ubuntu 16.04 [\#142](https://github.com/sglyon/PlotlyJS.jl/issues/142)
-- Possible issue - Error during installation  [\#141](https://github.com/sglyon/PlotlyJS.jl/issues/141)
-- Run femtocleaner [\#140](https://github.com/sglyon/PlotlyJS.jl/issues/140)
-- Unable to install PlotlyJS on Julia 0.6 on Mac [\#139](https://github.com/sglyon/PlotlyJS.jl/issues/139)
+- Plot won't display in Atom or in Blink window [\#147](https://github.com/JuliaPlots/PlotlyJS.jl/issues/147)
+- Advanced heatmap features help [\#146](https://github.com/JuliaPlots/PlotlyJS.jl/issues/146)
+- "updatemenus" support [\#144](https://github.com/JuliaPlots/PlotlyJS.jl/issues/144)
+- PlotlyJS \(as a Plots.jl backend\) now fails in Juno \(Atom\) on Ubuntu 16.04 [\#142](https://github.com/JuliaPlots/PlotlyJS.jl/issues/142)
+- Possible issue - Error during installation  [\#141](https://github.com/JuliaPlots/PlotlyJS.jl/issues/141)
+- Run femtocleaner [\#140](https://github.com/JuliaPlots/PlotlyJS.jl/issues/140)
+- Unable to install PlotlyJS on Julia 0.6 on Mac [\#139](https://github.com/JuliaPlots/PlotlyJS.jl/issues/139)
 
 **Merged pull requests:**
 
-- Develop [\#152](https://github.com/sglyon/PlotlyJS.jl/pull/152) ([sglyon](https://github.com/sglyon))
-- Tiny Cycler fixes [\#149](https://github.com/sglyon/PlotlyJS.jl/pull/149) ([alyst](https://github.com/alyst))
-- use Requires.jl [\#145](https://github.com/sglyon/PlotlyJS.jl/pull/145) ([sglyon](https://github.com/sglyon))
+- Develop [\#152](https://github.com/JuliaPlots/PlotlyJS.jl/pull/152) ([sglyon](https://github.com/sglyon))
+- Tiny Cycler fixes [\#149](https://github.com/JuliaPlots/PlotlyJS.jl/pull/149) ([alyst](https://github.com/alyst))
+- use Requires.jl [\#145](https://github.com/JuliaPlots/PlotlyJS.jl/pull/145) ([sglyon](https://github.com/sglyon))
 
-## [v0.7.1](https://github.com/sglyon/PlotlyJS.jl/tree/v0.7.1) (2017-10-25)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.7.0...v0.7.1)
+## [v0.7.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.7.1) (2017-10-25)
 
-**Merged pull requests:**
-
-- Sl/cyclers [\#143](https://github.com/sglyon/PlotlyJS.jl/pull/143) ([sglyon](https://github.com/sglyon))
-
-## [v0.7.0](https://github.com/sglyon/PlotlyJS.jl/tree/v0.7.0) (2017-10-20)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.6.5...v0.7.0)
-
-## [v0.6.5](https://github.com/sglyon/PlotlyJS.jl/tree/v0.6.5) (2017-10-20)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.6.4...v0.6.5)
-
-**Closed issues:**
-
-- Hover text doesn't handle same-x data points [\#135](https://github.com/sglyon/PlotlyJS.jl/issues/135)
-- HTML output points to a local copy of plotly.js [\#133](https://github.com/sglyon/PlotlyJS.jl/issues/133)
-- Inconistent numeric format on logarithmic axis labels [\#132](https://github.com/sglyon/PlotlyJS.jl/issues/132)
-- Titles cut off of example plots in documentation  [\#131](https://github.com/sglyon/PlotlyJS.jl/issues/131)
-- Empty plots in Jupyter notebooks [\#130](https://github.com/sglyon/PlotlyJS.jl/issues/130)
-- Using julia 0.6: `filter\(flt, itr\) is deprecated` [\#124](https://github.com/sglyon/PlotlyJS.jl/issues/124)
-- no show \(Windows 7, Julia 0.5, electron\) [\#81](https://github.com/sglyon/PlotlyJS.jl/issues/81)
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.7.0...v0.7.1)
 
 **Merged pull requests:**
 
-- Fix deprecations [\#134](https://github.com/sglyon/PlotlyJS.jl/pull/134) ([femtocleaner[bot]](https://github.com/apps/femtocleaner))
+- Sl/cyclers [\#143](https://github.com/JuliaPlots/PlotlyJS.jl/pull/143) ([sglyon](https://github.com/sglyon))
 
-## [v0.6.4](https://github.com/sglyon/PlotlyJS.jl/tree/v0.6.4) (2017-07-13)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.6.3...v0.6.4)
+## [v0.7.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.7.0) (2017-10-20)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.6.5...v0.7.0)
+
+## [v0.6.5](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.6.5) (2017-10-20)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.6.4...v0.6.5)
 
 **Closed issues:**
 
-- Subplots not appearing  [\#128](https://github.com/sglyon/PlotlyJS.jl/issues/128)
-- Transparent surface plots [\#126](https://github.com/sglyon/PlotlyJS.jl/issues/126)
-- Error showing value of type PlotlyJS.SyncPlot{PlotlyJS.ElectronDisplay} [\#110](https://github.com/sglyon/PlotlyJS.jl/issues/110)
+- Hover text doesn't handle same-x data points [\#135](https://github.com/JuliaPlots/PlotlyJS.jl/issues/135)
+- HTML output points to a local copy of plotly.js [\#133](https://github.com/JuliaPlots/PlotlyJS.jl/issues/133)
+- Inconistent numeric format on logarithmic axis labels [\#132](https://github.com/JuliaPlots/PlotlyJS.jl/issues/132)
+- Titles cut off of example plots in documentation  [\#131](https://github.com/JuliaPlots/PlotlyJS.jl/issues/131)
+- Empty plots in Jupyter notebooks [\#130](https://github.com/JuliaPlots/PlotlyJS.jl/issues/130)
+- Using julia 0.6: `filter\(flt, itr\) is deprecated` [\#124](https://github.com/JuliaPlots/PlotlyJS.jl/issues/124)
+- no show \(Windows 7, Julia 0.5, electron\) [\#81](https://github.com/JuliaPlots/PlotlyJS.jl/issues/81)
 
 **Merged pull requests:**
 
-- Abstrrrract [\#129](https://github.com/sglyon/PlotlyJS.jl/pull/129) ([JobJob](https://github.com/JobJob))
-- Readall rename and Js loading default [\#127](https://github.com/sglyon/PlotlyJS.jl/pull/127) ([JobJob](https://github.com/JobJob))
+- Fix deprecations [\#134](https://github.com/JuliaPlots/PlotlyJS.jl/pull/134) ([femtocleaner[bot]](https://github.com/apps/femtocleaner))
 
-## [v0.6.3](https://github.com/sglyon/PlotlyJS.jl/tree/v0.6.3) (2017-06-26)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.6.2...v0.6.3)
+## [v0.6.4](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.6.4) (2017-07-13)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.6.3...v0.6.4)
 
 **Closed issues:**
 
-- Failed to precompile PlotlyJS on windows, Julia 0.5 [\#123](https://github.com/sglyon/PlotlyJS.jl/issues/123)
-- xaxis\_title in mesh3d [\#121](https://github.com/sglyon/PlotlyJS.jl/issues/121)
-- Changing colorscale in Scatter Plots [\#117](https://github.com/sglyon/PlotlyJS.jl/issues/117)
-- Error handling websocket connection [\#115](https://github.com/sglyon/PlotlyJS.jl/issues/115)
-- Feature request: DateTime support [\#87](https://github.com/sglyon/PlotlyJS.jl/issues/87)
-- savefig hangs if the plot hasn't been displayed for long enough [\#73](https://github.com/sglyon/PlotlyJS.jl/issues/73)
-- Using with Hydrogen? [\#42](https://github.com/sglyon/PlotlyJS.jl/issues/42)
+- Subplots not appearing  [\#128](https://github.com/JuliaPlots/PlotlyJS.jl/issues/128)
+- Transparent surface plots [\#126](https://github.com/JuliaPlots/PlotlyJS.jl/issues/126)
+- Error showing value of type PlotlyJS.SyncPlot{PlotlyJS.ElectronDisplay} [\#110](https://github.com/JuliaPlots/PlotlyJS.jl/issues/110)
 
 **Merged pull requests:**
 
-- Update CI URLs to point to new caching infrastructure [\#120](https://github.com/sglyon/PlotlyJS.jl/pull/120) ([staticfloat](https://github.com/staticfloat))
-- Fix duplicate setting of keyword parameter, test more versions, add badges [\#119](https://github.com/sglyon/PlotlyJS.jl/pull/119) ([ScottPJones](https://github.com/ScottPJones))
+- Abstrrrract [\#129](https://github.com/JuliaPlots/PlotlyJS.jl/pull/129) ([JobJob](https://github.com/JobJob))
+- Readall rename and Js loading default [\#127](https://github.com/JuliaPlots/PlotlyJS.jl/pull/127) ([JobJob](https://github.com/JobJob))
 
-## [v0.6.2](https://github.com/sglyon/PlotlyJS.jl/tree/v0.6.2) (2017-05-01)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.6.1...v0.6.2)
+## [v0.6.3](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.6.3) (2017-06-26)
 
-## [v0.6.1](https://github.com/sglyon/PlotlyJS.jl/tree/v0.6.1) (2017-04-28)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.6.0...v0.6.1)
-
-## [v0.6.0](https://github.com/sglyon/PlotlyJS.jl/tree/v0.6.0) (2017-04-14)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.5.2...v0.6.0)
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.6.2...v0.6.3)
 
 **Closed issues:**
 
-- HTML script virus in examples [\#113](https://github.com/sglyon/PlotlyJS.jl/issues/113)
-- 2D-Histogram examples are not working [\#111](https://github.com/sglyon/PlotlyJS.jl/issues/111)
-- close plot window [\#109](https://github.com/sglyon/PlotlyJS.jl/issues/109)
-- Errors arise after clearing workspace [\#107](https://github.com/sglyon/PlotlyJS.jl/issues/107)
-- plot heatmap function gives a compile error when working on a variable from a global scope [\#106](https://github.com/sglyon/PlotlyJS.jl/issues/106)
-- Plotting a 3D surface with facecolor different from its height values [\#104](https://github.com/sglyon/PlotlyJS.jl/issues/104)
-- WARNING: bytestring is deprecated [\#103](https://github.com/sglyon/PlotlyJS.jl/issues/103)
-- clims in heatmap not supported? [\#99](https://github.com/sglyon/PlotlyJS.jl/issues/99)
-- Plot, plot, \[plots\] and docs [\#74](https://github.com/sglyon/PlotlyJS.jl/issues/74)
+- Failed to precompile PlotlyJS on windows, Julia 0.5 [\#123](https://github.com/JuliaPlots/PlotlyJS.jl/issues/123)
+- xaxis\_title in mesh3d [\#121](https://github.com/JuliaPlots/PlotlyJS.jl/issues/121)
+- Changing colorscale in Scatter Plots [\#117](https://github.com/JuliaPlots/PlotlyJS.jl/issues/117)
+- Error handling websocket connection [\#115](https://github.com/JuliaPlots/PlotlyJS.jl/issues/115)
+- Feature request: DateTime support [\#87](https://github.com/JuliaPlots/PlotlyJS.jl/issues/87)
+- savefig hangs if the plot hasn't been displayed for long enough [\#73](https://github.com/JuliaPlots/PlotlyJS.jl/issues/73)
+- Using with Hydrogen? [\#42](https://github.com/JuliaPlots/PlotlyJS.jl/issues/42)
 
 **Merged pull requests:**
 
-- Sl/dataframes [\#112](https://github.com/sglyon/PlotlyJS.jl/pull/112) ([sglyon](https://github.com/sglyon))
+- Update CI URLs to point to new caching infrastructure [\#120](https://github.com/JuliaPlots/PlotlyJS.jl/pull/120) ([staticfloat](https://github.com/staticfloat))
+- Fix duplicate setting of keyword parameter, test more versions, add badges [\#119](https://github.com/JuliaPlots/PlotlyJS.jl/pull/119) ([ScottPJones](https://github.com/ScottPJones))
 
-## [v0.5.2](https://github.com/sglyon/PlotlyJS.jl/tree/v0.5.2) (2016-12-07)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.5.1...v0.5.2)
+## [v0.6.2](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.6.2) (2017-05-01)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.6.1...v0.6.2)
+
+## [v0.6.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.6.1) (2017-04-28)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.6.0...v0.6.1)
+
+## [v0.6.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.6.0) (2017-04-14)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.5.2...v0.6.0)
 
 **Closed issues:**
 
-- Plot is too big? [\#98](https://github.com/sglyon/PlotlyJS.jl/issues/98)
-- Stacked subplots, more than 2 yaxis [\#96](https://github.com/sglyon/PlotlyJS.jl/issues/96)
-- Loaded notebooks have no plots [\#89](https://github.com/sglyon/PlotlyJS.jl/issues/89)
+- HTML script virus in examples [\#113](https://github.com/JuliaPlots/PlotlyJS.jl/issues/113)
+- 2D-Histogram examples are not working [\#111](https://github.com/JuliaPlots/PlotlyJS.jl/issues/111)
+- close plot window [\#109](https://github.com/JuliaPlots/PlotlyJS.jl/issues/109)
+- Errors arise after clearing workspace [\#107](https://github.com/JuliaPlots/PlotlyJS.jl/issues/107)
+- plot heatmap function gives a compile error when working on a variable from a global scope [\#106](https://github.com/JuliaPlots/PlotlyJS.jl/issues/106)
+- Plotting a 3D surface with facecolor different from its height values [\#104](https://github.com/JuliaPlots/PlotlyJS.jl/issues/104)
+- WARNING: bytestring is deprecated [\#103](https://github.com/JuliaPlots/PlotlyJS.jl/issues/103)
+- clims in heatmap not supported? [\#99](https://github.com/JuliaPlots/PlotlyJS.jl/issues/99)
+- Plot, plot, \[plots\] and docs [\#74](https://github.com/JuliaPlots/PlotlyJS.jl/issues/74)
 
 **Merged pull requests:**
 
-- Complete Contour Examples [\#95](https://github.com/sglyon/PlotlyJS.jl/pull/95) ([caimichael](https://github.com/caimichael))
-- adds TestSetExtensions to clean up test results [\#93](https://github.com/sglyon/PlotlyJS.jl/pull/93) ([ssfrr](https://github.com/ssfrr))
-- Simpler way to fix use with Interact in IJulia on page refresh [\#92](https://github.com/sglyon/PlotlyJS.jl/pull/92) ([JobJob](https://github.com/JobJob))
+- Sl/dataframes [\#112](https://github.com/JuliaPlots/PlotlyJS.jl/pull/112) ([sglyon](https://github.com/sglyon))
 
-## [v0.5.1](https://github.com/sglyon/PlotlyJS.jl/tree/v0.5.1) (2016-10-29)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.5.0...v0.5.1)
+## [v0.5.2](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.5.2) (2016-12-07)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.5.1...v0.5.2)
 
 **Closed issues:**
 
-- Add nteract support for JupyterPlot [\#90](https://github.com/sglyon/PlotlyJS.jl/issues/90)
-- Aspect ratio for 2D plot [\#85](https://github.com/sglyon/PlotlyJS.jl/issues/85)
-- error install :\( [\#83](https://github.com/sglyon/PlotlyJS.jl/issues/83)
-- handle 2D data matrices in 1D plots e.g. `scatter` [\#82](https://github.com/sglyon/PlotlyJS.jl/issues/82)
-- Grab gadfly dark theme [\#79](https://github.com/sglyon/PlotlyJS.jl/issues/79)
-- Float32 arrays don't plot reliably on 0.5.0 [\#78](https://github.com/sglyon/PlotlyJS.jl/issues/78)
-- Save and edit plot in cloud [\#75](https://github.com/sglyon/PlotlyJS.jl/issues/75)
+- Plot is too big? [\#98](https://github.com/JuliaPlots/PlotlyJS.jl/issues/98)
+- Stacked subplots, more than 2 yaxis [\#96](https://github.com/JuliaPlots/PlotlyJS.jl/issues/96)
+- Loaded notebooks have no plots [\#89](https://github.com/JuliaPlots/PlotlyJS.jl/issues/89)
 
 **Merged pull requests:**
 
-- adds stem plot trace as wrapper around `scatter` [\#86](https://github.com/sglyon/PlotlyJS.jl/pull/86) ([ssfrr](https://github.com/ssfrr))
-- Use dark theme in Juno [\#84](https://github.com/sglyon/PlotlyJS.jl/pull/84) ([MikeInnes](https://github.com/MikeInnes))
-- Examples completed [\#71](https://github.com/sglyon/PlotlyJS.jl/pull/71) ([caimichael](https://github.com/caimichael))
+- Complete Contour Examples [\#95](https://github.com/JuliaPlots/PlotlyJS.jl/pull/95) ([caimichael](https://github.com/caimichael))
+- adds TestSetExtensions to clean up test results [\#93](https://github.com/JuliaPlots/PlotlyJS.jl/pull/93) ([ssfrr](https://github.com/ssfrr))
+- Simpler way to fix use with Interact in IJulia on page refresh [\#92](https://github.com/JuliaPlots/PlotlyJS.jl/pull/92) ([JobJob](https://github.com/JobJob))
 
-## [v0.5.0](https://github.com/sglyon/PlotlyJS.jl/tree/v0.5.0) (2016-09-21)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.4.3...v0.5.0)
+## [v0.5.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.5.1) (2016-10-29)
 
-## [v0.4.3](https://github.com/sglyon/PlotlyJS.jl/tree/v0.4.3) (2016-09-21)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.4.2...v0.4.3)
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.5.0...v0.5.1)
+
+**Closed issues:**
+
+- Add nteract support for JupyterPlot [\#90](https://github.com/JuliaPlots/PlotlyJS.jl/issues/90)
+- Aspect ratio for 2D plot [\#85](https://github.com/JuliaPlots/PlotlyJS.jl/issues/85)
+- error install :\( [\#83](https://github.com/JuliaPlots/PlotlyJS.jl/issues/83)
+- handle 2D data matrices in 1D plots e.g. `scatter` [\#82](https://github.com/JuliaPlots/PlotlyJS.jl/issues/82)
+- Grab gadfly dark theme [\#79](https://github.com/JuliaPlots/PlotlyJS.jl/issues/79)
+- Float32 arrays don't plot reliably on 0.5.0 [\#78](https://github.com/JuliaPlots/PlotlyJS.jl/issues/78)
+- Save and edit plot in cloud [\#75](https://github.com/JuliaPlots/PlotlyJS.jl/issues/75)
 
 **Merged pull requests:**
 
-- Caimichael/examples [\#72](https://github.com/sglyon/PlotlyJS.jl/pull/72) ([sglyon](https://github.com/sglyon))
+- adds stem plot trace as wrapper around `scatter` [\#86](https://github.com/JuliaPlots/PlotlyJS.jl/pull/86) ([ssfrr](https://github.com/ssfrr))
+- Use dark theme in Juno [\#84](https://github.com/JuliaPlots/PlotlyJS.jl/pull/84) ([MikeInnes](https://github.com/MikeInnes))
+- Examples completed [\#71](https://github.com/JuliaPlots/PlotlyJS.jl/pull/71) ([caimichael](https://github.com/caimichael))
 
-## [v0.4.2](https://github.com/sglyon/PlotlyJS.jl/tree/v0.4.2) (2016-09-07)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.4.1...v0.4.2)
+## [v0.5.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.5.0) (2016-09-21)
 
-**Closed issues:**
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.4.3...v0.5.0)
 
-- Error updating package [\#70](https://github.com/sglyon/PlotlyJS.jl/issues/70)
+## [v0.4.3](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.4.3) (2016-09-21)
 
-## [v0.4.1](https://github.com/sglyon/PlotlyJS.jl/tree/v0.4.1) (2016-09-07)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.4.0...v0.4.1)
-
-**Merged pull requests:**
-
-- don't use a generator in \_symbol\_dict [\#69](https://github.com/sglyon/PlotlyJS.jl/pull/69) ([tkelman](https://github.com/tkelman))
-
-## [v0.4.0](https://github.com/sglyon/PlotlyJS.jl/tree/v0.4.0) (2016-09-07)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.3.3...v0.4.0)
-
-**Closed issues:**
-
-- PlotlyJS doesn't show plots on Julia 0.5 RC3. [\#68](https://github.com/sglyon/PlotlyJS.jl/issues/68)
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.4.2...v0.4.3)
 
 **Merged pull requests:**
 
-- RFC: start for more convenient `plot` API [\#66](https://github.com/sglyon/PlotlyJS.jl/pull/66) ([sglyon](https://github.com/sglyon))
+- Caimichael/examples [\#72](https://github.com/JuliaPlots/PlotlyJS.jl/pull/72) ([sglyon](https://github.com/sglyon))
 
-## [v0.3.3](https://github.com/sglyon/PlotlyJS.jl/tree/v0.3.3) (2016-08-24)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.3.2...v0.3.3)
+## [v0.4.2](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.4.2) (2016-09-07)
 
-## [v0.3.2](https://github.com/sglyon/PlotlyJS.jl/tree/v0.3.2) (2016-08-23)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.3.1...v0.3.2)
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.4.1...v0.4.2)
 
 **Closed issues:**
 
-- Does PlotlyJS.jl support unicode now? [\#64](https://github.com/sglyon/PlotlyJS.jl/issues/64)
-- Loading PlotlyJS fails on Julia V0.5-rc1 [\#62](https://github.com/sglyon/PlotlyJS.jl/issues/62)
-- Cloud [\#55](https://github.com/sglyon/PlotlyJS.jl/issues/55)
-- Plots.jl animations [\#53](https://github.com/sglyon/PlotlyJS.jl/issues/53)
-- ERROR: connect: connection refused \(ECONNREFUSED\) [\#33](https://github.com/sglyon/PlotlyJS.jl/issues/33)
-- Include MathJax.js [\#30](https://github.com/sglyon/PlotlyJS.jl/issues/30)
-- Javascript error on package load with IJulia/Firefox [\#28](https://github.com/sglyon/PlotlyJS.jl/issues/28)
-- Resize plot when electron window is resized [\#25](https://github.com/sglyon/PlotlyJS.jl/issues/25)
+- Error updating package [\#70](https://github.com/JuliaPlots/PlotlyJS.jl/issues/70)
+
+## [v0.4.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.4.1) (2016-09-07)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.4.0...v0.4.1)
 
 **Merged pull requests:**
 
-- Extend `JSON.lower` instead of `JSON.print` [\#65](https://github.com/sglyon/PlotlyJS.jl/pull/65) ([TotalVerb](https://github.com/TotalVerb))
-- Fixes for Julia 0.5 [\#63](https://github.com/sglyon/PlotlyJS.jl/pull/63) ([timholy](https://github.com/timholy))
-- fix dates in json [\#58](https://github.com/sglyon/PlotlyJS.jl/pull/58) ([tbreloff](https://github.com/tbreloff))
-- Update README [\#57](https://github.com/sglyon/PlotlyJS.jl/pull/57) ([matthieugomez](https://github.com/matthieugomez))
-- Solve issue \#55 [\#56](https://github.com/sglyon/PlotlyJS.jl/pull/56) ([matthieugomez](https://github.com/matthieugomez))
+- don't use a generator in \_symbol\_dict [\#69](https://github.com/JuliaPlots/PlotlyJS.jl/pull/69) ([tkelman](https://github.com/tkelman))
 
-## [v0.3.1](https://github.com/sglyon/PlotlyJS.jl/tree/v0.3.1) (2016-06-22)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.3.0...v0.3.1)
+## [v0.4.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.4.0) (2016-09-07)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.3.3...v0.4.0)
 
 **Closed issues:**
 
-- Electron backend on Windows throws error [\#51](https://github.com/sglyon/PlotlyJS.jl/issues/51)
-- Error when saving as pdf using Electron Display [\#50](https://github.com/sglyon/PlotlyJS.jl/issues/50)
-- Reloaded notebook's PlotlyJS doesn't work [\#45](https://github.com/sglyon/PlotlyJS.jl/issues/45)
+- PlotlyJS doesn't show plots on Julia 0.5 RC3. [\#68](https://github.com/JuliaPlots/PlotlyJS.jl/issues/68)
 
 **Merged pull requests:**
 
-- Remove `kind` field for GenericTrace and Shape. [\#54](https://github.com/sglyon/PlotlyJS.jl/pull/54) ([sglyon](https://github.com/sglyon))
+- RFC: start for more convenient `plot` API [\#66](https://github.com/JuliaPlots/PlotlyJS.jl/pull/66) ([sglyon](https://github.com/sglyon))
 
-## [v0.3.0](https://github.com/sglyon/PlotlyJS.jl/tree/v0.3.0) (2016-06-17)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.2.0...v0.3.0)
+## [v0.3.3](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.3.3) (2016-08-24)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.3.2...v0.3.3)
+
+## [v0.3.2](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.3.2) (2016-08-23)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.3.1...v0.3.2)
 
 **Closed issues:**
 
-- Error when plotting in IJulia notebooks [\#46](https://github.com/sglyon/PlotlyJS.jl/issues/46)
-- Error message with savefig [\#44](https://github.com/sglyon/PlotlyJS.jl/issues/44)
-- Background not set? [\#36](https://github.com/sglyon/PlotlyJS.jl/issues/36)
-- How to save the JSON object [\#35](https://github.com/sglyon/PlotlyJS.jl/issues/35)
+- Does PlotlyJS.jl support unicode now? [\#64](https://github.com/JuliaPlots/PlotlyJS.jl/issues/64)
+- Loading PlotlyJS fails on Julia V0.5-rc1 [\#62](https://github.com/JuliaPlots/PlotlyJS.jl/issues/62)
+- Cloud [\#55](https://github.com/JuliaPlots/PlotlyJS.jl/issues/55)
+- Plots.jl animations [\#53](https://github.com/JuliaPlots/PlotlyJS.jl/issues/53)
+- ERROR: connect: connection refused \(ECONNREFUSED\) [\#33](https://github.com/JuliaPlots/PlotlyJS.jl/issues/33)
+- Include MathJax.js [\#30](https://github.com/JuliaPlots/PlotlyJS.jl/issues/30)
+- Javascript error on package load with IJulia/Firefox [\#28](https://github.com/JuliaPlots/PlotlyJS.jl/issues/28)
+- Resize plot when electron window is resized [\#25](https://github.com/JuliaPlots/PlotlyJS.jl/issues/25)
 
 **Merged pull requests:**
 
-- Sl/savefig [\#49](https://github.com/sglyon/PlotlyJS.jl/pull/49) ([sglyon](https://github.com/sglyon))
-- Update use of JSON.colon to JSON.separator [\#48](https://github.com/sglyon/PlotlyJS.jl/pull/48) ([cdsousa](https://github.com/cdsousa))
-- Compat update for String rename [\#40](https://github.com/sglyon/PlotlyJS.jl/pull/40) ([StefanKarpinski](https://github.com/StefanKarpinski))
-- JSON for vectors of traces. [\#39](https://github.com/sglyon/PlotlyJS.jl/pull/39) ([EricForgy](https://github.com/EricForgy))
-- Let string interpolation stringify to JSON format [\#38](https://github.com/sglyon/PlotlyJS.jl/pull/38) ([EricForgy](https://github.com/EricForgy))
+- Extend `JSON.lower` instead of `JSON.print` [\#65](https://github.com/JuliaPlots/PlotlyJS.jl/pull/65) ([TotalVerb](https://github.com/TotalVerb))
+- Fixes for Julia 0.5 [\#63](https://github.com/JuliaPlots/PlotlyJS.jl/pull/63) ([timholy](https://github.com/timholy))
+- fix dates in json [\#58](https://github.com/JuliaPlots/PlotlyJS.jl/pull/58) ([tbreloff](https://github.com/tbreloff))
+- Update README [\#57](https://github.com/JuliaPlots/PlotlyJS.jl/pull/57) ([matthieugomez](https://github.com/matthieugomez))
+- Solve issue \#55 [\#56](https://github.com/JuliaPlots/PlotlyJS.jl/pull/56) ([matthieugomez](https://github.com/matthieugomez))
 
-## [v0.2.0](https://github.com/sglyon/PlotlyJS.jl/tree/v0.2.0) (2016-05-04)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.1.4...v0.2.0)
+## [v0.3.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.3.1) (2016-06-22)
 
-**Closed issues:**
-
-- Why is `text` using only the first element of a `Vector{ASCIIString}`? [\#34](https://github.com/sglyon/PlotlyJS.jl/issues/34)
-
-## [v0.1.4](https://github.com/sglyon/PlotlyJS.jl/tree/v0.1.4) (2016-03-31)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.1.3...v0.1.4)
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.3.0...v0.3.1)
 
 **Closed issues:**
 
-- PlotlyJS doesn't work with Interact [\#31](https://github.com/sglyon/PlotlyJS.jl/issues/31)
-
-## [v0.1.3](https://github.com/sglyon/PlotlyJS.jl/tree/v0.1.3) (2016-03-31)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.1.2...v0.1.3)
-
-## [v0.1.2](https://github.com/sglyon/PlotlyJS.jl/tree/v0.1.2) (2016-03-25)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.1.1...v0.1.2)
-
-**Closed issues:**
-
-- Let attributes that should have underscores through somehow [\#12](https://github.com/sglyon/PlotlyJS.jl/issues/12)
-- Implement show properly [\#3](https://github.com/sglyon/PlotlyJS.jl/issues/3)
-
-## [v0.1.1](https://github.com/sglyon/PlotlyJS.jl/tree/v0.1.1) (2016-03-11)
-[Full Changelog](https://github.com/sglyon/PlotlyJS.jl/compare/v0.1.0...v0.1.1)
-
-**Closed issues:**
-
-- restyle! needs to be fixed... Julia and javascript have different semantics [\#23](https://github.com/sglyon/PlotlyJS.jl/issues/23)
-- IJulia notebook export to HTML don't show the plot [\#22](https://github.com/sglyon/PlotlyJS.jl/issues/22)
+- Electron backend on Windows throws error [\#51](https://github.com/JuliaPlots/PlotlyJS.jl/issues/51)
+- Error when saving as pdf using Electron Display [\#50](https://github.com/JuliaPlots/PlotlyJS.jl/issues/50)
+- Reloaded notebook's PlotlyJS doesn't work [\#45](https://github.com/JuliaPlots/PlotlyJS.jl/issues/45)
 
 **Merged pull requests:**
 
-- Matching plotly.js semantics in restyle! [\#24](https://github.com/sglyon/PlotlyJS.jl/pull/24) ([sglyon](https://github.com/sglyon))
+- Remove `kind` field for GenericTrace and Shape. [\#54](https://github.com/JuliaPlots/PlotlyJS.jl/pull/54) ([sglyon](https://github.com/sglyon))
 
-## [v0.1.0](https://github.com/sglyon/PlotlyJS.jl/tree/v0.1.0) (2016-03-05)
+## [v0.3.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.3.0) (2016-06-17)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.2.0...v0.3.0)
+
 **Closed issues:**
 
-- Have display not duplicate plots in windows [\#20](https://github.com/sglyon/PlotlyJS.jl/issues/20)
-- Clean up design [\#19](https://github.com/sglyon/PlotlyJS.jl/issues/19)
-- Conflict with DataFrames.jl [\#16](https://github.com/sglyon/PlotlyJS.jl/issues/16)
-- is collapse\( \) supposed to work with multiple columns? [\#15](https://github.com/sglyon/PlotlyJS.jl/issues/15)
-- savefig \(via cairosvg\) doesn't show negative signs in tick labels [\#14](https://github.com/sglyon/PlotlyJS.jl/issues/14)
-- Events [\#13](https://github.com/sglyon/PlotlyJS.jl/issues/13)
-- Implement `attr` function with kwarg + \_ mini-language [\#11](https://github.com/sglyon/PlotlyJS.jl/issues/11)
-- Rename to PlotlyJS.jl [\#9](https://github.com/sglyon/PlotlyJS.jl/issues/9)
-- Error showing Plot [\#8](https://github.com/sglyon/PlotlyJS.jl/issues/8)
-- Integrate various plotly packages [\#5](https://github.com/sglyon/PlotlyJS.jl/issues/5)
-- subplots [\#1](https://github.com/sglyon/PlotlyJS.jl/issues/1)
+- Error when plotting in IJulia notebooks [\#46](https://github.com/JuliaPlots/PlotlyJS.jl/issues/46)
+- Error message with savefig [\#44](https://github.com/JuliaPlots/PlotlyJS.jl/issues/44)
+- Background not set? [\#36](https://github.com/JuliaPlots/PlotlyJS.jl/issues/36)
+- How to save the JSON object [\#35](https://github.com/JuliaPlots/PlotlyJS.jl/issues/35)
 
 **Merged pull requests:**
 
-- Sl/syncplots [\#21](https://github.com/sglyon/PlotlyJS.jl/pull/21) ([sglyon](https://github.com/sglyon))
-- Add a Gitter chat badge to README.md [\#17](https://github.com/sglyon/PlotlyJS.jl/pull/17) ([gitter-badger](https://github.com/gitter-badger))
-- Tweak JS API use [\#7](https://github.com/sglyon/PlotlyJS.jl/pull/7) ([MikeInnes](https://github.com/MikeInnes))
-- fix Plot\(\) error [\#6](https://github.com/sglyon/PlotlyJS.jl/pull/6) ([tbreloff](https://github.com/tbreloff))
-- Update REQUIRE [\#2](https://github.com/sglyon/PlotlyJS.jl/pull/2) ([cc7768](https://github.com/cc7768))
+- Sl/savefig [\#49](https://github.com/JuliaPlots/PlotlyJS.jl/pull/49) ([sglyon](https://github.com/sglyon))
+- Update use of JSON.colon to JSON.separator [\#48](https://github.com/JuliaPlots/PlotlyJS.jl/pull/48) ([cdsousa](https://github.com/cdsousa))
+- Compat update for String rename [\#40](https://github.com/JuliaPlots/PlotlyJS.jl/pull/40) ([StefanKarpinski](https://github.com/StefanKarpinski))
+- JSON for vectors of traces. [\#39](https://github.com/JuliaPlots/PlotlyJS.jl/pull/39) ([EricForgy](https://github.com/EricForgy))
+- Let string interpolation stringify to JSON format [\#38](https://github.com/JuliaPlots/PlotlyJS.jl/pull/38) ([EricForgy](https://github.com/EricForgy))
+
+## [v0.2.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.2.0) (2016-05-04)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.1.4...v0.2.0)
+
+**Closed issues:**
+
+- Why is `text` using only the first element of a `Vector{ASCIIString}`? [\#34](https://github.com/JuliaPlots/PlotlyJS.jl/issues/34)
+
+## [v0.1.4](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.1.4) (2016-03-31)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.1.3...v0.1.4)
+
+**Closed issues:**
+
+- PlotlyJS doesn't work with Interact [\#31](https://github.com/JuliaPlots/PlotlyJS.jl/issues/31)
+
+## [v0.1.3](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.1.3) (2016-03-31)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.1.2...v0.1.3)
+
+## [v0.1.2](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.1.2) (2016-03-25)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.1.1...v0.1.2)
+
+**Closed issues:**
+
+- Let attributes that should have underscores through somehow [\#12](https://github.com/JuliaPlots/PlotlyJS.jl/issues/12)
+- Implement show properly [\#3](https://github.com/JuliaPlots/PlotlyJS.jl/issues/3)
+
+## [v0.1.1](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.1.1) (2016-03-11)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/v0.1.0...v0.1.1)
+
+**Closed issues:**
+
+- restyle! needs to be fixed... Julia and javascript have different semantics [\#23](https://github.com/JuliaPlots/PlotlyJS.jl/issues/23)
+- IJulia notebook export to HTML don't show the plot [\#22](https://github.com/JuliaPlots/PlotlyJS.jl/issues/22)
+
+**Merged pull requests:**
+
+- Matching plotly.js semantics in restyle! [\#24](https://github.com/JuliaPlots/PlotlyJS.jl/pull/24) ([sglyon](https://github.com/sglyon))
+
+## [v0.1.0](https://github.com/JuliaPlots/PlotlyJS.jl/tree/v0.1.0) (2016-03-05)
+
+[Full Changelog](https://github.com/JuliaPlots/PlotlyJS.jl/compare/7d69a1c8497429bf579e05dad8da72934eae947d...v0.1.0)
+
+**Closed issues:**
+
+- Have display not duplicate plots in windows [\#20](https://github.com/JuliaPlots/PlotlyJS.jl/issues/20)
+- Clean up design [\#19](https://github.com/JuliaPlots/PlotlyJS.jl/issues/19)
+- Conflict with DataFrames.jl [\#16](https://github.com/JuliaPlots/PlotlyJS.jl/issues/16)
+- is collapse\( \) supposed to work with multiple columns? [\#15](https://github.com/JuliaPlots/PlotlyJS.jl/issues/15)
+- savefig \(via cairosvg\) doesn't show negative signs in tick labels [\#14](https://github.com/JuliaPlots/PlotlyJS.jl/issues/14)
+- Events [\#13](https://github.com/JuliaPlots/PlotlyJS.jl/issues/13)
+- Implement `attr` function with kwarg + \_ mini-language [\#11](https://github.com/JuliaPlots/PlotlyJS.jl/issues/11)
+- Rename to PlotlyJS.jl [\#9](https://github.com/JuliaPlots/PlotlyJS.jl/issues/9)
+- Error showing Plot [\#8](https://github.com/JuliaPlots/PlotlyJS.jl/issues/8)
+- Integrate various plotly packages [\#5](https://github.com/JuliaPlots/PlotlyJS.jl/issues/5)
+- subplots [\#1](https://github.com/JuliaPlots/PlotlyJS.jl/issues/1)
+
+**Merged pull requests:**
+
+- Sl/syncplots [\#21](https://github.com/JuliaPlots/PlotlyJS.jl/pull/21) ([sglyon](https://github.com/sglyon))
+- Add a Gitter chat badge to README.md [\#17](https://github.com/JuliaPlots/PlotlyJS.jl/pull/17) ([gitter-badger](https://github.com/gitter-badger))
+- Tweak JS API use [\#7](https://github.com/JuliaPlots/PlotlyJS.jl/pull/7) ([MikeInnes](https://github.com/MikeInnes))
+- fix Plot\(\) error [\#6](https://github.com/JuliaPlots/PlotlyJS.jl/pull/6) ([tbreloff](https://github.com/tbreloff))
+- Update REQUIRE [\#2](https://github.com/JuliaPlots/PlotlyJS.jl/pull/2) ([cc7768](https://github.com/cc7768))
 
 
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*

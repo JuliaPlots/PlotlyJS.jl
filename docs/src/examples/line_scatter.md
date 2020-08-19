@@ -1,12 +1,20 @@
-using PlotlyJS, DataFrames, CSV, Dates
+# Line Scatter
 
+```@example line_scatter
+using PlotlyJS, DataFrames, CSV, Dates
+```
+
+```@example line_scatter
 function linescatter1()
     trace1 = scatter(;x=1:4, y=[10, 15, 13, 17], mode="markers")
     trace2 = scatter(;x=2:5, y=[16, 5, 11, 9], mode="lines")
     trace3 = scatter(;x=1:4, y=[12, 9, 15, 12], mode="lines+markers")
     plot([trace1, trace2, trace3])
 end
+linescatter1()
+```
 
+```@example line_scatter
 function linescatter2()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers", name="Team A",
@@ -24,7 +32,10 @@ function linescatter2()
                      yaxis_range=[0, 8])
     plot(data, layout)
 end
+linescatter2()
+```
 
+```@example line_scatter
 function linescatter3()
     trace1 = scatter(;x=1:5, y=[1, 6, 3, 6, 1],
                       mode="markers+text", name="Team A",
@@ -46,14 +57,20 @@ function linescatter3()
                                  color="grey"))
     plot(data, layout)
 end
+linescatter3()
+```
 
+```@example line_scatter
 function linescatter4()
     trace1 = scatter(;y=fill(5, 40), mode="markers", marker_size=40,
                       marker_color=0:39)
     layout = Layout(title="Scatter Plot with a Color Dimension")
     plot(trace1, layout)
 end
+linescatter4()
+```
 
+```@example line_scatter
 function linescatter5()
 
     country = ["Switzerland (2011)", "Chile (2013)", "Japan (2014)",
@@ -97,7 +114,10 @@ function linescatter5()
                     )
     plot(data, layout)
 end
+linescatter5()
+```
 
+```@example line_scatter
 function linescatter6()
     trace1 = scatter(;x=[52698, 43117], y=[53, 31],
                       mode="markers",
@@ -137,7 +157,10 @@ function linescatter6()
 
     plot(data, layout)
 end
+linescatter6()
+```
 
+```@example line_scatter
 function batman()
     # reference: https://github.com/alanedelman/18.337_2015/blob/master/Lecture01_0909/The%20Bat%20Curve.ipynb
     σ(x) = @. √(1-x.^2)
@@ -157,7 +180,10 @@ function batman()
 
     plot(traces, Layout(title="Batman"))
 end
+batman()
+```
 
+```@example line_scatter
 function dumbell()
     # reference: https://plot.ly/r/dumbbell-plots/
     # read Data into dataframe
@@ -187,7 +213,10 @@ function dumbell()
 
     plot(data, layout)
 end
+dumbell()
+```
 
+```@example line_scatter
 function errorbars1()
     trace1 = scatter(;x=vcat(1:10, 10:-1:1),
                      y=vcat(2:11, 9:-1:0),
@@ -253,7 +282,10 @@ function errorbars1()
 
     plot(data, layout)
 end
+errorbars1()
+```
 
+```@example line_scatter
 function errorbars2()
     function random_dates(d1::DateTime, d2::DateTime, n::Int)
         map(Date, sort!(rand(d1:Dates.Hour(12):d2, n)))
@@ -302,3 +334,6 @@ function errorbars2()
     layout = Layout(;title=t, yaxis_title="Wind speed (m/s)")
     plot(data, layout)
 end
+errorbars2()
+```
+
