@@ -62,7 +62,7 @@ end
 
 function __init__()
     _build_log = joinpath(_pkg_root, "deps", "build.log")
-    if occursin("Warning:", read(_build_log, String))
+    if isfile(_build_log) && occursin("Warning:", read(_build_log, String))
         @warn("Warnings were generated during the last build of PlotlyJS:  please check the build log at $_build_log")
     end
 
