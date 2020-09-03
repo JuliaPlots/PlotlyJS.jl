@@ -36,7 +36,7 @@ PlotlyJS.jl comes with built-in support for saving figures to files via the
 integration between PlotlyBase.jl (a dependency of PlotlyJS.jl) and Plotly's
 kaleido tool.
 
-See [exporting figures](http://juliaplots.org/PlotlyJS.jl/manipulating_plots/#saving-figures)
+See [exporting figures](http://juliaplots.org/PlotlyJS.jl/stable/manipulating_plots/#Saving-figures)
 for more information.
 
 ### Plots.jl
