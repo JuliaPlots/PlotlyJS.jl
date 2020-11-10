@@ -6,7 +6,7 @@ CurrentModule = PlotlyJS
 
 We will now look at how to combine traces and a layout to create a plot.
 
-We'll also discuss how to integrate with various frontends
+We'll also discuss how to integrate with various frontends.
 
 ## `Plot`
 
@@ -20,7 +20,7 @@ mutable struct Plot{TT<:AbstractTrace}
 end
 ```
 
-Given one or more `AbstractTrace`s and optionally a `layout`, we construct a
+Given one or more `AbstractTrace`s and optionally a `Layout`, we construct a
 `Plot` object with any of the following constructors
 
 ```julia
