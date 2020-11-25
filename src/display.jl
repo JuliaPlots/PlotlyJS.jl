@@ -1,3 +1,6 @@
+
+using Pkg.Artifacts
+
 # ----------------------------------------- #
 # SyncPlot -- sync Plot object with display #
 # ----------------------------------------- #
@@ -26,7 +29,7 @@ function SyncPlot(
 
     # setup scope
     deps = [
-        "Plotly" => joinpath(@__DIR__, "..", "assets", "plotly-latest.min.js"),
+        "Plotly" => joinpath(artifact"plotly", "plotly-latest.min.js"),
         joinpath(@__DIR__, "..", "assets", "plotly_webio.bundle.js")
     ]
     scope = Scope(imports=deps)

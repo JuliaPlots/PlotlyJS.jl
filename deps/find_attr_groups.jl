@@ -2,6 +2,7 @@ module AttrGroups
 
 using JSON
 using DelimitedFiles
+using Pkg.Artifacts
 
 _symbol_dict(x) = x
 _symbol_dict(d::AbstractDict) =
@@ -9,7 +10,7 @@ _symbol_dict(d::AbstractDict) =
 
 function main()
 
-    data = _symbol_dict(JSON.parsefile(joinpath(@__DIR__, "plotschema.json")))
+    data = _symbol_dict(JSON.parsefile(joinpath(artifact"plotschema", "plotschema.json")))
 
     nms = Set{Symbol}()
     function add_to_names!(d::AbstractDict)

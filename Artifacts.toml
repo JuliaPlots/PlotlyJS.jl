@@ -1,0 +1,13 @@
+[plotly]
+git-tree-sha1 = "b6741657bcf713aff41b5fdc56954bbe9e8f99b0"
+
+    [[plotly.download]]
+    sha256 = "b6741657bcf713aff41b5fdc56954bbe9e8f99b0"
+    url = "https://cdn.plot.ly/plotly-latest.min.js"
+
+[plotschema]
+git-tree-sha1 = "cfd7fe6d83dc86b82d317343eb2e85020ff469de"
+
+    [[plotschema.download]]
+    sha256 = "cfd7fe6d83dc86b82d317343eb2e85020ff469de"
+    url = "https://api.plot.ly/v2/plot-schema?sha1"
