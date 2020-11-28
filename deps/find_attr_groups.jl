@@ -21,8 +21,8 @@ function main()
     add_to_names!(s::Symbol) = push!(nms, s)
     add_to_names!(x) = nothing
 
-    add_to_names!(data[:schema][:layout][:layoutAttributes])
-    for (_, v) in data[:schema][:traces]
+    add_to_names!(data[:layout][:layoutAttributes])
+    for (_, v) in data[:traces]
         add_to_names!(v)
     end
 
