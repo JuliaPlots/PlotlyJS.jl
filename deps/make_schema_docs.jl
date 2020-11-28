@@ -72,7 +72,7 @@ struct Schema
     layout::TraceSchema
 
     function Schema()
-        _path = joinpath(artifact"plotschema", "plotschema.json")
+        _path = joinpath(artifact"plotly-artifacts", "plot-schema.json")
         schema = _symbol_dict(JSON.parse(read(_path, String)))
 
         traces = Dict{Symbol,TraceSchema}()

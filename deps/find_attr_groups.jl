@@ -10,7 +10,7 @@ _symbol_dict(d::AbstractDict) =
 
 function main()
 
-    data = _symbol_dict(JSON.parsefile(joinpath(artifact"plotschema", "plotschema.json")))
+    data = _symbol_dict(JSON.parsefile(joinpath(artifact"plotly-artifacts", "plot-schema.json")))
 
     nms = Set{Symbol}()
     function add_to_names!(d::AbstractDict)

@@ -29,7 +29,7 @@ function SyncPlot(
 
     # setup scope
     deps = [
-        "Plotly" => joinpath(artifact"plotly", "plotly-latest.min.js"),
+        "Plotly" => joinpath(artifact"plotly-artifacts", "plotly.min.js"),
         joinpath(@__DIR__, "..", "assets", "plotly_webio.bundle.js")
     ]
     scope = Scope(imports=deps)
