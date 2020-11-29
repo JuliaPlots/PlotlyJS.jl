@@ -2,6 +2,7 @@ module AttrGroups
 
 using JSON
 using DelimitedFiles
+using Pkg.Artifacts
 
 _symbol_dict(x) = x
 _symbol_dict(d::AbstractDict) =
@@ -9,7 +10,7 @@ _symbol_dict(d::AbstractDict) =
 
 function main()
 
-    data = _symbol_dict(JSON.parsefile(joinpath(@__DIR__, "plotschema.json")))
+    data = _symbol_dict(JSON.parsefile(joinpath(artifact"plotly-artifacts", "plot-schema.json")))
 
     nms = Set{Symbol}()
     function add_to_names!(d::AbstractDict)
@@ -20,8 +21,8 @@ function main()
     add_to_names!(s::Symbol) = push!(nms, s)
     add_to_names!(x) = nothing
 
-    add_to_names!(data[:schema][:layout][:layoutAttributes])
-    for (_, v) in data[:schema][:traces]
+    add_to_names!(data[:layout][:layoutAttributes])
+    for (_, v) in data[:traces]
         add_to_names!(v)
     end
 

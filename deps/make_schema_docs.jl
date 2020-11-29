@@ -3,6 +3,7 @@ module PlotlyJSSchemaDocsGenerator
 import Markdown
 using Markdown: MD
 using JSON
+using Pkg.Artifacts
 
 # methods to re-construct a plot from JSON
 _symbol_dict(x) = x
@@ -71,15 +72,15 @@ struct Schema
     layout::TraceSchema
 
     function Schema()
-        _path = joinpath(dirname(@__FILE__), "plotschema.json")
+        _path = joinpath(artifact"plotly-artifacts", "plot-schema.json")
         schema = _symbol_dict(JSON.parse(read(_path, String)))
 
         traces = Dict{Symbol,TraceSchema}()
-        for (k, v) in schema[:schema][:traces]
+        for (k, v) in schema[:traces]
             traces[k] = TraceSchema(k, v)
         end
 
-        layout = TraceSchema(:layout, schema[:schema][:layout], :layoutAttributes)
+        layout = TraceSchema(:layout, schema[:layout], :layoutAttributes)
         new(traces, layout)
     end
 end
