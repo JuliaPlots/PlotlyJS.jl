@@ -44,13 +44,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
           
-      - name: "Remove old release"
-        run: git push origin :refs/tags/plotly-artifacts
-          
       - name: "Release"
         uses: ncipollo/release-action@v1
         with:
-          artifact: "plotly-artifacts.tar.gz"
+          artifacts: "plotly-artifacts.tar.gz"
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: "plotly-artifacts"
