@@ -40,5 +40,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: "plotly-artifacts.tar.gz"
+          tag_name: "plotly-artifacts"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
