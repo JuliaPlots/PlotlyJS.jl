@@ -24,7 +24,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: "Checkout"
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       
       - name: "Set up Julia"
         uses: julia-actions/setup-julia@v1
@@ -32,7 +32,7 @@ jobs:
           version: 1.5.4
       
       - name: "Get artifact"
-      - run: |
+        run: |
           julia -e 'include(joinpath($GITHUB_WORKSPACE,"deps","generate_artifacts.jl"))'
           
       - name: "Release"
