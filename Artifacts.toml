@@ -2,5 +2,5 @@
 git-tree-sha1 = "0fa0fdda797e143a9c68587ee2c78c48f119370a"
 
     [[plotly-artifacts.download]]
-    sha256 = "afd3114df4f2ab370b482602790e126173cee8ec688d4526745078dcef9f5599"
+    sha256 = "e9aac580766bcaf8bbe25712620b6395bf1a2a0eb3131653cee4bbc549770fd7"
     url = "https://github.com/jonas-kr/PlotlyJS.jl/releases/download/plotly-artifacts/plotly-artifacts.tar.gz"
