@@ -47,6 +47,7 @@ jobs:
       - name: "Release"
         uses: ncipollo/release-action@v1
         with:
+          allowUpdates: true
           artifacts: "plotly-artifacts.tar.gz"
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
