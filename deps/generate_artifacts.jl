@@ -9,7 +9,7 @@ plotschema_url = "https://api.plot.ly/v2/plot-schema?sha1"
 plotly_url = "https://cdn.plot.ly/plotly-latest.min.js"
 
 plotlyartifacts_hash = create_artifact() do artifact_dir
-    download(plotschema_url, joinpath(artifact_dir, "plotschema.json"))
+    download(plotschema_url, joinpath(artifact_dir, "plot-schema.json"))
     download(plotly_url, joinpath(artifact_dir, "plotly-latest.min.js"))
 end
 
