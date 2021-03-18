@@ -20,4 +20,4 @@ bind_artifact!(artifacts_toml, "plotly-artifacts", plotlyartifacts_hash; downloa
     (plotly_url, bytes2hex(sha256(read(joinpath(artifact_dir, "plotly-latest.min.js"))))),
 ])
 
-archive_artifact(plotlyartifacts_hash, dirname(@__DIR__))
+archive_artifact(plotlyartifacts_hash, "plotly-artifacts.tar.gz")
