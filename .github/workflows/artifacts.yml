@@ -33,7 +33,8 @@ jobs:
       
       - name: "Get artifact"
         run: |
-          julia -e 'include(joinpath($GITHUB_WORKSPACE,"deps","generate_artifacts.jl"))'
+          cd $GITHUB_WORKSPACE
+          julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl"))'
           
       - name: "Release"
         uses: softprops/action-gh-release@v1
