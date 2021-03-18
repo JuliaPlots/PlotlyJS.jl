@@ -4,13 +4,7 @@ name: CI
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows you to run this workflow manually from the Actions tab, do not run automatically
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -25,6 +19,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: "Checkout"
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
       
       - name: "Set up Julia"
         uses: julia-actions/setup-julia@v1
@@ -35,6 +31,18 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl"))'
+      
+      - name: "Commit updated Artifacts.toml"
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Update Artifacts.toml" "Artifacts.toml"
+          
+      - name: "Push changes"
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
           
       - name: "Release"
         uses: softprops/action-gh-release@v1
