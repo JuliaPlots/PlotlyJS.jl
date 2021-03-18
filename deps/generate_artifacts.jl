@@ -16,5 +16,5 @@ end
 tarball_hash = archive_artifact(plotlyartifacts_hash, "plotly-artifacts.tar.gz")
 
 bind_artifact!(artifacts_toml, "plotly-artifacts", plotlyartifacts_hash; download_info = [
-    ("https://github.com/jonas-kr/PlotlyJS.jl/releases/download/plotly-artifacts/plotly-artifacts.tar.gz", tarball_hash)
+    ("https://github.com/JuliaPlots/PlotlyJS.jl/releases/download/plotly-artifacts/plotly-artifacts.tar.gz", tarball_hash)
 ])
