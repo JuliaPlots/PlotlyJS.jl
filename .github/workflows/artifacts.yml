@@ -44,6 +44,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
           
+      - name: "Remove old release"
+        run: git push origin :refs/tags/plotly-artifacts
+          
       - name: "Release"
         uses: softprops/action-gh-release@v1
         with:
