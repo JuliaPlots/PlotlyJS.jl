@@ -32,25 +32,23 @@ jobs:
           cd $GITHUB_WORKSPACE
           julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl"))'
       
-      # - name: "Commit updated Artifacts.toml"
-      #   run: |
-      #     git config --local user.email "github-actions[bot]@users.noreply.github.com"
-      #     git config --local user.name "github-actions[bot]"
-      #     git commit -m "Update Artifacts.toml" "Artifacts.toml"
+      - name: "Commit updated Artifacts.toml"
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Update Artifacts.toml" "Artifacts.toml"
           
-      # - name: "Push changes"
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     branch: ${{ github.ref }}
-      - name: "SHA256"
-        run: sha256sum "plotly-artifacts.tar.gz" > "plotly-artifacts.tar.gz.sha256.txt"
+      - name: "Push changes"
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
           
       - name: "Release"
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: "plotly-artifacts.tar.gz,plotly-artifacts.tar.gz.sha256.txt"
+          artifacts: "plotly-artifacts.tar.gz"
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: "plotly-artifacts"
