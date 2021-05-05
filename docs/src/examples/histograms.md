@@ -13,7 +13,7 @@ function two_hists()
     trace2 = histogram(x=x1, opacity=0.75)
     data = [trace1, trace2]
     layout = Layout(barmode="overlay")
-    plot(data, layout)
+    Plot(data, layout)
 end
 two_hists()
 ```
