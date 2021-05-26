@@ -33,7 +33,7 @@ jobs:
       - name: "Get artifact"
         run: |
           cd $GITHUB_WORKSPACE
-          julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl")); generate_artifacts("$PLOTLY_VER")'
+          julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl")); generate_artifacts("'"$PLOTLY_VER"'")'
       
       - name: "Commit updated Artifacts.toml"
         run: |
