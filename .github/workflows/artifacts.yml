@@ -13,6 +13,9 @@ jobs:
   gen-artifacts:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    # The plotly version. Bumping this environment variable should do the trick
+    env: 
+      PLOTLY_VER: 1.58.4
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -25,18 +28,18 @@ jobs:
       - name: "Set up Julia"
         uses: julia-actions/setup-julia@v1
         with:
-          version: 1.5.4
+          version: 1.6.0
       
       - name: "Get artifact"
         run: |
           cd $GITHUB_WORKSPACE
-          julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl"))'
+          julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl")); generate_artifacts("'"$PLOTLY_VER"'")'
       
       - name: "Commit updated Artifacts.toml"
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -m "Update Artifacts.toml" "Artifacts.toml"
+          git commit -m "Update Artifacts.toml for artifact version $PLOTLY_VER" "Artifacts.toml"
           
       - name: "Push changes"
         uses: ad-m/github-push-action@master
@@ -48,7 +51,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: "plotly-artifacts.tar.gz"
+          artifacts: "plotly-artifacts-${{ env.PLOTLY_VER }}.tar.gz"
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "plotly-artifacts"
+          tag: "plotly-artifacts-${{ env.PLOTLY_VER }}"
