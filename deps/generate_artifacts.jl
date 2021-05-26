@@ -22,6 +22,6 @@ function generate_artifacts(ver="latest")
     tarball_hash = archive_artifact(plotlyartifacts_hash, "plotly-artifacts-$ver.tar.gz")
 
     bind_artifact!(artifacts_toml, "plotly-artifacts", plotlyartifacts_hash; download_info = [
-        ("https://github.com/jonas-kr/PlotlyJS.jl/releases/download/plotly-artifacts/plotly-artifacts-$ver.tar.gz", tarball_hash)
+        ("https://github.com/jonas-kr/PlotlyJS.jl/releases/download/plotly-artifacts-$ver/plotly-artifacts-$ver.tar.gz", tarball_hash)
     ])
 end
