@@ -30,13 +30,13 @@ jobs:
       - name: "Get artifact"
         run: |
           cd $GITHUB_WORKSPACE
-          julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl"))'
+          julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl")); generate_artifacts("latest")'
       
       - name: "Commit updated Artifacts.toml"
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -m "Update Artifacts.toml" "Artifacts.toml"
+          git commit -m "Update Artifacts.toml for artifact version latest" "Artifacts.toml"
           
       - name: "Push changes"
         uses: ad-m/github-push-action@master
@@ -48,7 +48,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: "plotly-artifacts.tar.gz"
+          artifacts: "plotly-artifacts-latest.tar.gz"
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "plotly-artifacts"
+          tag: "plotly-artifacts-latest"
