@@ -6,10 +6,7 @@ function generate_artifacts(ver="latest")
     artifacts_toml = joinpath(dirname(@__DIR__), "Artifacts.toml")
 
     # if Artifacts.toml does not exist we also do not have to remove it
-    try
-        rm(artifacts_toml)
-    catch
-    end
+    isfile(artifacts_toml) && rm(artifacts_toml)
 
     plotschema_url = "https://api.plot.ly/v2/plot-schema?sha1"
     plotly_url = "https://cdn.plot.ly/plotly-$ver.min.js"
