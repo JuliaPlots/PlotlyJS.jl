@@ -1,10 +1,8 @@
 # PlotlyJS
 
-[![Join the chat at https://gitter.im/sglyon/PlotlyJS.jl](https://badges.gitter.im/sglyon/PlotlyJS.jl.svg)](https://gitter.im/sglyon/PlotlyJS.jl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![Build Status](https://travis-ci.org/sglyon/PlotlyJS.jl.svg?branch=master)](https://travis-ci.org/sglyon/PlotlyJS.jl)
 
-Julia interface to [plotly.js][_plotlyjs] visualization library.
+Julia interface to [plotly.js][https://github.com/plotly/plotly.js/] visualization library.
 
 This package constructs plotly graphics using all local resources. To interact or save graphics to the Plotly cloud, use the  [`Plotly`](https://github.com/plotly/Plotly.jl) package.
 
@@ -16,7 +14,7 @@ Check out the [docs](http://juliaplots.org/PlotlyJS.jl/stable)!
 
 ## Installation
 
-If you intend to use the [Electron display](http://juliaplots.github.io/PlotlyJS.jl/syncplots/#electronplot) or any of its features (recommended) you will need to enter the following at the Julia REPL:
+If you intend to use the [Electron display](https://github.com/queryverse/ElectronDisplay.jl) or any of its features (recommended) you will need to enter the following at the Julia REPL:
 
 ```julia
 using Blink
