@@ -2,7 +2,7 @@
 using Pkg.Artifacts
 using Downloads
 
-function generate_artifacts(ver="latest")
+function generate_artifacts(ver="latest",repo="https://github.com/JuliaPlots/PlotlyJS.jl")
     artifacts_toml = joinpath(dirname(@__DIR__), "Artifacts.toml")
 
     # if Artifacts.toml does not exist we also do not have to remove it
@@ -19,6 +19,6 @@ function generate_artifacts(ver="latest")
     tarball_hash = archive_artifact(plotlyartifacts_hash, "plotly-artifacts-$ver.tar.gz")
 
     bind_artifact!(artifacts_toml, "plotly-artifacts", plotlyartifacts_hash; download_info = [
-        ("https://github.com/JuliaPlots/PlotlyJS.jl/releases/download/plotly-artifacts-$ver/plotly-artifacts-$ver.tar.gz", tarball_hash)
+        ("$repo/releases/download/plotly-artifacts-$ver/plotly-artifacts-$ver.tar.gz", tarball_hash)
     ])
 end
