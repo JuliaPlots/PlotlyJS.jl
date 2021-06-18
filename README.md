@@ -16,16 +16,7 @@ Check out the [docs](http://juliaplots.org/PlotlyJS.jl/stable)!
 
 ## Installation
 
-If you intend to use the [Electron display](http://juliaplots.github.io/PlotlyJS.jl/syncplots/#electronplot) or any of its features (recommended) you will need to enter the following at the Julia REPL:
-
-```julia
-using Blink
-Blink.AtomShell.install()
-```
-
-Note that this is a one time process.
-
-Also, if you have issues building this package because of installation of the MbedTLS  package please see [this issue](https://github.com/sglyon/PlotlyJS.jl/issues/83).
+If you have issues building this package because of installation of the MbedTLS  package please see [this issue](https://github.com/sglyon/PlotlyJS.jl/issues/83).
 
 ### Jupyterlab
 
