@@ -7,7 +7,6 @@ using Pkg.Artifacts
 mutable struct SyncPlot
     plot::PlotlyBase.Plot
     scope::Scope
-    options::Dict
     window::Union{Nothing,Blink.Window}
 end
 
@@ -21,7 +20,6 @@ Base.show(io::IO, mm::MIME"application/prs.juno.plotpane+html", p::SyncPlot) = s
 
 function SyncPlot(
         p::Plot;
-        options::AbstractDict=Dict("showLink"=> false),
         kwargs...
     )
     lowered = JSON.lower(p)
@@ -50,7 +48,7 @@ function SyncPlot(
     scope["__get_gd_contents"] = Observable("")
 
     onjs(scope["_toImage"], @js function (options)
-        this.Plotly.toImage(this.plotElem, options).then(function(data)
+        this.Plotly.toImage(this.plotElem, options).then(function (data)
             $(scope["image"])[] = data
         end)
     end)
@@ -100,7 +98,10 @@ function SyncPlot(
 
         # Draw plot in container
         Plotly.newPlot(
-            gd, $(lowered[:data]), $(lowered[:layout]), $(options)
+            gd,
+            $(lowered[:data]),
+            $(lowered[:layout]),
+            $(lowered[:config]),
         )
 
         # hook into plotly events
@@ -141,16 +142,16 @@ function SyncPlot(
     # to us
     on(scope["image"]) do x end
 
-    SyncPlot(p, scope, options, nothing)
+    SyncPlot(p, scope, nothing)
 end
 
-function plot(args...; options=Dict(), kwargs...)
-    SyncPlot(Plot(args...; kwargs...); options=options)
+function plot(args...; kwargs...)
+    SyncPlot(Plot(args...; kwargs...))
 end
 
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
 Base.size(sp::SyncPlot) = size(sp.plot)
-Base.copy(sp::SyncPlot) = SyncPlot(copy(sp.plot), options=copy(sp.options))
+Base.copy(sp::SyncPlot) = SyncPlot(copy(sp.plot))
 
 Base.display(::PlotlyJSDisplay, p::SyncPlot) = display_blink(p::SyncPlot)
 
