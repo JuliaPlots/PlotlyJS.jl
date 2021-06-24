@@ -10,7 +10,7 @@ import PlotlyBase:
     restyle!, relayout!, update!, addtraces!, deletetraces!, movetraces!,
     redraw!, extendtraces!, prependtraces!, purge!, to_image, download_image,
     restyle, relayout, update, addtraces, deletetraces, movetraces, redraw,
-    extendtraces, prependtraces, prep_kwargs, sizes, savefig, _tovec, html_body,
+    extendtraces, prependtraces, prep_kwargs, sizes, savefig, _tovec,
     react, react!
 
 using WebIO
@@ -43,7 +43,7 @@ function docs()
     end
     w = Blink.Window()
     wait(w.content)
-    Blink.content!(w, "html", open(f->read(f, String), schema_path), fade=false, async=false)
+    Blink.content!(w, "html", open(f -> read(f, String), schema_path), fade=false, async=false)
 end
 
 PlotlyBase.savefig(p::SyncPlot, a...; k...) = savefig(p.plot, a...; k...)
@@ -56,9 +56,20 @@ for (mime, fmt) in PlotlyBase._KALEIDO_MIMES
         height::Union{Nothing,Int}=nothing,
         scale::Union{Nothing,Real}=nothing,
     )
-        savefig(io, plt.plot, format = $fmt)
+        savefig(io, plt.plot, format=$fmt)
     end
 end
+
+@enum RENDERERS BLINK IJULIA BROWSER DOCS
+
+const DEFAULT_RENDERER = Ref(BLINK)
+
+function set_default_renderer(s::RENDERERS)
+    global DEFAULT_RENDERER
+    DEFAULT_RENDERER[] = s
+end
+
+@inline get_renderer() = DEFAULT_RENDERER[]
 
 
 function __init__()
@@ -72,6 +83,25 @@ function __init__()
         include(joinpath(_pkg_root, "deps", "build.jl"))
     end
 
+    # set default renderer
+    # First check env var
+    env_val = get(ENV, "PLOTLY_RENDERER_JULIA", missing)
+    if !ismissing(env_val)
+        env_symbol = Symbol(uppercase(env_val))
+        options = Dict(v => k for (k, v) in collect(Base.Enums.namemap(PlotlyJS.RENDERERS)))
+        renderer_int = get(options, env_symbol, missing)
+        if ismissing(renderer_int)
+            @warn "Unknown value for env var `PLOTLY_RENDERER_JULIA` \"$(env_val)\", known options are $(string.(keys(options)))"
+        else
+            set_default_renderer(RENDERERS(renderer_int))
+        end
+    else
+        # we have no env-var
+        # check IJULIA
+        isdefined(Main, :IJulia) && Main.IJulia.inited && set_default_renderer(IJULIA)
+    end
+
+    # set up display
     insert!(Base.Multimedia.displays, findlast(x -> x isa Base.TextDisplay || x isa REPL.REPLDisplay, Base.Multimedia.displays) + 1, PlotlyJSDisplay())
 
     atreplinit(i -> begin
@@ -80,6 +110,21 @@ function __init__()
         end
         insert!(Base.Multimedia.displays, findlast(x -> x isa REPL.REPLDisplay, Base.Multimedia.displays) + 1, PlotlyJSDisplay())
     end)
+
+    @require IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a" begin
+
+        function IJulia.display_dict(p::SyncPlot)
+            Dict(
+                "application/vnd.plotly.v1+json" => JSON.lower(p),
+                "text/plain" => sprint(show, "text/plain", p),
+                "text/html" => let
+                    buf = IOBuffer()
+                    show(buf, MIME("text/html"), p)
+                    String(resize!(buf.data, buf.size))
+                end
+            )
+        end
+    end
 end
 
 end # module

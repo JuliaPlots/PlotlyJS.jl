@@ -1,4 +1,3 @@
-
 using Pkg.Artifacts
 
 # ----------------------------------------- #
@@ -15,7 +14,14 @@ Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
 @WebIO.register_renderable(SyncPlot) do plot
     return WebIO.render(plot.scope)
 end
-Base.show(io::IO, mm::MIME"text/html", p::SyncPlot) = show(io, mm, p.scope)
+
+function Base.show(io::IO, mm::MIME"text/html", p::SyncPlot)
+    # if we are rendering docs -- short circuit and display html
+    if get_renderer() == DOCS
+        return show(io, mm, p.plot, full_html=false, include_plotlyjs="require")
+    end
+    show(io, mm, p.scope)
+end
 Base.show(io::IO, mm::MIME"application/prs.juno.plotpane+html", p::SyncPlot) = show(io, mm, p.scope)
 
 function SyncPlot(
@@ -158,7 +164,10 @@ Base.display(::PlotlyJSDisplay, p::SyncPlot) = display_blink(p::SyncPlot)
 function display_blink(p::SyncPlot)
     sizeBuffer = 1.15
     plotSize = size(p.plot)
-    windowOptions = Dict("width"=>floor(Int,plotSize[1]*sizeBuffer), "height"=>floor(Int,plotSize[2]*sizeBuffer))
+    windowOptions = Dict(
+        "width" => floor(Int, plotSize[1] * sizeBuffer),
+        "height" => floor(Int, plotSize[2] * sizeBuffer)
+    )
     p.window = Blink.Window(windowOptions)
     Blink.body!(p.window, p.scope)
 end
@@ -184,9 +193,10 @@ end
 function restyle!(
         plt::SyncPlot, ind::Union{Int,AbstractVector{Int}},
         update::AbstractDict=Dict();
-        kwargs...)
-        restyle!(plt.plot, ind, update; kwargs...)
-        send_command(plt.scope, :restyle, merge(update, prep_kwargs(kwargs)), ind .- 1)
+        kwargs...
+    )
+    restyle!(plt.plot, ind, update; kwargs...)
+    send_command(plt.scope, :restyle, merge(update, prep_kwargs(kwargs)), ind .- 1)
 end
 
 function restyle!(plt::SyncPlot, update::AbstractDict=Dict(); kwargs...)
@@ -228,7 +238,7 @@ end
 
 function addtraces!(plt::SyncPlot, i::Int, traces::AbstractTrace...)
     addtraces!(plt.plot, i, traces...)
-    send_command(plt.scope, :addTraces, traces, i-1)
+    send_command(plt.scope, :addTraces, traces, i - 1)
 end
 
 function deletetraces!(plt::SyncPlot, inds::Int...)
@@ -330,71 +340,7 @@ for f in (:extendtraces!, :prependtraces!)
 end
 
 
-# ----------------------- #
-# Other display functions #
-# ----------------------- #
-
-const js_default = Ref(:local)
-
-function PlotlyBase.savehtml(io::IO, p::SyncPlot, js::Symbol=js_default[])
-
-    if js == :local
-        script_txt = "<script src=\"$(_js_path)\"></script>"
-    elseif js == :remote
-        script_txt = "<script src=\"$(_js_cdn_path)\"></script>"
-    elseif js == :embed
-        script_txt = "<script>$(read(_js_path, String))</script>"
-    else
-        msg = """
-        Unknown value for argument js: $js.
-        Possible choices are `:local`, `:remote`, `:embed`
-            """
-        throw(ArgumentError(msg))
-    end
-
-    print(io, """
-    <html>
-    <head>
-         $script_txt
-    </head>
-    <body>
-         $(PlotlyBase.html_body(p.plot))
-    </body>
-    </html>
-    """)
-
-end
-
-PlotlyBase.savehtml(p::SyncPlot, fn::AbstractString, js::Symbol=js_default[]) =
-    open(f -> savehtml(f, p, js), fn, "w")
-
-"""
-    PlotlyBase.savehtml(io::IO, p::Union{Plot,SyncPlot}, js::Symbol=js_default[])
-    PlotlyBase.savehtml(p::Union{Plot,SyncPlot}, fn::AbstractString, js::Symbol=js_default[])
-
-Save plot to standalone html file suitable for including in a website or
-opening in a browser
-
-Can either be written to an arbitrary IO stream, or saved to a file noted with
-a string `fn`.
-
-The `js` argument can be one of
-
-- `:local`: Reference the local plotly.js file included in this Julia package
-    Pros: small file size, offline viewing. Cons: Can't share with others or
-    move to different machine..
-- `:remote`: Reference plotly.js from a CDN. Pros small file size, move to
-    other machine. Cons: need internet access to fetch from CDN
-- `:embed`: Embed the entirety of your local copy of plotly.js in the
-    outputted file. Pros: offline viewing, move to other machine. Con: large
-    file size (adds about 2.7 MB)
-
-The default is `:local`
-"""
-PlotlyBase.savehtml
-
-
-for mime in ["text/plain", "application/vnd.plotly.v1+json"]
+for mime in ["text/plain", "application/vnd.plotly.v1+json", "application/prs.juno.plotpane+html"]
     function Base.show(io::IO, m::MIME{Symbol(mime)}, p::SyncPlot, args...)
         show(io, m, p.plot, args...)
     end
