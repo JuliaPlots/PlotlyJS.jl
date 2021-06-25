@@ -1,5 +1,3 @@
-using Pkg.Artifacts
-
 # ----------------------------------------- #
 # SyncPlot -- sync Plot object with display #
 # ----------------------------------------- #

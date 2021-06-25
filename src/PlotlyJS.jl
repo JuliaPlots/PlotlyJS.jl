@@ -3,7 +3,7 @@ module PlotlyJS
 using Reexport
 @reexport using PlotlyBase
 using JSON
-using REPL, Pkg
+using REPL, Pkg, Pkg.Artifacts, DelimitedFiles  # stdlib
 
 # need to import some functions because methods are meta-generated
 import PlotlyBase:
@@ -20,7 +20,7 @@ using Blink
 using Pkg.Artifacts
 using Requires
 
-export plot
+export plot, dataset, list_datasets
 
 # globals for this package
 const _pkg_root = dirname(dirname(@__FILE__))
@@ -70,6 +70,30 @@ function set_default_renderer(s::RENDERERS)
 end
 
 @inline get_renderer() = DEFAULT_RENDERER[]
+
+list_datasets() = readdir(joinpath(artifact"plotly-artifacts", "datasets"))
+function check_dataset_exists(name::String)
+    ds = list_datasets()
+    name_ext = Dict(name => strip(ext, '.') for (name, ext) in splitext.(ds))
+    if !haskey(name_ext, name)
+        error("Unknown dataset $name, known datasets are $(collect(keys(name_ext)))")
+    end
+    ds_path = joinpath(artifact"plotly-artifacts", "datasets", "$(name).$(name_ext[name])")
+    return ds_path
+end
+
+function dataset(name::String)::Dict{String,Any}
+    ds_path = check_dataset_exists(name)
+    if endswith(ds_path, "csv")
+        # if csv, use DelimitedFiles and convert to dict
+        data = DelimitedFiles.readdlm(ds_path, ',')
+        return Dict(zip(data[1, :], data[2:end, i] for i in 1:size(data, 2)))
+    elseif endswith(ds_path, "json")
+        # use json
+        return JSON.parsefile(ds_path)
+    end
+    error("should not ever get here!!! Please file an issue")
+end
 
 
 function __init__()
@@ -123,6 +147,19 @@ function __init__()
                     String(resize!(buf.data, buf.size))
                 end
             )
+        end
+    end
+
+    @require CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b" begin
+        function dataset(::Type{CSV.File}, name::String)
+            ds_path = check_dataset_exists(name)
+            if !endswith(ds_path, "csv")
+                error("Can only construct CSV.File from a csv data source")
+            end
+            CSV.File(ds_path)
+        end
+        @require DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0" begin
+            dataset(::Type{DataFrames.DataFrame}, name::String) = DataFrames.DataFrame(dataset(CSV.File, name))
         end
     end
 end
