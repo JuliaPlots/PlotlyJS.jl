@@ -11,7 +11,7 @@ import PlotlyBase:
     redraw!, extendtraces!, prependtraces!, purge!, to_image, download_image,
     restyle, relayout, update, addtraces, deletetraces, movetraces, redraw,
     extendtraces, prependtraces, prep_kwargs, sizes, savefig, _tovec,
-    react, react!
+    react, react!, add_trace!
 
 using WebIO
 using JSExpr
@@ -20,7 +20,7 @@ using Blink
 using Pkg.Artifacts
 using Requires
 
-export plot, dataset, list_datasets
+export plot, dataset, list_datasets, make_subplots
 
 # globals for this package
 const _pkg_root = dirname(dirname(@__FILE__))
@@ -34,6 +34,10 @@ struct PlotlyJSDisplay <: AbstractDisplay end
 # include the rest of the core parts of the package
 include("display.jl")
 include("util.jl")
+
+make_subplots(;kwargs...) = plot(Layout(Subplots(;kwargs...)))
+    
+@doc (@doc Subplots) make_subplots
 
 function docs()
     schema_path = joinpath(dirname(dirname(@__FILE__)), "deps", "schema.html")
