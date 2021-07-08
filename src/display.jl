@@ -182,6 +182,12 @@ function send_command(scope, cmd, args...)
     nothing
 end
 
+function add_trace!(p::SyncPlot, trace::GenericTrace; kw...)
+    add_trace!(p.plot, trace; kw...)
+    addtraces!(p, trace)
+end
+
+
 # ----------------------- #
 # Plotly.js api functions #
 # ----------------------- #
