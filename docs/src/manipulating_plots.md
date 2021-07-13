@@ -14,23 +14,23 @@ create a new `divid`
 ## API functions
 
 All exported functions from the plotly.js
-[API](https://plotly.com/javascriptplotlyjs-function-reference/) have been
+[API](https://plotly.com/javascript/plotlyjs-function-reference/) have been
 exposed to Julia and operate on both `Plot` and `SyncPlot` instances. Each of
 these functions has semantics that match the semantics of plotly.js
 
 In PlotlyJS.jl these functions are spelled:
 
-- [`restyle!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlyrestyle): edit attributes on one or more traces
-- [`relayout!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlyrelayout): edit attributes on the layout
-- [`update!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlyupdate): combination of `restyle!` and `relayout!`
-- [`react!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlyreact): In place updating of all traces and layout in plot. More efficient than constructing an entirely new plot from scratch, but has the same effect.
-- [`addtraces!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlyaddtraces): add traces to a plot at specified indices
-- [`deletetraces!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlydeletetraces): delete specific traces from a plot
-- [`movetraces!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlymovetraces): reorder traces in a plot
-- [`redraw!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlyredraw): for a redraw of an entire plot
-- [`purge!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlypurge): completely remove all data and layout from the chart
-- [`extendtraces!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlyextendtraces): Extend specific attributes of one or more traces with more data by appending to the end of the attribute
-- [`prependtraces!`](https://plotly.com/javascriptplotlyjs-function-reference/#plotlyprependtraces): Prepend additional data to specific attributes on one or more traces
+- [`restyle!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlyrestyle): edit attributes on one or more traces
+- [`relayout!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlyrelayout): edit attributes on the layout
+- [`update!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlyupdate): combination of `restyle!` and `relayout!`
+- [`react!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlyreact): In place updating of all traces and layout in plot. More efficient than constructing an entirely new plot from scratch, but has the same effect.
+- [`addtraces!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlyaddtraces): add traces to a plot at specified indices
+- [`deletetraces!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlydeletetraces): delete specific traces from a plot
+- [`movetraces!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlymovetraces): reorder traces in a plot
+- [`redraw!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlyredraw): for a redraw of an entire plot
+- [`purge!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlypurge): completely remove all data and layout from the chart
+- [`extendtraces!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlyextendtraces): Extend specific attributes of one or more traces with more data by appending to the end of the attribute
+- [`prependtraces!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlyprependtraces): Prepend additional data to specific attributes on one or more traces
 
 
 When any of these routines is called on a `SyncPlot` the underlying `Plot`
