@@ -90,6 +90,52 @@ Finally, we can make a 2x2 grid of subplots:
  p3 p4]
 ```
 
+!!! note
+    New in PlotlyBase version 0.6.5 (PlotlyJS version 0.16.4)
+
+
+As of version 0.16.4, we can also create a non-rectangular grid of subplots using this syntax.
+
+For example:
+
+```@example subplots
+[p1 p2 p3 p4; p2 p4; p1]
+```
+
+### `make_subplots`
+
+!!! note
+    New in PlotlyBase version 0.6.4 (PlotlyJS version 0.16.3)
+
+As of version 0.16.3, there is another option for creaing subplots: the `make_subplots` function
+
+This function takes a number of keyword arguments and allows fine grained control over the layout and labels for subplots.
+
+Consider the example below:
+
+```@example subplots
+p = make_subplots(
+    rows=5, cols=2,
+    specs=[Spec() Spec(rowspan=2)
+           Spec() missing
+           Spec(rowspan=2, colspan=2) missing
+           missing missing
+           Spec() Spec()]
+)
+
+add_trace!(p, scatter(x=[1, 2], y=[1, 2], name="(1,1)"), row=1, col=1)
+add_trace!(p, scatter(x=[1, 2], y=[1, 2], name="(1,2)"), row=1, col=2)
+add_trace!(p, scatter(x=[1, 2], y=[1, 2], name="(2,1)"), row=2, col=1)
+add_trace!(p, scatter(x=[1, 2], y=[1, 2], name="(3,1)"), row=3, col=1)
+add_trace!(p, scatter(x=[1, 2], y=[1, 2], name="(5,1)"), row=5, col=1)
+add_trace!(p, scatter(x=[1, 2], y=[1, 2], name="(5,2)"), row=5, col=2)
+
+relayout!(p, height=600, width=600, title_text="specs examples")
+p.plot
+```
+
+More examples are being worked on at this time (2021-07-14), but for now you can view the docs for [`make_subplots`](@ref) to get an idea of what else is possible.
+
 ## Saving figures
 
 

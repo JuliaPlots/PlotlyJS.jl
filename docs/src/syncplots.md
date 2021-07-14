@@ -13,10 +13,13 @@ We'll also discuss how to integrate with various frontends.
 Recall that the definition of the `Plot` object is
 
 ```julia
-mutable struct Plot{TT<:AbstractTrace}
-    data::Vector{TT}
-    layout::AbstractLayout
-    divid::Base.Random.UUID
+mutable struct Plot{TT<:AbstractVector{<:AbstractTrace},TL<:AbstractLayout,TF<:AbstractVector{<:PlotlyFrame}}
+    data::TT
+    layout::TL
+    frames::TF
+    divid::UUID
+    config::PlotConfig
+    style::Style
 end
 ```
 
@@ -56,17 +59,11 @@ PlotlyBase.Plot
 Especially convenient is the `group` keyword argument when calling
 `Plot(::AbstractDataFrame, ... ; ...)`. Here is an example below:
 
-```@repl iris_group
+```@example iris_group
 using PlotlyJS  # hide
 using RDatasets
-iris = dataset("datasets", "iris");
+iris = RDatasets.dataset("datasets", "iris");
 p = Plot(iris, x=:SepalLength, y=:SepalWidth, mode="markers", marker_size=8, group=:Species)
-```
-
-which would result in the following plot
-
-```@example iris_group
-p
 ```
 
 ## `SyncPlot`s
@@ -85,8 +82,7 @@ follows:
 mutable struct SyncPlot
     plot::PlotlyBase.Plot
     scope::Scope
-    events::Dict
-    options::Dict
+    window::Union{Nothing,Blink.Window}
 end
 ```
 
@@ -96,9 +92,7 @@ plot (the `Plot` instance) in sync with a plot with a frontend.
 !!! note
     The `Plot` function will create a new `Plot` object and the `plot` function
     will create a new `SyncPlot`. The `plot` function passes all arguments
-    (except the `options` keyword argument -- see below) to construct a `Plot`
-    and then sets up the display. All `Plot` methods are also defined for
-    `plot`
+    to construct a `Plot` and then sets up the display. All `Plot` methods are also defined for `plot`
 
 By leveraging WebIO.jl we can render our figures anywhere WebIO can render. At
 time of writing this includes [Jupyter notebooks](https://jupyter.org/),
@@ -164,16 +158,20 @@ with business logic implemented entirely in Julia!.
 
 ### Display configuration
 
-When calling `plot` the `options` keyword argument is given special treatment.
-It should be an instance of `AbstractDict` and its contents are passed as
-display options to the plotly.js library. For details on which options are
-supported, see the [plotly.js documentation on the
-subject](https://plotly.com/javascriptconfiguration-options/).
+!!! note
+    New in PlotlyBase version 0.6.4 (PlotlyJS version 0.16.3)
+
+
+When calling `plot` or `Plot`, we can specify some configuration options using the `config` keyword argument.
+
+The `config` argument must be set to an instance of `PlotConfig`, which should be constructed using keyword arguments.
 
 As an example, if we were to execute the following code, we would see a static
 chart (no hover information or ability to zoom/pan) with 4 lines instead of an
 interactive one:
 
-```julia
-plot(rand(10, 4), options=Dict(:staticPlot => true))
+```example plot_config
+Plot(rand(10, 4), config=PlotConfig(staticPlot=true))
 ```
+
+See the API docs for [`PlotConfig`](@ref) for a full list of options.

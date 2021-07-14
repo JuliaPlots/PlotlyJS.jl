@@ -1,7 +1,7 @@
 # Finance
 
 ```@example finance
-using PlotlyJS, HTTP, CSV
+using PlotlyJS, HTTP, CSV, DataFrames
 ```
 
 ```@example finance
@@ -19,7 +19,7 @@ ohlc1()
 function ohlc2()
     function get_ohlc(ticker; kwargs...)
         res = HTTP.get("https://www.quandl.com/api/v3/datasets/WIKI/$(ticker)/data.csv?start_date=2017-01-01")
-        df = CSV.read(res.body)
+        df = DataFrame(CSV.File(res.body))
         ohlc(df, x=:Date, open=:Open, high=:High, low=:Low, close=:Close; kwargs...)
     end
 
@@ -46,7 +46,7 @@ candlestick1()
 function candlestick2()
     function get_candlestick(ticker; kwargs...)
         res = HTTP.get("https://www.quandl.com/api/v3/datasets/WIKI/$(ticker)/data.csv?start_date=2017-01-01")
-        df = CSV.read(res.body)
+        df = DataFrame(CSV.File(res.body))
         candlestick(df, x=:Date, open=:Open, high=:High, low=:Low, close=:Close; kwargs...)
     end
 

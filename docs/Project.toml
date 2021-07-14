@@ -15,4 +15,4 @@ RDatasets = "ce6b1742-4840-55fa-b093-852dadbb1d8b"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [compat]
-PlotlyBase = "0.5"
+PlotlyBase = "0.6"

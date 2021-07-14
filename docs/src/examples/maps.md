@@ -1,7 +1,7 @@
 # Maps
 
 ```@example maps
-using PlotlyJS, DataFrames, CSV
+using PlotlyJS, DataFrames, CSV, HTTP
 ```
 
 ```@example maps
@@ -27,18 +27,15 @@ maps1()
 ```@example maps
 function maps2()
     # read Data into dataframe
-    nm = tempname()
     url = "https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv"
-    download(url, nm)
-    df = CSV.read(nm)
-    rm(nm)
+    df = DataFrame(CSV.File(HTTP.get(url).body))
 
     trace = scattergeo(;locationmode="USA-states",
-                        lat=df[:lat],
-                        lon=df[:lon],
+                        lat=df.lat,
+                        lon=df.lon,
                         hoverinfo="text",
-                        text=[string(x[:name], " pop: ", x[:pop]) for x in eachrow(df)],
-                        marker_size=df[:pop]/50_000,
+                        text=[string(x.name, " pop: ", x.pop) for x in eachrow(df)],
+                        marker_size=df.pop ./ 50_000,
                         marker_line_color="black", marker_line_width=2)
     geo = attr(scope="usa",
                projection_type="albers usa",

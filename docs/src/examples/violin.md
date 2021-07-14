@@ -90,7 +90,7 @@ violin_old_faithful()
 ```@example violin
 function violin_side_by_side()
     # requires RDatasets and DataFrames
-    tips = dataset("reshape2", "tips")
+    tips = RDatasets.dataset("reshape2", "tips")
     parts = zip(
         ("Female", "Male"),
         ("positive", "negative"),
@@ -99,7 +99,7 @@ function violin_side_by_side()
     )
     traces = GenericTrace[]
     for (sex, side, color, pointpos) in parts
-        sub_tips = tips[tips[:Sex] .== sex, :]
+        sub_tips = tips[tips[!, :Sex] .== sex, :]
         sub_traces = violin(sub_tips,
             group=:Day,
             x=:TotalBill, y0=(df) -> df[1, :Day],

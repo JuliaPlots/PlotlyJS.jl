@@ -1,4 +1,4 @@
-using PlotlyJS, DataFrames, CSV
+using PlotlyJS, DataFrames, CSV, HTTP
 
 function table1()
     values = [
@@ -68,19 +68,14 @@ end
 
 
 function table3()
-    nm = tempname()
     url = "https://raw.githubusercontent.com/plotly/datasets/master/Mining-BTC-180.csv"
-    download(url, nm)
-    df = CSV.read(nm)
-    rm(nm)
-
-    data = Array(df)
+    df = DataFrame(CSV.File(HTTP.get(url).body))
 
     trace = table(
         columnwidth=[200, 500, 600, 600, 400, 400, 600, 600, 600],
         # columnorder=0:9,
         header=attr(
-            values=map(x-> replace(string(x), '_' => '-'), names(df)),
+            values=map(x -> replace(string(x), '_' => '-'), names(df)),
             align="center",
             line=attr(width=1, color="rgb(50, 50, 50)"),
             fill_color=["rgb(235, 100, 230)"],
