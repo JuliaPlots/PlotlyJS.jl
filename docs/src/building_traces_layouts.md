@@ -15,13 +15,14 @@ A `Plot` instance will have a vector of `trace`s. These should each be a subtype
 PlotlyJS.jl defines one such subtype:
 
 ```julia
-mutable struct GenericTrace{T<:AbstractDict{Symbol,Any}} <: AbstractTrace
-    kind::ASCIIString
+mutable struct GenericTrace{T <: AbstractDict{Symbol,Any}} <: AbstractTrace
     fields::T
 end
 ```
 
-The `kind` field specifies the type of trace and the `fields` is an AbstractDict object that maps trace attributes to their values.
+The `fields` is an AbstractDict object that maps trace attributes to their values.
+
+We create this wrapper around a Dict to provide some convnient syntax as described below.
 
 Let's consider an example. Suppose we would like to build the following JSON
 object:
@@ -135,8 +136,9 @@ println(JSON.json(t1, 2))
 The `Layout` type is defined as
 
 ```julia
-mutable struct Layout{T<:AbstractDict{Symbol,Any}} <: AbstractLayout
+mutable struct Layout{T <: AbstractDict{Symbol,Any}} <: AbstractLayout
     fields::T
+    subplots::_Maybe{Subplots}
 end
 ```
 
@@ -254,3 +256,24 @@ this allows you to _compute_ group specific trace attributes on the fly.
 
 See the docstring for `GenericTrace` and the `violin_side_by_side` example on
 the [Violin](@ref) example page more details.
+
+### Facets
+
+!!! note
+    New in PlotlyBase version 0.6.5 (PlotlyJS version 0.16.4)
+
+When plotting a `DataFrame` (let's call it `df`), the keyword arguments `facet_row` and `facet_col` allow you to create a matrix of subplots. The rows of this matrix correspond `unique(df[:facet_row])`, where `:facet_row` is a placeholder for the actual value passed as the `facet_row` argument. Similarly, the columns of the matrix of subplots come from `unique(df[:facet_col])`.
+
+Each subplot will have the same structure, as defined by the keyword arguments passed to `plot`, but will only show data for a single value of `facet_row` and `facet_col` at a time.
+
+Below is an example of how this works
+
+```@repl facets
+using PlotlyJS, CSV, DataFrames
+df = dataset(DataFrame, "tips")
+
+plot(
+    df, x=:total_bill, y=:tip, xbingroyp="x", ybingroup="y", kind="histogram2d",
+    facet_row=:sex, facet_col=:smoker
+)
+```

@@ -25,13 +25,14 @@ used to set style properties that should be cycled through for each trace.
 For example, to have all traces alternate between being colored green and red,
 I could define:
 
-```julia
+```@example styles
+using PlotlyJS  # hide
 mystyle = Style(global_trace=attr(marker_color=["green", "red"]))
 ```
 
 If I were then to define a plot
 
-```julia
+```@example styles
 p = plot(rand(10, 3), style=mystyle)
 ```
 
@@ -40,7 +41,7 @@ The first and third plots would be green, while the second would be red.
 As usual, if the `marker_color` attribute on a trace was already set, then
 it will not be altered. For example:
 
-```julia
+```@example styles
 p = plot(
     [
         scatter(y=rand(4)),
@@ -55,7 +56,7 @@ p = plot(
 Then the first and fourth traces would be red, the second black, and the third
 green.
 
-## Defining `Style`s
+## [Defining `Style`s](@id styles)
 
 There are 3 ways to define a `Style`:
 
@@ -65,7 +66,7 @@ To define a brand new style, you simply construct one or more of the fields and
 assign it using the keyword argument `Style` constructor. For example, this is
 how the `ggplot` style is defined (as of time of writing):
 
-```julia
+```@example styles
 ggplot = let
     axis = attr(showgrid=true, gridcolor="white", linewidth=1.0,
                 linecolor="white", titlefont_color="#555555",
@@ -90,14 +91,6 @@ ggplot = let
 end
 ```
 
-When displayed in the REPL we see the following:
-
-```
-Style with:
-  - layout with fields font, margin, paper_bgcolor, plot_bgcolor, titlefont, xaxis, and yaxis
-  - global_trace: PlotlyAttribute with field marker
-```
-
 Notice that we didn't have to define the `trace` field. When building new
 `Style`s you only need to define the fields of the `Style` type that you
 actually use in your style.
@@ -109,19 +102,9 @@ style. Suppose that I liked the `ggplot` style, but wanted to make sure that
 the marker symbol on scatter traces was always a square. I could define the
 following style:
 
-```julia
+```@example styles
 square_ggplot = Style(ggplot,
                       trace=Dict(:scatter => attr(marker_symbol="square")))
-```
-
-When displayed in the REPL we see the following:
-
-```
-Style with:
-  - layout with fields font, margin, paper_bgcolor, plot_bgcolor, titlefont, xaxis, and yaxis
-  - global_trace: PlotlyAttribute with field marker
-  - trace:
-    - scatter: PlotlyAttribute with field marker
 ```
 
 Notice that all the information for `color_cycle`, `layout` and `global_trace`
@@ -137,14 +120,14 @@ title to be large, say at a level of 20. We might want to apply this
 transformation to multiple existing styles. One way we could achieve this is by
 defining
 
-```julia
+```@example styles
 big_title = Style(layout=Layout(titlefont_size=20))
 ```
 
 and then composing `big_title` with an existing `Style` (e.g. `ggplot` from
 above) by calling
 
-```julia
+```@example styles
 big_ggplot = Style(ggplot, big_title)
 ```
 
@@ -159,7 +142,7 @@ great, but doesn't actually show off the power of composing `Style`s.
 Composition becomes more powerful when you use more than two styles. Consider
 the following example:
 
-```julia
+```@example styles
 square = Style(trace=Dict(:scatter => attr(marker_symbol="square")))
 big_square_ggplot = Style(ggplot, square, big_title)
 ```

@@ -130,8 +130,8 @@ function multiple_surface()
                 [9, 9.01, 9, 9.2, 9.23, 9.2],
                 [8.99, 8.99, 8.98, 9.18, 9.2, 9.19],
                 [8.93, 8.97, 8.97, 9.18, 9.2, 9.18]]
-    z2 = map(x->x.+1, z1)
-    z3 = map(x->x.-1, z1)
+    z2 = map(x -> x .+ 1, z1)
+    z3 = map(x -> x .- 1, z1)
     trace1 = surface(z=z1, colorscale="Viridis")
     trace2 = surface(z=z2, showscale=false, opacity=0.9, colorscale="Viridis")
     trace3 = surface(z=z3, showscale=false, opacity=0.9, colorscale="Viridis")
@@ -140,17 +140,17 @@ end
 
 function clustering_alpha_shapes()
     # load data
-    iris = dataset("datasets", "iris")
-    nms = unique(iris[:Species])
+    iris = RDatasets.dataset("datasets", "iris")
+    nms = unique(iris.Species)
     colors = [RGB(0.89, 0.1, 0.1), RGB(0.21, 0.50, 0.72), RGB(0.28, 0.68, 0.3)]
 
     data = GenericTrace[]
 
     for (i, nm) in enumerate(nms)
-        df = iris[iris[:Species] .== nm, :]
-        x=df[:SepalLength]
-        y=df[:SepalWidth]
-        z=df[:PetalLength]
+        df = iris[iris[!, :Species] .== nm, :]
+        x = df[!, :SepalLength]
+        y = df[!, :SepalWidth]
+        z = df[!, :PetalLength]
         trace = scatter3d(;name=nm, mode="markers",
                            marker_size=3, marker_color=colors[i], marker_line_width=0,
                            x=x, y=y, z=z)
@@ -175,7 +175,7 @@ function clustering_alpha_shapes()
                                            showbackground=true,
                                            backgroundcolor="rgb(230, 230,230)"),
                                aspectratio=attr(x=1, y=1, z=0.7),
-                               aspectmode = "manual"))
+                               aspectmode="manual"))
     plot(data, layout)
 end
 

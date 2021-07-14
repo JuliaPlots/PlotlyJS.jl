@@ -36,7 +36,7 @@ include("display.jl")
 include("util.jl")
 
 make_subplots(;kwargs...) = plot(Layout(Subplots(;kwargs...)))
-    
+
 @doc (@doc Subplots) make_subplots
 
 function docs()

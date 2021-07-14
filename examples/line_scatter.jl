@@ -1,4 +1,4 @@
-using PlotlyJS, DataFrames, CSV, Dates
+using PlotlyJS, DataFrames, CSV, Dates, HTTP
 
 function linescatter1()
     trace1 = scatter(;x=1:4, y=[10, 15, 13, 17], mode="markers")
@@ -13,8 +13,8 @@ function linescatter2()
                       text=["A-1", "A-2", "A-3", "A-4", "A-5"],
                       marker_size=12)
 
-    trace2 = scatter(;x=1:5+0.5, y=[4, 1, 7, 1, 4],
-                      mode="markers", name= "Team B",
+    trace2 = scatter(;x=1:5 + 0.5, y=[4, 1, 7, 1, 4],
+                      mode="markers", name="Team B",
                       text=["B-a", "B-b", "B-c", "B-d", "B-e"])
     # setting marker.size this way is _equivalent_ to what we did for trace1
     trace2["marker"] = Dict(:size => 12)
@@ -32,10 +32,10 @@ function linescatter3()
                       text=["A-1", "A-2", "A-3", "A-4", "A-5"],
                       marker_size=12, textfont_family="Raleway, sans-serif")
 
-    trace2 = scatter(;x=1:5+0.5, y=[4, 1, 7, 1, 4],
-                      mode="markers+text", name= "Team B",
+    trace2 = scatter(;x=1:5 + 0.5, y=[4, 1, 7, 1, 4],
+                      mode="markers+text", name="Team B",
                       textposition="bottom center",
-                      text= ["B-a", "B-b", "B-c", "B-d", "B-e"],
+                      text=["B-a", "B-b", "B-c", "B-d", "B-e"],
                       marker_size=12, textfont_family="Times New Roman")
 
     data = [trace1, trace2]
@@ -75,8 +75,8 @@ function linescatter5()
                       name="Percent of estimated registered voters")
     # also could have set the marker props above by using a dict
     trace2["marker"] = Dict(:color => "rgba(204, 204, 204, 0.95)",
-                           :line => Dict(:color=> "rgba(217, 217, 217, 1.0)",
-                                         :width=> 1),
+                           :line => Dict(:color => "rgba(217, 217, 217, 1.0)",
+                                         :width => 1),
                            :symbol => "circle",
                            :size => 16)
 
@@ -140,17 +140,17 @@ end
 
 function batman()
     # reference: https://github.com/alanedelman/18.337_2015/blob/master/Lecture01_0909/The%20Bat%20Curve.ipynb
-    σ(x) = @. √(1-x.^2)
-    el(x) = @. 3*σ(x/7)
-    s(x) = @. 4.2 - 0.5*x - 2.0*σ(0.5*x-0.5)
-    b(x) = @. σ(abs(2-x)-1) - x.^2/11 + 0.5x - 3
+    σ(x) = @. √(1 - x.^2)
+    el(x) = @. 3 * σ(x / 7)
+    s(x) = @. 4.2 - 0.5 * x - 2.0 * σ(0.5 * x - 0.5)
+    b(x) = @. σ(abs(2 - x) - 1) - x.^2 / 11 + 0.5x - 3
     c(x) = [1.7, 1.7, 2.6, 0.9]
 
     p(i, f; kwargs...) = scatter(;x=[-i; 0.0; i], y=[f(i); NaN; f(i)],
                                   marker_color="black", showlegend=false,
                                   kwargs...)
     traces = vcat(p(3:0.1:7, el; name="wings 1"),
-                  p(4:0.1:7, t->-el(t); name="wings 2"),
+                  p(4:0.1:7, t -> -el(t); name="wings 2"),
                   p(1:0.1:3, s; name="Shoulders"),
                   p(0:0.1:4, b; name="Bottom"),
                   p([0, 0.5, 0.8, 1], c; name="head"))
@@ -161,23 +161,20 @@ end
 function dumbell()
     # reference: https://plot.ly/r/dumbbell-plots/
     # read Data into dataframe
-    nm = tempname()
     url = "https://raw.githubusercontent.com/plotly/datasets/master/school_earnings.csv"
-    download(url, nm)
-    df = CSV.read(nm)
-    rm(nm)
+    df = DataFrame(CSV.File(HTTP.get(url).body))
 
     # sort dataframe by male earnings
     df = sort(df, :Men, rev=false)
 
-    men = scatter(;y=df[:School], x=df[:Men], mode="markers", name="Men",
+    men = scatter(;y=df.School, x=df.Men, mode="markers", name="Men",
                    marker=attr(color="blue", size=12))
-    women = scatter(;y=df[:School], x=df[:Women], mode="markers", name="Women",
+    women = scatter(;y=df.School, x=df.Women, mode="markers", name="Women",
                      marker=attr(color="pink", size=12))
 
     lines = map(eachrow(df)) do r
-        scatter(y=fill(r[:School], 2), x=[r[:Women], r[:Men]], mode="lines",
-                name=r[:School], showlegend=false, line_color="gray")
+        scatter(y=fill(r.School, 2), x=[r.Women, r.Men], mode="lines",
+                name=r.School, showlegend=false, line_color="gray")
     end
 
     data = Base.typed_vcat(GenericTrace, men, women, lines)
@@ -263,7 +260,7 @@ function errorbars2()
         value = []
         j = 0
         rand = 0
-        while j <= num+1
+        while j <= num + 1
             rand = rand() * mul
             append!(value, [rand])
             j += 1
