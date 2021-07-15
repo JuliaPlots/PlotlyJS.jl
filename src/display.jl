@@ -210,7 +210,7 @@ end
 
 function relayout!(plt::SyncPlot, update::AbstractDict=Dict(); kwargs...)
     relayout!(plt.plot, update; kwargs...)
-    send_command(plt.scope, :relayout, merge(update, prep_kwargs(kwargs)))
+    update!(plt, layout=plt.plot.layout)
 end
 
 function react!(plt::SyncPlot, data::AbstractVector{<:AbstractTrace}, layout::Layout)
