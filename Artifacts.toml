@@ -1,6 +1,6 @@
 [plotly-artifacts]
-git-tree-sha1 = "94b18606d21e46687da7e86f1f63afbfa09ce3fb"
+git-tree-sha1 = "bc8e1450d988edc838c4f4bbe03439b715c6215f"
 
     [[plotly-artifacts.download]]
-    sha256 = "1ca88ece3011889d182885a6a0d6de9439cae5716fd0ea70d3fc711f8e61fd7a"
-    url = "https://github.com/JuliaPlots/PlotlyJS.jl/releases/download/plotly-artifacts-1.58.4/plotly-artifacts-1.58.4.tar.gz"
+    sha256 = "8d0799af112772a95b6490f763cf505128dd83be8f59e13aa27378a92f7d5a38"
+    url = "https://github.com/JuliaPlots/PlotlyJS.jl/releases/download/plotly-artifacts-2.2.1/plotly-artifacts-2.2.1.tar.gz"
