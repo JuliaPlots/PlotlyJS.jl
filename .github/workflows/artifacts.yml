@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     # The plotly version. Bumping this environment variable should do the trick
     env:
-      PLOTLY_VER: 2.2.1
+      PLOTLY_VER: 2.3.0
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
