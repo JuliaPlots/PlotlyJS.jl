@@ -1,5 +1,6 @@
 module PlotlyJS
 
+using Base64
 using Reexport
 @reexport using PlotlyBase
 using JSON
@@ -34,6 +35,7 @@ struct PlotlyJSDisplay <: AbstractDisplay end
 # include the rest of the core parts of the package
 include("display.jl")
 include("util.jl")
+include("kaleido.jl")
 
 make_subplots(;kwargs...) = plot(Layout(Subplots(;kwargs...)))
 
@@ -50,19 +52,6 @@ function docs()
     Blink.content!(w, "html", open(f -> read(f, String), schema_path), fade=false, async=false)
 end
 
-PlotlyBase.savefig(p::SyncPlot, a...; k...) = savefig(p.plot, a...; k...)
-PlotlyBase.savefig(io::IO, p::SyncPlot, a...; k...) = savefig(io, p.plot, a...; k...)
-
-for (mime, fmt) in PlotlyBase._KALEIDO_MIMES
-    @eval function Base.show(
-        io::IO, ::MIME{Symbol($mime)}, plt::SyncPlot,
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
-    )
-        savefig(io, plt.plot, format=$fmt)
-    end
-end
 
 @enum RENDERERS BLINK IJULIA BROWSER DOCS
 
@@ -105,6 +94,8 @@ function __init__()
     if isfile(_build_log) && occursin("Warning:", read(_build_log, String))
         @warn("Warnings were generated during the last build of PlotlyJS:  please check the build log at $_build_log")
     end
+
+    @async _start_kaleido_process()
 
     if !isfile(_js_path)
         @info("plotly.js javascript libary not found -- downloading now")

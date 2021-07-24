@@ -8,5 +8,6 @@ using Blink
 !Blink.AtomShell.isinstalled() && Blink.AtomShell.install()
 
 include("blink.jl")
+include("kaleido.jl")
 
 end
