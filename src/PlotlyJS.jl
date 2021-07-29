@@ -11,7 +11,7 @@ import PlotlyBase:
     restyle!, relayout!, update!, addtraces!, deletetraces!, movetraces!,
     redraw!, extendtraces!, prependtraces!, purge!, to_image, download_image,
     restyle, relayout, update, addtraces, deletetraces, movetraces, redraw,
-    extendtraces, prependtraces, prep_kwargs, sizes, savefig, _tovec,
+    extendtraces, prependtraces, prep_kwargs, sizes, _tovec,
     react, react!, add_trace!
 
 using WebIO
