@@ -1,17 +1,20 @@
-function myplot(fn)
+function myplot(fn, func)
     x = 0:0.1:2π
-    plt = Plot(scatter(x=x, y=sin.(x)))
+    plt = func(scatter(x=x, y=sin.(x)))
     savefig(plt, fn)
 end
 
 @testset "kaleido" begin
-    for ext in [PlotlyBase.ALL_FORMATS..., "html"]
-        if ext === "eps"
-            continue
+    for func in [Plot, plot]
+        for ext in [PlotlyJS.ALL_FORMATS..., "html"]
+            if ext === "eps"
+                continue
+            end
+            fn = tempname() * "." * ext
+            @show func, fn
+            myplot(fn, func) == fn
+            @test isfile(fn)
+            rm(fn)
         end
-        @show fn = tempname() * "." * ext
-        myplot(fn) == fn
-        @test isfile(fn)
-        rm(fn)
     end
 end

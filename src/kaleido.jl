@@ -68,6 +68,8 @@ function _start_kaleido_process()
     nothing
 end
 
+savefig(p::SyncPlot; kwargs...) = savefig(p.plot; kwargs...)
+
 function savefig(
         p::Plot;
         width::Union{Nothing,Int}=nothing,
@@ -119,6 +121,10 @@ function savefig(
     end
 end
 
+
+@inline _get_Plot(p::Plot) = p
+@inline _get_Plot(p::SyncPlot) = p.plot
+
 """
     savefig(
         io::IO,
@@ -136,20 +142,19 @@ image scale. `width` and `height` set the dimensions, in pixels. Defaults
 are taken from `p.layout`, or supplied by plotly
 """
 function savefig(io::IO,
-        p::Plot;
+        p::Union{SyncPlot,Plot};
         width::Union{Nothing,Int}=nothing,
         height::Union{Nothing,Int}=nothing,
         scale::Union{Nothing,Real}=nothing,
         format::String="png")
-
-
     if format == "html"
-        return show(io, MIME("text/html"), p, include_mathjax="cdn", include_plotlyjs="cdn", full_html=true)
+        return show(io, MIME("text/html"), _get_Plot(p), include_mathjax="cdn", include_plotlyjs="cdn", full_html=true)
     end
 
     bytes = savefig(p, width=width, height=height, scale=scale, format=format)
     write(io, bytes)
 end
+
 
 """
     savefig(
@@ -167,7 +172,7 @@ image scale. `width` and `height` set the dimensions, in pixels. Defaults
 are taken from `p.layout`, or supplied by plotly
 """
 function savefig(
-        p::Plot, fn::AbstractString;
+        p::Union{SyncPlot,Plot}, fn::AbstractString;
         format::Union{Nothing,String}=nothing,
         width::Union{Nothing,Int}=nothing,
         height::Union{Nothing,Int}=nothing,
