@@ -11,7 +11,7 @@ import PlotlyBase:
     restyle!, relayout!, update!, addtraces!, deletetraces!, movetraces!,
     redraw!, extendtraces!, prependtraces!, purge!, to_image, download_image,
     restyle, relayout, update, addtraces, deletetraces, movetraces, redraw,
-    extendtraces, prependtraces, prep_kwargs, sizes, savefig, _tovec,
+    extendtraces, prependtraces, prep_kwargs, sizes, _tovec,
     react, react!, add_trace!
 
 using WebIO
@@ -21,7 +21,7 @@ using Blink
 using Pkg.Artifacts
 using Requires
 
-export plot, dataset, list_datasets, make_subplots
+export plot, dataset, list_datasets, make_subplots, savefig
 
 # globals for this package
 const _pkg_root = dirname(dirname(@__FILE__))
