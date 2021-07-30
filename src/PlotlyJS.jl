@@ -130,6 +130,12 @@ function __init__()
         insert!(Base.Multimedia.displays, findlast(x -> x isa REPL.REPLDisplay, Base.Multimedia.displays) + 1, PlotlyJSDisplay())
     end)
 
+    @require JSON2 = "2535ab7d-5cd8-5a07-80ac-9b1792aadce3" JSON2.write(io::IO, p::SyncPlot) = JSON.print(io, p)
+    @require JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1" begin
+        JSON3.write(io::IO, p::SyncPlot) = JSON.print(io, p.plot)
+        JSON3.write(p::SyncPlot) = JSON.json(p.plot)
+    end
+
     @require IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a" begin
 
         function IJulia.display_dict(p::SyncPlot)
