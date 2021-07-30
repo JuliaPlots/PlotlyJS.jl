@@ -10,7 +10,7 @@ using Random, Dates, LinearAlgebra, DelimitedFiles
 
 # to override display_dict below
 import Documenter.Utilities: display_dict, limitstringmime
-using Base64: stringmime
+using Base64:stringmime
 
 function display_dict(p::PlotlyBase.Plot)
     out = Dict{MIME,Any}()
@@ -39,7 +39,7 @@ function single_example_file(filename::String)
 
         # Read lines from a files
         fulltext = open(
-            f->read(f, String),
+            f -> read(f, String),
             joinpath(THIS_DIR, "..", "examples", filename),
             "r"
         )
@@ -55,19 +55,19 @@ function single_example_file(filename::String)
         else
             first_line = findfirst(x -> match(regex, x) !== nothing, all_lines)
             if first_line !== nothing
-                preamble = strip(join(all_lines[1:first_line-1], "\n"))
+                preamble = strip(join(all_lines[1:first_line - 1], "\n"))
                 write_example(preamble)
             end
         end
 
         while true
             # Find next function name (break if none)
-            l = findnext(x -> match(regex, x) !== nothing, all_lines, l+1)
+            l = findnext(x -> match(regex, x) !== nothing, all_lines, l + 1)
             if l == 0 || l === nothing
                 break
             end
             # find corresponding end for this function
-            end_l = findnext(x -> match(regex_end, x) !== nothing, all_lines, l+1)
+            end_l = findnext(x -> match(regex_end, x) !== nothing, all_lines, l + 1)
 
             # Pull out function text
             func_block = join(all_lines[l:end_l], "\n")
@@ -98,22 +98,21 @@ end
 handle_examples()
 
 makedocs(
-    sitename = "PlotlyJS",
-    format = Documenter.HTML(
-        assets = [
+    sitename="PlotlyJS",
+    format=Documenter.HTML(
+        assets=[
            asset("https://cdn.plot.ly/plotly-1.54.7.js")
         ]
     ),
-    modules = [PlotlyJS, PlotlyBase],
+    modules=[PlotlyJS, PlotlyBase],
     linkcheck=true,
-    pages = [
+    pages=[
         "Home" => "index.md",
         "User Guide" => [
             "Preliminaries" => "basics.md",
             "Building Blocks" => "building_traces_layouts.md",
             "Putting it together" => "syncplots.md",
             "Working with plots" => "manipulating_plots.md",
-            "Styles" => "styles.md",
             "Contributing" => "contributing.md",
         ],
         "Examples" => [
@@ -141,10 +140,10 @@ makedocs(
 # Documenter can also automatically deploy documentation to gh-pages.
 # See "Hosting Documentation" and deploydocs() in the Documenter manual
 # for more information.
-#=deploydocs(
+#= deploydocs(
     repo = "<repository url>"
-)=#
+) =#
 
 deploydocs(
-    repo   = "github.com/JuliaPlots/PlotlyJS.jl.git",
+    repo="github.com/JuliaPlots/PlotlyJS.jl.git",
 )

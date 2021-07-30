@@ -54,13 +54,10 @@ mutable struct Plot{TT<:AbstractVector{<:AbstractTrace},TL<:AbstractLayout,TF<:A
     divid::UUID
     config::PlotConfig
     frames::TF
-    style::Style
 end
 ```
 
 The `data`, `layout`, `divid`, `config`, and `frames` fields of the `Plot` type map 1-1 to the arguments to the `Plotly.newplot` function.
-
-The `style` argument is unique to Julia and hooks into the Julia based themeing and styling system as described  in [the style docs](@ref styles)
 
 
 [_plotlyjs]: https://plotly.com/javascript/

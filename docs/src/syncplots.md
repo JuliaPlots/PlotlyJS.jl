@@ -19,7 +19,6 @@ mutable struct Plot{TT<:AbstractVector{<:AbstractTrace},TL<:AbstractLayout,TF<:A
     frames::TF
     divid::UUID
     config::PlotConfig
-    style::Style
 end
 ```
 
