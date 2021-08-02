@@ -129,7 +129,7 @@ violin_side_by_side()
 ```
 
 ```@example violin
-function violin_styled()
+function violin_style()
     y1 = vcat(abs.(20 .* rand(100)), rand(UInt16, 300) .* 500 ./ typemax(UInt16))
     y2 = [25.261999999999997, 66.5419, 98.2114, 0.09070629 ]
     box = attr(fillcolor="black", line_color="black", width=0.01)
@@ -157,6 +157,6 @@ function violin_styled()
     )
     plot([trace1, trace2], layout)
 end
-violin_styled()
+violin_style()
 ```
 
