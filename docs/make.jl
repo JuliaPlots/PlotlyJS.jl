@@ -2,6 +2,8 @@ using Documenter
 using PlotlyJS
 using PlotlyBase
 
+PlotlyJS.set_default_renderer(PlotlyJS.DOCS)
+
 const THIS_DIR = dirname(@__FILE__)
 
 # used in examples
@@ -9,19 +11,19 @@ using Distributions, HTTP, DataFrames, RDatasets, Colors, CSV, JSON
 using Random, Dates, LinearAlgebra, DelimitedFiles
 
 # to override display_dict below
-import Documenter.Utilities: display_dict, limitstringmime
-using Base64:stringmime
+# import Documenter.Utilities: display_dict, limitstringmime
+# using Base64:stringmime
 
-function display_dict(p::PlotlyBase.Plot)
-    out = Dict{MIME,Any}()
-    # Always generate text/plain
-    out[MIME"text/plain"()] = limitstringmime(MIME"text/plain"(), p)
-    svg_m = MIME"image/svg+xml"()
-    out[svg_m] = stringmime(svg_m, p)
-    out
-end
+# function display_dict(p::PlotlyBase.Plot)
+#     out = Dict{MIME,Any}()
+#     # Always generate text/plain
+#     out[MIME"text/plain"()] = limitstringmime(MIME"text/plain"(), p)
+#     svg_m = MIME"image/svg+xml"()
+#     out[svg_m] = stringmime(svg_m, p)
+#     out
+# end
 
-display_dict(p::PlotlyJS.SyncPlot) = display_dict(p.plot)
+# display_dict(p::PlotlyJS.SyncPlot) = display_dict(p.plot)
 
 ## handle examples
 # Walk through each example in a file and get the markdown from `single_example`
@@ -101,7 +103,7 @@ makedocs(
     sitename="PlotlyJS",
     format=Documenter.HTML(
         assets=[
-           asset("https://cdn.plot.ly/plotly-1.54.7.js")
+           "include_plotlyjs.js"
         ]
     ),
     modules=[PlotlyJS, PlotlyBase],

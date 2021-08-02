@@ -16,7 +16,7 @@ end
 function Base.show(io::IO, mm::MIME"text/html", p::SyncPlot)
     # if we are rendering docs -- short circuit and display html
     if get_renderer() == DOCS
-        return show(io, mm, p.plot, full_html=false, include_plotlyjs="require")
+        return show(io, mm, p.plot, full_html=false, include_plotlyjs="require-loaded")
     end
     show(io, mm, p.scope)
 end
