@@ -165,4 +165,20 @@ function __init__()
     end
 end
 
+# for methods that update the layout, first apply to the plot, then let plotly.js
+# deal with the rest via the react function
+for (k, v) in vcat(PlotlyBase._layout_obj_updaters, PlotlyBase._layout_vector_updaters)
+    @eval function PlotlyBase.$(k)(p::SyncPlot, args...;kwargs...)
+        $(k)(p.plot, args...; kwargs...)
+        send_command(p.scope, :react, p.plot.data, p.plot.layout)
+    end
+end
+
+for k in [:add_hrect!, :add_hline!, :add_vrect!, :add_vline!]
+    @eval function PlotlyBase.$(k)(p::SyncPlot, args...;kwargs...)
+        $(k)(p.plot, args...; kwargs...)
+        send_command(p.scope, :react, p.plot.data, p.plot.layout)
+    end
+end
+
 end # module
