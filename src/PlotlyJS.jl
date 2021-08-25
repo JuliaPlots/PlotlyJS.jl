@@ -174,7 +174,7 @@ for (k, v) in vcat(PlotlyBase._layout_obj_updaters, PlotlyBase._layout_vector_up
     end
 end
 
-for k in [:add_hrect!, :add_hline!, :add_vrect!, :add_vline!]
+for k in [:add_hrect!, :add_hline!, :add_vrect!, :add_vline!, :add_shape!]
     @eval function PlotlyBase.$(k)(p::SyncPlot, args...;kwargs...)
         $(k)(p.plot, args...; kwargs...)
         send_command(p.scope, :react, p.plot.data, p.plot.layout)
