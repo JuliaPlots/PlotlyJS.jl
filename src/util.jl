@@ -14,3 +14,18 @@ function PlotlyBase.add_recession_bands!(p::SyncPlot; kwargs...)
     relayout!(p, shapes=new_shapes)
     new_shapes
 end
+
+function mgrid(arrays...)
+    lengths = collect(length.(arrays))
+    uno = ones(Int, length(arrays))
+    out = []
+    for i in 1:length(arrays)
+       repeats = copy(lengths)
+       repeats[i] = 1
+
+       shape = copy(uno)
+       shape[i] = lengths[i]
+       push!(out, reshape(arrays[i], shape...) .* ones(repeats...))
+    end
+    out
+end

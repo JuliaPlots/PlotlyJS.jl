@@ -21,7 +21,7 @@ using Blink
 using Pkg.Artifacts
 using Requires
 
-export plot, dataset, list_datasets, make_subplots, savefig
+export plot, dataset, list_datasets, make_subplots, savefig, mgrid
 
 # globals for this package
 const _pkg_root = dirname(dirname(@__FILE__))
