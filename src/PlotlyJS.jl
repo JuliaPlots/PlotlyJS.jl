@@ -21,7 +21,7 @@ using Blink
 using Pkg.Artifacts
 using Requires
 
-export plot, dataset, list_datasets, make_subplots, savefig
+export plot, dataset, list_datasets, make_subplots, savefig, mgrid
 
 # globals for this package
 const _pkg_root = dirname(dirname(@__FILE__))
@@ -174,7 +174,7 @@ for (k, v) in vcat(PlotlyBase._layout_obj_updaters, PlotlyBase._layout_vector_up
     end
 end
 
-for k in [:add_hrect!, :add_hline!, :add_vrect!, :add_vline!]
+for k in [:add_hrect!, :add_hline!, :add_vrect!, :add_vline!, :add_shape!, :add_layout_image!]
     @eval function PlotlyBase.$(k)(p::SyncPlot, args...;kwargs...)
         $(k)(p.plot, args...; kwargs...)
         send_command(p.scope, :react, p.plot.data, p.plot.layout)

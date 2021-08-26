@@ -16,7 +16,7 @@ end
 function Base.show(io::IO, mm::MIME"text/html", p::SyncPlot)
     # if we are rendering docs -- short circuit and display html
     if get_renderer() == DOCS
-        return show(io, mm, p.plot, full_html=false, include_plotlyjs="require-loaded")
+        return show(io, mm, p.plot, full_html=false, include_plotlyjs="require-loaded", include_mathjax=false)
     end
     show(io, mm, p.scope)
 end
@@ -184,7 +184,7 @@ end
 
 function add_trace!(p::SyncPlot, trace::GenericTrace; kw...)
     add_trace!(p.plot, trace; kw...)
-    send_command(p.scope, :addTraces, trace)
+    send_command(p.scope, :react, p.plot.data, p.plot.layout)
 end
 
 
