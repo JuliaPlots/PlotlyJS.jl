@@ -184,7 +184,7 @@ end
 
 function add_trace!(p::SyncPlot, trace::GenericTrace; kw...)
     add_trace!(p.plot, trace; kw...)
-    send_command(p.scope, :addTraces, trace)
+    send_command(p.scope, :react, p.plot.data, p.plot.layout)
 end
 
 
