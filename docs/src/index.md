@@ -17,6 +17,14 @@ plotly graphics to files
 [_plotlyjs]: https://plot.ly/javascript
 [_plotlyref]: https://plotly.com/javascriptreference
 
+## Getting Help
+
+There are three primary resources for getting help with using this library:
+
+1. The [Julia discourse page](https://discourse.julialang.org/). This is your best option if the question you have is specific to Julia. Appropriate topics include how to integrate with other Julia packages or how to use plotly features unique to PlotlyJS.jl
+2. The [julia channel](https://community.plotly.com/c/graphing-libraries/julia/23) on the plotly discussion page. This is your best option if you want visibility from other parts of the plotly community including python and R users. 
+3. [GitHub Issues](https://github.com/JuliaPlots/PlotlyJS.jl/issues). This is appropriate only for bug reports or feature requests. General usage questions should not be posted to GitHub, but rather should utilize one of the discussion forums above
+
 ## Installation
 
 To install PlotlyJS.jl, open up a Julia REPL, press `]` to enter package mode and type:
