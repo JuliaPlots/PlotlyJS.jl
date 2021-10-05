@@ -141,7 +141,7 @@ end</code></pre><p>You can construct a layout using the same convenient keyword 
                    xaxis_range=[0, 42.0], xaxis_title=&quot;fish&quot;,
                    yaxis_title=&quot;Weight&quot;,
                    xaxis_showgrid=true, yaxis_showgrid=true,
-                   legend_y=1.15, legend_x=0.7)</code><code class="nohighlight hljs ansi" style="display:block;">layout with fields legend, margin, title, xaxis, and yaxis</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; println(JSON.json(l, 2))</code><code class="nohighlight hljs ansi" style="display:block;">{
+                   legend_y=1.15, legend_x=0.7)</code><code class="nohighlight hljs ansi" style="display:block;">layout with fields legend, margin, template, title, xaxis, and yaxis</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; println(JSON.json(l, 2))</code><code class="nohighlight hljs ansi" style="display:block;">{
   &quot;xaxis&quot;: {
     &quot;showgrid&quot;: true,
     &quot;range&quot;: [
@@ -150,6 +150,812 @@ end</code></pre><p>You can construct a layout using the same convenient keyword 
     ],
     &quot;title&quot;: {
       &quot;text&quot;: &quot;fish&quot;
+    }
+  },
+  &quot;template&quot;: {
+    &quot;data&quot;: {
+      &quot;scatterpolargl&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterpolargl&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;carpet&quot;: [
+        {
+          &quot;baxis&quot;: {
+            &quot;gridcolor&quot;: &quot;white&quot;,
+            &quot;endlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;minorgridcolor&quot;: &quot;white&quot;,
+            &quot;startlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;linecolor&quot;: &quot;white&quot;
+          },
+          &quot;type&quot;: &quot;carpet&quot;,
+          &quot;aaxis&quot;: {
+            &quot;gridcolor&quot;: &quot;white&quot;,
+            &quot;endlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;minorgridcolor&quot;: &quot;white&quot;,
+            &quot;startlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;linecolor&quot;: &quot;white&quot;
+          }
+        }
+      ],
+      &quot;scatterpolar&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterpolar&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;parcoords&quot;: [
+        {
+          &quot;line&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          },
+          &quot;type&quot;: &quot;parcoords&quot;
+        }
+      ],
+      &quot;scatter&quot;: [
+        {
+          &quot;type&quot;: &quot;scatter&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram2dcontour&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;histogram2dcontour&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;contour&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;contour&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scattercarpet&quot;: [
+        {
+          &quot;type&quot;: &quot;scattercarpet&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;mesh3d&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;mesh3d&quot;
+        }
+      ],
+      &quot;surface&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;surface&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scattermapbox&quot;: [
+        {
+          &quot;type&quot;: &quot;scattermapbox&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;scattergeo&quot;: [
+        {
+          &quot;type&quot;: &quot;scattergeo&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram&quot;: [
+        {
+          &quot;type&quot;: &quot;histogram&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;pie&quot;: [
+        {
+          &quot;type&quot;: &quot;pie&quot;,
+          &quot;automargin&quot;: true
+        }
+      ],
+      &quot;choropleth&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;choropleth&quot;
+        }
+      ],
+      &quot;heatmapgl&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;heatmapgl&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;bar&quot;: [
+        {
+          &quot;type&quot;: &quot;bar&quot;,
+          &quot;error_y&quot;: {
+            &quot;color&quot;: &quot;#2a3f5f&quot;
+          },
+          &quot;error_x&quot;: {
+            &quot;color&quot;: &quot;#2a3f5f&quot;
+          },
+          &quot;marker&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;#E5ECF6&quot;,
+              &quot;width&quot;: 0.5
+            }
+          }
+        }
+      ],
+      &quot;heatmap&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;heatmap&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;contourcarpet&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;contourcarpet&quot;
+        }
+      ],
+      &quot;table&quot;: [
+        {
+          &quot;type&quot;: &quot;table&quot;,
+          &quot;header&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;white&quot;
+            },
+            &quot;fill&quot;: {
+              &quot;color&quot;: &quot;#C8D4E3&quot;
+            }
+          },
+          &quot;cells&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;white&quot;
+            },
+            &quot;fill&quot;: {
+              &quot;color&quot;: &quot;#EBF0F8&quot;
+            }
+          }
+        }
+      ],
+      &quot;scatter3d&quot;: [
+        {
+          &quot;line&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          },
+          &quot;type&quot;: &quot;scatter3d&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;scattergl&quot;: [
+        {
+          &quot;type&quot;: &quot;scattergl&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram2d&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;histogram2d&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scatterternary&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterternary&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;barpolar&quot;: [
+        {
+          &quot;type&quot;: &quot;barpolar&quot;,
+          &quot;marker&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;#E5ECF6&quot;,
+              &quot;width&quot;: 0.5
+            }
+          }
+        }
+      ]
+    },
+    &quot;layout&quot;: {
+      &quot;xaxis&quot;: {
+        &quot;gridcolor&quot;: &quot;white&quot;,
+        &quot;zerolinewidth&quot;: 2,
+        &quot;title&quot;: {
+          &quot;standoff&quot;: 15
+        },
+        &quot;ticks&quot;: &quot;&quot;,
+        &quot;zerolinecolor&quot;: &quot;white&quot;,
+        &quot;automargin&quot;: true,
+        &quot;linecolor&quot;: &quot;white&quot;
+      },
+      &quot;hovermode&quot;: &quot;closest&quot;,
+      &quot;paper_bgcolor&quot;: &quot;white&quot;,
+      &quot;geo&quot;: {
+        &quot;showlakes&quot;: true,
+        &quot;showland&quot;: true,
+        &quot;landcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;bgcolor&quot;: &quot;white&quot;,
+        &quot;subunitcolor&quot;: &quot;white&quot;,
+        &quot;lakecolor&quot;: &quot;white&quot;
+      },
+      &quot;colorscale&quot;: {
+        &quot;sequential&quot;: [
+          [
+            0.0,
+            &quot;#0d0887&quot;
+          ],
+          [
+            0.1111111111111111,
+            &quot;#46039f&quot;
+          ],
+          [
+            0.2222222222222222,
+            &quot;#7201a8&quot;
+          ],
+          [
+            0.3333333333333333,
+            &quot;#9c179e&quot;
+          ],
+          [
+            0.4444444444444444,
+            &quot;#bd3786&quot;
+          ],
+          [
+            0.5555555555555556,
+            &quot;#d8576b&quot;
+          ],
+          [
+            0.6666666666666666,
+            &quot;#ed7953&quot;
+          ],
+          [
+            0.7777777777777778,
+            &quot;#fb9f3a&quot;
+          ],
+          [
+            0.8888888888888888,
+            &quot;#fdca26&quot;
+          ],
+          [
+            1.0,
+            &quot;#f0f921&quot;
+          ]
+        ],
+        &quot;diverging&quot;: [
+          [
+            0,
+            &quot;#8e0152&quot;
+          ],
+          [
+            0.1,
+            &quot;#c51b7d&quot;
+          ],
+          [
+            0.2,
+            &quot;#de77ae&quot;
+          ],
+          [
+            0.3,
+            &quot;#f1b6da&quot;
+          ],
+          [
+            0.4,
+            &quot;#fde0ef&quot;
+          ],
+          [
+            0.5,
+            &quot;#f7f7f7&quot;
+          ],
+          [
+            0.6,
+            &quot;#e6f5d0&quot;
+          ],
+          [
+            0.7,
+            &quot;#b8e186&quot;
+          ],
+          [
+            0.8,
+            &quot;#7fbc41&quot;
+          ],
+          [
+            0.9,
+            &quot;#4d9221&quot;
+          ],
+          [
+            1,
+            &quot;#276419&quot;
+          ]
+        ],
+        &quot;sequentialminus&quot;: [
+          [
+            0.0,
+            &quot;#0d0887&quot;
+          ],
+          [
+            0.1111111111111111,
+            &quot;#46039f&quot;
+          ],
+          [
+            0.2222222222222222,
+            &quot;#7201a8&quot;
+          ],
+          [
+            0.3333333333333333,
+            &quot;#9c179e&quot;
+          ],
+          [
+            0.4444444444444444,
+            &quot;#bd3786&quot;
+          ],
+          [
+            0.5555555555555556,
+            &quot;#d8576b&quot;
+          ],
+          [
+            0.6666666666666666,
+            &quot;#ed7953&quot;
+          ],
+          [
+            0.7777777777777778,
+            &quot;#fb9f3a&quot;
+          ],
+          [
+            0.8888888888888888,
+            &quot;#fdca26&quot;
+          ],
+          [
+            1.0,
+            &quot;#f0f921&quot;
+          ]
+        ]
+      },
+      &quot;yaxis&quot;: {
+        &quot;gridcolor&quot;: &quot;white&quot;,
+        &quot;zerolinewidth&quot;: 2,
+        &quot;title&quot;: {
+          &quot;standoff&quot;: 15
+        },
+        &quot;ticks&quot;: &quot;&quot;,
+        &quot;zerolinecolor&quot;: &quot;white&quot;,
+        &quot;automargin&quot;: true,
+        &quot;linecolor&quot;: &quot;white&quot;
+      },
+      &quot;shapedefaults&quot;: {
+        &quot;line&quot;: {
+          &quot;color&quot;: &quot;#2a3f5f&quot;
+        }
+      },
+      &quot;font&quot;: {
+        &quot;color&quot;: &quot;#2a3f5f&quot;
+      },
+      &quot;annotationdefaults&quot;: {
+        &quot;arrowhead&quot;: 0,
+        &quot;arrowwidth&quot;: 1,
+        &quot;arrowcolor&quot;: &quot;#2a3f5f&quot;
+      },
+      &quot;plot_bgcolor&quot;: &quot;#E5ECF6&quot;,
+      &quot;title&quot;: {
+        &quot;x&quot;: 0.05
+      },
+      &quot;coloraxis&quot;: {
+        &quot;colorbar&quot;: {
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;outlinewidth&quot;: 0
+        }
+      },
+      &quot;hoverlabel&quot;: {
+        &quot;align&quot;: &quot;left&quot;
+      },
+      &quot;mapbox&quot;: {
+        &quot;style&quot;: &quot;light&quot;
+      },
+      &quot;polar&quot;: {
+        &quot;angularaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;bgcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;radialaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;autotypenumbers&quot;: &quot;strict&quot;,
+      &quot;ternary&quot;: {
+        &quot;aaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;bgcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;caxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;baxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;scene&quot;: {
+        &quot;xaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;zaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;yaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;colorway&quot;: [
+        &quot;#636efa&quot;,
+        &quot;#EF553B&quot;,
+        &quot;#00cc96&quot;,
+        &quot;#ab63fa&quot;,
+        &quot;#FFA15A&quot;,
+        &quot;#19d3f3&quot;,
+        &quot;#FF6692&quot;,
+        &quot;#B6E880&quot;,
+        &quot;#FF97FF&quot;,
+        &quot;#FECB52&quot;
+      ]
     }
   },
   &quot;legend&quot;: {
@@ -172,7 +978,7 @@ end</code></pre><p>You can construct a layout using the same convenient keyword 
 }</code></pre><h2 id="attr"><a class="docs-heading-anchor" href="#attr"><code>attr</code></a><a id="attr-1"></a><a class="docs-heading-anchor-permalink" href="#attr" title="Permalink"></a></h2><p>There is a special function named <code>attr</code> that allows you to apply the same keyword magic we saw in the trace and layout functions, but to nested attributes. Let&#39;s revisit the previous example, but use <code>attr</code> to build up our <code>xaxis</code> and <code>legend</code>:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; l2 = Layout(;title=&quot;Penguins&quot;,
                     xaxis=attr(range=[0, 42.0], title=&quot;fish&quot;, showgrid=true),
                     yaxis_title=&quot;Weight&quot;, yaxis_showgrid=true,
-                    legend=attr(x=0.7, y=1.15))</code><code class="nohighlight hljs ansi" style="display:block;">layout with fields legend, margin, title, xaxis, and yaxis</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; println(JSON.json(l2, 2))</code><code class="nohighlight hljs ansi" style="display:block;">{
+                    legend=attr(x=0.7, y=1.15))</code><code class="nohighlight hljs ansi" style="display:block;">layout with fields legend, margin, template, title, xaxis, and yaxis</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; println(JSON.json(l2, 2))</code><code class="nohighlight hljs ansi" style="display:block;">{
   &quot;xaxis&quot;: {
     &quot;showgrid&quot;: true,
     &quot;range&quot;: [
@@ -180,6 +986,812 @@ end</code></pre><p>You can construct a layout using the same convenient keyword 
       42.0
     ],
     &quot;title&quot;: &quot;fish&quot;
+  },
+  &quot;template&quot;: {
+    &quot;data&quot;: {
+      &quot;scatterpolargl&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterpolargl&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;carpet&quot;: [
+        {
+          &quot;baxis&quot;: {
+            &quot;gridcolor&quot;: &quot;white&quot;,
+            &quot;endlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;minorgridcolor&quot;: &quot;white&quot;,
+            &quot;startlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;linecolor&quot;: &quot;white&quot;
+          },
+          &quot;type&quot;: &quot;carpet&quot;,
+          &quot;aaxis&quot;: {
+            &quot;gridcolor&quot;: &quot;white&quot;,
+            &quot;endlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;minorgridcolor&quot;: &quot;white&quot;,
+            &quot;startlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;linecolor&quot;: &quot;white&quot;
+          }
+        }
+      ],
+      &quot;scatterpolar&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterpolar&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;parcoords&quot;: [
+        {
+          &quot;line&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          },
+          &quot;type&quot;: &quot;parcoords&quot;
+        }
+      ],
+      &quot;scatter&quot;: [
+        {
+          &quot;type&quot;: &quot;scatter&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram2dcontour&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;histogram2dcontour&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;contour&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;contour&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scattercarpet&quot;: [
+        {
+          &quot;type&quot;: &quot;scattercarpet&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;mesh3d&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;mesh3d&quot;
+        }
+      ],
+      &quot;surface&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;surface&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scattermapbox&quot;: [
+        {
+          &quot;type&quot;: &quot;scattermapbox&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;scattergeo&quot;: [
+        {
+          &quot;type&quot;: &quot;scattergeo&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram&quot;: [
+        {
+          &quot;type&quot;: &quot;histogram&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;pie&quot;: [
+        {
+          &quot;type&quot;: &quot;pie&quot;,
+          &quot;automargin&quot;: true
+        }
+      ],
+      &quot;choropleth&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;choropleth&quot;
+        }
+      ],
+      &quot;heatmapgl&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;heatmapgl&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;bar&quot;: [
+        {
+          &quot;type&quot;: &quot;bar&quot;,
+          &quot;error_y&quot;: {
+            &quot;color&quot;: &quot;#2a3f5f&quot;
+          },
+          &quot;error_x&quot;: {
+            &quot;color&quot;: &quot;#2a3f5f&quot;
+          },
+          &quot;marker&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;#E5ECF6&quot;,
+              &quot;width&quot;: 0.5
+            }
+          }
+        }
+      ],
+      &quot;heatmap&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;heatmap&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;contourcarpet&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;contourcarpet&quot;
+        }
+      ],
+      &quot;table&quot;: [
+        {
+          &quot;type&quot;: &quot;table&quot;,
+          &quot;header&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;white&quot;
+            },
+            &quot;fill&quot;: {
+              &quot;color&quot;: &quot;#C8D4E3&quot;
+            }
+          },
+          &quot;cells&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;white&quot;
+            },
+            &quot;fill&quot;: {
+              &quot;color&quot;: &quot;#EBF0F8&quot;
+            }
+          }
+        }
+      ],
+      &quot;scatter3d&quot;: [
+        {
+          &quot;line&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          },
+          &quot;type&quot;: &quot;scatter3d&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;scattergl&quot;: [
+        {
+          &quot;type&quot;: &quot;scattergl&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram2d&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;histogram2d&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scatterternary&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterternary&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;barpolar&quot;: [
+        {
+          &quot;type&quot;: &quot;barpolar&quot;,
+          &quot;marker&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;#E5ECF6&quot;,
+              &quot;width&quot;: 0.5
+            }
+          }
+        }
+      ]
+    },
+    &quot;layout&quot;: {
+      &quot;xaxis&quot;: {
+        &quot;gridcolor&quot;: &quot;white&quot;,
+        &quot;zerolinewidth&quot;: 2,
+        &quot;title&quot;: {
+          &quot;standoff&quot;: 15
+        },
+        &quot;ticks&quot;: &quot;&quot;,
+        &quot;zerolinecolor&quot;: &quot;white&quot;,
+        &quot;automargin&quot;: true,
+        &quot;linecolor&quot;: &quot;white&quot;
+      },
+      &quot;hovermode&quot;: &quot;closest&quot;,
+      &quot;paper_bgcolor&quot;: &quot;white&quot;,
+      &quot;geo&quot;: {
+        &quot;showlakes&quot;: true,
+        &quot;showland&quot;: true,
+        &quot;landcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;bgcolor&quot;: &quot;white&quot;,
+        &quot;subunitcolor&quot;: &quot;white&quot;,
+        &quot;lakecolor&quot;: &quot;white&quot;
+      },
+      &quot;colorscale&quot;: {
+        &quot;sequential&quot;: [
+          [
+            0.0,
+            &quot;#0d0887&quot;
+          ],
+          [
+            0.1111111111111111,
+            &quot;#46039f&quot;
+          ],
+          [
+            0.2222222222222222,
+            &quot;#7201a8&quot;
+          ],
+          [
+            0.3333333333333333,
+            &quot;#9c179e&quot;
+          ],
+          [
+            0.4444444444444444,
+            &quot;#bd3786&quot;
+          ],
+          [
+            0.5555555555555556,
+            &quot;#d8576b&quot;
+          ],
+          [
+            0.6666666666666666,
+            &quot;#ed7953&quot;
+          ],
+          [
+            0.7777777777777778,
+            &quot;#fb9f3a&quot;
+          ],
+          [
+            0.8888888888888888,
+            &quot;#fdca26&quot;
+          ],
+          [
+            1.0,
+            &quot;#f0f921&quot;
+          ]
+        ],
+        &quot;diverging&quot;: [
+          [
+            0,
+            &quot;#8e0152&quot;
+          ],
+          [
+            0.1,
+            &quot;#c51b7d&quot;
+          ],
+          [
+            0.2,
+            &quot;#de77ae&quot;
+          ],
+          [
+            0.3,
+            &quot;#f1b6da&quot;
+          ],
+          [
+            0.4,
+            &quot;#fde0ef&quot;
+          ],
+          [
+            0.5,
+            &quot;#f7f7f7&quot;
+          ],
+          [
+            0.6,
+            &quot;#e6f5d0&quot;
+          ],
+          [
+            0.7,
+            &quot;#b8e186&quot;
+          ],
+          [
+            0.8,
+            &quot;#7fbc41&quot;
+          ],
+          [
+            0.9,
+            &quot;#4d9221&quot;
+          ],
+          [
+            1,
+            &quot;#276419&quot;
+          ]
+        ],
+        &quot;sequentialminus&quot;: [
+          [
+            0.0,
+            &quot;#0d0887&quot;
+          ],
+          [
+            0.1111111111111111,
+            &quot;#46039f&quot;
+          ],
+          [
+            0.2222222222222222,
+            &quot;#7201a8&quot;
+          ],
+          [
+            0.3333333333333333,
+            &quot;#9c179e&quot;
+          ],
+          [
+            0.4444444444444444,
+            &quot;#bd3786&quot;
+          ],
+          [
+            0.5555555555555556,
+            &quot;#d8576b&quot;
+          ],
+          [
+            0.6666666666666666,
+            &quot;#ed7953&quot;
+          ],
+          [
+            0.7777777777777778,
+            &quot;#fb9f3a&quot;
+          ],
+          [
+            0.8888888888888888,
+            &quot;#fdca26&quot;
+          ],
+          [
+            1.0,
+            &quot;#f0f921&quot;
+          ]
+        ]
+      },
+      &quot;yaxis&quot;: {
+        &quot;gridcolor&quot;: &quot;white&quot;,
+        &quot;zerolinewidth&quot;: 2,
+        &quot;title&quot;: {
+          &quot;standoff&quot;: 15
+        },
+        &quot;ticks&quot;: &quot;&quot;,
+        &quot;zerolinecolor&quot;: &quot;white&quot;,
+        &quot;automargin&quot;: true,
+        &quot;linecolor&quot;: &quot;white&quot;
+      },
+      &quot;shapedefaults&quot;: {
+        &quot;line&quot;: {
+          &quot;color&quot;: &quot;#2a3f5f&quot;
+        }
+      },
+      &quot;font&quot;: {
+        &quot;color&quot;: &quot;#2a3f5f&quot;
+      },
+      &quot;annotationdefaults&quot;: {
+        &quot;arrowhead&quot;: 0,
+        &quot;arrowwidth&quot;: 1,
+        &quot;arrowcolor&quot;: &quot;#2a3f5f&quot;
+      },
+      &quot;plot_bgcolor&quot;: &quot;#E5ECF6&quot;,
+      &quot;title&quot;: {
+        &quot;x&quot;: 0.05
+      },
+      &quot;coloraxis&quot;: {
+        &quot;colorbar&quot;: {
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;outlinewidth&quot;: 0
+        }
+      },
+      &quot;hoverlabel&quot;: {
+        &quot;align&quot;: &quot;left&quot;
+      },
+      &quot;mapbox&quot;: {
+        &quot;style&quot;: &quot;light&quot;
+      },
+      &quot;polar&quot;: {
+        &quot;angularaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;bgcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;radialaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;autotypenumbers&quot;: &quot;strict&quot;,
+      &quot;ternary&quot;: {
+        &quot;aaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;bgcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;caxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;baxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;scene&quot;: {
+        &quot;xaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;zaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;yaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;colorway&quot;: [
+        &quot;#636efa&quot;,
+        &quot;#EF553B&quot;,
+        &quot;#00cc96&quot;,
+        &quot;#ab63fa&quot;,
+        &quot;#FFA15A&quot;,
+        &quot;#19d3f3&quot;,
+        &quot;#FF6692&quot;,
+        &quot;#B6E880&quot;,
+        &quot;#FF97FF&quot;,
+        &quot;#FECB52&quot;
+      ]
+    }
   },
   &quot;legend&quot;: {
     &quot;y&quot;: 1.15,
@@ -225,10 +1837,10 @@ ERROR: UndefVarError: dataset not defined</code><br/><code class="language-julia
            df, x=:total_bill, y=:tip, xbingroyp=&quot;x&quot;, ybingroup=&quot;y&quot;, kind=&quot;histogram2d&quot;,
            facet_row=:sex, facet_col=:smoker
        )</code><code class="nohighlight hljs ansi" style="display:block;">data: [
-  &quot;histogram2d with fields type, x, xbingroyp, y, and ybingroup&quot;,
+  &quot;histogram2d with fields type, x, xaxis, xbingroyp, y, yaxis, and ybingroup&quot;,
   &quot;histogram2d with fields type, x, xaxis, xbingroyp, y, yaxis, and ybingroup&quot;,
   &quot;histogram2d with fields type, x, xaxis, xbingroyp, y, yaxis, and ybingroup&quot;,
   &quot;histogram2d with fields type, x, xaxis, xbingroyp, y, yaxis, and ybingroup&quot;
 ]
 
-layout: &quot;layout with fields annotations, legend, margin, template, xaxis, xaxis2, xaxis3, xaxis4, yaxis, yaxis2, yaxis3, and yaxis4&quot;</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../basics/">« Preliminaries</a><a class="docs-footer-nextpage" href="../syncplots/">Putting it together »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.5 on <span class="colophon-date" title="Wednesday 18 August 2021 00:44">Wednesday 18 August 2021</span>. Using Julia version 1.6.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+layout: &quot;layout with fields annotations, legend, margin, template, xaxis, xaxis2, xaxis3, xaxis4, yaxis, yaxis2, yaxis3, and yaxis4&quot;</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../basics/">« Preliminaries</a><a class="docs-footer-nextpage" href="../syncplots/">Putting it together »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.7 on <span class="colophon-date" title="Tuesday 5 October 2021 13:58">Tuesday 5 October 2021</span>. Using Julia version 1.6.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
