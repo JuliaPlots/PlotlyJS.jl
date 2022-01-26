@@ -1,7 +1,7 @@
 # PlotlyJS
 
 Welcome to the documentation for PlotlyJS.jl, a Julia interface to the
-[plotly.js][_plotlyjs] visualization library.
+[plotly.js](https://plot.ly/javascript) visualization library.
 
 This package does not interact with the [Plotly web
 API](https://api.plot.ly/v2/), but rather leverages the underlying javascript
@@ -13,9 +13,6 @@ The goals of PlotlyJS.jl are:
 1. Make it convenient to construct and manipulate plotly visualizations
 2. Provide infrastructure for viewing plots on multiple frontends and saving
 plotly graphics to files
-
-[_plotlyjs]: https://plot.ly/javascript
-[_plotlyref]: https://plotly.com/javascriptreference
 
 ## Getting Help
 
@@ -29,7 +26,7 @@ There are three primary resources for getting help with using this library:
 
 To install PlotlyJS.jl, open up a Julia REPL, press `]` to enter package mode and type:
 
-```
+```jl
 (v1.0) pkg> add PlotlyJS
 ```
 
@@ -44,7 +41,7 @@ PlotlyJS.jl comes with built-in support for saving figures to files via the
 integration between PlotlyBase.jl (a dependency of PlotlyJS.jl) and Plotly's
 kaleido tool.
 
-See [exporting figures](http://juliaplots.org/PlotlyJS.jl/stable/manipulating_plots/#Saving-figures)
+See [exporting figures](https://juliaplots.org/PlotlyJS.jl/stable/manipulating_plots/#Saving-figures)
 for more information.
 
 ### Plots.jl
