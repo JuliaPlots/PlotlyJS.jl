@@ -167,7 +167,55 @@ function display_blink(p::SyncPlot)
         "height" => floor(Int, plotSize[2] * sizeBuffer)
     )
     p.window = Blink.Window(windowOptions)
+
+    # check if the inlcude_mathjax option is set and add the respective header
+    # the syntax is chosen identical to the python version: Layout(include_mathjax = <mathjax_path>)
+    mathjax = mathjax_path(p)
+    mathjax == "" || try
+        # if file is local then add the mathjax path to the asset registry
+        # Currently `WebIO` does not support registering of directories, PR is pending ...
+        # otherwise we could do: `mathjax = WebIO.dep2url(mathjax)`
+        # so we have to use `AssetRegistry` directly
+        if WebIO.islocal(mathjax)
+            mathjax = joinpath(AssetRegistry.register(dirname(mathjax)), basename(mathjax))
+        end
+        # add the mathjax file to the <head> section
+        Blink.loadjs!(p.window, mathjax)
+    catch
+        @warn """Could not verify mathjax path!
+
+        Consider installing IJulia.
+        Currently, however, TexFonts need to be installed manually... :-(
+        """
+    end
+
     Blink.body!(p.window, p.scope)
+end
+
+# convert "cdn" and "local" to the respective online or local mathjax-paths
+function mathjax_path(mj::AbstractString)
+    if mj == "cdn"
+        return _mathjax_cdn_path
+    elseif mj == "local"
+        mj = abspath(first(DEPOT_PATH), "conda", "3", "Lib", "site-packages",
+                    "notebook", "static", "components", "MathJax", "MathJax.js")
+        return isfile(mj) ? (mj * "?config=TeX-AMS-MML_HTMLorMML-full") : ""
+    end
+    return mj
+end
+
+# retrieve the mathjax option from the SyncPlot
+function mathjax_path(p::SyncPlot)
+    local mathjax
+    try
+        # Layout(include_mathjax = ...) results in a layout field :include with a dictionary entry :mathjax
+        mathjax = p.plot.layout[:include][:mathjax]
+    catch
+        # if called from Plot's plotlyjs() backend, the extra_kwargs are passed literally, i.e `:include_mathjax`
+        mathjax = get(p.plot.layout.fields, :include_mathjax, "")
+    end
+    # convert "cdn" and "local" to the respective online or local mathjax paths
+    return mathjax_path(mathjax)
 end
 
 function Base.close(p::SyncPlot)
