@@ -14,7 +14,7 @@ Other projects that are helpful are:
 
 ### Documentation
 
-The documentation for PlotlyJS.jl is contained in the `docs` directory of this
+The documentation for `PlotlyJS.jl` is contained in the `docs` directory of this
 repository.
 
 Docs are build using the `Documenter.jl` package and can be built following these steps:

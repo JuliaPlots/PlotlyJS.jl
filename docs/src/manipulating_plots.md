@@ -18,7 +18,7 @@ All exported functions from the plotly.js
 exposed to Julia and operate on both `Plot` and `SyncPlot` instances. Each of
 these functions has semantics that match the semantics of plotly.js
 
-In PlotlyJS.jl these functions are spelled:
+In `PlotlyJS.jl` these functions are spelled:
 
 - [`restyle!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlyrestyle): edit attributes on one or more traces
 - [`relayout!`](https://plotly.com/javascript/plotlyjs-function-reference/#plotlyrelayout): edit attributes on the layout
@@ -54,7 +54,7 @@ A common task is to construct subpots, or plots with more than one set of axes.
 This is possible using the declarative plotly.js syntax, but can be tedious at
 best.
 
-PlotlyJS.jl provides a conveient syntax for constructing what we will
+`PlotlyJS.jl` provides a convenient syntax for constructing what we will
 call regular grids of subplots. By regular we mean a square grid of plots.
 
 To do this we will make a pun of the `vcat`, `hcat`, and `hvcat` functions from

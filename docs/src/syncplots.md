@@ -102,7 +102,7 @@ Electron windows from [Blink.jl](https://github.com/JuliaGizmos/Blink.jl). Pleas
 see the [WebIO.jl readme](https://github.com/JuliaGizmos/WebIO.jl) for
 additional (and up to date!) information.
 
-When using PlotlyJS.jl at the Julia REPL a plot will automatically be displayed
+When using `PlotlyJS.jl` at the Julia REPL a plot will automatically be displayed
 in an Electron window. This is a dedicated browser window we have full control
 over. To see a plot `p`, just type `p` by itself at the REPL and execute the
 line. Alternatively you can call `display(p)`.
@@ -110,7 +110,7 @@ line. Alternatively you can call `display(p)`.
 In addition to being able to see our charts in many front-end environments,
 WebIO also provides a 2-way communication bridge between javascript and Julia.
 In fact, when a `SyncPlot` is constructed, we automatically get listeners for
-all [plotly.js javascript events](https://plotly.com/javascriptplotlyjs-events/).
+all [plotly.js javascript events](https://plotly.com/javascript/plotlyjs-events/).
 What's more is that we can hook up Julia functions as callbacks when those
 events are triggered. In the very contrived example below we have Julia print
 out details regarding points on a plot whenever a user hovers over them on the
