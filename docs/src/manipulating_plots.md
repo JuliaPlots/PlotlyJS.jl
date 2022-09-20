@@ -80,7 +80,7 @@ If we wanted to combine `p1` and `p2` as subplots side-by-side, we would do
 If instead we wanted two rows and one column we could
 
 ```@example subplots
-[p3, p4]
+[p3; p4]
 ```
 
 Finally, we can make a 2x2 grid of subplots:
