@@ -4,7 +4,6 @@
 mutable struct SyncPlot
     plot::PlotlyBase.Plot
     scope::Scope
-    window::Union{Nothing,Blink.Window}
 end
 
 Base.getindex(p::SyncPlot, key) = p.scope[key] # look up Observables
@@ -15,9 +14,6 @@ end
 
 function Base.show(io::IO, mm::MIME"text/html", p::SyncPlot)
     # if we are rendering docs -- short circuit and display html
-    if get_renderer() == DOCS
-        return show(io, mm, p.plot, full_html=false, include_plotlyjs="require-loaded", include_mathjax=missing)
-    end
     show(io, mm, p.scope)
 end
 Base.show(io::IO, mm::MIME"application/prs.juno.plotpane+html", p::SyncPlot) = show(io, mm, p.scope)
@@ -156,25 +152,6 @@ end
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
 Base.size(sp::SyncPlot) = size(sp.plot)
 Base.copy(sp::SyncPlot) = SyncPlot(copy(sp.plot))
-
-Base.display(::PlotlyJSDisplay, p::SyncPlot) = display_blink(p::SyncPlot)
-
-function display_blink(p::SyncPlot)
-    sizeBuffer = 1.15
-    plotSize = size(p.plot)
-    windowOptions = Dict(
-        "width" => floor(Int, plotSize[1] * sizeBuffer),
-        "height" => floor(Int, plotSize[2] * sizeBuffer)
-    )
-    p.window = Blink.Window(windowOptions)
-    Blink.body!(p.window, p.scope)
-end
-
-function Base.close(p::SyncPlot)
-    if p.window !== nothing && Blink.active(p.window)
-        close(p.window)
-    end
-end
 
 function send_command(scope, cmd, args...)
     # The handler for _commands is set up when plot is constructed

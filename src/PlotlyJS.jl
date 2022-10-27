@@ -4,6 +4,7 @@ using Base64
 using Reexport
 @reexport using PlotlyBase
 using JSON
+using WebIO
 using REPL, Pkg, Pkg.Artifacts, DelimitedFiles  # stdlib
 
 # need to import some functions because methods are meta-generated
@@ -14,10 +15,8 @@ import PlotlyBase:
     extendtraces, prependtraces, prep_kwargs, sizes, _tovec,
     react, react!, add_trace!
 
-using WebIO
 using JSExpr
 using JSExpr: @var, @new
-using Blink
 using Pkg.Artifacts
 using Requires
 
@@ -41,21 +40,9 @@ make_subplots(;kwargs...) = plot(Layout(Subplots(;kwargs...)))
 
 @doc (@doc Subplots) make_subplots
 
-function docs()
-    schema_path = joinpath(dirname(dirname(@__FILE__)), "deps", "schema.html")
-    if !isfile(schema_path)
-        msg = "schema docs not built. Run `Pkg.build(\"PlotlyJS\")` to generate"
-        error(msg)
-    end
-    w = Blink.Window()
-    wait(w.content)
-    Blink.content!(w, "html", open(f -> read(f, String), schema_path), fade=false, async=false)
-end
+@enum RENDERERS IJULIA BROWSER
 
-
-@enum RENDERERS BLINK IJULIA BROWSER DOCS
-
-const DEFAULT_RENDERER = Ref(BLINK)
+const DEFAULT_RENDERER = Ref(BROWSER)
 
 function set_default_renderer(s::RENDERERS)
     global DEFAULT_RENDERER
@@ -142,11 +129,11 @@ function __init__()
             Dict(
                 "application/vnd.plotly.v1+json" => JSON.lower(p),
                 "text/plain" => sprint(show, "text/plain", p),
-                "text/html" => let
-                    buf = IOBuffer()
-                    show(buf, MIME("text/html"), p)
-                    String(resize!(buf.data, buf.size))
-                end
+                # "text/html" => let
+                #     buf = IOBuffer()
+                #     show(buf, MIME("text/html"), p)
+                #     String(resize!(buf.data, buf.size))
+                # end
             )
         end
     end
