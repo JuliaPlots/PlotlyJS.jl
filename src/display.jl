@@ -142,7 +142,7 @@ function SyncPlot(
     # to us
     on(scope["image"]) do x end
 
-    SyncPlot(p, scope, nothing)
+    SyncPlot(p, scope)
 end
 
 function plot(args...; kwargs...)
