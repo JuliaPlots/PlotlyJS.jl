@@ -29,8 +29,6 @@ const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
 const _mathjax_cdn_path =
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG"
 
-struct PlotlyJSDisplay <: AbstractDisplay end
-
 # include the rest of the core parts of the package
 include("display.jl")
 include("util.jl")
@@ -106,16 +104,6 @@ function __init__()
         # check IJULIA
         isdefined(Main, :IJulia) && Main.IJulia.inited && set_default_renderer(IJULIA)
     end
-
-    # set up display
-    insert!(Base.Multimedia.displays, findlast(x -> x isa Base.TextDisplay || x isa REPL.REPLDisplay, Base.Multimedia.displays) + 1, PlotlyJSDisplay())
-
-    atreplinit(i -> begin
-        while PlotlyJSDisplay() in Base.Multimedia.displays
-            popdisplay(PlotlyJSDisplay())
-        end
-        insert!(Base.Multimedia.displays, findlast(x -> x isa REPL.REPLDisplay, Base.Multimedia.displays) + 1, PlotlyJSDisplay())
-    end)
 
     @require JSON2 = "2535ab7d-5cd8-5a07-80ac-9b1792aadce3" JSON2.write(io::IO, p::SyncPlot) = JSON2.write(io, p.plot)
     @require JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1" begin
