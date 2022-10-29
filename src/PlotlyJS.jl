@@ -136,21 +136,6 @@ function __init__()
         JSON3.write(p::SyncPlot) = JSON.json(p.plot)
     end
 
-    @require IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a" begin
-
-        function IJulia.display_dict(p::SyncPlot)
-            Dict(
-                "application/vnd.plotly.v1+json" => JSON.lower(p),
-                "text/plain" => sprint(show, "text/plain", p),
-                "text/html" => let
-                    buf = IOBuffer()
-                    show(buf, MIME("text/html"), p)
-                    String(resize!(buf.data, buf.size))
-                end
-            )
-        end
-    end
-
     @require CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b" begin
         function dataset(::Type{CSV.File}, name::String)
             ds_path = check_dataset_exists(name)
