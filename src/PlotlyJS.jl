@@ -4,7 +4,6 @@ using Base64
 using Reexport
 @reexport using PlotlyBase
 using JSON
-using WebIO
 using REPL, Pkg, Pkg.Artifacts, DelimitedFiles  # stdlib
 
 # need to import some functions because methods are meta-generated
@@ -15,6 +14,7 @@ import PlotlyBase:
     extendtraces, prependtraces, prep_kwargs, sizes, _tovec,
     react, react!, add_trace!
 
+using WebIO
 using JSExpr
 using JSExpr: @var, @new
 using Pkg.Artifacts
@@ -117,11 +117,11 @@ function __init__()
             Dict(
                 "application/vnd.plotly.v1+json" => JSON.lower(p),
                 "text/plain" => sprint(show, "text/plain", p),
-                # "text/html" => let
-                #     buf = IOBuffer()
-                #     show(buf, MIME("text/html"), p)
-                #     String(resize!(buf.data, buf.size))
-                # end
+                "text/html" => let
+                    buf = IOBuffer()
+                    show(buf, MIME("text/html"), p)
+                    String(resize!(buf.data, buf.size))
+                end
             )
         end
     end
