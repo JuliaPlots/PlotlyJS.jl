@@ -20,6 +20,7 @@ WebIO = "0f1e0344-ec1d-5b48-a673-e5cf874b6c29"
 
 [compat]
 Blink = "0.12"
+DelimitedFiles = "1"
 JSExpr = "0.5, 1"
 JSON = "0.20, 0.21"
 PlotlyBase = "0.8.15"
