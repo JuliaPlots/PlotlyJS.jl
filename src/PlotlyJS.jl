@@ -173,7 +173,7 @@ function __init__()
             close(P.stdin)
             close(P.stdout)
             close(P.stderr)
-            sleep(0.1) # avoid a "waiting for IO to finish" warning
+            wait(P.proc)
         end
     end
 end
