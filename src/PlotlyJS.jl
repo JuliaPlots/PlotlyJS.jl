@@ -169,10 +169,7 @@ function __init__()
     if ccall(:jl_generating_output, Cint, ()) == 1
         # ensure precompilation of packages depending on PlotlyJS finishes
         if isdefined(P, :proc)
-            close(P.proc)
             close(P.stdin)
-            close(P.stdout)
-            close(P.stderr)
             wait(P.proc)
         end
     end
