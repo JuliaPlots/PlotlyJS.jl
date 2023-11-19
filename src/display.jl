@@ -344,7 +344,7 @@ for f in (:extendtraces!, :prependtraces!)
 end
 
 
-for mime in ["text/plain", "application/vnd.plotly.v1+json", "application/prs.juno.plotpane+html"]
+for mime in ["text/plain", "application/prs.juno.plotpane+html"]
     function Base.show(io::IO, m::MIME{Symbol(mime)}, p::SyncPlot, args...)
         show(io, m, p.plot, args...)
     end
