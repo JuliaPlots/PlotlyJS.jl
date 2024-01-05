@@ -6,8 +6,8 @@ tags/
 tags
 site/
 .ipynb_checkpoints/
-assets/plotly-latest.min.js
-deps/plotly-latest.min.js
+assets/plotly-*.min.js
+deps/plotly-*.min.js
 deps/plotschema.json
 deps/schema.html
 deps/*.csv
