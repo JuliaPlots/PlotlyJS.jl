@@ -2,7 +2,9 @@
 using Pkg.Artifacts
 using Downloads
 
-function generate_artifacts(ver="latest", repo="https://github.com/JuliaPlots/PlotlyJS.jl")
+ver = include("./plotly_cdn_version.jl")
+
+function generate_artifacts(repo="https://github.com/JuliaPlots/PlotlyJS.jl")
     artifacts_toml = joinpath(dirname(@__DIR__), "Artifacts.toml")
 
     # if Artifacts.toml does not exist we also do not have to remove it
