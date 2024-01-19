@@ -19,14 +19,17 @@ using JSExpr
 using JSExpr: @var, @new
 using Blink
 using Pkg.Artifacts
-using Requires
+if !isdefined(Base, :get_extension)
+    using Requires
+end
 
 export plot, dataset, list_datasets, make_subplots, savefig, mgrid
 
 # globals for this package
 const _pkg_root = dirname(dirname(@__FILE__))
 const _js_path = joinpath(artifact"plotly-artifacts", "plotly.min.js")
-const _js_cdn_path = "https://cdn.plot.ly/plotly-latest.min.js"
+const _js_version = include(joinpath(_pkg_root, "deps", "plotly_cdn_version.jl"))
+const _js_cdn_path = "https://cdn.plot.ly/plotly-$(_js_version).min.js"
 const _mathjax_cdn_path =
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG"
 
@@ -95,7 +98,7 @@ function __init__()
         @warn("Warnings were generated during the last build of PlotlyJS:  please check the build log at $_build_log")
     end
 
-    @async _start_kaleido_process()
+    kaleido_task = Base.Threads.@spawn _start_kaleido_process()
 
     if !isfile(_js_path)
         @info("plotly.js javascript libary not found -- downloading now")
@@ -130,37 +133,25 @@ function __init__()
         insert!(Base.Multimedia.displays, findlast(x -> x isa REPL.REPLDisplay, Base.Multimedia.displays) + 1, PlotlyJSDisplay())
     end)
 
-    @require JSON2 = "2535ab7d-5cd8-5a07-80ac-9b1792aadce3" JSON2.write(io::IO, p::SyncPlot) = JSON2.write(io, p.plot)
-    @require JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1" begin
-        JSON3.write(io::IO, p::SyncPlot) = JSON.print(io, p.plot)
-        JSON3.write(p::SyncPlot) = JSON.json(p.plot)
-    end
+    @static if !isdefined(Base, :get_extension)
+        @require JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1" include("../ext/JSON3Ext.jl")
+        @require IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a" include("../ext/IJuliaExt.jl")
 
-    @require IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a" begin
-
-        function IJulia.display_dict(p::SyncPlot)
-            Dict(
-                "application/vnd.plotly.v1+json" => JSON.lower(p),
-                "text/plain" => sprint(show, "text/plain", p),
-                "text/html" => let
-                    buf = IOBuffer()
-                    show(buf, MIME("text/html"), p)
-                    String(resize!(buf.data, buf.size))
-                end
-            )
-        end
-    end
-
-    @require CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b" begin
-        function dataset(::Type{CSV.File}, name::String)
-            ds_path = check_dataset_exists(name)
-            if !endswith(ds_path, "csv")
-                error("Can only construct CSV.File from a csv data source")
+        @require CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b" begin
+            include("../ext/CSVExt.jl")
+            @require DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0" begin
+                include("../ext/DataFramesExt.jl")
             end
-            CSV.File(ds_path)
         end
-        @require DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0" begin
-            dataset(::Type{DataFrames.DataFrame}, name::String) = DataFrames.DataFrame(dataset(CSV.File, name))
+    end
+
+    wait(kaleido_task)
+
+    if ccall(:jl_generating_output, Cint, ()) == 1
+        # ensure precompilation of packages depending on PlotlyJS finishes
+        if isdefined(P, :proc)
+            close(P.stdin)
+            wait(P.proc)
         end
     end
 end

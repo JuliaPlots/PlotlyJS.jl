@@ -1,7 +1,7 @@
 name = "PlotlyJS"
 uuid = "f0f68f2c-4968-5e81-91da-67840de0976a"
 authors = ["Spencer Lyon <spencerlyon2@gmail.com>"]
-version = "0.18.10"
+version = "0.18.12"
 
 [deps]
 Base64 = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
@@ -18,11 +18,27 @@ Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 Requires = "ae029012-a4dd-5104-9daa-d747884805df"
 WebIO = "0f1e0344-ec1d-5b48-a673-e5cf874b6c29"
 
+[weakdeps]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
+JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
+
+[extensions]
+CSVExt = "CSV"
+DataFramesExt = ["DataFrames", "CSV"]
+IJuliaExt = "IJulia"
+JSON3Ext = "JSON3"
+
 [compat]
 Blink = "0.12"
 DelimitedFiles = "1"
+CSV = "0.10"
+DataFrames = "1"
+IJulia = "1"
 JSExpr = "0.5, 1"
 JSON = "0.20, 0.21"
+JSON3 = "1"
 PlotlyBase = "0.8.15"
 Reexport = "0.2, 1"
 Requires = "1.0"
@@ -30,7 +46,11 @@ WebIO = "0.8"
 julia = "1.3, 1.4, 1.5, 1.6"
 
 [extras]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
+JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
-test = ["Test"]
+test = ["Test", "CSV", "DataFrames", "IJulia", "JSON3"]

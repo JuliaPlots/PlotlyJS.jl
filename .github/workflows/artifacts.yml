@@ -13,9 +13,6 @@ jobs:
   gen-artifacts:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    # The plotly version. Bumping this environment variable should do the trick
-    env:
-      PLOTLY_VER: 2.3.0
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -33,7 +30,7 @@ jobs:
       - name: "Get artifact"
         run: |
           cd $GITHUB_WORKSPACE
-          julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl")); generate_artifacts("'"$PLOTLY_VER"'","'"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"'")'
+          julia -e 'include(joinpath(pwd(),"deps","generate_artifacts.jl")); generate_artifacts("'"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"'")'
 
       - name: "Commit updated Artifacts.toml"
         run: |
