@@ -17,7 +17,6 @@ import PlotlyBase:
 using WebIO
 using JSExpr
 using JSExpr: @var, @new
-using Blink
 using Pkg.Artifacts
 using Requires
 
@@ -31,8 +30,6 @@ const _js_cdn_path = "https://cdn.plot.ly/plotly-$(_js_version).min.js"
 const _mathjax_cdn_path =
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG"
 
-struct PlotlyJSDisplay <: AbstractDisplay end
-
 # include the rest of the core parts of the package
 include("display.jl")
 include("util.jl")
@@ -41,29 +38,6 @@ include("kaleido.jl")
 make_subplots(;kwargs...) = plot(Layout(Subplots(;kwargs...)))
 
 @doc (@doc Subplots) make_subplots
-
-function docs()
-    schema_path = joinpath(dirname(dirname(@__FILE__)), "deps", "schema.html")
-    if !isfile(schema_path)
-        msg = "schema docs not built. Run `Pkg.build(\"PlotlyJS\")` to generate"
-        error(msg)
-    end
-    w = Blink.Window()
-    wait(w.content)
-    Blink.content!(w, "html", open(f -> read(f, String), schema_path), fade=false, async=false)
-end
-
-
-@enum RENDERERS BLINK IJULIA BROWSER DOCS
-
-const DEFAULT_RENDERER = Ref(BLINK)
-
-function set_default_renderer(s::RENDERERS)
-    global DEFAULT_RENDERER
-    DEFAULT_RENDERER[] = s
-end
-
-@inline get_renderer() = DEFAULT_RENDERER[]
 
 list_datasets() = readdir(joinpath(artifact"plotly-artifacts", "datasets"))
 function check_dataset_exists(name::String)
@@ -102,34 +76,6 @@ function __init__()
         @info("plotly.js javascript libary not found -- downloading now")
         include(joinpath(_pkg_root, "deps", "build.jl"))
     end
-
-    # set default renderer
-    # First check env var
-    env_val = get(ENV, "PLOTLY_RENDERER_JULIA", missing)
-    if !ismissing(env_val)
-        env_symbol = Symbol(uppercase(env_val))
-        options = Dict(v => k for (k, v) in collect(Base.Enums.namemap(PlotlyJS.RENDERERS)))
-        renderer_int = get(options, env_symbol, missing)
-        if ismissing(renderer_int)
-            @warn "Unknown value for env var `PLOTLY_RENDERER_JULIA` \"$(env_val)\", known options are $(string.(keys(options)))"
-        else
-            set_default_renderer(RENDERERS(renderer_int))
-        end
-    else
-        # we have no env-var
-        # check IJULIA
-        isdefined(Main, :IJulia) && Main.IJulia.inited && set_default_renderer(IJULIA)
-    end
-
-    # set up display
-    insert!(Base.Multimedia.displays, findlast(x -> x isa Base.TextDisplay || x isa REPL.REPLDisplay, Base.Multimedia.displays) + 1, PlotlyJSDisplay())
-
-    atreplinit(i -> begin
-        while PlotlyJSDisplay() in Base.Multimedia.displays
-            popdisplay(PlotlyJSDisplay())
-        end
-        insert!(Base.Multimedia.displays, findlast(x -> x isa REPL.REPLDisplay, Base.Multimedia.displays) + 1, PlotlyJSDisplay())
-    end)
 
     @require JSON2 = "2535ab7d-5cd8-5a07-80ac-9b1792aadce3" JSON2.write(io::IO, p::SyncPlot) = JSON2.write(io, p.plot)
     @require JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1" begin
