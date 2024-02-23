@@ -99,7 +99,7 @@ function __init__()
         @warn("Warnings were generated during the last build of PlotlyJS:  please check the build log at $_build_log")
     end
 
-    kaleido_task = Base.Threads.@spawn PlotlyKaleido.start()
+    kaleido_task = PlotlyKaleido.start()
 
     if !isfile(_js_path)
         @info("plotly.js javascript libary not found -- downloading now")
