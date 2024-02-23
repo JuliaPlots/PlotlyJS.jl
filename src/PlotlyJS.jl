@@ -3,6 +3,7 @@ module PlotlyJS
 using Base64
 using Reexport
 @reexport using PlotlyBase
+using PlotlyKaleido: PlotlyKaleido
 using JSON
 using REPL, Pkg, Pkg.Artifacts, DelimitedFiles  # stdlib
 
@@ -98,7 +99,7 @@ function __init__()
         @warn("Warnings were generated during the last build of PlotlyJS:  please check the build log at $_build_log")
     end
 
-    kaleido_task = Base.Threads.@spawn _start_kaleido_process()
+    kaleido_task = Base.Threads.@spawn PlotlyKaleido.start()
 
     if !isfile(_js_path)
         @info("plotly.js javascript libary not found -- downloading now")
@@ -149,10 +150,7 @@ function __init__()
 
     if ccall(:jl_generating_output, Cint, ()) == 1
         # ensure precompilation of packages depending on PlotlyJS finishes
-        if isdefined(P, :proc)
-            close(P.stdin)
-            wait(P.proc)
-        end
+        PlotlyKaleido.kill_kaleido()
     end
 end
 
