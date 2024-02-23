@@ -146,8 +146,6 @@ function __init__()
         end
     end
 
-    wait(kaleido_task)
-
     if ccall(:jl_generating_output, Cint, ()) == 1
         # ensure precompilation of packages depending on PlotlyJS finishes
         PlotlyKaleido.kill_kaleido()
