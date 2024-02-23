@@ -1,72 +1,4 @@
-using Kaleido_jll
-
-mutable struct Pipes
-    stdin::Pipe
-    stdout::Pipe
-    stderr::Pipe
-    proc::Base.Process
-    Pipes() = new()
-end
-
-const P = Pipes()
-
-const ALL_FORMATS = ["png", "jpeg", "webp", "svg", "pdf", "eps", "json"]
-const TEXT_FORMATS = ["svg", "json", "eps"]
-
-function _restart_kaleido_process()
-    if isdefined(P, :proc) && process_running(P.proc)
-        kill(P.proc)
-    end
-    _start_kaleido_process()
-end
-
-
-function _start_kaleido_process()
-    global P
-    try
-        BIN = let
-            art = Kaleido_jll.artifact_dir
-            cmd = if Sys.islinux() || Sys.isapple()
-                joinpath(art, "kaleido")
-            else
-                # Windows
-                joinpath(art, "kaleido.cmd")
-            end
-            no_sandbox = "--no-sandbox"
-            Sys.isapple() ? `$(cmd) plotly --disable-gpu --single-process` : `$(cmd) plotly --disable-gpu $(no_sandbox)`
-        end
-        kstdin = Pipe()
-        kstdout = Pipe()
-        kstderr = Pipe()
-        kproc = run(pipeline(BIN,
-                             stdin=kstdin, stdout=kstdout, stderr=kstderr),
-                    wait=false)
-        process_running(kproc) || error("There was a problem startink up kaleido.")
-        close(kstdout.in)
-        close(kstderr.in)
-        close(kstdin.out)
-        Base.start_reading(kstderr.out)
-        P.stdin = kstdin
-        P.stdout = kstdout
-        P.stderr = kstderr
-        P.proc = kproc
-
-        # read startup message and check for errors
-        res = readline(P.stdout)
-        if length(res) == 0
-            error("Could not start Kaleido process")
-        end
-
-        js = JSON.parse(res)
-        if get(js, "code", 0) != 0
-            error("Could not start Kaleido process")
-        end
-    catch e
-        @warn "Kaleido is not available on this system. Julia will be unable to save images of any plots."
-        @warn "$e"
-    end
-    nothing
-end
+using PlotlyKaleido: kill, is_running, start, restart, ALL_FORMATS, TEXT_FORMATS
 
 savefig(p::SyncPlot; kwargs...) = savefig(p.plot; kwargs...)
 
@@ -92,7 +24,7 @@ function savefig(
     )
 
     _ensure_kaleido_running()
-
+    P = PlotlyKaleido.P
     # convert payload to vector of bytes
     bytes = transcode(UInt8, JSON.json(payload))
     write(P.stdin, bytes)
@@ -189,8 +121,7 @@ function savefig(
     return fn
 end
 
-_kaleido_running() = isdefined(P, :stdin) && isopen(P.stdin) && process_running(P.proc)
-_ensure_kaleido_running() = !_kaleido_running() && _restart_kaleido_process()
+_ensure_kaleido_running() = !is_running() && restart()
 
 const _KALEIDO_MIMES = Dict(
     "application/pdf" => "pdf",
