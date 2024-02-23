@@ -11,6 +11,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         julia-version:
           - '1.6'
