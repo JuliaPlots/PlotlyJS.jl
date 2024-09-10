@@ -121,7 +121,7 @@ function savefig(
     return fn
 end
 
-_ensure_kaleido_running() = !is_running() && restart()
+_ensure_kaleido_running(; kwargs...) = !is_running() && restart(; plotlyjs=_js_path, kwargs...)
 
 const _KALEIDO_MIMES = Dict(
     "application/pdf" => "pdf",
