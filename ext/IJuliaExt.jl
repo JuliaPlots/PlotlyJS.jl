@@ -13,7 +13,7 @@ function IJulia.display_dict(p::PlotlyJS.SyncPlot)
         "text/html" => let
             buf = IOBuffer()
             show(buf, MIME("text/html"), p)
-            String(resize!(buf.data, buf.size))
+            String(resize!(collect(buf.data), buf.size))
         end
     )
 end
