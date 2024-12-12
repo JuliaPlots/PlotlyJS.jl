@@ -9,6 +9,8 @@ savefig(p::SyncPlot; kwargs...) = savefig(p.plot; kwargs...)
         height::Union{Nothing,Integer}=500,
         scale::Union{Nothing,Real}=nothing,
         format::String="png",
+        plotlyjs::Union{AbstractString, Nothing}=nothing,
+        plotly_version::Union{AbstractString, Nothing}=nothing
     )
 
 Save a plot `p` to the IO stream `io` or to the file named `fn`.
@@ -20,6 +22,9 @@ If both `io` and `fn` are not specified, returns the image as a vector of bytes.
   - `format`: the image format, must be one of $(join(string.("*", ALL_FORMATS, "*"), ", ")), or *html*.
   - `scale`: the image scale.
   - `width` and `height`: the image dimensions, in pixels.
+  - `plotly_version`, `plotly_js`: the version of *Plotly* JavaScript library to use for rendering.
+     These arguments are mutually exclusive.
+     Defaults to using the Plotly library bundled with *PlotlyJS.jl*.
 """
 function savefig(
         p::Plot;
@@ -27,6 +32,8 @@ function savefig(
         height::Union{Nothing,Integer}=500,
         scale::Union{Nothing,Real}=nothing,
         format::String="png",
+        plotlyjs::Union{AbstractString, Nothing}=nothing,
+        plotly_version::Union{AbstractString, Nothing}=nothing
     )
     in(format, ALL_FORMATS) ||
         throw(ArgumentError("Unknown format: $format. Expected one of: $(join(ALL_FORMATS, ", "))"))
@@ -40,7 +47,7 @@ function savefig(
     isnothing(height) || (payload[:height] = height)
     isnothing(scale) || (payload[:scale] = scale)
 
-    _ensure_kaleido_running()
+    _ensure_kaleido_running(; plotlyjs, plotly_version)
     P = PlotlyKaleido.P
     # convert payload to vector of bytes
     bytes = transcode(UInt8, JSON.json(payload))
@@ -99,7 +106,25 @@ function savefig(
     return fn
 end
 
-_ensure_kaleido_running(; kwargs...) = !is_running() && restart(; plotlyjs=_js_path, kwargs...)
+# If kaleido is not running, starts it using the specified plotly library.
+# The plotly library is specified either as the `plotlyjs` path to the javascript library,
+# or as a `plotly_version` (in the latter case the library is taken from `https://cdn.plot.ly/`).
+# If none are specified, the plotly library from the `Artifacts.toml` is used.
+function _ensure_kaleido_running(;
+    plotlyjs::Union{AbstractString, Nothing} = nothing,
+    plotly_version::Union{AbstractString, Nothing} = nothing,
+    kwargs...
+)
+    if !is_running()
+        !isnothing(plotly_version) && !isnothing(plotlyjs) &&
+            throw(ArgumentError("Cannot specify both `plotly_version` and `plotlyjs`"))
+        if !isnothing(plotly_version)
+            restart(; plotly_version, kwargs...)
+        else
+            resstart(; plotlyjs=something(plotlyjs, _js_path), kwargs...)
+        end
+    end
+end
 
 const _KALEIDO_MIMES = Dict(
     "application/pdf" => "pdf",
