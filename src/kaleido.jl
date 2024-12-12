@@ -121,7 +121,7 @@ function _ensure_kaleido_running(;
         if !isnothing(plotly_version)
             restart(; plotly_version, kwargs...)
         else
-            resstart(; plotlyjs=something(plotlyjs, _js_path), kwargs...)
+            restart(; plotlyjs=something(plotlyjs, _js_path), kwargs...)
         end
     end
 end
