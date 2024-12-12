@@ -2,26 +2,43 @@ using PlotlyKaleido: kill, is_running, start, restart, ALL_FORMATS, TEXT_FORMATS
 
 savefig(p::SyncPlot; kwargs...) = savefig(p.plot; kwargs...)
 
+"""
+    savefig(
+        [io::IO], p::Plot, [fn:AbstractString];
+        width::Union{Nothing,Integer}=700,
+        height::Union{Nothing,Integer}=500,
+        scale::Union{Nothing,Real}=nothing,
+        format::String="png",
+    )
+
+Save a plot `p` to the IO stream `io` or to the file named `fn`.
+
+If both `io` and `fn` are not specified, returns the image as a vector of bytes.
+
+## Keyword Arguments
+
+  - `format`: the image format, must be one of $(join(string.("*", ALL_FORMATS, "*"), ", ")), or *html*.
+  - `scale`: the image scale.
+  - `width` and `height`: the image dimensions, in pixels.
+"""
 function savefig(
         p::Plot;
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
+        width::Union{Nothing,Integer}=700,
+        height::Union{Nothing,Integer}=500,
         scale::Union{Nothing,Real}=nothing,
-        format::String="png"
-    )::Vector{UInt8}
-    if !(format in ALL_FORMATS)
-        error("Unknown format $format. Expected one of $ALL_FORMATS")
-    end
+        format::String="png",
+    )
+    in(format, ALL_FORMATS) ||
+        throw(ArgumentError("Unknown format: $format. Expected one of: $(join(ALL_FORMATS, ", "))"))
 
     # construct payload
-    _get(x, def) = x === nothing ? def : x
     payload = Dict(
-        :width => _get(width, 700),
-        :height => _get(height, 500),
-        :scale => _get(scale, 1),
         :format => format,
         :data => p
     )
+    isnothing(width) || (payload[:width] = width)
+    isnothing(height) || (payload[:height] = height)
+    isnothing(scale) || (payload[:scale] = scale)
 
     _ensure_kaleido_running()
     P = PlotlyKaleido.P
@@ -57,66 +74,27 @@ end
 @inline _get_Plot(p::Plot) = p
 @inline _get_Plot(p::SyncPlot) = p.plot
 
-"""
-    savefig(
-        io::IO,
-        p::Plot;
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
-        format::String="png"
-    )
-
-Save a plot `p` to the io stream `io`. They keyword argument `format`
-determines the type of data written to the figure and must be one of
-$(join(ALL_FORMATS, ", ")), or html. `scale` sets the
-image scale. `width` and `height` set the dimensions, in pixels. Defaults
-are taken from `p.layout`, or supplied by plotly
-"""
-function savefig(io::IO,
-        p::Union{SyncPlot,Plot};
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
-        format::String="png")
+function savefig(io::IO, p::Union{SyncPlot,Plot};
+                 format::AbstractString="png",
+                 kwargs...)
     if format == "html"
         return show(io, MIME("text/html"), _get_Plot(p), include_mathjax="cdn", include_plotlyjs="cdn", full_html=true)
     end
 
-    bytes = savefig(p, width=width, height=height, scale=scale, format=format)
+    bytes = savefig(p; format, kwargs...)
     write(io, bytes)
 end
 
-
-"""
-    savefig(
-        p::Plot, fn::AbstractString;
-        format::Union{Nothing,String}=nothing,
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
-    )
-
-Save a plot `p` to a file named `fn`. If `format` is given and is one of
-$(join(ALL_FORMATS, ", ")), or html; it will be the format of the file. By
-default the format is guessed from the extension of `fn`. `scale` sets the
-image scale. `width` and `height` set the dimensions, in pixels. Defaults
-are taken from `p.layout`, or supplied by plotly
-"""
 function savefig(
         p::Union{SyncPlot,Plot}, fn::AbstractString;
-        format::Union{Nothing,String}=nothing,
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
+        format::Union{Nothing,AbstractString}=nothing,
+        kwargs...
     )
     ext = split(fn, ".")[end]
-    if format === nothing
-        format = String(ext)
-    end
+    format = something(format, String(ext))
 
     open(fn, "w") do f
-        savefig(f, p; format=format, scale=scale, width=width, height=height)
+        savefig(f, p; format, kwargs...)
     end
     return fn
 end
@@ -136,20 +114,16 @@ const _KALEIDO_MIMES = Dict(
 
 for (mime, fmt) in _KALEIDO_MIMES
     @eval function Base.show(
-        io::IO, ::MIME{Symbol($mime)}, plt::Plot,
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
+        io::IO, ::MIME{Symbol($mime)}, plt::Plot;
+        kwargs...
     )
-        savefig(io, plt, format=$fmt)
+        savefig(io, plt; format=$fmt, kwargs...)
     end
 
     @eval function Base.show(
-        io::IO, ::MIME{Symbol($mime)}, plt::SyncPlot,
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
+        io::IO, ::MIME{Symbol($mime)}, plt::SyncPlot;
+        kwargs...
     )
-        savefig(io, plt.plot, format=$fmt)
+        savefig(io, plt.plot; format=$fmt, kwargs...)
     end
 end
