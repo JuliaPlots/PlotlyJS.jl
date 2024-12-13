@@ -1,7 +1,5 @@
 using PlotlyKaleido: kill, is_running, start, restart, ALL_FORMATS, TEXT_FORMATS
 
-savefig(p::SyncPlot; kwargs...) = savefig(p.plot; kwargs...)
-
 """
     savefig(
         [io::IO], p::Plot, [fn:AbstractString];
@@ -77,6 +75,7 @@ function savefig(
     end
 end
 
+savefig(p::SyncPlot; kwargs...) = savefig(p.plot; kwargs...)
 
 @inline _get_Plot(p::Plot) = p
 @inline _get_Plot(p::SyncPlot) = p.plot
@@ -138,17 +137,13 @@ const _KALEIDO_MIMES = Dict(
 )
 
 for (mime, fmt) in _KALEIDO_MIMES
-    @eval function Base.show(
+    @eval Base.show(
         io::IO, ::MIME{Symbol($mime)}, plt::Plot;
         kwargs...
-    )
-        savefig(io, plt; format=$fmt, kwargs...)
-    end
+    ) = savefig(io, plt; format=$fmt, kwargs...)
 
-    @eval function Base.show(
+    @eval Base.show(
         io::IO, ::MIME{Symbol($mime)}, plt::SyncPlot;
         kwargs...
-    )
-        savefig(io, plt.plot; format=$fmt, kwargs...)
-    end
+    ) = savefig(io, plt.plot; format=$fmt, kwargs...)
 end
