@@ -149,9 +149,7 @@ function SyncPlot(
     SyncPlot(p, scope, nothing)
 end
 
-function plot(args...; kwargs...)
-    SyncPlot(Plot(args...; kwargs...))
-end
+plot(args...; kwargs...) = SyncPlot(Plot(args...; kwargs...))
 
 # Add some basic Julia API methods on SyncPlot that just forward onto the Plot
 Base.size(sp::SyncPlot) = size(sp.plot)

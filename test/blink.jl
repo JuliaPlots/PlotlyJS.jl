@@ -1,10 +1,11 @@
 using Blink, WebIO
 
 t() = scatter(y=rand(10))
+
 p = plot([t(), t(), t(), t()])
 w = Blink.Window()
 body!(w, p.scope)
-sleep(3.0)  # make sure we give time for svg to render
+sleep(5)  # make sure we give time for svg to render
 
 # hook up testing observables
 on(p.scope["__gd_contents"]) do x end
