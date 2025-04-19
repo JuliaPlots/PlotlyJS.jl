@@ -169,8 +169,8 @@ end
 function unsafe_electron()  # https://github.com/JuliaGizmos/Blink.jl/issues/325#issuecomment-2252670794
     # workaround for github.com/JuliaGizmos/Blink.jl/issues/325
     # inspired from github.com/Eben60/PackageMaker.jl/commit/297219f5c14845bf75de4475cabab4dbf6e6599d
-    @warn "Unsafe electron, using --no-sandbox"
     @eval Blink.AtomShell function init(; debug = false)
+        @warn "Unsafe electron, using --no-sandbox"
         electron() # Check path exists
         p, dp = port(), port()
         debug && inspector(dp)
