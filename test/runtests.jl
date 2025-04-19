@@ -1,7 +1,7 @@
 using PlotlyJS
 using Test
 
-Sys.isunix() && PlotlyJS.unsafe_electron()
+Sys.isunix() && PlotlyJS.unsafe_electron(true)
 
 # using Blink
 # !Blink.AtomShell.isinstalled() && Blink.AtomShell.install()
