@@ -21,13 +21,16 @@ jobs:
           - '1'
         arch: [x64]
         os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            prefix: xvfb-run
 
     steps:
       - name: Ubuntu dependencies
         if: startsWith(matrix.os, 'ubuntu')
         run: |
           sudo apt -y update
-          sudo apt -y install lynx
+          sudo apt -y install lynx  # for debugging electron
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@latest
         with:
@@ -35,8 +38,6 @@ jobs:
           arch: ${{ matrix.arch }}
       - uses: julia-actions/julia-buildpkg@latest
       - uses: julia-actions/julia-runtest@latest
-        with:
-          prefix: xvfb-run
       - uses: julia-actions/julia-processcoverage@latest
       - uses: codecov/codecov-action@v5
         with:
