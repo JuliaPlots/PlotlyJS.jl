@@ -11,7 +11,7 @@ end
                 continue
             end
             fn = tempname() * "." * ext
-            @show func, fn
+            # @show func, fn
             myplot(fn, func) == fn
             @test isfile(fn)
             rm(fn)
