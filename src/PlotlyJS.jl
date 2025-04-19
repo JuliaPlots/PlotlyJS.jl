@@ -166,24 +166,23 @@ for k in [:add_hrect!, :add_hline!, :add_vrect!, :add_vline!, :add_shape!, :add_
     end
 end
 
-macro unsafe_electron()  # https://github.com/JuliaGizmos/Blink.jl/issues/325#issuecomment-2252670794
+function unsafe_electron()  # https://github.com/JuliaGizmos/Blink.jl/issues/325#issuecomment-2252670794
     # workaround for github.com/JuliaGizmos/Blink.jl/issues/325
-    # inspired from github.com/Eben60/PackageMaker.jl/commit/297219f5c14845bf75de4475cabab4dbf6e6599d 
-    quote
-        @eval Blink.AtomShell function init(; debug = false)
-            electron() # Check path exists
-            p, dp = port(), port()
-            debug && inspector(dp)
-            dbg = debug ? "--debug=$dp" : []
-            # vvvvvvvvvvvv begin addition
-            cmd = `$(electron()) --no-sandbox $dbg $mainjs port $p`
-            # ^^^^^^^^^^^^ end addition
-            proc = (debug ? run_rdr : run)(cmd; wait = false)
-            conn = try_connect(ip"127.0.0.1", p)
-            shell = Electron(proc, conn)
-            initcbs(shell)
-            return shell
-        end
+    # inspired from github.com/Eben60/PackageMaker.jl/commit/297219f5c14845bf75de4475cabab4dbf6e6599d
+    @warn "Unsafe electron, using --no-sandbox"
+    @eval Blink.AtomShell function init(; debug = false)
+        electron() # Check path exists
+        p, dp = port(), port()
+        debug && inspector(dp)
+        dbg = debug ? "--debug=$dp" : []
+        # vvvvvvvvvvvv begin addition
+        cmd = `$(electron()) --no-sandbox $dbg $mainjs port $p`
+        # ^^^^^^^^^^^^ end addition
+        proc = (debug ? run_rdr : run)(cmd; wait = false)
+        conn = try_connect(ip"127.0.0.1", p)
+        shell = Electron(proc, conn)
+        initcbs(shell)
+        return shell
     end
 end
 
