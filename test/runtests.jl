@@ -2,7 +2,8 @@ using PlotlyJS
 using Test
 
 if Sys.islinux()
-    PlotlyJS.unsafe_electron(true)
+    debug = Base.get_bool_env("CI", false) ? false : true
+    PlotlyJS.unsafe_electron(debug)
     include("blink.jl")
 end
 include("kaleido.jl")
