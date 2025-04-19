@@ -1,9 +1,10 @@
 using PlotlyJS
 using Test
 
-Sys.isunix() && PlotlyJS.unsafe_electron(true)
-
-Sys.islinux() && include("blink.jl")  # xvfb-run
+if Sys.islinux()
+    PlotlyJS.unsafe_electron(true)
+    include("blink.jl")
+end
 include("kaleido.jl")
 
 # these are public API
