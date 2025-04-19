@@ -3,7 +3,7 @@ using Test
 
 Sys.isunix() && PlotlyJS.unsafe_electron(true)
 
-include("blink.jl")
+Sys.islinux() && include("blink.jl")  # xvfb-run
 include("kaleido.jl")
 
 # these are public API

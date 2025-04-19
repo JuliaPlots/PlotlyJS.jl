@@ -178,7 +178,6 @@ function unsafe_electron(deb=false)  # https://github.com/JuliaGizmos/Blink.jl/i
         dbg = debug ? "--inspect=$dp" : []
         # vvvvvvvvvvvv begin addition
         cmd = `$(electron()) --no-sandbox $dbg $mainjs port $p`
-        @show cmd
         # ^^^^^^^^^^^^ end addition
         proc = (debug ? run_rdr : run)(cmd; wait = false)
         conn = try_connect(ip"127.0.0.1", p)
