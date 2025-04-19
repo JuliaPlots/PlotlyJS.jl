@@ -23,6 +23,11 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
+      - name: Ubuntu dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt -y update
+          sudo apt -y install lynx
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@latest
         with:

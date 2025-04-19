@@ -3,9 +3,6 @@ using Test
 
 Sys.isunix() && PlotlyJS.unsafe_electron(true)
 
-# using Blink
-# !Blink.AtomShell.isinstalled() && Blink.AtomShell.install()
-
 include("blink.jl")
 include("kaleido.jl")
 
