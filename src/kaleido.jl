@@ -1,29 +1,51 @@
 using PlotlyKaleido: kill, is_running, start, restart, ALL_FORMATS, TEXT_FORMATS
 
-savefig(p::SyncPlot; kwargs...) = savefig(p.plot; kwargs...)
+"""
+    savefig(
+        [io::IO], p::Plot, [fn:AbstractString];
+        width::Union{Nothing,Integer}=700,
+        height::Union{Nothing,Integer}=500,
+        scale::Union{Nothing,Real}=nothing,
+        format::String="png",
+        plotlyjs::Union{AbstractString, Nothing}=nothing,
+        plotly_version::Union{AbstractString, Nothing}=nothing
+    )
 
+Save a plot `p` to the IO stream `io` or to the file named `fn`.
+
+If both `io` and `fn` are not specified, returns the image as a vector of bytes.
+
+## Keyword Arguments
+
+  - `format`: the image format, must be one of $(join(string.("*", ALL_FORMATS, "*"), ", ")), or *html*.
+  - `scale`: the image scale.
+  - `width` and `height`: the image dimensions, in pixels.
+  - `plotly_version`, `plotly_js`: the version of *Plotly* JavaScript library to use for rendering.
+     These arguments are mutually exclusive.
+     Defaults to using the Plotly library bundled with *PlotlyJS.jl*.
+"""
 function savefig(
         p::Plot;
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
+        width::Union{Nothing,Integer}=700,
+        height::Union{Nothing,Integer}=500,
         scale::Union{Nothing,Real}=nothing,
-        format::String="png"
-    )::Vector{UInt8}
-    if !(format in ALL_FORMATS)
-        error("Unknown format $format. Expected one of $ALL_FORMATS")
-    end
+        format::String="png",
+        plotlyjs::Union{AbstractString, Nothing}=nothing,
+        plotly_version::Union{AbstractString, Nothing}=nothing
+    )
+    in(format, ALL_FORMATS) ||
+        throw(ArgumentError("Unknown format: $format. Expected one of: $(join(ALL_FORMATS, ", "))"))
 
     # construct payload
-    _get(x, def) = x === nothing ? def : x
     payload = Dict(
-        :width => _get(width, 700),
-        :height => _get(height, 500),
-        :scale => _get(scale, 1),
         :format => format,
         :data => p
     )
+    isnothing(width) || (payload[:width] = width)
+    isnothing(height) || (payload[:height] = height)
+    isnothing(scale) || (payload[:scale] = scale)
 
-    _ensure_kaleido_running()
+    _ensure_kaleido_running(; plotlyjs, plotly_version)
     P = PlotlyKaleido.P
     # convert payload to vector of bytes
     bytes = transcode(UInt8, JSON.json(payload))
@@ -53,75 +75,55 @@ function savefig(
     end
 end
 
+savefig(p::SyncPlot; kwargs...) = savefig(p.plot; kwargs...)
 
 @inline _get_Plot(p::Plot) = p
 @inline _get_Plot(p::SyncPlot) = p.plot
 
-"""
-    savefig(
-        io::IO,
-        p::Plot;
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
-        format::String="png"
-    )
-
-Save a plot `p` to the io stream `io`. They keyword argument `format`
-determines the type of data written to the figure and must be one of
-$(join(ALL_FORMATS, ", ")), or html. `scale` sets the
-image scale. `width` and `height` set the dimensions, in pixels. Defaults
-are taken from `p.layout`, or supplied by plotly
-"""
-function savefig(io::IO,
-        p::Union{SyncPlot,Plot};
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
-        format::String="png")
+function savefig(io::IO, p::Union{SyncPlot,Plot};
+                 format::AbstractString="png",
+                 kwargs...)
     if format == "html"
         return show(io, MIME("text/html"), _get_Plot(p), include_mathjax="cdn", include_plotlyjs="cdn", full_html=true)
     end
 
-    bytes = savefig(p, width=width, height=height, scale=scale, format=format)
+    bytes = savefig(p; format, kwargs...)
     write(io, bytes)
 end
 
-
-"""
-    savefig(
-        p::Plot, fn::AbstractString;
-        format::Union{Nothing,String}=nothing,
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
-    )
-
-Save a plot `p` to a file named `fn`. If `format` is given and is one of
-$(join(ALL_FORMATS, ", ")), or html; it will be the format of the file. By
-default the format is guessed from the extension of `fn`. `scale` sets the
-image scale. `width` and `height` set the dimensions, in pixels. Defaults
-are taken from `p.layout`, or supplied by plotly
-"""
 function savefig(
         p::Union{SyncPlot,Plot}, fn::AbstractString;
-        format::Union{Nothing,String}=nothing,
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
+        format::Union{Nothing,AbstractString}=nothing,
+        kwargs...
     )
     ext = split(fn, ".")[end]
-    if format === nothing
-        format = String(ext)
-    end
+    format = something(format, String(ext))
 
     open(fn, "w") do f
-        savefig(f, p; format=format, scale=scale, width=width, height=height)
+        savefig(f, p; format, kwargs...)
     end
     return fn
 end
 
-_ensure_kaleido_running(; kwargs...) = !is_running() && restart(; plotlyjs=_js_path, kwargs...)
+# If kaleido is not running, starts it using the specified plotly library.
+# The plotly library is specified either as the `plotlyjs` path to the javascript library,
+# or as a `plotly_version` (in the latter case the library is taken from `https://cdn.plot.ly/`).
+# If none are specified, the plotly library from the `Artifacts.toml` is used.
+function _ensure_kaleido_running(;
+    plotlyjs::Union{AbstractString, Nothing} = nothing,
+    plotly_version::Union{AbstractString, Nothing} = nothing,
+    kwargs...
+)
+    if !is_running()
+        !isnothing(plotly_version) && !isnothing(plotlyjs) &&
+            throw(ArgumentError("Cannot specify both `plotly_version` and `plotlyjs`"))
+        if !isnothing(plotly_version)
+            restart(; plotly_version, kwargs...)
+        else
+            restart(; plotlyjs=something(plotlyjs, _js_path), kwargs...)
+        end
+    end
+end
 
 const _KALEIDO_MIMES = Dict(
     "application/pdf" => "pdf",
@@ -135,21 +137,13 @@ const _KALEIDO_MIMES = Dict(
 )
 
 for (mime, fmt) in _KALEIDO_MIMES
-    @eval function Base.show(
-        io::IO, ::MIME{Symbol($mime)}, plt::Plot,
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
-    )
-        savefig(io, plt, format=$fmt)
-    end
+    @eval Base.show(
+        io::IO, ::MIME{Symbol($mime)}, plt::Plot;
+        kwargs...
+    ) = savefig(io, plt; format=$fmt, kwargs...)
 
-    @eval function Base.show(
-        io::IO, ::MIME{Symbol($mime)}, plt::SyncPlot,
-        width::Union{Nothing,Int}=nothing,
-        height::Union{Nothing,Int}=nothing,
-        scale::Union{Nothing,Real}=nothing,
-    )
-        savefig(io, plt.plot, format=$fmt)
-    end
+    @eval Base.show(
+        io::IO, ::MIME{Symbol($mime)}, plt::SyncPlot;
+        kwargs...
+    ) = savefig(io, plt.plot; format=$fmt, kwargs...)
 end
