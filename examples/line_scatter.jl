@@ -1,4 +1,7 @@
-using PlotlyJS, DataFrames, CSV, Dates, HTTP
+using PlotlyJS, DataFrames, CSV, Dates
+
+const DATA_DIR = normpath(joinpath(dirname(pathof(PlotlyJS)), joinpath("..", "examples", "data"))); # hide
+nothing # hide
 
 function linescatter1()
     trace1 = scatter(;x=1:4, y=[10, 15, 13, 17], mode="markers")
@@ -158,11 +161,11 @@ function batman()
     plot(traces, Layout(title="Batman"))
 end
 
-function dumbell()
-    # reference: https://plot.ly/r/dumbbell-plots/
-    # read Data into dataframe
-    url = "https://raw.githubusercontent.com/plotly/datasets/master/school_earnings.csv"
-    df = DataFrame(CSV.File(HTTP.get(url).body))
+function dumbbell()
+    # Reference: https://plotly.com/r/dumbbell-plots/
+    # Source: "https://raw.githubusercontent.com/plotly/datasets/master/school_earnings.csv"
+    # read data into DataFrame:
+    df = CSV.read(joinpath(DATA_DIR, "school_earnings.csv"), DataFrame)
 
     # sort dataframe by male earnings
     df = sort(df, :Men, rev=false)
