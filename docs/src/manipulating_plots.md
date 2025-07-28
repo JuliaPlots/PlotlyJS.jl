@@ -138,70 +138,56 @@ More examples are being worked on at this time (2021-07-14), but for now you can
 
 ## Saving figures
 
-
-Figures can be saved in a variety of formats using the `savefig` function.
+Figures can be saved in a variety of formats using the [`savefig`](@ref) function.
 
 !!! note
-   Note that the docs below are shown for the `PlotlyBase.Plot` type, but are also defined for `PlotlyJS.SyncPlot`. Thus, you can use these methods after calling either `plot` or `Plot`.
+    Note that the docs below are shown for the `PlotlyBase.Plot` type, but are also defined for `PlotlyJS.SyncPlot`.
+    Thus, you can use these methods after calling either `plot` or `Plot`.
 
-This function has a few methods:
+The `savefig` function can be called in a few ways:
 
-**1**
+**Save into a file**
+
+`savefig(p, filename)` saves the plot `p` into `filename`.
+Unless explicitly specified, the format of the file is inferred from the `filename` extension.
+The examples demonstrate the supported formats:
+
+```julia
+savefig(p, "output_filename.pdf")
+savefig(p, "output_filename.html")
+savefig(p, "output_filename.json")
+savefig(p, "output_filename.png")
+savefig(p, "output_filename.svg")
+savefig(p, "output_filename.jpeg")
+savefig(p, "output_filename.webp")
+```
+
+**Save into a stream**
+
+`savefig(io, p)` saves the plot `p` into the open `io` stream.
+The figure format could be specified with the `format` keyword, the default format is *PNG*.
+
+**Display on the screen**
+
+*PlotlyJS.jl* overloads the `Base.show` method to hook into Julia's rich display system:
+```julia
+Base.show(io::IO, ::MIME, p::Union{PlotlyBase.Plot})
+```
+Internally, this `Base.show` implementation calls `savefig(io, p)`,
+and the `MIME` argument allows to specify the output format.
+
+The following MIME formats are supported:
+* `::MIME"application/pdf`
+* `::MIME"image/png`
+* `::MIME"image/svg+xml`
+* `::MIME"image/eps`
+* `::MIME"image/jpeg`
+* `::MIME"application/json"`
+* `::MIME"application/json; charset=UTF-8"`
 
 ```@docs
-savefig(::Union{PlotlyBase.Plot}, ::String)
+savefig
 ```
-
-When using this method the format of the file is inferred based on the extension
-of the second argument. The examples below show the possible export formats:
-
-```julia
-savefig(p::Union{Plot,SyncPlot}, "output_filename.pdf")
-savefig(p::Union{Plot,SyncPlot}, "output_filename.html")
-savefig(p::Union{Plot,SyncPlot}, "output_filename.json")
-savefig(p::Union{Plot,SyncPlot}, "output_filename.png")
-savefig(p::Union{Plot,SyncPlot}, "output_filename.svg")
-savefig(p::Union{Plot,SyncPlot}, "output_filename.jpeg")
-savefig(p::Union{Plot,SyncPlot}, "output_filename.webp")
-```
-
-**2**
-
-```julia
-savefig(
-    io::IO,
-    p::Plot;
-    width::Union{Nothing,Int}=nothing,
-    height::Union{Nothing,Int}=nothing,
-    scale::Union{Nothing,Real}=nothing,
-    format::String="png"
-)
-```
-
-This method allows you to save a plot directly to an open IO stream.
-
-See the [`savefig(::IO, ::PlotlyBase.Plot)`](@ref) API docs for more information.
-
-**3**
-
-```julia
-Base.show(::IO, ::MIME, ::Union{PlotlyBase.Plot})
-```
-
-This method hooks into Julia's rich display system.
-
-Possible arguments for the second argument are shown in the examples below:
-
-```julia
-savefig(io::IO, ::MIME"application/pdf", p::Union{Plot,SyncPlot})
-savefig(io::IO, ::MIME"image/png", p::Union{Plot,SyncPlot})
-savefig(io::IO, ::MIME"image/svg+xml", p::Union{Plot,SyncPlot})
-savefig(io::IO, ::MIME"image/eps", p::Union{Plot,SyncPlot})
-savefig(io::IO, ::MIME"image/jpeg", p::Union{Plot,SyncPlot})
-savefig(io::IO, ::MIME"application/json", p::Union{Plot,SyncPlot})
-savefig(io::IO, ::MIME"application/json; charset=UTF-8", p::Union{Plot,SyncPlot})
-```
-
 !!! note
     You can also save the json for a figure by calling
     `savejson(p::Union{Plot,SyncPlot}, filename::String)`.
