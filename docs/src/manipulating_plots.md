@@ -141,8 +141,8 @@ More examples are being worked on at this time (2021-07-14), but for now you can
 Figures can be saved in a variety of formats using the [`savefig`](@ref) function.
 
 !!! note
-   Note that the docs below are shown for the `PlotlyBase.Plot` type, but are also defined for `PlotlyJS.SyncPlot`.
-   Thus, you can use these methods after calling either `plot` or `Plot`.
+    Note that the docs below are shown for the `PlotlyBase.Plot` type, but are also defined for `PlotlyJS.SyncPlot`.
+    Thus, you can use these methods after calling either `plot` or `Plot`.
 
 The `savefig` function can be called in a few ways:
 
@@ -177,13 +177,13 @@ Internally, this `Base.show` implementation calls `savefig(io, p)`,
 and the `MIME` argument allows to specify the output format.
 
 The following MIME formats are supported:
-    * `::MIME"application/pdf`
-    * `::MIME"image/png`
-    * `::MIME"image/svg+xml`
-    * `::MIME"image/eps`
-    * `::MIME"image/jpeg`
-    * `::MIME"application/json"`
-    * `::MIME"application/json; charset=UTF-8"`
+ * `::MIME"application/pdf`
+* `::MIME"image/png`
+* `::MIME"image/svg+xml`
+* `::MIME"image/eps`
+* `::MIME"image/jpeg`
+* `::MIME"application/json"`
+* `::MIME"application/json; charset=UTF-8"`
 
 ```@docs
 savefig
