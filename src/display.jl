@@ -20,7 +20,7 @@ function Base.show(io::IO, mm::MIME"text/html", p::SyncPlot)
     end
     show(io, mm, p.scope)
 end
-Base.show(io::IO, mm::MIME"application/prs.juno.plotpane+html", p::SyncPlot) = show(io, mm, p.scope)
+Base.show(io::IO, mm::MIME"juliavscode/html", p::SyncPlot) = show(io, mm, p.scope)
 
 # using @eval instead of Union{} to avoid ambiguity with other methods
 for mime in [MIME"text/plain", MIME"application/vnd.plotly.v1+json", MIME"juliavscode/html"]
