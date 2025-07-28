@@ -177,7 +177,7 @@ Internally, this `Base.show` implementation calls `savefig(io, p)`,
 and the `MIME` argument allows to specify the output format.
 
 The following MIME formats are supported:
- * `::MIME"application/pdf`
+* `::MIME"application/pdf`
 * `::MIME"image/png`
 * `::MIME"image/svg+xml`
 * `::MIME"image/eps`
