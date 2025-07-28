@@ -20,7 +20,12 @@ function Base.show(io::IO, mm::MIME"text/html", p::SyncPlot)
     end
     show(io, mm, p.scope)
 end
-Base.show(io::IO, mm::MIME"application/prs.juno.plotpane+html", p::SyncPlot) = show(io, mm, p.scope)
+Base.show(io::IO, mm::MIME"juliavscode/html", p::SyncPlot) = show(io, mm, p.scope)
+
+# using @eval instead of Union{} to avoid ambiguity with other methods
+for mime in [MIME"text/plain", MIME"application/vnd.plotly.v1+json", MIME"juliavscode/html"]
+    @eval Base.show(io::IO, mm::$mime, p::SyncPlot, args...; kwargs...) = show(io, mm, p.plot, args...; kwargs...)
+end
 
 function SyncPlot(
         p::Plot;
@@ -338,13 +343,6 @@ for f in (:extendtraces!, :prependtraces!)
                       maxpoints=-1)
             ($f)(p, update, [ind], maxpoints)
         end
-    end
-end
-
-
-for mime in ["text/plain", "application/vnd.plotly.v1+json", "application/prs.juno.plotpane+html"]
-    function Base.show(io::IO, m::MIME{Symbol(mime)}, p::SyncPlot, args...)
-        show(io, m, p.plot, args...)
     end
 end
 
