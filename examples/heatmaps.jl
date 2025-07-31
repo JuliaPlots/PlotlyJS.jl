@@ -9,7 +9,7 @@ function heatmap2()
     trace = heatmap(
         x=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         y=["Morning", "Afternoon", "Evening"],
-        z=rand(1:30, 5, 3)
+        z=rand(1:30, 3, 5)
     )
     plot(trace)
 end

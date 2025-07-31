@@ -1,4 +1,7 @@
-using PlotlyJS, HTTP, CSV, DataFrames
+using PlotlyJS, CSV, DataFrames
+
+const DATA_DIR = joinpath(dirname(pathof(PlotlyJS)), "..", "datasets"); # hide
+nothing # hide
 
 function ohlc1()
     t = ohlc(open=[33.0, 33.3, 33.5, 33.0, 34.1],
@@ -10,9 +13,8 @@ end
 
 function ohlc2()
     function get_ohlc(ticker; kwargs...)
-        res = HTTP.get("https://www.quandl.com/api/v3/datasets/WIKI/$(ticker)/data.csv?start_date=2017-01-01")
-        df = DataFrame(CSV.File(res.body))
-        ohlc(df, x=:Date, open=:Open, high=:High, low=:Low, close=:Close; kwargs...)
+        df = CSV.read(joinpath(DATA_DIR, "$(ticker)_stock_data.csv"), DataFrame)
+        ohlc(df, x=:timestamp, open=:open, high=:high, low=:low, close=:close; kwargs...)
     end
 
     p1 = plot(get_ohlc("AAPL", name="Apple"), Layout(title="Apple"))
@@ -31,9 +33,8 @@ end
 
 function candlestick2()
     function get_candlestick(ticker; kwargs...)
-        res = HTTP.get("https://www.quandl.com/api/v3/datasets/WIKI/$(ticker)/data.csv?start_date=2017-01-01")
-        df = DataFrame(CSV.File(res.body))
-        candlestick(df, x=:Date, open=:Open, high=:High, low=:Low, close=:Close; kwargs...)
+        df = CSV.read(joinpath(DATA_DIR, "$(ticker)_stock_data.csv"), DataFrame)
+        candlestick(df, x=:timestamp, open=:open, high=:high, low=:low, close=:close; kwargs...)
     end
 
     p1 = plot(get_candlestick("AAPL", name="Apple"), Layout(title="Apple"))

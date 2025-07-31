@@ -1,7 +1,10 @@
 # Line Scatter
 
 ```@example line_scatter
-using PlotlyJS, DataFrames, CSV, Dates, HTTP
+using PlotlyJS, DataFrames, CSV, Dates
+
+const DATA_DIR = joinpath(dirname(pathof(PlotlyJS)), "..", "datasets"); # hide
+nothing # hide
 ```
 
 ```@example line_scatter
@@ -184,11 +187,11 @@ batman()
 ```
 
 ```@example line_scatter
-function dumbell()
-    # reference: https://plot.ly/r/dumbbell-plots/
-    # read Data into dataframe
-    url = "https://raw.githubusercontent.com/plotly/datasets/master/school_earnings.csv"
-    df = DataFrame(CSV.File(HTTP.get(url).body))
+function dumbbell()
+    # Reference: https://plotly.com/r/dumbbell-plots/
+    # Source: "https://raw.githubusercontent.com/plotly/datasets/master/school_earnings.csv"
+    # read data into DataFrame:
+    df = CSV.read(joinpath(DATA_DIR, "school_earnings.csv"), DataFrame)
 
     # sort dataframe by male earnings
     df = sort(df, :Men, rev=false)
@@ -210,7 +213,7 @@ function dumbell()
 
     plot(data, layout)
 end
-dumbell()
+dumbbell()
 ```
 
 ```@example line_scatter
