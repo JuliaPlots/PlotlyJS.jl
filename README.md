@@ -1,6 +1,6 @@
 # PlotlyJS
 
-[_plotlyjs]: 'https://plotly.com/javascript
+[_plotlyjs]: https://plotly.com/javascript/
 
 [docs-img]: https://img.shields.io/badge/docs-stable-blue.svg
 [docs-url]: http://juliaplots.org/PlotlyJS.jl/stable
