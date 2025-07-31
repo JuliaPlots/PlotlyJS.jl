@@ -3,7 +3,7 @@ if (typeof require !== "undefined") {
   require.undef("plotly");
   requirejs.config({
     paths: {
-      plotly: ["https://cdn.plot.ly/plotly-2.3.0.min"],
+      plotly: ["https://cdn.plot.ly/plotly-2.35.2.min"],
     },
   });
   require(["plotly"], function (Plotly) {

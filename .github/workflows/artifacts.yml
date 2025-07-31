@@ -2,6 +2,9 @@
 
 name: Artifacts
 
+env:
+    PLOTLY_VER: 2.35.2
+
 # Controls when the action will run.
 on:
   # Allows you to run this workflow manually from the Actions tab, do not run automatically
