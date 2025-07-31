@@ -1,6 +1,13 @@
-using PlotlyJS, CSV, DataFrames, RDatasets, Colors, Distributions, LinearAlgebra
+using PlotlyJS
+using DataFrames
 
-const DATA_DIR = normpath(joinpath(dirname(pathof(PlotlyJS)), joinpath("..", "examples", "data"))); # hide
+import Colors: color, RGB
+import CSV
+import Distributions: MvNormal
+import LinearAlgebra
+import RDatasets
+
+const DATA_DIR = joinpath(dirname(pathof(PlotlyJS)), "..", "datasets"); # hide
 nothing # hide
 
 function random_line()
@@ -100,7 +107,7 @@ function clustering_alpha_shapes()
 end
 
 function scatter_3d()
-    Σ = fill(0.5, 3, 3) + Diagonal([0.5, 0.5, 0.5])
+    Σ = fill(0.5, 3, 3) + LinearAlgebra.Diagonal([0.5, 0.5, 0.5])
     obs1 = rand(MvNormal(zeros(3), Σ), 200)'
     obs2 = rand(MvNormal(zeros(3), 0.5Σ), 100)'
 

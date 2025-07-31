@@ -1,6 +1,6 @@
 using PlotlyJS, CSV, DataFrames
 
-const DATA_DIR = normpath(joinpath(dirname(pathof(PlotlyJS)), joinpath("..", "examples", "data"))); # hide
+const DATA_DIR = joinpath(dirname(pathof(PlotlyJS)), "..", "datasets"); # hide
 nothing # hide
 
 function ohlc1()

@@ -1,7 +1,10 @@
 # Tables
 
 ```@example tables
-using PlotlyJS, DataFrames, CSV, HTTP
+using PlotlyJS, DataFrames, CSV
+
+const DATA_DIR = joinpath(dirname(pathof(PlotlyJS)), "..", "datasets"); # hide
+nothing # hide
 ```
 
 ```@example tables
@@ -80,8 +83,9 @@ table2a()
 
 ```@example tables
 function table3()
-    url = "https://raw.githubusercontent.com/plotly/datasets/master/Mining-BTC-180.csv"
-    df = DataFrame(CSV.File(HTTP.get(url).body))
+    # Source: "https://raw.githubusercontent.com/plotly/datasets/master/Mining-BTC-180.csv"
+    # Read data into DataFrame:
+    df = CSV.read(joinpath(DATA_DIR, "Mining-BTC-180.csv"), DataFrame)
 
     trace = table(
         columnwidth=[200, 500, 600, 600, 400, 400, 600, 600, 600],

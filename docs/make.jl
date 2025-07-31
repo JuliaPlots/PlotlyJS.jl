@@ -7,8 +7,8 @@ PlotlyJS.set_default_renderer(PlotlyJS.DOCS)
 const THIS_DIR = dirname(@__FILE__)
 
 # used in examples
-using Distributions, HTTP, DataFrames, RDatasets, Colors, CSV, JSON
-using Random, Dates, LinearAlgebra, DelimitedFiles
+#using Distributions, DataFrames, RDatasets, Colors, CSV, JSON
+#using Random, Dates, LinearAlgebra, DelimitedFiles
 
 # to override display_dict below
 # import Documenter.Utilities: display_dict, limitstringmime
@@ -101,10 +101,14 @@ handle_examples()
 
 makedocs(
     sitename="PlotlyJS",
-    format=Documenter.HTML(
+    format=Documenter.HTML(;
+        prettyurls = (get(ENV, "CI", nothing) == "true") || haskey(ENV, "GITHUB_ACTIONS"),
         assets=[
-           "include_plotlyjs.js"
-        ]
+           "assets/include_plotlyjs.js"
+        ],
+        example_size_threshold = 2^20, # 1 MiB
+        size_threshold_warn = 400 * 2^10, # 400 KiB
+        size_threshold = 2^20, # 1 MiB
     ),
     modules=[PlotlyJS, PlotlyBase],
     linkcheck=true,
@@ -142,10 +146,14 @@ makedocs(
 # Documenter can also automatically deploy documentation to gh-pages.
 # See "Hosting Documentation" and deploydocs() in the Documenter manual
 # for more information.
+# https://documenter.juliadocs.org/dev/man/hosting/
+# https://documenter.juliadocs.org/dev/lib/public/#Documenter.deploydocs
+# 
 #= deploydocs(
     repo = "<repository url>"
 ) =#
 
 deploydocs(
     repo="github.com/JuliaPlots/PlotlyJS.jl.git",
+    push_preview = true
 )

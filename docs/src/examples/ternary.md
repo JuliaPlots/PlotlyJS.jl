@@ -2,6 +2,9 @@
 
 ```@example ternary
 using PlotlyJS, JSON
+
+const DATA_DIR = joinpath(dirname(pathof(PlotlyJS)), "..", "datasets"); # hide
+nothing # hide
 ```
 
 ```@example ternary
@@ -67,10 +70,11 @@ function filled_ternary()
         )
     end
 
-    fn = tempname()
-    download("https://gist.githubusercontent.com/davenquinn/988167471993bc2ece29/raw/f38d9cb3dd86e315e237fde5d65e185c39c931c2/data.json", fn)
-    raw_data = JSON.parsefile(fn)
-    rm(fn)
+    data_file = joinpath(DATA_DIR, "soil_data.json")
+    # Source (soil_data.json): https://commons.wikimedia.org/wiki/File:SoilTextureTriangle.svg
+    # via: https://gist.github.com/tomgp/7766353
+    # via: https://gist.githubusercontent.com/davenquinn/988167471993bc2ece29/raw/f38d9cb3dd86e315e237fde5d65e185c39c931c2/data.json
+    raw_data = JSON.parsefile(data_file)
 
     colors = [
         "#8dd3c7",

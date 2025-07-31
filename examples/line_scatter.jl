@@ -1,6 +1,6 @@
 using PlotlyJS, DataFrames, CSV, Dates
 
-const DATA_DIR = normpath(joinpath(dirname(pathof(PlotlyJS)), joinpath("..", "examples", "data"))); # hide
+const DATA_DIR = joinpath(dirname(pathof(PlotlyJS)), "..", "datasets"); # hide
 nothing # hide
 
 function linescatter1()

@@ -1,7 +1,10 @@
 # Maps
 
 ```@example maps
-using PlotlyJS, DataFrames, CSV, HTTP
+using PlotlyJS, DataFrames, CSV
+
+const DATA_DIR = joinpath(dirname(pathof(PlotlyJS)), "..", "datasets"); # hide
+nothing # hide
 ```
 
 ```@example maps
@@ -26,9 +29,9 @@ maps1()
 
 ```@example maps
 function maps2()
-    # read Data into dataframe
-    url = "https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv"
-    df = DataFrame(CSV.File(HTTP.get(url).body))
+    # Source: "https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv"
+    # Read data into DataFrame:
+    df = CSV.read(joinpath(DATA_DIR, "2014_us_cities.csv"), DataFrame)
 
     trace = scattergeo(;locationmode="USA-states",
                         lat=df.lat,
