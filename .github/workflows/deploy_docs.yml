@@ -1,7 +1,8 @@
 name: Documenter
 on:
   push:
-    branches: [master]
+    branches:
+        - master
     tags: [v*]
   pull_request:
   workflow_dispatch:
@@ -12,11 +13,31 @@ concurrency:
 
 jobs:
   docdeploy:
+    # These permissions are needed to:
+    # - Deploy the documentation: https://documenter.juliadocs.org/stable/man/hosting/#Permissions
+    # - Delete old caches: https://github.com/julia-actions/cache#usage
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: read
+      statuses: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: julia-actions/julia-buildpkg@latest
-      - uses: julia-actions/julia-docdeploy@latest
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1'
+          show-versioninfo: true # versioninfo will be printed to the action log
+      - uses: julia-actions/cache@v2
+#      - uses: julia-actions/julia-buildpkg@v1  # if package requires Pkg.build()
+      - name: Install dependencies
+        shell: julia --color=yes --project=docs {0}
+        run: |
+          using Pkg
+          Pkg.develop(PackageSpec(path=pwd()))
+          Pkg.instantiate()
+      - name: Build and deploy
+        run: julia --color=yes --project=docs docs/make.jl
         env:
-          DOCUMENTER_KEY: ${{ secrets.COMPATHELPER_PRIV }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # If authenticating with GitHub Actions token
+          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # If authenticating with SSH deploy key
