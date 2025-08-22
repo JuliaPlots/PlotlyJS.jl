@@ -32,7 +32,7 @@ const _js_path = joinpath(artifact"plotly-artifacts", "plotly.min.js")
 const _js_version = include(joinpath(_pkg_root, "deps", "plotly_cdn_version.jl"))
 const _js_cdn_path = "https://cdn.plot.ly/plotly-$(_js_version).min.js"
 const _mathjax_cdn_path =
-    "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG"
+    "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_SVG"
 
 struct PlotlyJSDisplay <: AbstractDisplay end
 
