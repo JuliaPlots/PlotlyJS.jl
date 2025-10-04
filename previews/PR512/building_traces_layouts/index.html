@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Building Blocks · PlotlyJS</title><meta name="title" content="Building Blocks · PlotlyJS"/><meta property="og:title" content="Building Blocks · PlotlyJS"/><meta property="twitter:title" content="Building Blocks · PlotlyJS"/><meta name="description" content="Documentation for PlotlyJS."/><meta property="og:description" content="Documentation for PlotlyJS."/><meta property="twitter:description" content="Documentation for PlotlyJS."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><script src="../assets/include_plotlyjs.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">PlotlyJS</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><span class="tocitem">User Guide</span><ul><li><a class="tocitem" href="../basics/">Preliminaries</a></li><li class="is-active"><a class="tocitem" href>Building Blocks</a><ul class="internal"><li><a class="tocitem" href="#Traces"><span>Traces</span></a></li><li><a class="tocitem" href="#Layouts"><span>Layouts</span></a></li><li><a class="tocitem" href="#attr"><span><code>attr</code></span></a></li><li><a class="tocitem" href="#Using-DataFrames"><span>Using <code>DataFrame</code>s</span></a></li></ul></li><li><a class="tocitem" href="../syncplots/">Putting it together</a></li><li><a class="tocitem" href="../manipulating_plots/">Working with plots</a></li><li><a class="tocitem" href="../contributing/">Contributing</a></li></ul></li><li><span class="tocitem">Examples</span><ul><li><a class="tocitem" href="../examples/3d/">3d</a></li><li><a class="tocitem" href="../examples/area/">Area</a></li><li><a class="tocitem" href="../examples/bar/">Bar</a></li><li><a class="tocitem" href="../examples/box_plots/">Box Plots</a></li><li><a class="tocitem" href="../examples/contour/">Contour</a></li><li><a class="tocitem" href="../examples/finance/">Financial Charts</a></li><li><a class="tocitem" href="../examples/heatmaps/">Heatmaps</a></li><li><a class="tocitem" href="../examples/histograms/">Histograms</a></li><li><a class="tocitem" href="../examples/line_scatter/">Line and Scatter</a></li><li><a class="tocitem" href="../examples/maps/">Maps</a></li><li><a class="tocitem" href="../examples/shapes/">Shapes</a></li><li><a class="tocitem" href="../examples/subplots/">Subplots</a></li><li><a class="tocitem" href="../examples/tables/">Tables</a></li><li><a class="tocitem" href="../examples/ternary/">Ternary</a></li><li><a class="tocitem" href="../examples/time_series/">Time Series</a></li><li><a class="tocitem" href="../examples/violin/">Violin</a></li></ul></li><li><a class="tocitem" href="../api/">API Docs</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">User Guide</a></li><li class="is-active"><a href>Building Blocks</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Building Blocks</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaPlots/PlotlyJS.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaPlots/PlotlyJS.jl/blob/master/docs/src/building_traces_layouts.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Building-Blocks"><a class="docs-heading-anchor" href="#Building-Blocks">Building Blocks</a><a id="Building-Blocks-1"></a><a class="docs-heading-anchor-permalink" href="#Building-Blocks" title="Permalink"></a></h1><p>Recall that the <code>Plotly.newPlot</code> javascript function expects to receive an array of <code>trace</code> objects and, optionally, a <code>layout</code> object. In this section we will learn how to build these object in Julia.</p><h2 id="Traces"><a class="docs-heading-anchor" href="#Traces">Traces</a><a id="Traces-1"></a><a class="docs-heading-anchor-permalink" href="#Traces" title="Permalink"></a></h2><p>A <code>Plot</code> instance will have a vector of <code>trace</code>s. These should each be a subtype of <code>AbstractTrace</code>.</p><p>PlotlyJS.jl defines one such subtype:</p><pre><code class="language-julia hljs">mutable struct GenericTrace{T &lt;: AbstractDict{Symbol,Any}} &lt;: AbstractTrace
+    fields::T
+end</code></pre><p>The <code>fields</code> is an AbstractDict object that maps trace attributes to their values.</p><p>We create this wrapper around a Dict to provide some convnient syntax as described below.</p><p>Let&#39;s consider an example. Suppose we would like to build the following JSON object:</p><pre><code class="language-json hljs">{
+  &quot;type&quot;: &quot;scatter&quot;,
+  &quot;x&quot;: [1, 2, 3, 4, 5],
+  &quot;y&quot;: [1, 6, 3, 6, 1],
+  &quot;mode&quot;: &quot;markers+text&quot;,
+  &quot;name&quot;: &quot;Team A&quot;,
+  &quot;text&quot;: [&quot;A-1&quot;, &quot;A-2&quot;, &quot;A-3&quot;, &quot;A-4&quot;, &quot;A-5&quot;],
+  &quot;textposition&quot;: &quot;top center&quot;,
+  &quot;textfont&quot;: {
+    &quot;family&quot;:  &quot;Raleway, sans-serif&quot;
+  },
+  &quot;marker&quot;: { &quot;size&quot;: 12 }
+}</code></pre><p>One way to do this in Julia is:</p><pre><code class="language-julia hljs">fields = Dict{Symbol,Any}(:type =&gt; &quot;scatter&quot;,
+                          :x =&gt; [1, 2, 3, 4, 5],
+                          :y =&gt; [1, 6, 3, 6, 1],
+                          :mode =&gt; &quot;markers+text&quot;,
+                          :name =&gt; &quot;Team A&quot;,
+                          :text =&gt; [&quot;A-1&quot;, &quot;A-2&quot;, &quot;A-3&quot;, &quot;A-4&quot;, &quot;A-5&quot;],
+                          :textposition =&gt; &quot;top center&quot;,
+                          :textfont =&gt; Dict(:family =&gt;  &quot;Raleway, sans-serif&quot;),
+                          :marker =&gt; Dict(:size =&gt; 12))
+GenericTrace(&quot;scatter&quot;, fields)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">scatter with fields marker, mode, name, text, textfont, textposition, type, x, and y
+</code></pre><p>A more convenient syntax is:</p><pre><code class="language-julia hljs">t1 = scatter(;x=[1, 2, 3, 4, 5],
+              y=[1, 6, 3, 6, 1],
+              mode=&quot;markers+text&quot;,
+              name=&quot;Team A&quot;,
+              text=[&quot;A-1&quot;, &quot;A-2&quot;, &quot;A-3&quot;, &quot;A-4&quot;, &quot;A-5&quot;],
+              textposition=&quot;top center&quot;,
+              textfont_family=&quot;Raleway, sans-serif&quot;,
+              marker_size=12)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">scatter with fields marker, mode, name, text, textfont, textposition, type, x, and y
+</code></pre><p>Notice a few things:</p><ul><li>The trace <code>type</code> became the function name. There is a similar method for all</li></ul><p>plotly.js traces types.</p><ul><li>All other trace attributes were set using keyword arguments. This allows us</li></ul><p>to avoid typing out the symbol prefix (<code>:</code>) and the arrows (<code>=&gt;</code>) that were necessary when constructing the <code>Dict</code></p><ul><li>We can set nested attributes using underscores. Notice that the JSON</li></ul><p><code>&quot;marker&quot;: { &quot;size&quot;: 12 }</code> was written <code>marker_size=12</code>.</p><p>We can verify that this is indeed equivalent JSON by printing the JSON: (note the order of the attributes is different, but the content is identical):</p><pre><code class="language-julia hljs">print(JSON.json(t1, 2))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">{
+  &quot;textfont&quot;: {
+    &quot;family&quot;: &quot;Raleway, sans-serif&quot;
+  },
+  &quot;mode&quot;: &quot;markers+text&quot;,
+  &quot;x&quot;: [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  &quot;textposition&quot;: &quot;top center&quot;,
+  &quot;y&quot;: [
+    1,
+    6,
+    3,
+    6,
+    1
+  ],
+  &quot;type&quot;: &quot;scatter&quot;,
+  &quot;name&quot;: &quot;Team A&quot;,
+  &quot;text&quot;: [
+    &quot;A-1&quot;,
+    &quot;A-2&quot;,
+    &quot;A-3&quot;,
+    &quot;A-4&quot;,
+    &quot;A-5&quot;
+  ],
+  &quot;marker&quot;: {
+    &quot;size&quot;: 12
+  }
+}</code></pre><h3 id="Accessing-attributes"><a class="docs-heading-anchor" href="#Accessing-attributes">Accessing attributes</a><a id="Accessing-attributes-1"></a><a class="docs-heading-anchor-permalink" href="#Accessing-attributes" title="Permalink"></a></h3><p>If we then wanted to extract a particular attribute, we can do so using <code>getindex(t1, :attrname)</code>, or the syntactic sugar <code>t1[:attrname]</code>. Note that both symbols and strings can be used in a call to <code>getindex</code>:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; t1[&quot;marker&quot;]</code><code class="nohighlight hljs ansi" style="display:block;">Dict{Any, Any} with 1 entry:
+  :size =&gt; 12</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; t1[:marker]</code><code class="nohighlight hljs ansi" style="display:block;">Dict{Any, Any} with 1 entry:
+  :size =&gt; 12</code></pre><p>To access a nested property use <code>parent.child</code></p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; t1[&quot;textfont.family&quot;]</code><code class="nohighlight hljs ansi" style="display:block;">&quot;Raleway, sans-serif&quot;</code></pre><h3 id="Setting-additional-attributes"><a class="docs-heading-anchor" href="#Setting-additional-attributes">Setting additional attributes</a><a id="Setting-additional-attributes-1"></a><a class="docs-heading-anchor-permalink" href="#Setting-additional-attributes" title="Permalink"></a></h3><p>We can also set additional attributes. Suppose we wanted to set <code>marker.color</code> to be red. We can do this with a call to <code>setindex!(t1, &quot;red&quot;, :marker_color)</code>, or equivalently <code>t1[&quot;marker_color&quot;] = &quot;red&quot;</code>:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; t1[&quot;marker_color&quot;] = &quot;red&quot;</code><code class="nohighlight hljs ansi" style="display:block;">&quot;red&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; println(JSON.json(t1, 2))</code><code class="nohighlight hljs ansi" style="display:block;">{
+  &quot;textfont&quot;: {
+    &quot;family&quot;: &quot;Raleway, sans-serif&quot;
+  },
+  &quot;mode&quot;: &quot;markers+text&quot;,
+  &quot;x&quot;: [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  &quot;textposition&quot;: &quot;top center&quot;,
+  &quot;y&quot;: [
+    1,
+    6,
+    3,
+    6,
+    1
+  ],
+  &quot;type&quot;: &quot;scatter&quot;,
+  &quot;name&quot;: &quot;Team A&quot;,
+  &quot;text&quot;: [
+    &quot;A-1&quot;,
+    &quot;A-2&quot;,
+    &quot;A-3&quot;,
+    &quot;A-4&quot;,
+    &quot;A-5&quot;
+  ],
+  &quot;marker&quot;: {
+    &quot;color&quot;: &quot;red&quot;,
+    &quot;size&quot;: 12
+  }
+}</code></pre><p>Notice how the <code>color</code> attribute was correctly added within the existing <code>marker</code> attribute (alongside <code>size</code>), instead of replacing the <code>marker</code> attribute.</p><p>You can also use this syntax to add completely new nested attributes:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; t1[&quot;line_width&quot;] = 5</code><code class="nohighlight hljs ansi" style="display:block;">5</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; println(JSON.json(t1, 2))</code><code class="nohighlight hljs ansi" style="display:block;">{
+  &quot;textfont&quot;: {
+    &quot;family&quot;: &quot;Raleway, sans-serif&quot;
+  },
+  &quot;mode&quot;: &quot;markers+text&quot;,
+  &quot;line&quot;: {
+    &quot;width&quot;: 5
+  },
+  &quot;x&quot;: [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  &quot;textposition&quot;: &quot;top center&quot;,
+  &quot;y&quot;: [
+    1,
+    6,
+    3,
+    6,
+    1
+  ],
+  &quot;type&quot;: &quot;scatter&quot;,
+  &quot;name&quot;: &quot;Team A&quot;,
+  &quot;text&quot;: [
+    &quot;A-1&quot;,
+    &quot;A-2&quot;,
+    &quot;A-3&quot;,
+    &quot;A-4&quot;,
+    &quot;A-5&quot;
+  ],
+  &quot;marker&quot;: {
+    &quot;color&quot;: &quot;red&quot;,
+    &quot;size&quot;: 12
+  }
+}</code></pre><h2 id="Layouts"><a class="docs-heading-anchor" href="#Layouts">Layouts</a><a id="Layouts-1"></a><a class="docs-heading-anchor-permalink" href="#Layouts" title="Permalink"></a></h2><p>The <code>Layout</code> type is defined as</p><pre><code class="language-julia hljs">mutable struct Layout{T &lt;: AbstractDict{Symbol,Any}} &lt;: AbstractLayout
+    fields::T
+    subplots::_Maybe{Subplots}
+end</code></pre><p>You can construct a layout using the same convenient keyword argument syntax that we used for traces:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; l = Layout(;title=&quot;Penguins&quot;,
+                   xaxis_range=[0, 42.0], xaxis_title=&quot;fish&quot;,
+                   yaxis_title=&quot;Weight&quot;,
+                   xaxis_showgrid=true, yaxis_showgrid=true,
+                   legend_y=1.15, legend_x=0.7)</code><code class="nohighlight hljs ansi" style="display:block;">layout with fields legend, margin, template, title, xaxis, and yaxis</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; println(JSON.json(l, 2))</code><code class="nohighlight hljs ansi" style="display:block;">{
+  &quot;xaxis&quot;: {
+    &quot;showgrid&quot;: true,
+    &quot;range&quot;: [
+      0.0,
+      42.0
+    ],
+    &quot;title&quot;: {
+      &quot;text&quot;: &quot;fish&quot;
+    }
+  },
+  &quot;template&quot;: {
+    &quot;layout&quot;: {
+      &quot;coloraxis&quot;: {
+        &quot;colorbar&quot;: {
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;outlinewidth&quot;: 0
+        }
+      },
+      &quot;xaxis&quot;: {
+        &quot;gridcolor&quot;: &quot;white&quot;,
+        &quot;zerolinewidth&quot;: 2,
+        &quot;title&quot;: {
+          &quot;standoff&quot;: 15
+        },
+        &quot;ticks&quot;: &quot;&quot;,
+        &quot;zerolinecolor&quot;: &quot;white&quot;,
+        &quot;automargin&quot;: true,
+        &quot;linecolor&quot;: &quot;white&quot;
+      },
+      &quot;hovermode&quot;: &quot;closest&quot;,
+      &quot;paper_bgcolor&quot;: &quot;white&quot;,
+      &quot;geo&quot;: {
+        &quot;showlakes&quot;: true,
+        &quot;showland&quot;: true,
+        &quot;landcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;bgcolor&quot;: &quot;white&quot;,
+        &quot;subunitcolor&quot;: &quot;white&quot;,
+        &quot;lakecolor&quot;: &quot;white&quot;
+      },
+      &quot;colorscale&quot;: {
+        &quot;sequential&quot;: [
+          [
+            0.0,
+            &quot;#0d0887&quot;
+          ],
+          [
+            0.1111111111111111,
+            &quot;#46039f&quot;
+          ],
+          [
+            0.2222222222222222,
+            &quot;#7201a8&quot;
+          ],
+          [
+            0.3333333333333333,
+            &quot;#9c179e&quot;
+          ],
+          [
+            0.4444444444444444,
+            &quot;#bd3786&quot;
+          ],
+          [
+            0.5555555555555556,
+            &quot;#d8576b&quot;
+          ],
+          [
+            0.6666666666666666,
+            &quot;#ed7953&quot;
+          ],
+          [
+            0.7777777777777778,
+            &quot;#fb9f3a&quot;
+          ],
+          [
+            0.8888888888888888,
+            &quot;#fdca26&quot;
+          ],
+          [
+            1.0,
+            &quot;#f0f921&quot;
+          ]
+        ],
+        &quot;diverging&quot;: [
+          [
+            0,
+            &quot;#8e0152&quot;
+          ],
+          [
+            0.1,
+            &quot;#c51b7d&quot;
+          ],
+          [
+            0.2,
+            &quot;#de77ae&quot;
+          ],
+          [
+            0.3,
+            &quot;#f1b6da&quot;
+          ],
+          [
+            0.4,
+            &quot;#fde0ef&quot;
+          ],
+          [
+            0.5,
+            &quot;#f7f7f7&quot;
+          ],
+          [
+            0.6,
+            &quot;#e6f5d0&quot;
+          ],
+          [
+            0.7,
+            &quot;#b8e186&quot;
+          ],
+          [
+            0.8,
+            &quot;#7fbc41&quot;
+          ],
+          [
+            0.9,
+            &quot;#4d9221&quot;
+          ],
+          [
+            1,
+            &quot;#276419&quot;
+          ]
+        ],
+        &quot;sequentialminus&quot;: [
+          [
+            0.0,
+            &quot;#0d0887&quot;
+          ],
+          [
+            0.1111111111111111,
+            &quot;#46039f&quot;
+          ],
+          [
+            0.2222222222222222,
+            &quot;#7201a8&quot;
+          ],
+          [
+            0.3333333333333333,
+            &quot;#9c179e&quot;
+          ],
+          [
+            0.4444444444444444,
+            &quot;#bd3786&quot;
+          ],
+          [
+            0.5555555555555556,
+            &quot;#d8576b&quot;
+          ],
+          [
+            0.6666666666666666,
+            &quot;#ed7953&quot;
+          ],
+          [
+            0.7777777777777778,
+            &quot;#fb9f3a&quot;
+          ],
+          [
+            0.8888888888888888,
+            &quot;#fdca26&quot;
+          ],
+          [
+            1.0,
+            &quot;#f0f921&quot;
+          ]
+        ]
+      },
+      &quot;yaxis&quot;: {
+        &quot;gridcolor&quot;: &quot;white&quot;,
+        &quot;zerolinewidth&quot;: 2,
+        &quot;title&quot;: {
+          &quot;standoff&quot;: 15
+        },
+        &quot;ticks&quot;: &quot;&quot;,
+        &quot;zerolinecolor&quot;: &quot;white&quot;,
+        &quot;automargin&quot;: true,
+        &quot;linecolor&quot;: &quot;white&quot;
+      },
+      &quot;shapedefaults&quot;: {
+        &quot;line&quot;: {
+          &quot;color&quot;: &quot;#2a3f5f&quot;
+        }
+      },
+      &quot;hoverlabel&quot;: {
+        &quot;align&quot;: &quot;left&quot;
+      },
+      &quot;mapbox&quot;: {
+        &quot;style&quot;: &quot;light&quot;
+      },
+      &quot;polar&quot;: {
+        &quot;angularaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;bgcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;radialaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;autotypenumbers&quot;: &quot;strict&quot;,
+      &quot;font&quot;: {
+        &quot;color&quot;: &quot;#2a3f5f&quot;
+      },
+      &quot;ternary&quot;: {
+        &quot;baxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;bgcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;caxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;aaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;annotationdefaults&quot;: {
+        &quot;arrowhead&quot;: 0,
+        &quot;arrowwidth&quot;: 1,
+        &quot;arrowcolor&quot;: &quot;#2a3f5f&quot;
+      },
+      &quot;plot_bgcolor&quot;: &quot;#E5ECF6&quot;,
+      &quot;title&quot;: {
+        &quot;x&quot;: 0.05
+      },
+      &quot;scene&quot;: {
+        &quot;xaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;zaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;yaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;colorway&quot;: [
+        &quot;#636efa&quot;,
+        &quot;#EF553B&quot;,
+        &quot;#00cc96&quot;,
+        &quot;#ab63fa&quot;,
+        &quot;#FFA15A&quot;,
+        &quot;#19d3f3&quot;,
+        &quot;#FF6692&quot;,
+        &quot;#B6E880&quot;,
+        &quot;#FF97FF&quot;,
+        &quot;#FECB52&quot;
+      ]
+    },
+    &quot;data&quot;: {
+      &quot;barpolar&quot;: [
+        {
+          &quot;type&quot;: &quot;barpolar&quot;,
+          &quot;marker&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;#E5ECF6&quot;,
+              &quot;width&quot;: 0.5
+            }
+          }
+        }
+      ],
+      &quot;carpet&quot;: [
+        {
+          &quot;aaxis&quot;: {
+            &quot;gridcolor&quot;: &quot;white&quot;,
+            &quot;endlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;minorgridcolor&quot;: &quot;white&quot;,
+            &quot;startlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;linecolor&quot;: &quot;white&quot;
+          },
+          &quot;type&quot;: &quot;carpet&quot;,
+          &quot;baxis&quot;: {
+            &quot;gridcolor&quot;: &quot;white&quot;,
+            &quot;endlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;minorgridcolor&quot;: &quot;white&quot;,
+            &quot;startlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;linecolor&quot;: &quot;white&quot;
+          }
+        }
+      ],
+      &quot;scatterpolar&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterpolar&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;parcoords&quot;: [
+        {
+          &quot;line&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          },
+          &quot;type&quot;: &quot;parcoords&quot;
+        }
+      ],
+      &quot;scatter&quot;: [
+        {
+          &quot;type&quot;: &quot;scatter&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram2dcontour&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;histogram2dcontour&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;contour&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;contour&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scattercarpet&quot;: [
+        {
+          &quot;type&quot;: &quot;scattercarpet&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;mesh3d&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;mesh3d&quot;
+        }
+      ],
+      &quot;surface&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;surface&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scattermapbox&quot;: [
+        {
+          &quot;type&quot;: &quot;scattermapbox&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;scattergeo&quot;: [
+        {
+          &quot;type&quot;: &quot;scattergeo&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram&quot;: [
+        {
+          &quot;type&quot;: &quot;histogram&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;pie&quot;: [
+        {
+          &quot;type&quot;: &quot;pie&quot;,
+          &quot;automargin&quot;: true
+        }
+      ],
+      &quot;choropleth&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;choropleth&quot;
+        }
+      ],
+      &quot;heatmapgl&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;heatmapgl&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;bar&quot;: [
+        {
+          &quot;type&quot;: &quot;bar&quot;,
+          &quot;error_y&quot;: {
+            &quot;color&quot;: &quot;#2a3f5f&quot;
+          },
+          &quot;error_x&quot;: {
+            &quot;color&quot;: &quot;#2a3f5f&quot;
+          },
+          &quot;marker&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;#E5ECF6&quot;,
+              &quot;width&quot;: 0.5
+            }
+          }
+        }
+      ],
+      &quot;heatmap&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;heatmap&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;contourcarpet&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;contourcarpet&quot;
+        }
+      ],
+      &quot;table&quot;: [
+        {
+          &quot;type&quot;: &quot;table&quot;,
+          &quot;header&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;white&quot;
+            },
+            &quot;fill&quot;: {
+              &quot;color&quot;: &quot;#C8D4E3&quot;
+            }
+          },
+          &quot;cells&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;white&quot;
+            },
+            &quot;fill&quot;: {
+              &quot;color&quot;: &quot;#EBF0F8&quot;
+            }
+          }
+        }
+      ],
+      &quot;scatter3d&quot;: [
+        {
+          &quot;line&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          },
+          &quot;type&quot;: &quot;scatter3d&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;scattergl&quot;: [
+        {
+          &quot;type&quot;: &quot;scattergl&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram2d&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;histogram2d&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scatterternary&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterternary&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;scatterpolargl&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterpolargl&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ]
+    }
+  },
+  &quot;legend&quot;: {
+    &quot;y&quot;: 1.15,
+    &quot;x&quot;: 0.7
+  },
+  &quot;margin&quot;: {
+    &quot;l&quot;: 50,
+    &quot;b&quot;: 50,
+    &quot;r&quot;: 50,
+    &quot;t&quot;: 60
+  },
+  &quot;title&quot;: &quot;Penguins&quot;,
+  &quot;yaxis&quot;: {
+    &quot;showgrid&quot;: true,
+    &quot;title&quot;: {
+      &quot;text&quot;: &quot;Weight&quot;
+    }
+  }
+}</code></pre><h2 id="attr"><a class="docs-heading-anchor" href="#attr"><code>attr</code></a><a id="attr-1"></a><a class="docs-heading-anchor-permalink" href="#attr" title="Permalink"></a></h2><p>There is a special function named <code>attr</code> that allows you to apply the same keyword magic we saw in the trace and layout functions, but to nested attributes. Let&#39;s revisit the previous example, but use <code>attr</code> to build up our <code>xaxis</code> and <code>legend</code>:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; l2 = Layout(;title=&quot;Penguins&quot;,
+                    xaxis=attr(range=[0, 42.0], title=&quot;fish&quot;, showgrid=true),
+                    yaxis_title=&quot;Weight&quot;, yaxis_showgrid=true,
+                    legend=attr(x=0.7, y=1.15))</code><code class="nohighlight hljs ansi" style="display:block;">layout with fields legend, margin, template, title, xaxis, and yaxis</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; println(JSON.json(l2, 2))</code><code class="nohighlight hljs ansi" style="display:block;">{
+  &quot;xaxis&quot;: {
+    &quot;showgrid&quot;: true,
+    &quot;range&quot;: [
+      0.0,
+      42.0
+    ],
+    &quot;title&quot;: &quot;fish&quot;
+  },
+  &quot;template&quot;: {
+    &quot;layout&quot;: {
+      &quot;coloraxis&quot;: {
+        &quot;colorbar&quot;: {
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;outlinewidth&quot;: 0
+        }
+      },
+      &quot;xaxis&quot;: {
+        &quot;gridcolor&quot;: &quot;white&quot;,
+        &quot;zerolinewidth&quot;: 2,
+        &quot;title&quot;: {
+          &quot;standoff&quot;: 15
+        },
+        &quot;ticks&quot;: &quot;&quot;,
+        &quot;zerolinecolor&quot;: &quot;white&quot;,
+        &quot;automargin&quot;: true,
+        &quot;linecolor&quot;: &quot;white&quot;
+      },
+      &quot;hovermode&quot;: &quot;closest&quot;,
+      &quot;paper_bgcolor&quot;: &quot;white&quot;,
+      &quot;geo&quot;: {
+        &quot;showlakes&quot;: true,
+        &quot;showland&quot;: true,
+        &quot;landcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;bgcolor&quot;: &quot;white&quot;,
+        &quot;subunitcolor&quot;: &quot;white&quot;,
+        &quot;lakecolor&quot;: &quot;white&quot;
+      },
+      &quot;colorscale&quot;: {
+        &quot;sequential&quot;: [
+          [
+            0.0,
+            &quot;#0d0887&quot;
+          ],
+          [
+            0.1111111111111111,
+            &quot;#46039f&quot;
+          ],
+          [
+            0.2222222222222222,
+            &quot;#7201a8&quot;
+          ],
+          [
+            0.3333333333333333,
+            &quot;#9c179e&quot;
+          ],
+          [
+            0.4444444444444444,
+            &quot;#bd3786&quot;
+          ],
+          [
+            0.5555555555555556,
+            &quot;#d8576b&quot;
+          ],
+          [
+            0.6666666666666666,
+            &quot;#ed7953&quot;
+          ],
+          [
+            0.7777777777777778,
+            &quot;#fb9f3a&quot;
+          ],
+          [
+            0.8888888888888888,
+            &quot;#fdca26&quot;
+          ],
+          [
+            1.0,
+            &quot;#f0f921&quot;
+          ]
+        ],
+        &quot;diverging&quot;: [
+          [
+            0,
+            &quot;#8e0152&quot;
+          ],
+          [
+            0.1,
+            &quot;#c51b7d&quot;
+          ],
+          [
+            0.2,
+            &quot;#de77ae&quot;
+          ],
+          [
+            0.3,
+            &quot;#f1b6da&quot;
+          ],
+          [
+            0.4,
+            &quot;#fde0ef&quot;
+          ],
+          [
+            0.5,
+            &quot;#f7f7f7&quot;
+          ],
+          [
+            0.6,
+            &quot;#e6f5d0&quot;
+          ],
+          [
+            0.7,
+            &quot;#b8e186&quot;
+          ],
+          [
+            0.8,
+            &quot;#7fbc41&quot;
+          ],
+          [
+            0.9,
+            &quot;#4d9221&quot;
+          ],
+          [
+            1,
+            &quot;#276419&quot;
+          ]
+        ],
+        &quot;sequentialminus&quot;: [
+          [
+            0.0,
+            &quot;#0d0887&quot;
+          ],
+          [
+            0.1111111111111111,
+            &quot;#46039f&quot;
+          ],
+          [
+            0.2222222222222222,
+            &quot;#7201a8&quot;
+          ],
+          [
+            0.3333333333333333,
+            &quot;#9c179e&quot;
+          ],
+          [
+            0.4444444444444444,
+            &quot;#bd3786&quot;
+          ],
+          [
+            0.5555555555555556,
+            &quot;#d8576b&quot;
+          ],
+          [
+            0.6666666666666666,
+            &quot;#ed7953&quot;
+          ],
+          [
+            0.7777777777777778,
+            &quot;#fb9f3a&quot;
+          ],
+          [
+            0.8888888888888888,
+            &quot;#fdca26&quot;
+          ],
+          [
+            1.0,
+            &quot;#f0f921&quot;
+          ]
+        ]
+      },
+      &quot;yaxis&quot;: {
+        &quot;gridcolor&quot;: &quot;white&quot;,
+        &quot;zerolinewidth&quot;: 2,
+        &quot;title&quot;: {
+          &quot;standoff&quot;: 15
+        },
+        &quot;ticks&quot;: &quot;&quot;,
+        &quot;zerolinecolor&quot;: &quot;white&quot;,
+        &quot;automargin&quot;: true,
+        &quot;linecolor&quot;: &quot;white&quot;
+      },
+      &quot;shapedefaults&quot;: {
+        &quot;line&quot;: {
+          &quot;color&quot;: &quot;#2a3f5f&quot;
+        }
+      },
+      &quot;hoverlabel&quot;: {
+        &quot;align&quot;: &quot;left&quot;
+      },
+      &quot;mapbox&quot;: {
+        &quot;style&quot;: &quot;light&quot;
+      },
+      &quot;polar&quot;: {
+        &quot;angularaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;bgcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;radialaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;autotypenumbers&quot;: &quot;strict&quot;,
+      &quot;font&quot;: {
+        &quot;color&quot;: &quot;#2a3f5f&quot;
+      },
+      &quot;ternary&quot;: {
+        &quot;baxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;bgcolor&quot;: &quot;#E5ECF6&quot;,
+        &quot;caxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;aaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;annotationdefaults&quot;: {
+        &quot;arrowhead&quot;: 0,
+        &quot;arrowwidth&quot;: 1,
+        &quot;arrowcolor&quot;: &quot;#2a3f5f&quot;
+      },
+      &quot;plot_bgcolor&quot;: &quot;#E5ECF6&quot;,
+      &quot;title&quot;: {
+        &quot;x&quot;: 0.05
+      },
+      &quot;scene&quot;: {
+        &quot;xaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;zaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        },
+        &quot;yaxis&quot;: {
+          &quot;gridcolor&quot;: &quot;white&quot;,
+          &quot;gridwidth&quot;: 2,
+          &quot;backgroundcolor&quot;: &quot;#E5ECF6&quot;,
+          &quot;ticks&quot;: &quot;&quot;,
+          &quot;showbackground&quot;: true,
+          &quot;zerolinecolor&quot;: &quot;white&quot;,
+          &quot;linecolor&quot;: &quot;white&quot;
+        }
+      },
+      &quot;colorway&quot;: [
+        &quot;#636efa&quot;,
+        &quot;#EF553B&quot;,
+        &quot;#00cc96&quot;,
+        &quot;#ab63fa&quot;,
+        &quot;#FFA15A&quot;,
+        &quot;#19d3f3&quot;,
+        &quot;#FF6692&quot;,
+        &quot;#B6E880&quot;,
+        &quot;#FF97FF&quot;,
+        &quot;#FECB52&quot;
+      ]
+    },
+    &quot;data&quot;: {
+      &quot;barpolar&quot;: [
+        {
+          &quot;type&quot;: &quot;barpolar&quot;,
+          &quot;marker&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;#E5ECF6&quot;,
+              &quot;width&quot;: 0.5
+            }
+          }
+        }
+      ],
+      &quot;carpet&quot;: [
+        {
+          &quot;aaxis&quot;: {
+            &quot;gridcolor&quot;: &quot;white&quot;,
+            &quot;endlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;minorgridcolor&quot;: &quot;white&quot;,
+            &quot;startlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;linecolor&quot;: &quot;white&quot;
+          },
+          &quot;type&quot;: &quot;carpet&quot;,
+          &quot;baxis&quot;: {
+            &quot;gridcolor&quot;: &quot;white&quot;,
+            &quot;endlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;minorgridcolor&quot;: &quot;white&quot;,
+            &quot;startlinecolor&quot;: &quot;#2a3f5f&quot;,
+            &quot;linecolor&quot;: &quot;white&quot;
+          }
+        }
+      ],
+      &quot;scatterpolar&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterpolar&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;parcoords&quot;: [
+        {
+          &quot;line&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          },
+          &quot;type&quot;: &quot;parcoords&quot;
+        }
+      ],
+      &quot;scatter&quot;: [
+        {
+          &quot;type&quot;: &quot;scatter&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram2dcontour&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;histogram2dcontour&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;contour&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;contour&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scattercarpet&quot;: [
+        {
+          &quot;type&quot;: &quot;scattercarpet&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;mesh3d&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;mesh3d&quot;
+        }
+      ],
+      &quot;surface&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;surface&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scattermapbox&quot;: [
+        {
+          &quot;type&quot;: &quot;scattermapbox&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;scattergeo&quot;: [
+        {
+          &quot;type&quot;: &quot;scattergeo&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram&quot;: [
+        {
+          &quot;type&quot;: &quot;histogram&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;pie&quot;: [
+        {
+          &quot;type&quot;: &quot;pie&quot;,
+          &quot;automargin&quot;: true
+        }
+      ],
+      &quot;choropleth&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;choropleth&quot;
+        }
+      ],
+      &quot;heatmapgl&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;heatmapgl&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;bar&quot;: [
+        {
+          &quot;type&quot;: &quot;bar&quot;,
+          &quot;error_y&quot;: {
+            &quot;color&quot;: &quot;#2a3f5f&quot;
+          },
+          &quot;error_x&quot;: {
+            &quot;color&quot;: &quot;#2a3f5f&quot;
+          },
+          &quot;marker&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;#E5ECF6&quot;,
+              &quot;width&quot;: 0.5
+            }
+          }
+        }
+      ],
+      &quot;heatmap&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;heatmap&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;contourcarpet&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;contourcarpet&quot;
+        }
+      ],
+      &quot;table&quot;: [
+        {
+          &quot;type&quot;: &quot;table&quot;,
+          &quot;header&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;white&quot;
+            },
+            &quot;fill&quot;: {
+              &quot;color&quot;: &quot;#C8D4E3&quot;
+            }
+          },
+          &quot;cells&quot;: {
+            &quot;line&quot;: {
+              &quot;color&quot;: &quot;white&quot;
+            },
+            &quot;fill&quot;: {
+              &quot;color&quot;: &quot;#EBF0F8&quot;
+            }
+          }
+        }
+      ],
+      &quot;scatter3d&quot;: [
+        {
+          &quot;line&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          },
+          &quot;type&quot;: &quot;scatter3d&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;scattergl&quot;: [
+        {
+          &quot;type&quot;: &quot;scattergl&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;histogram2d&quot;: [
+        {
+          &quot;colorbar&quot;: {
+            &quot;ticks&quot;: &quot;&quot;,
+            &quot;outlinewidth&quot;: 0
+          },
+          &quot;type&quot;: &quot;histogram2d&quot;,
+          &quot;colorscale&quot;: [
+            [
+              0.0,
+              &quot;#0d0887&quot;
+            ],
+            [
+              0.1111111111111111,
+              &quot;#46039f&quot;
+            ],
+            [
+              0.2222222222222222,
+              &quot;#7201a8&quot;
+            ],
+            [
+              0.3333333333333333,
+              &quot;#9c179e&quot;
+            ],
+            [
+              0.4444444444444444,
+              &quot;#bd3786&quot;
+            ],
+            [
+              0.5555555555555556,
+              &quot;#d8576b&quot;
+            ],
+            [
+              0.6666666666666666,
+              &quot;#ed7953&quot;
+            ],
+            [
+              0.7777777777777778,
+              &quot;#fb9f3a&quot;
+            ],
+            [
+              0.8888888888888888,
+              &quot;#fdca26&quot;
+            ],
+            [
+              1.0,
+              &quot;#f0f921&quot;
+            ]
+          ]
+        }
+      ],
+      &quot;scatterternary&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterternary&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ],
+      &quot;scatterpolargl&quot;: [
+        {
+          &quot;type&quot;: &quot;scatterpolargl&quot;,
+          &quot;marker&quot;: {
+            &quot;colorbar&quot;: {
+              &quot;ticks&quot;: &quot;&quot;,
+              &quot;outlinewidth&quot;: 0
+            }
+          }
+        }
+      ]
+    }
+  },
+  &quot;legend&quot;: {
+    &quot;y&quot;: 1.15,
+    &quot;x&quot;: 0.7
+  },
+  &quot;margin&quot;: {
+    &quot;l&quot;: 50,
+    &quot;b&quot;: 50,
+    &quot;r&quot;: 50,
+    &quot;t&quot;: 60
+  },
+  &quot;title&quot;: &quot;Penguins&quot;,
+  &quot;yaxis&quot;: {
+    &quot;showgrid&quot;: true,
+    &quot;title&quot;: {
+      &quot;text&quot;: &quot;Weight&quot;
+    }
+  }
+}</code></pre><p>Notice we got the exact same output as before, but we didn&#39;t have to resort to building the <code>Dict</code> by hand <em>or</em> prefixing multiple arguments with <code>xaxis_</code> or <code>legend_</code>.</p><h2 id="Using-DataFrames"><a class="docs-heading-anchor" href="#Using-DataFrames">Using <code>DataFrame</code>s</a><a id="Using-DataFrames-1"></a><a class="docs-heading-anchor-permalink" href="#Using-DataFrames" title="Permalink"></a></h2><div class="admonition is-info" id="Note-a9bd45a5fdcc31c6"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-a9bd45a5fdcc31c6" title="Permalink"></a></header><div class="admonition-body"><p>New in version 0.6.0</p></div></div><p>You can also construct traces using the columns of any subtype of <code>AbstractDataFrame</code> (e.g. the <code>DataFrame</code> type from DataFrames.jl).</p><p>To demonstrate this functionality let&#39;s load the famous iris data set:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using DataFrames, RDatasets</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; iris = dataset(&quot;datasets&quot;, &quot;iris&quot;);</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `dataset` not defined in `Main`
+Hint: It looks like two or more modules export different bindings with this name, resulting in ambiguity. Try explicitly importing it from a particular module, or qualifying the name with the module it should come from.
+Hint: a global variable of this name also exists in PlotlyJS.
+Hint: a global variable of this name may be made accessible by importing RDatasets in the current active module Main</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; first(iris, 10)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `iris` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code></pre><p>Suppose that we wanted to construct a scatter trace with the  <code>SepalLength</code> column as the x variable and the <code>SepalWidth</code> columns as the y variable. We do this by calling</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; my_trace = scatter(iris, x=:SepalLength, y=:SepalWidth, marker_color=:red)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `iris` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; [my_trace[:x][1:5] my_trace[:y][1:5]]</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `my_trace` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; my_trace[:marker_color]</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `my_trace` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code></pre><p>How does this work? The basic rule is that if the value of any keyword argument is a Julia Symbol (i.e. created with <code>:something</code>), then the function creating the trace checks if that symbol is one of the column names in the DataFrame. If so, it extracts the column from the DataFrame and sets that as the value for the keyword argument. Otherwise it passes the symbol directly through.</p><p>In the above example, when we constructed <code>my_trace</code> the value of the keyword argument <code>x</code> was set to the Symbol <code>:SepalLength</code>. This did match a column name from <code>iris</code> so that column was extracted and replaced <code>:SepalLength</code> as the value for the <code>x</code> argument. The same holds for <code>y</code> and <code>SepalWidth</code>.</p><p>However, when setting <code>marker_color=:red</code> we found that <code>:red</code> is not one of the column names, so the value for the <code>marker_color</code> keyword argument remained <code>:red</code>.</p><p>The DataFrame interface becomes more useful when constructing whole plots. See the <a href="../syncplots/#constructors">convenience methods</a> section of the documentation for more information.</p><div class="admonition is-info" id="Note-91b625f8719df829"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-91b625f8719df829" title="Permalink"></a></header><div class="admonition-body"><p>New in version 0.9.0</p></div></div><p>As of version 0.9.0, you can construct groups of traces using the DataFrame api. This is best understood by example, so let&#39;s see it in action:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; iris = dataset(&quot;datasets&quot;, &quot;iris&quot;);</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `dataset` not defined in `Main`
+Hint: It looks like two or more modules export different bindings with this name, resulting in ambiguity. Try explicitly importing it from a particular module, or qualifying the name with the module it should come from.
+Hint: a global variable of this name also exists in PlotlyJS.
+Hint: a global variable of this name may be made accessible by importing RDatasets in the current active module Main</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; unique(iris[:Species])</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `iris` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; traces = scatter(
+           iris, group=:Species, x=:SepalLength, y=:SepalWidth, mode=&quot;markers&quot;, marker_size=8
+       )</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `iris` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; [t[:name] for t in traces]</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `traces` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code></pre><p>Notice how there are three <code>Species</code> in the <code>iris</code> DataFrame, and when passing <code>group=:Species</code> to <code>scatter</code> we obtained three traces.</p><p>We can pass a <code>Vector{Symbol}</code> as group, to split the data on the value in more than one column:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; tips = dataset(&quot;reshape2&quot;, &quot;tips&quot;);</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `dataset` not defined in `Main`
+Hint: It looks like two or more modules export different bindings with this name, resulting in ambiguity. Try explicitly importing it from a particular module, or qualifying the name with the module it should come from.
+Hint: a global variable of this name also exists in PlotlyJS.
+Hint: a global variable of this name may be made accessible by importing RDatasets in the current active module Main</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; unique(tips[:Sex])</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `tips` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; unique(tips[:Day])</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `tips` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; traces = violin(tips, group=[:Sex, :Day], x=:TotalBill, orientation=&quot;h&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `tips` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; [t[:name] for t in traces]</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `traces` not defined in `Main`
+Suggestion: check for spelling errors or missing imports.</code></pre><p>Also new in version 0.9.0, when using the DataFrame API you are allowed to pass a function as the value for a keyword argument. When the each trace is constructed, the value will be replaced by calling the function on whatever DataFrame is being used. When used in conjunction with the <code>group</code> argument, this allows you to <em>compute</em> group specific trace attributes on the fly.</p><p>See the docstring for <code>GenericTrace</code> and the <code>violin_side_by_side</code> example on the <a href="../examples/violin/#Violin">Violin</a> example page more details.</p><h3 id="Facets"><a class="docs-heading-anchor" href="#Facets">Facets</a><a id="Facets-1"></a><a class="docs-heading-anchor-permalink" href="#Facets" title="Permalink"></a></h3><div class="admonition is-info" id="Note-e3c3d620492aa03d"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-e3c3d620492aa03d" title="Permalink"></a></header><div class="admonition-body"><p>New in PlotlyBase version 0.6.5 (PlotlyJS version 0.16.4)</p></div></div><p>When plotting a <code>DataFrame</code> (let&#39;s call it <code>df</code>), the keyword arguments <code>facet_row</code> and <code>facet_col</code> allow you to create a matrix of subplots. The rows of this matrix correspond <code>unique(df[:facet_row])</code>, where <code>:facet_row</code> is a placeholder for the actual value passed as the <code>facet_row</code> argument. Similarly, the columns of the matrix of subplots come from <code>unique(df[:facet_col])</code>.</p><p>Each subplot will have the same structure, as defined by the keyword arguments passed to <code>plot</code>, but will only show data for a single value of <code>facet_row</code> and <code>facet_col</code> at a time.</p><p>Below is an example of how this works</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PlotlyJS, CSV, DataFrames</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; df = dataset(DataFrame, &quot;tips&quot;)</code><code class="nohighlight hljs ansi" style="display:block;"><span class="sgr1">244×7 DataFrame</span>
+<span class="sgr1"> Row </span>│<span class="sgr1"> total_bill  tip      sex      smoker   day      time     size  </span>
+<span class="sgr1">     </span>│<span class="sgr90"> Float64     Float64  String7  String3  String7  String7  Int64 </span>
+─────┼────────────────────────────────────────────────────────────────
+   1 │      16.99     1.01  Female   No       Sun      Dinner       2
+   2 │      10.34     1.66  Male     No       Sun      Dinner       3
+   3 │      21.01     3.5   Male     No       Sun      Dinner       3
+   4 │      23.68     3.31  Male     No       Sun      Dinner       2
+   5 │      24.59     3.61  Female   No       Sun      Dinner       4
+   6 │      25.29     4.71  Male     No       Sun      Dinner       4
+   7 │       8.77     2.0   Male     No       Sun      Dinner       2
+   8 │      26.88     3.12  Male     No       Sun      Dinner       4
+  ⋮  │     ⋮          ⋮        ⋮        ⋮        ⋮        ⋮       ⋮
+ 238 │      32.83     1.17  Male     Yes      Sat      Dinner       2
+ 239 │      35.83     4.67  Female   No       Sat      Dinner       3
+ 240 │      29.03     5.92  Male     No       Sat      Dinner       3
+ 241 │      27.18     2.0   Female   Yes      Sat      Dinner       2
+ 242 │      22.67     2.0   Male     Yes      Sat      Dinner       2
+ 243 │      17.82     1.75  Male     No       Sat      Dinner       2
+ 244 │      18.78     3.0   Female   No       Thur     Dinner       2
+<span class="sgr36">                                                      229 rows omitted</span></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(
+           df, x=:total_bill, y=:tip, xbingroyp=&quot;x&quot;, ybingroup=&quot;y&quot;, kind=&quot;histogram2d&quot;,
+           facet_row=:sex, facet_col=:smoker
+       )</code><code class="nohighlight hljs ansi" style="display:block;">data: [
+  &quot;histogram2d with fields type, x, xaxis, xbingroyp, y, yaxis, and ybingroup&quot;,
+  &quot;histogram2d with fields type, x, xaxis, xbingroyp, y, yaxis, and ybingroup&quot;,
+  &quot;histogram2d with fields type, x, xaxis, xbingroyp, y, yaxis, and ybingroup&quot;,
+  &quot;histogram2d with fields type, x, xaxis, xbingroyp, y, yaxis, and ybingroup&quot;
+]
+
+layout: &quot;layout with fields annotations, legend, margin, template, xaxis, xaxis2, xaxis3, xaxis4, yaxis, yaxis2, yaxis3, and yaxis4&quot;</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../basics/">« Preliminaries</a><a class="docs-footer-nextpage" href="../syncplots/">Putting it together »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Saturday 4 October 2025 00:50">Saturday 4 October 2025</span>. Using Julia version 1.11.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
