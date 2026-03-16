@@ -1,7 +1,7 @@
-<!-- TODO: create API docs from docstrings and add link below -->
+# Working with plots
 
 There are various methods defined on the `Plot` type. We will cover a few of
-them here, but consult the (forthcoming) API docs for more exhaustive coverage.
+them here, but consult the package [API Documentation](@ref) for more exhaustive coverage.
 
 ## Julia functions
 
@@ -13,10 +13,10 @@ create a new `divid`
 
 ## API functions
 
-All exported functions from the plotly.js
-[API](https://plotly.com/javascript/plotlyjs-function-reference/) have been
-exposed to Julia and operate on both `Plot` and `SyncPlot` instances. Each of
-these functions has semantics that match the semantics of plotly.js
+All exported functions from the [plotly.js API](https://plotly.com/javascript/plotlyjs-function-reference/) 
+have been exposed to Julia and operate on both `Plot` and `SyncPlot` instances.
+Each of these functions has semantics that match the semantics of plotly.js library.
+
 
 In `PlotlyJS.jl` these functions are spelled:
 
@@ -41,7 +41,7 @@ plot, it keeps the Julia object and the display in sync.
 <!-- TODO: create API docs from docstrings and add link below -->
 
 For more details on which methods are available for each of the above functions
-consult the docstrings or (forthcoming) API documentation.
+consult the docstrings or [API Documentation](@ref).
 
 !!! note
     Be especially careful when trying to use `restyle!`, `extendtraces!`, and

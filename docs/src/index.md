@@ -1,7 +1,7 @@
 # PlotlyJS
 
 Welcome to the documentation for PlotlyJS.jl, a Julia interface to the
-[plotly.js](https://plotly.com/javascript) visualization library.
+[plotly.js](https://plotly.com/javascript/) visualization library.
 
 The goals of PlotlyJS.jl are to:
 
@@ -12,12 +12,18 @@ The goals of PlotlyJS.jl are to:
 
 ## Getting Help
 
-There are three primary resources for getting help with using this library:
+The [Plotly Julia Library](https://plotly.com/julia/) documentation has
+a [quick reference guide](https://plotly.com/julia/getting-started/)
+and an gallery of additional examples.
+
+A [single-page attribute reference](https://plotly.com/julia/reference/) is also available.
+
+There are three primary resources for asking for help with using this library:
 
 1. The [Julia Discourse page](https://discourse.julialang.org/).
    This is your best option if the question you have is specific to Julia. 
    Appropriate topics include how to integrate with other Julia packages 
-   or how to use plotly features unique to PlotlyJS.jl. 
+   or how to use plotly features unique to PlotlyJS.jl (tag as `plotlyjs`)
 2. The [julia channel](https://community.plotly.com/c/plotly-r-matlab-julia-net/julia/23)
    on the plotly discussion page. This is your best option if you want visibility from other parts of the plotly community including python and R users.
 3. [GitHub Issues](https://github.com/JuliaPlots/PlotlyJS.jl/issues).
@@ -29,10 +35,10 @@ There are three primary resources for getting help with using this library:
 To install PlotlyJS.jl, open up a Julia REPL, press `]` to enter package mode and type:
 
 ```julia
-(v1.10) pkg> add PlotlyJS
+pkg> add PlotlyJS
 ```
 
-For existing users you can run `up` from the package manager REPL mode to get
+For existing users you can run `up` from the package manager REPL mode to update to
 the latest release. If after doing this plots do not show up in your chosen
 front-end, please run `build PlotlyJS` (again from `pkg>` REPL mode) to tell Julia
 to download the latest updates to the plotly.js JavaScript library.
@@ -48,13 +54,13 @@ for more information.
 
 ## Relation to Plotly.com
 
-This package does not interact with plotly.com or the [Plotly web API](https://api.plot.ly/v2/),
+This package does not interact with plotly.com or any web API,
 but rather leverages the underlying JavaScript library to construct plotly graphics using all local resources.
 This means you do not need a Plotly account or an internet connection to use this package after installation.
 
 ### Plots.jl
 
-If you would like to have a more exhaustive set of top-level functions for
+If you would like to have a more comprehensive set of top-level functions for
 constructing plots, see the [Plots.jl](https://docs.juliaplots.org/latest/)
-package. This package is the `plotlyjs` backend of Plots.jl and is fully supported
-by Plots.
+package. This package is the `plotlyjs` [backend](https://docs.juliaplots.org/latest/backends/)
+of Plots.jl and is fully supported by JuliaPlots.

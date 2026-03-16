@@ -1,4 +1,4 @@
-# Putting it Together
+# Putting it together
 
 ```@meta
 CurrentModule = PlotlyJS
@@ -6,7 +6,7 @@ CurrentModule = PlotlyJS
 
 We will now look at how to combine traces and a layout to create a plot.
 
-We'll also discuss how to integrate with various frontends.
+We'll also discuss how to integrate with various front-ends.
 
 ## `Plot`
 
@@ -70,9 +70,9 @@ p = Plot(iris, x=:SepalLength, y=:SepalWidth, mode="markers", marker_size=8, gro
 A `Plot` is a pure Julia object and doesn't interact with plotly.js by itself.
 This means that we can't view the actual plotly figure the data represents.
 
-To do that we need to link the `Plot` to one or more display frontends.
+To do that we need to link the `Plot` to one or more display front-ends.
 
-To actually connect to the display frontends we use the
+To actually connect to the display front-ends we use the
 [WebIO.jl](https://github.com/JuliaGizmos/WebIO.jl) package. Our interaction
 with WebIO is wrapped up in a type called `SyncPlot` that is defined as
 follows:
@@ -86,7 +86,7 @@ end
 ```
 
 As its name suggests, a `SyncPlot` will keep the Julia representation of the a
-plot (the `Plot` instance) in sync with a plot with a frontend.
+plot (the `Plot` instance) in sync with a plot with a front-end.
 
 !!! note
     The `Plot` function will create a new `Plot` object and the `plot` function
