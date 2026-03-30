@@ -17,7 +17,7 @@ where
 - `frames` can contain data and layout objects, which define any changes to be animated,
    and a traces object that defines which traces to animate.
 
-The `divid` argument is an [html `<div>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/div) 
+The `divid` argument refers to an [html `<div>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/div) 
 to control the plot on a page and is handled automatically by one of the supported
 front-ends. Users of this package will mostly be concerned about constructing
 the `data` and the `layout`, and (optionally) `config` and `frames` arguments.
@@ -27,7 +27,7 @@ the `data` and the `layout`, and (optionally) `config` and `frames` arguments.
     whether it is a scatter plot, bar chart, 3D surface, choropleth map or some other plot type.
     A trace is fundamentally a collection of data and the specifications of how that data should be plotted.
     For a complete list of traces and their attributes see the
-    [plotly.js chart attribute reference](https://plotly.com/julia/reference/).
+    [plotly figure reference](https://plotly.com/julia/reference/).
 
 When we want to construct a `Plot` in PlotlyJS.jl for plotting on some display, we will usually have
 at least one trace `tr` along with a layout object `ly` which we combine together as `Plot(tr, ly)`.

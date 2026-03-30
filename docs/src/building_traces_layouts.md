@@ -327,11 +327,13 @@ the [Violin](@ref) example page more details.
 !!! note
     New in PlotlyBase version 0.6.5 / PlotlyJS version 0.16.4:
 
+A _facet_ is another name for a plot displaying a subset of a larger dataset.
+
 When plotting a `DataFrame` (let's call it `df`), the keyword arguments
-`facet_row` and `facet_col` allow you to create a _matrix_ of subplots.
+`facet_row` and `facet_col` allow you to create a _matrix_ of [subplots](@ref Subplots).
 
 The rows of this matrix correspond to the array `unique(df[:facet_row])`,
-where `:facet_row` is a placeholder for the actual value passed as the `facet_row` argument.
+where `:facet_row` is a placeholder for the actual symbol passed as the `facet_row` argument.
 Similarly, the columns of the matrix of subplots come from `unique(df[:facet_col])`.
 
 Each subplot will have the same structure, as defined by the keyword arguments passed to `plot`,
