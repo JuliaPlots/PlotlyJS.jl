@@ -38,8 +38,6 @@ object (in the `plot` field on the `SyncPlot`) is updated and the plotly.js
 function is called. This is where `SyncPlot` gets its name: when modifying a
 plot, it keeps the Julia object and the display in sync.
 
-<!-- TODO: create API docs from docstrings and add link below -->
-
 For more details on which methods are available for each of the above functions
 consult the docstrings or [API Documentation](@ref).
 

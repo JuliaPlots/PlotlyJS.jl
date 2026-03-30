@@ -2,18 +2,23 @@
 
 ```@setup traces_layouts
 using PlotlyJS
-using JSON
+import JSON
 ```
 
-Recall that the `Plotly.newPlot` javascript function expects to receive an
-array of `trace` objects and, optionally, a `layout` object. In this section we
-will learn how to build these object in Julia.
+In [Preliminaries](@ref) we saw that the `Plotly.newPlot` javascript function
+expects to receive an array of `trace` objects and, optionally, a `layout` object. 
+
+In this section we will learn how to build the trace and layout objects in Julia
+that make up the core elements of a plot.
+
 
 ## Traces
 
-A `Plot` instance will have a vector of `trace`s. These should each be a subtype of `AbstractTrace`.
+A `Plot` instance will have a single trace or a vector of traces. 
+These should each be a subtype of `AbstractTrace`.
 
-PlotlyJS.jl defines one such subtype:
+PlotlyBase.jl provides one such general-purpose subtype `GenericTrace`
+defined as
 
 ```julia
 mutable struct GenericTrace{T <: AbstractDict{Symbol,Any}} <: AbstractTrace
@@ -21,12 +26,20 @@ mutable struct GenericTrace{T <: AbstractDict{Symbol,Any}} <: AbstractTrace
 end
 ```
 
-The `fields` is an AbstractDict object that maps trace attributes to their values.
+Here `fields` is an `AbstractDict` object that pairs a trace's attributes to their values.
+The `GenericTrace` subtype allows us to generically include data to describe the appearance
+of a trace, such as point locations, marker shape and size, text annotations and more.
+The reason we create a `GenericTrace` as a wrapper around a `Dict` is to provide some convenient syntax,
+as described below.
 
-We create this wrapper around a Dict to provide some convenient syntax as described below.
+Let's consider an example.
 
-Let's consider an example. Suppose we would like to build the following JSON
-object:
+!!! note
+    The next example can be used as a guide to translating examples using
+    the plotly.js JavaScript library to their equivalent Julia versions.
+
+Suppose we would like to build a `Plot` to include a `scatter`-type trace
+as described here using [JSON](https://developer.mozilla.org/en-US/docs/Glossary/JSON):
 
 ```json
 {
@@ -44,7 +57,7 @@ object:
 }
 ```
 
-One way to do this in Julia is:
+One way to do this in Julia is to create an equivalent dictionary:
 
 ```@example traces_layouts
 fields = Dict{Symbol,Any}(:type => "scatter",
@@ -59,11 +72,7 @@ fields = Dict{Symbol,Any}(:type => "scatter",
 GenericTrace("scatter", fields)
 ```
 
-A more convenient syntax is:
-
-```@setup traces_layouts
-using PlotlyJS, JSON
-```
+A more convenient approach uses the syntax of the `scatter` function:
 
 ```@example traces_layouts
 t1 = scatter(;x=[1, 2, 3, 4, 5],
@@ -89,13 +98,15 @@ We can verify that this is indeed equivalent JSON by printing the JSON.
 Note the order of the attributes is different, but the content is identical:
 
 ```@example traces_layouts
+import JSON
+
 print(JSON.json(t1, 2))
 ```
 
 ### Accessing attributes
 
 If we then wanted to extract a particular attribute, we can do so using
-`getindex(t1, :attrname)`, or the syntactic sugar `t1[:attrname]`. Note that
+`getindex(t1, :attrname)`, or more directly, `t1[:attrname]`. Note that
 both symbols and strings can be used in a call to `getindex`:
 
 ```@repl traces_layouts
@@ -103,11 +114,30 @@ t1["marker"]
 t1[:marker]
 ```
 
-To access a nested property use `parent.child`
+To access a nested property use a string of the form `parent.child`
 
 ```@repl traces_layouts
 t1["textfont.family"]
 ```
+
+or nested dictionaries
+
+```@repl traces_layouts
+t1[:textfont][:family]
+```
+
+!!! warn
+    Nested dictionaries will error on missing symbol keys, however using 
+    unrecognised or unassigned strings as keys will return empty dictionaries.
+    For example,
+    ```@repl traces_layouts
+    t1[:textfont][:color]
+    ```
+    returns an error while
+    ```@repl traces_layouts
+    t1["textfont.color"]
+    ```
+    is an empty `Dict`.
 
 ### Setting additional attributes
 
@@ -148,31 +178,44 @@ that we used for traces:
 
 ```@repl traces_layouts
 l = Layout(;title="Penguins",
-            xaxis_range=[0, 42.0], xaxis_title="fish",
+            xaxis_range=[0, 42.0], 
+            xaxis_title="Fish Count",
             yaxis_title="Weight",
-            xaxis_showgrid=true, yaxis_showgrid=true,
-            legend_y=1.15, legend_x=0.7)
+            xaxis_showgrid=true,
+            yaxis_showgrid=true,
+            legend_x=0.7, legend_y=1.15,)
 ```
 
-The full JSON object can be printed with `println(JSON.json(l, 2))`.
+Here we set different attributes for determining the non-data layout of the plot
+such as the `range` and `title` of the horizontal (`xaxis`) and vertical (`yaxis`) axes
+of the plot, whether the grid lines are drawn and the position of the legend.
 
-## `attr`
+!!! note
+    A _layout_ is a general term for how non-data elements are displayed on a plot.
+    There is only one layout object used for any given plot (while we may have multiple traces).
+    For a complete list of layout attributes see the
+    [layout reference documentation](https://plotly.com/julia/reference/layout/).
+
+
+## The `attr` function
 
 There is a special function named `attr` that allows you to apply the same
-keyword magic we saw in the trace and layout functions, but to nested
-attributes. Let's revisit the previous example, but use `attr` to build up our
-`xaxis` and `legend`:
+keyword magic we saw in the trace and layout functions with underscores,
+but to nested attributes at the same level.
+
+Let's revisit the previous example, but use `attr` to build up our
+`xaxis` or `legend` attributes in a way that groups things together:
 
 ```@repl traces_layouts
 l2 = Layout(;title="Penguins",
-             xaxis=attr(range=[0, 42.0], title="fish", showgrid=true),
+             xaxis=attr(range=[0, 42.0], title="Fish Count", showgrid=true),
              yaxis_title="Weight", yaxis_showgrid=true,
              legend=attr(x=0.7, y=1.15))
 ```
 
 Notice we obtain exactly the same layout as before, but we didn't have to resort to
 building a `Dict` by hand _or_ prefixing multiple arguments with `xaxis_` or
-`legend_`.
+`legend_`. Notice also that we can mix the different approaches in the one object.
 
 
 ## Using `DataFrame`s
@@ -181,9 +224,10 @@ building a `Dict` by hand _or_ prefixing multiple arguments with `xaxis_` or
     DataFrame support was added in version 0.6.0.
 
 You can also construct traces using the columns of any subtype of
-`AbstractDataFrame` (e.g. the `DataFrame` type from DataFrames.jl).
+`AbstractDataFrame`, such as the `DataFrame` type from the DataFrames.jl
+package in particular.
 
-To demonstrate this functionality let's load the well-known iris data set:
+To demonstrate this functionality let's load the well-known "iris" data set:
 
 ```@repl traces_layouts
 using DataFrames
@@ -194,17 +238,15 @@ first(iris, 10)
 ```
 
 Suppose that we wanted to construct a scatter trace with the `SepalLength`
-column as the x variable and the `SepalWidth` columns as the y variable. We
-do this by calling
+column as the `x` variable and the `SepalWidth` columns as the `y` variable.
+We do this by calling `scatter()` with a dataframe as the first argument:
 
 ```@repl traces_layouts
 my_trace = scatter(iris, x=:SepalLength, y=:SepalWidth, marker_color=:red)
-[my_trace[:x][1:5] my_trace[:y][1:5]]
-my_trace[:marker_color]
 ```
 
 How does this work? The basic rule is that if the value of any keyword argument
-is a Julia `Symbol` (i.e. starting with `:`, such as `:blue`), then the function creating
+is a Julia `Symbol` (i.e. starting with `:`, such as `:one`), then the function creating
 the trace checks if that symbol is one of the column names in the DataFrame.
 If so, it extracts the column from the DataFrame and sets that as the value
 for the keyword argument. Otherwise it passes the symbol directly through.
@@ -218,17 +260,24 @@ However, when setting `marker_color=:red` we found that `:red` is not one of
 the column names, so the value for the `marker_color` keyword argument remained
 `:red`.
 
+We can access and inspect the values of the resulting trace object:
+```@repl traces_layouts
+[my_trace[:x][1:5] my_trace[:y][1:5]]
+my_trace[:marker_color]
+```
+
 The DataFrame interface becomes more useful when constructing whole plots. See
 the [convenience methods](@ref constructors) section of the
 documentation for more information.
 
 
-## Groups
+### Groups
 
 !!! note
     New in version 0.9.0:
 
-You can construct _groups of traces_ using the DataFrame interface.
+You can construct _groups of traces_ using the DataFrame interface
+through the `group` keyword.
 This is best understood by example, so let's see it in action:
 
 ```@repl traces_layouts
@@ -240,27 +289,35 @@ traces = scatter(
 [t[:name] for t in traces]
 ```
 
-Notice how there are three `Species` in the `iris` DataFrame, and when passing
+Notice how there are three `Species` in the `iris` DataFrame, and by passing
 `group=:Species` to `scatter` we obtained three traces.
 
-We can pass a `Vector{Symbol}` as group, to split the data on the value in more
-than one column:
+We can pass a `Vector{Symbol}` with the `group` keyword, to split the data according
+to the values of more than one column. 
+
+Here we split data by day of the week and time:
 
 ```@repl traces_layouts
 tips = RDatasets.dataset("reshape2", "tips");
 unique(tips[:,:Sex])
 unique(tips[:,:Day])
-traces = violin(tips, group=[:Sex, :Day], x=:TotalBill, orientation="h")
+traces = violin(tips, group=[:Day, :Time], x=:TotalBill, orientation="h")
 [t[:name] for t in traces]
 ```
 
-## Functions
+### Functions
 
-When using the DataFrame interface you are allowed to pass
+When using the DataFrame interface you may pass
 a function as the value for a keyword argument. When each trace is
 constructed, the value will be replaced by calling the function on whatever
 DataFrame is being used. When used in conjunction with the `group` argument,
-this allows you to _compute_ group specific trace attributes on the fly.
+this allows you to _compute_ group specific trace attributes on the fly,
+such as dynamically annotating a plot based on the data.
+For example, you might want to show the sample length with the `text` attribute:
+
+```
+text=(df) -> "Sample length $(size(df, 1))"
+```
 
 See the docstring for `GenericTrace` and the `violin_side_by_side` example on
 the [Violin](@ref) example page more details.
@@ -271,7 +328,8 @@ the [Violin](@ref) example page more details.
     New in PlotlyBase version 0.6.5 / PlotlyJS version 0.16.4:
 
 When plotting a `DataFrame` (let's call it `df`), the keyword arguments
-`facet_row` and `facet_col` allow you to create a matrix of subplots.
+`facet_row` and `facet_col` allow you to create a _matrix_ of subplots.
+
 The rows of this matrix correspond to the array `unique(df[:facet_row])`,
 where `:facet_row` is a placeholder for the actual value passed as the `facet_row` argument.
 Similarly, the columns of the matrix of subplots come from `unique(df[:facet_col])`.
@@ -279,7 +337,9 @@ Similarly, the columns of the matrix of subplots come from `unique(df[:facet_col
 Each subplot will have the same structure, as defined by the keyword arguments passed to `plot`,
 but will only show data for a single value of `facet_row` and `facet_col` at a time.
 
-Below is an example of how this works:
+Below is an example of how this works. We have a distinction of Male and Female between rows
+and a distinction of Smoker or Non-Smoker between columns, creating a two-by-two matrix of
+four plots:
 
 ```@repl facets
 using PlotlyJS
