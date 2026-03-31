@@ -48,7 +48,7 @@ consult the docstrings or [API Documentation](@ref).
     `prependtraces!` to set attributes that are arrays. The semantics are a bit
     subtle. Check the docstring for details and examples
 
-## Subplots
+## [Subplots](@id subplot_intro)
 
 A common task is to construct subpots, or plots with more than one set of axes.
 This is possible using the declarative plotly.js syntax, but can be tedious at

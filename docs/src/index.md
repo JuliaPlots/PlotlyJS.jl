@@ -47,7 +47,7 @@ to download the latest updates to the plotly.js JavaScript library.
 
 PlotlyJS.jl comes with built-in support for saving figures to files via the
 integration between PlotlyBase.jl (a dependency of PlotlyJS.jl) and Plotly's
-kaleido tool (via the PlotlyKaleido.jl package).
+kaleido tool (via the [PlotlyKaleido.jl](https://github.com/JuliaPlots/PlotlyKaleido.jl) package).
 
 See [exporting figures](https://juliaplots.org/PlotlyJS.jl/stable/manipulating_plots/#Saving-figures)
 for more information.

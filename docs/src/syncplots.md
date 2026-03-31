@@ -134,17 +134,15 @@ time of writing this includes [Jupyter notebooks](https://jupyter.org/),
 [Mux.jl](https://github.com/JuliaWeb/Mux.jl) web apps, and
 Electron windows from [Blink.jl](https://github.com/JuliaGizmos/Blink.jl).
 Please see the 
-[WebIO.jl documentation](https://juliagizmos.github.io/WebIO.jl/latest/gettingstarted)
+[WebIO.jl documentation](https://juliagizmos.github.io/WebIO.jl/latest/gettingstarted/)
 for additional information.
 
 When using PlotlyJS.jl at the Julia REPL a plot will automatically be displayed
 in two possible ways. 
-
-A `Plot()` call will create a temporary HTML file with the plot embedded inside.
+1. A `Plot()` call will create a temporary HTML file with the plot embedded inside.
 PlotlyJS.jl code will then try to launch the application that handles `.html`
 files on the user's computer, typically their default browser.
-
-A `plot()` call will launch a new Electron window. This is a dedicated
+2. A `plot()` call will launch a new Electron window. This is a dedicated
 browser window we have full control over. To see a plot `p`, just type `p` by
 itself at the REPL and execute the line. Alternatively you can call `display(p)`.
 

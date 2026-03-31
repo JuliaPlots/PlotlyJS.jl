@@ -330,7 +330,7 @@ the [Violin](@ref) example page more details.
 A _facet_ is another name for a plot displaying a subset of a larger dataset.
 
 When plotting a `DataFrame` (let's call it `df`), the keyword arguments
-`facet_row` and `facet_col` allow you to create a _matrix_ of [subplots](@ref Subplots).
+`facet_row` and `facet_col` allow you to create a _matrix_ of [subplots](@ref subplot_intro).
 
 The rows of this matrix correspond to the array `unique(df[:facet_row])`,
 where `:facet_row` is a placeholder for the actual symbol passed as the `facet_row` argument.
