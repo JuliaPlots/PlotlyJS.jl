@@ -10,7 +10,8 @@ Plotly.newPlot(divid, data, layout, config, frames)
 
 where
 
-- `data` is an array of JSON objects describing the various data _traces_ (see Note) in the visualization
+- `data` is an array of [JSON](https://developer.mozilla.org/en-US/docs/Glossary/JSON) objects 
+   describing the various data _traces_ in the visualization (see Note)
 - `layout` is a JSON object describing the presentation properties of the visualization
 - `config` is a JSON object describing the configuration properties of the visualization 
     (see more detail [here](https://plotly.com/julia/configuration-options/))
@@ -31,7 +32,7 @@ the `data` and the `layout`, and (optionally) `config` and `frames` arguments.
 
 When we want to construct a `Plot` in PlotlyJS.jl for plotting on some display, we will usually have
 at least one trace `tr` along with a layout object `ly` which we combine together as `Plot(tr, ly)`.
-If we don't have a layout object then a default template will supply the layout for us.
+If we don't have a layout object then a template will supply a default layout for us.
 
 ## Julia types
 

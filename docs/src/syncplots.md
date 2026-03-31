@@ -10,7 +10,7 @@ We'll also discuss how to integrate with various front-ends.
 
 ## `Plot`
 
-Recall that the definition of the `Plot` object is
+The full definition of the `Plot` object is
 
 ```julia
 mutable struct Plot{TT<:AbstractVector{<:AbstractTrace},TL<:AbstractLayout,TF<:AbstractVector{<:PlotlyFrame}}
@@ -22,7 +22,7 @@ mutable struct Plot{TT<:AbstractVector{<:AbstractTrace},TL<:AbstractLayout,TF<:A
 end
 ```
 
-Given one or more `AbstractTrace`s and optionally a `Layout`, we construct a
+Given one or more traces (with a subtypes of `AbstractTrace`) and optionally a `Layout`, we construct a
 `Plot` object with any of the following constructors
 
 ```julia
@@ -42,15 +42,15 @@ Plot(data::AbstractTrace)
 Plot(data::AbstractTrace, layout::AbstractLayout)
 ```
 
-Notice that none of the recommended constructors have you pass the `divid`
-field manually. This is an internal field used to allow the display and
-unique identification of multiple plots in a single web page.
+Notice that none of the recommended constructors require you to pass the `divid`
+field manually (this is an internal field to enable the
+unique identification and display of multiple plots in a single web page).
 
 ### [Convenience methods](@id constructors)
 
 There are also a number of convenience methods to the `Plot` function that will
-attempt to construct the traces for you. They have the following signatures
-that show a variety of arguments that can be used to create a plot:
+attempt to construct the traces for you. The following signatures
+show the variety of arguments that can be used to create a plot:
 
 ```@docs
 PlotlyBase.Plot
@@ -58,24 +58,24 @@ PlotlyBase.Plot
 
 Here are some examples:
 
-```@example
-t = range(0, 3, 41);
+```@example plot_methods
+using PlotlyJS
 p0 = Plot([0, 1, 3], [10, 5, 2])
-plot(p1)
+plot(p0)
 ```
 
-```@example
+```@example plot_methods
 t = range(0, 3, 41);
 p1 = Plot(t, [2sin.(t) 3cos.(t) cos.(t).-sin.(t)], Layout(showlegend=true))
 plot(p1)
 ```
 
-```@example
+```@example plot_methods
 p2 = Plot(x -> (x - 0.6)^2, -2, 2, Layout(showlegend=false))
 plot(p2)
 ```
 
-```@example
+```@example plot_methods
 p3 = Plot([sin, cos], 0, 2*pi)
 plot(p3)
 ```
@@ -133,14 +133,16 @@ time of writing this includes [Jupyter notebooks](https://jupyter.org/),
 [Jupyterlab](https://github.com/jupyterlab/jupyterlab),
 [Mux.jl](https://github.com/JuliaWeb/Mux.jl) web apps, and
 Electron windows from [Blink.jl](https://github.com/JuliaGizmos/Blink.jl).
-Please see the [WebIO.jl documentation](https://juliagizmos.github.io/WebIO.jl/latest/gettingstarted/#Getting-Started)
+Please see the 
+[WebIO.jl documentation](https://juliagizmos.github.io/WebIO.jl/latest/gettingstarted)
 for additional information.
 
 When using PlotlyJS.jl at the Julia REPL a plot will automatically be displayed
 in two possible ways. 
 
-A `Plot()` call will try to launch the application that handles `.html`
-files on the user's computer, typically their default browser. 
+A `Plot()` call will create a temporary HTML file with the plot embedded inside.
+PlotlyJS.jl code will then try to launch the application that handles `.html`
+files on the user's computer, typically their default browser.
 
 A `plot()` call will launch a new Electron window. This is a dedicated
 browser window we have full control over. To see a plot `p`, just type `p` by
@@ -166,7 +168,7 @@ display(p)  # usually optional
 WebIO.on(p["hover"]) do data
     if haskey(data, "points")
         pt = first(data["points"])
-        println("\nYou hovered over the point x=", pt["x"], ", y=", pt["y"]))
+        println("\nYou hovered over the point x=", pt["x"], ", y=", pt["y"])
     end
 end
 ```

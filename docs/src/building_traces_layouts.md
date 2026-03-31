@@ -5,7 +5,7 @@ using PlotlyJS
 import JSON
 ```
 
-In [Preliminaries](@ref) we saw that the `Plotly.newPlot` javascript function
+In [Preliminaries](@ref) we saw that the `Plotly.newPlot` JavaScript function
 expects to receive an array of `trace` objects and, optionally, a `layout` object. 
 
 In this section we will learn how to build the trace and layout objects in Julia
@@ -339,18 +339,19 @@ Similarly, the columns of the matrix of subplots come from `unique(df[:facet_col
 Each subplot will have the same structure, as defined by the keyword arguments passed to `plot`,
 but will only show data for a single value of `facet_row` and `facet_col` at a time.
 
-Below is an example of how this works. We have a distinction of Male and Female between rows
-and a distinction of Smoker or Non-Smoker between columns, creating a two-by-two matrix of
+Below is an example of how this works. We have a distinction of male/female between rows
+and a distinction of smoker/non-smoker between columns, creating a two-by-two matrix of
 four plots:
 
-```@repl facets
+```@example facets
 using PlotlyJS
+import CSV
 using DataFrames
 
 df = PlotlyJS.dataset(DataFrame, "tips")
 
 plot(
     df, x=:total_bill, y=:tip, xbingroup="x", ybingroup="y", kind="histogram2d",
-    facet_row=:sex, facet_col=:smoker
+    facet_row=:sex, facet_col=:smoker, colorbar_showticklabels=false
 )
 ```
