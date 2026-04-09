@@ -113,10 +113,10 @@ makedocs(
     modules=[PlotlyJS, PlotlyBase],
     linkcheck=true,
     pages=[
-        "Home" => "index.md",
+        "Introduction" => "index.md",
         "User Guide" => [
             "Preliminaries" => "basics.md",
-            "Building Blocks" => "building_traces_layouts.md",
+            "Building blocks" => "building_traces_layouts.md",
             "Putting it together" => "syncplots.md",
             "Working with plots" => "manipulating_plots.md",
             "Contributing" => "contributing.md",
