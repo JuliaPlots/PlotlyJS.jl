@@ -17,7 +17,7 @@ them here, but consult the package [API Documentation](@ref) for more exhaustive
 
 All exported functions from the [plotly.js API](https://plotly.com/javascript/plotlyjs-function-reference/) 
 have been exposed to Julia and operate on both `Plot` and `SyncPlot` instances.
-Each of these functions has semantics that match the semantics of plotly.js library.
+Each of these functions has semantics that match the semantics of the plotly.js library.
 
 
 In PlotlyJS.jl these functions are spelled:
