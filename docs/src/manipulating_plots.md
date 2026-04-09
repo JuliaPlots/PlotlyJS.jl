@@ -55,7 +55,7 @@ This is possible using the declarative plotly.js syntax, but can be tedious at
 best.
 
 PlotlyJS.jl provides a convenient syntax for constructing what we will
-call regular grids of subplots. By regular we mean a square grid of plots like a matrix.
+call regular grids of subplots. By regular we mean a grid of plots like a matrix.
 
 To do this we adapt the `vcat`, `hcat`, and `hvcat` functions from
 `Base` and leverage the array construction syntax to build up our subplots.
