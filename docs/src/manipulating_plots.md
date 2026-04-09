@@ -50,7 +50,7 @@ consult the docstrings or [API Documentation](@ref).
 
 ## [Subplots](@id subplot_intro)
 
-A common task is to construct subpots, or plots with more than one set of axes.
+A common task is to construct subplots, or plots with more than one set of axes.
 This is possible using the declarative plotly.js syntax, but can be tedious at
 best.
 
