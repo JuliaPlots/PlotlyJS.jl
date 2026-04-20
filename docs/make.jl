@@ -45,7 +45,7 @@ function single_example_file(filename::String)
             joinpath(THIS_DIR, "..", "examples", filename),
             "r"
         )
-        all_lines = split(fulltext, "\n")
+        all_lines = strip.(split(fulltext, "\n"), '\r')
         l = 1
         regex = r"^function ([^_].+?)\("
         regex_end = r"^end$"
@@ -131,6 +131,7 @@ makedocs(
             "Heatmaps" => "examples/heatmaps.md",
             "Histograms" => "examples/histograms.md",
             "Line and Scatter" => "examples/line_scatter.md",
+            "Line and Scatter" => "examples/line_scatter2.md",
             "Maps" => "examples/maps.md",
             "Shapes" => "examples/shapes.md",
             "Subplots" => "examples/subplots.md",
@@ -139,6 +140,8 @@ makedocs(
             "Time Series" => "examples/time_series.md",
             "Violin" => "examples/violin.md",
         ],
+        "Extra Examples" => [
+            "Tables"           => "extra-examples/table.md"],
         "API Docs" => "api.md"
     ]
 )
