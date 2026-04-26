@@ -45,7 +45,7 @@ function single_example_file(filename::String)
             joinpath(THIS_DIR, "..", "examples", filename),
             "r"
         )
-        all_lines = split(fulltext, "\n")
+        all_lines = strip.(split(fulltext, '\n'), '\r')
         l = 1
         regex = r"^function ([^_].+?)\("
         regex_end = r"^end$"
