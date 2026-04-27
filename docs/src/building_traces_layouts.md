@@ -197,7 +197,7 @@ of the plot, whether the grid lines are drawn and the position of the legend.
     [layout reference documentation](https://plotly.com/julia/reference/layout/).
 
 
-## The `attr` function
+## [The `attr` function](@id attr)
 
 There is a special function named `attr` that allows you to apply the same
 keyword magic we saw in the trace and layout functions with underscores,

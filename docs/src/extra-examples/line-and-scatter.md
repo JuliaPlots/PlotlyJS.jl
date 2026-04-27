@@ -131,7 +131,7 @@ ability to plot even more data!
 ```@example
 using PlotlyJS
 
-N = 100000
+N = 3000
 plot(scattergl(x=randn(N), y=randn(N), mode="markers",
                marker=attr(color=randn(N), colorscale="Viridis", line_width=1)))
 ```
