@@ -368,7 +368,7 @@ One can use WebGL with [`scattergl`](https://plotly.com/julia/reference/scatterg
 ```@example
 using PlotlyJS
 
-N = 10000
+N = 3000
 plot(scattergl(x=randn(N), y=randn(N), mode="markers",
                marker=attr(color=randn(N), colorscale="Viridis", line_width=1)))
 ```
