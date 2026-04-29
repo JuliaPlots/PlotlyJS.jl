@@ -140,11 +140,11 @@ for additional information.
 When using PlotlyJS.jl at the Julia REPL a plot will automatically be displayed
 in two possible ways. 
 1. A `Plot()` call will create a temporary HTML file with the plot embedded inside.
-PlotlyJS.jl code will then try to launch the application that handles `.html`
-files on the user's computer, typically their default browser.
+   PlotlyJS.jl code will then try to launch the application that handles `.html`
+   files on the user's computer, typically their default browser.
 2. A `plot()` call will launch a new Electron window. This is a dedicated
-browser window we have full control over. To see a plot `p`, just type `p` by
-itself at the REPL and execute the line. Alternatively you can call `display(p)`.
+   browser window we have full control over. To see a plot `p`, just type `p` by
+   itself at the REPL and execute the line. Alternatively you can call `display(p)`.
 
 In addition to being able to see our charts in many front-end environments,
 WebIO also provides a two-way communication bridge between JavaScript and Julia.
