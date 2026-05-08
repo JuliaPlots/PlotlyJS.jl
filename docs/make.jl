@@ -131,6 +131,7 @@ makedocs(
             "Heatmaps" => "examples/heatmaps.md",
             "Histograms" => "examples/histograms.md",
             "Line and Scatter" => "examples/line_scatter.md",
+            "Line and Scatter" => "examples/line_scatter2.md",
             "Maps" => "examples/maps.md",
             "Shapes" => "examples/shapes.md",
             "Subplots" => "examples/subplots.md",
@@ -139,6 +140,8 @@ makedocs(
             "Time Series" => "examples/time_series.md",
             "Violin" => "examples/violin.md",
         ],
+        "Tutorials" => [
+            "Tables"           => "tutorials/table.md"],
         "API Docs" => "api.md"
     ]
 )
@@ -148,7 +151,7 @@ makedocs(
 # for more information.
 # https://documenter.juliadocs.org/dev/man/hosting/
 # https://documenter.juliadocs.org/dev/lib/public/#Documenter.deploydocs
-# 
+#
 #= deploydocs(
     repo = "<repository url>"
 ) =#
