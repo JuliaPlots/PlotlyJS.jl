@@ -18,3 +18,9 @@ end
         end
     end
 end
+
+@testset "kaleido with non-finite data" begin
+    # `NaN` is commonly used for gaps in trace data; it must be written as `null`
+    plt = Plot(scatter(x=1:4, y=[1.0, NaN, Inf, 4.0]))
+    @test startswith(String(savefig(plt; format="svg")), "<svg")
+end

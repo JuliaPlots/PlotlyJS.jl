@@ -37,6 +37,7 @@ const _mathjax_cdn_path =
 struct PlotlyJSDisplay <: AbstractDisplay end
 
 # include the rest of the core parts of the package
+include("jsoncompat.jl")
 include("display.jl")
 include("util.jl")
 include("kaleido.jl")
@@ -87,7 +88,7 @@ function dataset(name::String)::Dict{String,Any}
         return Dict(zip(data[1, :], data[2:end, i] for i in 1:size(data, 2)))
     elseif endswith(ds_path, "json")
         # use json
-        return JSON.parsefile(ds_path)
+        return JSON.parsefile(ds_path; dicttype=Dict{String,Any})
     end
     error("should not ever get here!!! Please file an issue")
 end
