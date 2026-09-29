@@ -48,7 +48,7 @@ function savefig(
     _ensure_kaleido_running(; plotlyjs, plotly_version)
     P = PlotlyKaleido.P
     # convert payload to vector of bytes
-    bytes = transcode(UInt8, JSON.json(payload))
+    bytes = transcode(UInt8, jsonstring(payload))
     write(P.stdin, bytes)
     write(P.stdin, transcode(UInt8, "\n"))
     flush(P.stdin)
